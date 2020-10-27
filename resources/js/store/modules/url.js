@@ -1,0 +1,13 @@
+export const URL_ARTICULO = "/controller/articulo/";
+export const URL_PARTIDA = "/controller/partida/";
+export const URL_UNIDAD_MEDIDA = "/controller/unidad_medida/";
+export const URL_PROVEEDOR = "/controller/proveedor/";
+export const URL_SOLICITANTE = "/controller/solicitante/";
+export const URL_UNIDAD = "/controller/unidad/";
+export const URL_FUNCIONARIO = "/controller/funcionario/";
+export const URL_PERIODO = "/controller/periodo/";
+export const URL_INGRESO = "/controller/ingreso/";
+export const URL_SALIDA = "/controller/salida/";
+export const URL_USUARIO = "/controller/usuario/";
+export const URL_LOTE = "/controller/lote/";
+export const URL_AUTH = "/auth/";
