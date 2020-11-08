@@ -20,18 +20,25 @@ class SalidaRepository
      * @var DetalleSalidaRepository
      */
     private $detalleSalidaRepository;
+    /**
+     * @var ArticuloRepository
+     */
+    private $articuloRepository;
 
     /**
      * SalidaRepository constructor.
      * @param LoteRepository $loteRepository
      * @param DetalleSalidaRepository $detalleSalidaRepository
+     * @param ArticuloRepository $articuloRepository
      */
     public function __construct(
         LoteRepository $loteRepository,
-        DetalleSalidaRepository $detalleSalidaRepository
+        DetalleSalidaRepository $detalleSalidaRepository,
+        ArticuloRepository $articuloRepository
     ){
         $this->loteRepository = $loteRepository;
         $this->detalleSalidaRepository = $detalleSalidaRepository;
+        $this->articuloRepository = $articuloRepository;
     }
 
     /**
@@ -42,9 +49,10 @@ class SalidaRepository
     {
         $periodo = Periodo::latest()->first();
         $periodo = $periodo ? $periodo->id : NULL;
-        return Salida::select(DB::raw('ROUND(SUM((ds.cantidad*ds.precio_u)), 2) as total'),
+        return Salida::select(DB::raw('ROUND(SUM((ds.cantidad*lote.precio_u)), 2) as total'),
             'salida.*'
         )->join('detalle_salida as ds','ds.salida_id','=','salida.id')
+            ->leftjoin('lote','lote.id','=','ds.lote_id')
             ->with(['solicitante'=> function($query){
                 $query->with(['funcionario','unidad']);
             },'autorizador','verificador'])
@@ -69,41 +77,51 @@ class SalidaRepository
         return $salida;
     }
 
-    public function register($data)
+    public function  register($data)
     {
         try {
             DB::beginTransaction();
+            $salida = new Salida();
+            $salida->nro_salida     = '000';
+            $salida->nro_pedido     = $data->nro_pedido;
+            $salida->finalidad      = $data->finalidad;
+            $salida->observacion    = $data->observacion;
+            $salida->fecha_pedido   = $data->fecha_pedido;
+            $salida->solicitante_id = $data->solicitante_id;
+            $salida->usuario_id     = Auth::user()->id_usuario;
+            $salida->autorizador_id = $data->autorizador_id;
+            $salida->verificador_id = $data->verificador_id;
+            $salida->periodo_id     = Periodo::latest()->first()->id;
+            $salida->save();
+            foreach ($data->detalle_salida as $detalle){
+                $cantidad = $detalle['cantidad']; // 50
+                $articulo = $this->articuloRepository->getTotal($detalle['articulo']);
+                if($detalle['cantidad'] > $articulo->stock) // 50 > 140 |
+                    throw new NotFoundHttpException('No existen suficientes suministros del articulo '.$detalle['articulo']);
+                $lotes = $this->loteRepository->getOldestByArticulo($detalle['articulo']);
+                foreach ($lotes as $lote){
+                    if($cantidad <= $lote->stock){ // 50 <= 40
+                        $this->loteRepository->setStockSaldo(
+                            $lote->id,
+                            $lote->stock-$cantidad,
+                            ($lote->stock-$cantidad)*$lote->precio_u
+                        );
+                        $this->detalleSalidaRepository->register(
+                            $cantidad,null,$lote->id,$salida->id
+                        );
+                        break;
+                    }else{
+                        $cantidad = $cantidad-$lote->stock;
+                        $this->loteRepository->setStockSaldo($lote->id,0,0);
+                        $this->detalleSalidaRepository->register(
+                            $lote->stock,null,$lote->id,$salida->id
+                        );
+                    }
 
-            $salida = Salida::create([
-                'cantidad' => $data->cantidad,
-                'precio_u' => $data
-            ]);
-
-            $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id);
-            $compra = new Compra();
-            $compra->id_compra          = $ingreso->id;
-            $compra->tipo_compra        = $data->tipo_compra;
-            $compra->nro_solicitud      = $data->nro_solicitud;
-            $compra->tipo_comprobante   = $data->tipo_comprobante;
-            $compra->nro_comprobante    = $data->nro_comprobante;
-            $compra->nro_autorizacion   = $data->nro_autorizacion;
-            $compra->fecha_comprobante  = $data->fecha_comprobante;
-            $compra->fecha_solicitud    = $data->fecha_solicitud;
-            $compra->save();
-            foreach ($data->detalle_ingreso as $detalle){
-                $lote = $this->loteRepository->register(
-                    $detalle['cantidad'],
-                    $detalle['precio'],
-                    $detalle['articulo']
-                );
-                $this->detalleIngresoRepository->register(
-                    $detalle['cantidad'],
-                    $detalle['precio']/$detalle['cantidad'],
-                    null,$lote->id,$ingreso->id
-                );
+                }
             }
             DB::commit();
-            return ['message' => 'El ingreso se ha registrado con éxito','id' => $ingreso->id,'status' => 201];
+            return ['message' => 'El ingreso se ha registrado con éxito','id' => $salida->id,'status' => 201];
         }catch (NotFoundHttpException $e){
             DB::rollBack();
             return ['message' => $e->getMessage(),'status' => 404];
@@ -112,26 +130,7 @@ class SalidaRepository
             return ['message' => 'Ha ocurrido un error inesperado. >'.$e->getMessage(),'status' => 500];
         }
     }
-    /**
-     * @param $tipo_ingreso
-     * @param $proveedor_id
-     * @param $periodo_id
-     * @return Ingreso
-     */
-    public function register(
-        $tipo_ingreso,
-        $proveedor_id,
-        $periodo_id
-    ): Ingreso {
-        $ingreso = new Ingreso();
-        $ingreso->tipo_ingreso  = $tipo_ingreso;
-        $ingreso->usuario_id    = Auth::user()->id_usuario;
-        $ingreso->nro_ingreso   = 01;
-        $ingreso->proveedor_id  = $proveedor_id;
-        $ingreso->periodo_id    = $periodo_id;
-        $ingreso->save();
-        return $ingreso;
-    }
+
 
     /**
      * @param $id
@@ -139,61 +138,50 @@ class SalidaRepository
      */
     public function update($id, $data)
     {
-        Ingreso::where('id',$id)
-            ->update([
-                'proveedor_id' => $data->proveedor_id,
-            ]);
+
     }
 
     public function setStatus($id)
     {
-        /*$partida = Partida::withTrashed()->find($id);
-        if($partida){
-            if($partida->trashed()){
-                $partida->restore();
-                return ['message' => 'Partida activada.'];
-            }
-            $partida->delete();
-            return ['message' => 'Se ha dado de baja a la partida.'];
-        }
-        throw new NotFoundHttpException("No existe la partida con el ID : {$id}");*/
+
     }
 
     public function delete($id)
     {
-        $ingreso = $this->getById($id);
-        foreach ($ingreso->detalleingresos()->get() as $detalle){
-            $devolucion = Ingreso::join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
-                ->where('di.lote_id', $detalle->lote()->first()->id)
-                ->where('ingreso.tipo_ingreso',Ingreso::DONACION)
-                ->where('ingreso.periodo_id',Periodo::latest()->first()->id)
+        $salida = $this->getById($id);
+/*        foreach ($salida->detallesalidas()->get() as $detalle){
+            $devolucion = Salida::join('detalle_salida as ds','ds.salida_id','=','salida.id')
+                ->where('ds.lote_id', $detalle->lote()->first()->id)
+                ->where('salida.periodo_id',Periodo::latest()->first()->id)
                 ->first();
             if(($detalle->cantidad != $detalle->lote()->first()->stock) || $devolucion){
-                throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se realizaron movimientos.');
+                throw new ConflictHttpException('No se puede anular la salida debido a que ya se realizaron movimientos.');
             }
-        }
-        $ingreso->delete();
+        }*/
+        $salida->delete();
     }
 
     public function getShowById($id)
     {
-        return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*di.precio_u)), 2) as total'),
-            'ingreso.*'
+        return Salida::select(DB::raw('ROUND(SUM((ds.cantidad*lote.precio_u)), 2) as total'),
+            'salida.*',DB::raw('SUM(ds.cantidad) as cantidad')
         )
-            ->join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
-            ->with(['proveedor','compra',
-                'usuario' => function($query){
-                    $query->with('funcionario');
-                },'detalleingresos'=> function($query){
+            ->leftjoin('detalle_salida as ds','ds.salida_id','=','salida.id')
+            ->leftjoin('lote','lote.id','=','ds.lote_id')
+            ->with(['autorizador','usuario' =>function($query){
+                $query->with('funcionario');
+            },'verificador','solicitante' => function($query){
+                    $query->with(['funcionario','unidad']);
+                    },'detallesalidas'=> function($query){
                     $query->with(['lote' => function($query2){
                         $query2->with(['articulo' => function($query3){
                             $query3->with('unidad_medida');
                         }]);
                     }]);
                 }])
-            ->where('ingreso.id',$id)
-            ->orderBy('ingreso.id','DESC')
-            ->groupBy('ingreso.id')
+            ->where('salida.id',$id)
+            ->orderBy('salida.id','DESC')
+            ->groupBy('salida.id')
             ->first();
     }
 

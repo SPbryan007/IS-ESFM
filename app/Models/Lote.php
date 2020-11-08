@@ -13,7 +13,7 @@ class Lote extends Model
     public $timestamps = true;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'stock','saldo','articulo_id',
+        'stock','saldo','precio_u','articulo_id',
     ];
 
 

@@ -55,7 +55,7 @@ class PeriodoController extends Controller
 
         try {
             $periodo = $this->periodoRepository->Start($request);
-            return response()->json(['message' => $periodo['message']],$periodo['status']);
+            return response()->json($periodo,$periodo['status']);
         }catch (\Exception $e) {
             return response()->json(['message'=>'Ha ocurrido un error inesperado, verifique la conexion con la base de datos.'.$e->getMessage()],500);
         }

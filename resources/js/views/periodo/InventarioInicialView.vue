@@ -58,7 +58,7 @@
                         <el-table-column type="index"></el-table-column>
                         <el-table-column property="detalleingreso.precio_u" label="Precio Unitario" width="220">
                             <template slot-scope="scope">
-                                <b>Bs :</b> {{ scope.row.detalleingreso[0].precio_u }}
+                                <b>Bs :</b> {{ scope.row.precio_u }}
                             </template>
                         </el-table-column>
                         <el-table-column property="stock" label="Stock" width="220">

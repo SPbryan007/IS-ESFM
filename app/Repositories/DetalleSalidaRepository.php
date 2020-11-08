@@ -53,7 +53,6 @@ class DetalleSalidaRepository
      */
     public function register(
         $cantidad,
-        $precio,
         $descripcion,
         $lote_id,
         $salida_id
@@ -61,7 +60,6 @@ class DetalleSalidaRepository
         $this->loteRepository->getById($lote_id);
         $detalle_salida = DetalleSalida::create([
             'cantidad'      => $cantidad,
-            'precio_u'      => $precio,
             'descripcion'   => $descripcion,
             'lote_id'       => $lote_id,
             'salida_id'    => $salida_id

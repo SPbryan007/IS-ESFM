@@ -44,6 +44,7 @@ export const addItem = ({ commit, state, dispatch }, params) => {
             params.progress.fail();
         });
 };
+
 export const getDetalleById = ({ state, commit }, id) => {
     commit(types.SET_LOADING_TABLE, true);
     commonProviders

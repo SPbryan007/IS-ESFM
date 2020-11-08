@@ -126,39 +126,39 @@ class PeriodoRepository
             $articulos = $this->loteRepository->getAll();
             if($articulos->isEmpty())
                 throw new NotFoundHttpException('No se encontraron articulos registrados.');
-            /*$periodo = $this->register($request);
+            $periodo = $this->register($request);
             $ingreso = $this->ingresoRepository->register(
                 Ingreso::INV_INICIAL,
                 NULL,
                 $periodo->id
-            );*/
+            );
 
-            /*foreach ($articulos as $articulo){
+            foreach ($articulos as $articulo){
                 if(!$articulo->lotes->isEmpty()){
                     foreach ($articulo->lotes as $lote){
                         $new_lote = $this->loteRepository->register(
-                            !$lote ? 0 : $lote->stock,
-                            !$lote ? 0 : $lote->saldo,
+                            $lote->stock,
+                            $lote->saldo,
+                            $lote->precio_u,
                             $lote->articulo_id
                         );
                         $this->detalleIngresoRepository->register(
-                            !$lote ? 0 : $lote->stock,
-                            $lote->detalleingreso[0]->precio_u,
+                            $lote->stock,
                             Ingreso::INV_INICIAL,
                             $new_lote->id,
                             $ingreso->id
                         );
                     }
                 }else{
-                    $new_lote = $this->loteRepository->register(0,0,$articulo->id);
-                    $this->detalleIngresoRepository->register(0,0,
+                    $new_lote = $this->loteRepository->register(0,0,0,$articulo->id);
+                    $this->detalleIngresoRepository->register(0,
                         Ingreso::INV_INICIAL,
                         $new_lote->id,
                         $ingreso->id
                     );
                 }
 
-            }*/
+            }
             DB::commit();
             return ['message' => 'Se ha iniciado un nuevo periodo contable','status' => 201];
         }catch (NotFoundHttpException $e){

@@ -51,7 +51,6 @@ class DetalleIngresoRepository
 
     /**
      * @param $cantidad
-     * @param $precio
      * @param $descripcion
      * @param $lote_id
      * @param $ingreso_id
@@ -59,7 +58,6 @@ class DetalleIngresoRepository
      */
     public function register(
         $cantidad,
-        $precio,
         $descripcion,
         $lote_id,
         $ingreso_id
@@ -67,7 +65,6 @@ class DetalleIngresoRepository
         $this->loteRepository->getById($lote_id);
         $detalle_ingreso = DetalleIngreso::create([
             'cantidad'      => $cantidad,
-            'precio_u'      => $precio,
             'descripcion'   => $descripcion,
             'lote_id'       => $lote_id,
             'ingreso_id'    => $ingreso_id
@@ -81,12 +78,11 @@ class DetalleIngresoRepository
      * @param $stock
      * @param $saldo
      */
-    public function update($id, $cantidad, $precio,$descripcion)
+    public function update($id, $cantidad, $descripcion)
     {
         DetalleIngreso::where('id',$id)
             ->update([
                 'cantidad'      => $cantidad,
-                'precio_u'      => $precio,
                 'descripcion'   => $descripcion,
             ]);
     }

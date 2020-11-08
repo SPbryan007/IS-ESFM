@@ -7,7 +7,7 @@ const state = {
     items: [],
     withTrashed:false,
     data_form: {
-        acta: "",
+        nro_acta: "",
         tipo_ingreso: "Compra",
         tipo_comprobante: null,
         tipo_compra: "",
@@ -17,6 +17,7 @@ const state = {
         nro_comprobante: null,
         nro_autorizacion: "",
         proveedor: null,
+        fecha_acta:null,
         fecha_comprobante:null,
         detalle_ingreso: []
     },
@@ -135,6 +136,9 @@ const mutations = {
             state.data_form.fecha_solicitud
         ).format("YYYY-MM-DD");
         state.data_form.fecha_comprobante = moment(state.data_form.fecha_comprobante).format(
+            "YYYY-MM-DD"
+        );
+        state.data_form.fecha_acta = moment(state.data_form.fecha_acta).format(
             "YYYY-MM-DD"
         );
     }

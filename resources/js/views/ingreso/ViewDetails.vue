@@ -1,5 +1,6 @@
 <template>
 
+
     <div class="col-md-12">
         <el-alert
             v-if="alert.show"
@@ -38,7 +39,7 @@
                 <div class="card-tools"></div>
             </div>
             <div class="card-body"  ref="table" id="printMe">
-                <div class="row invoice-info">
+                <div v-if="detalle_ingreso.tipo_ingreso == 'Compra'" class="row invoice-info">
                     <div class="col-md-5 invoice-col">
                         <dl class="row">
                             <dt class="col-md-5">Ingresado por:</dt>
@@ -85,6 +86,74 @@
                     </div>
                     <!-- /.col -->
                 </div>
+
+                <div v-if="detalle_ingreso.tipo_ingreso == 'INV_INICIAL'" class="row invoice-info">
+                    <div class="col-md-5 invoice-col">
+                        <dl class="row">
+                            <dt class="col-md-5">Ingresado por:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.usuario.funcionario.nombre +' '+ detalle_ingreso.usuario.funcionario.apellido }}</dd>
+                            <dt class="col-md-5">Fecha de ingreso:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4 invoice-col">
+                        <dl class="row">
+                            <dt class="col-md-6">&nbsp</dt>
+                            <dd class="col-md-6">&nbsp</dd>
+                            <dt class="col-md-6">Formulario:</dt>
+                            <dd class="col-md-6"> INGRESO INICIAL </dd>
+                            <!--<dt class="col-md-6">Fecha solicitud:</dt>
+                            <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>-->
+                        </dl>
+                    </div>
+                    <div class="col-md-3">
+                        <dl class="row">
+                            <dt class="col-md-6"></dt>
+                            <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>{{ detalle_ingreso.created_at | dateformat }}</small></dd>
+                            <dt class="col-md-6">&nbsp</dt>
+                            <dd class="col-md-6">&nbsp</dd>
+                            <!--<dt class="col-md-6">Fecha solicitud:</dt>
+                            <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>-->
+                        </dl>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+                <div v-if="detalle_ingreso.tipo_ingreso == 'Donacion'" class="row invoice-info">
+                    <div class="col-md-5 invoice-col">
+                        <dl class="row">
+                            <dt class="col-md-5">Ingresado por:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.usuario.funcionario.nombre +' '+ detalle_ingreso.usuario.funcionario.apellido }}</dd>
+                            <dt class="col-md-5">Proveedor:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.proveedor.nombre }}</dd>
+                            <dt class="col-md-5">Fecha de ingreso:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}</dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-4 invoice-col">
+                        <dl class="row">
+                            <dt class="col-md-6">&nbsp</dt>
+                            <dd class="col-md-6">&nbsp</dd>
+                            <dt class="col-md-6">&nbsp</dt>
+                            <dd class="col-md-6">&nbsp</dd>
+                            <dt class="col-md-6">Formulario:</dt>
+                            <dd class="col-md-6"> Acta de donación </dd>
+                        </dl>
+                    </div>
+                    <div class="col-md-3">
+                        <dl class="row">
+                            <dt class="col-md-6"></dt>
+                            <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>{{ detalle_ingreso.created_at | dateformat }}</small></dd>
+                            <dt class="col-md-5">N° Acta:</dt>
+                            <dd class="col-md-7">{{ detalle_ingreso.donacion.nro_acta }}</dd>
+                            <!--<dt class="col-md-6">Fecha solicitud:</dt>
+                            <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>-->
+                        </dl>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+
                 <h4 class="text-center"> <strong>Detalle Ingreso</strong></h4>
                 <table class="table table-sm table-striped">
                     <thead>
@@ -102,14 +171,14 @@
                             <td>{{ item.lote.articulo.nombre }}</td>
                             <td>{{ item.lote.articulo.unidad_medida.nombre }}</td>
                             <td>{{ (item.cantidad).toFixed(2) }}</td>
-                            <td><b>Bs. </b>{{ (item.cantidad * item.precio_u).toFixed(2) }}</td>
+                            <td><b>Bs. </b>{{ (item.cantidad * item.lote.precio_u).toFixed(2) }}</td>
                     </tr>
 
                     </tbody>
                 </table>
                 <dl class="row pt-3">
                     <dt class="col-md-3">Total:</dt>
-                    <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ detalle_ingreso.total | toWords }} y {{ ( detalle_ingreso.total - Math.floor(detalle_ingreso.total) ) }}/100 <b>  Bs.</b></span></dd>
+                    <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ Math.trunc(detalle_ingreso.total) | toWords }} y {{ ( detalle_ingreso.total - Math.floor(detalle_ingreso.total) ).toFixed(2) }}/100 <b>  Bs.</b></span></dd>
                     <div class="col-md-2 text-center"><u>{{ (detalle_ingreso.total).toFixed(2) }}</u></div>
                 </dl>
                 <br>

@@ -16,4 +16,7 @@ export const GET_FILTER_ITEMS = state => {
 export const GET_ITEMS_ARTICULO = state => {
     return state.items;
 };
+export const  GET_LOTES = state => {
+    return state.lotes;
+};
 

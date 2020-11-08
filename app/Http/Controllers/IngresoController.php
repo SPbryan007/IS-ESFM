@@ -62,10 +62,13 @@ class IngresoController extends Controller
             switch ($request->tipo_ingreso)
             {
                 case Ingreso::COMPRA:
-                    $compra = $this->ingresoRepository->compra($request);
+                    $ingreso = $this->ingresoRepository->compra($request);
+                    break;
+                case Ingreso::DONACION:
+                    $ingreso = $this->ingresoRepository->donacion($request);
                     break;
             }
-            return response()->json($compra,$compra['status']);
+            return response()->json($ingreso,$ingreso['status']);
     }
 
     /**

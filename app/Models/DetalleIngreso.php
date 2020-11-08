@@ -14,7 +14,7 @@ class DetalleIngreso extends Model
     public $timestamps = true;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'cantidad','precio_u','lote_id','ingreso_id'
+        'cantidad','lote_id','ingreso_id'
     ];
 
     /**

@@ -71,4 +71,12 @@ class User extends Model implements
     {
         return $this->hasMany('App\Models\Ingreso','usuario_id','id_usuario');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function salidas()
+    {
+        return $this->hasMany('App\Models\Salida','usuario_id','id_usuario');
+    }
 }

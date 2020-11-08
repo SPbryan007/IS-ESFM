@@ -53,6 +53,7 @@ class CreateArticulosTable extends Migration
             $table->bigIncrements('id');
             $table->double('stock')->nullable(false);
             $table->double('saldo')->nullable(false);
+            $table->double('precio_u')->nullable(false);
             $table->unsignedBigInteger('articulo_id');
             $table->foreign('articulo_id')->references('id')
                 ->on('articulo')

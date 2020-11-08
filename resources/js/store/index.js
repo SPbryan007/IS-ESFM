@@ -6,6 +6,7 @@ import proveedor from "./modules/proveedor/index";
 import solicitante from "./modules/solicitante/index";
 import unidad from "./modules/unidad/index";
 import ingreso from "./modules/ingreso/index";
+import salida from "./modules/salida/index";
 //import partida from "./modules/partida.js";
 import partida from "./modules/partida/index";
 import unidad_medida from "./modules/unidad_medida/index";
@@ -38,6 +39,7 @@ export default new Vuex.Store({
         articulo,
         usuario,
         ingreso,
-        funcionario
+        funcionario,
+        salida
     }
 });

@@ -126,7 +126,7 @@
                 </router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{ name: 'item' }" class="nav-link">
+                <router-link :to="{ name: 'salida' }" class="nav-link">
                   <i class="fas fa-dolly-flatbed nav-icon"></i>
                   <p>Gestion de salidas</p>
                 </router-link>
@@ -183,14 +183,14 @@
             </li>
           <li class="nav-item">
             <router-link
-              :to="{ name: 'dashboard' }"
+              :to="{ name: 'config' }"
               class="nav-link nav-button"
             >
               <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Gestion administrativa</p>
+              <p>Configuraciones</p>
             </router-link>
           </li>
-          <li class="nav-header">Configuraciones</li>
+         <!-- <li class="nav-header">Configuraciones</li>-->
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

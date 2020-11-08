@@ -2,9 +2,8 @@
 
 
 namespace App\Repositories;
-use App\Models\Articulo;
+use App\Models\Donacion;
 use App\Models\Compra;
-use App\Models\DetalleIngreso;
 use App\Models\Ingreso;
 
 use App\Models\Periodo;
@@ -39,10 +38,11 @@ class IngresoRepository
     {
         $periodo = Periodo::latest()->first();
         $periodo = $periodo ? $periodo->id : NULL;
-       return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*di.precio_u)), 2) as total'),
+       return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*lote.precio_u)), 2) as total'),
                 'ingreso.*'
             )
-            ->join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
+            ->leftjoin('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
+            ->leftjoin('lote','lote.id','=','di.lote_id')
             ->with(['proveedor'])
             ->where('periodo_id',$periodo)
             ->orderBy('ingreso.id','DESC')
@@ -84,11 +84,11 @@ class IngresoRepository
                 $lote = $this->loteRepository->register(
                     $detalle['cantidad'],
                     $detalle['precio'],
+                    $detalle['precio']/$detalle['cantidad'],
                     $detalle['articulo']
                 );
                 $this->detalleIngresoRepository->register(
                     $detalle['cantidad'],
-                    $detalle['precio']/$detalle['cantidad'],
                     null,$lote->id,$ingreso->id
                 );
             }
@@ -102,6 +102,41 @@ class IngresoRepository
             return ['message' => 'Ha ocurrido un error inesperado. >'.$e->getMessage(),'status' => 500];
         }
     }
+
+    public function donacion($data)
+    {
+        try {
+            DB::beginTransaction();
+            $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id);
+            $compra = new Donacion();
+            $compra->id_donacion  = $ingreso->id;
+            $compra->nro_acta     = $data->nro_acta;
+            $compra->fecha_acta     = $data->fecha_acta;
+            $compra->save();
+            foreach ($data->detalle_ingreso as $detalle){
+                $lote = $this->loteRepository->register(
+                    $detalle['cantidad'],
+                    $detalle['precio'],
+                    $detalle['precio']/$detalle['cantidad'],
+                    $detalle['articulo']
+                );
+                $this->detalleIngresoRepository->register(
+                    $detalle['cantidad'],
+                    null,$lote->id,$ingreso->id
+                );
+            }
+            DB::commit();
+            return ['message' => 'El ingreso se ha registrado con éxito','id' => $ingreso->id,'status' => 201];
+        }catch (NotFoundHttpException $e){
+            DB::rollBack();
+            return ['message' => $e->getMessage(),'status' => 404];
+        }catch (\Exception $e){
+            DB::rollBack();
+            return ['message' => 'Ha ocurrido un error inesperado. >'.$e->getMessage(),'status' => 500];
+        }
+    }
+
+
     /**
      * @param $tipo_ingreso
      * @param $proveedor_id
@@ -116,7 +151,7 @@ class IngresoRepository
         $ingreso = new Ingreso();
         $ingreso->tipo_ingreso  = $tipo_ingreso;
         $ingreso->usuario_id    = Auth::user()->id_usuario;
-        $ingreso->nro_ingreso   = 01;
+        $ingreso->nro_ingreso   = '000';
         $ingreso->proveedor_id  = $proveedor_id;
         $ingreso->periodo_id    = $periodo_id;
         $ingreso->save();
@@ -167,11 +202,12 @@ class IngresoRepository
 
     public function getShowById($id)
     {
-        return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*di.precio_u)), 2) as total'),
+        return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*lote.precio_u)), 2) as total'),
             'ingreso.*'
         )
-            ->join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
-            ->with(['proveedor','compra',
+            ->leftjoin('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
+            ->leftjoin('lote','lote.id','=','di.lote_id')
+            ->with(['proveedor','compra','donacion',
                 'usuario' => function($query){
                     $query->with('funcionario');
             },'detalleingresos'=> function($query){

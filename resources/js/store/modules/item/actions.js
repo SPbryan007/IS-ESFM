@@ -16,10 +16,19 @@ export const getItems = ({ state, commit }) => {
             commit(types.SET_LOADING_TABLE, false);
         });
 };
-/**
- * Registrar Articulo
- *
- */
+export const getLotes = ({ commit }) => {
+    commit(types.SET_LOADING_TABLE, true);
+    commonProviders
+        .getItems(URL_LOTE)
+        .then(items => {
+            commit(types.SET_LOTES, items.data);
+            commit(types.SET_LOADING_TABLE, false);
+        })
+        .catch(error => {
+            commit(types.SET_DISPLAY_MESSAGE, error.response);
+            commit(types.SET_LOADING_TABLE, false);
+        });
+};
 export const addItem = ({ commit, state, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);

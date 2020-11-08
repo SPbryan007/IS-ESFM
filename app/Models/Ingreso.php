@@ -27,6 +27,15 @@ class Ingreso extends Model
     {
         return $this->hasOne('App\Models\Compra','id_compra','id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function donacion()
+    {
+        return $this->hasOne('App\Models\Donacion','id_donacion','id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

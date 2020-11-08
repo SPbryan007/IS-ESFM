@@ -14,7 +14,7 @@ class DetalleSalida extends Model
     public $timestamps = true;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'cantidad','precio_u','descripcion','lote_id','salida_id'
+        'cantidad','descripcion','lote_id','salida_id'
     ];
 
     /**

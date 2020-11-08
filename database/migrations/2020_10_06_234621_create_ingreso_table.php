@@ -64,7 +64,6 @@ class CreateIngresoTable extends Migration
         Schema::create('detalle_ingreso',function(Blueprint $table){
              $table->bigIncrements('id');
              $table->double('cantidad')->nullable(false);
-             $table->double('precio_u')->nullable(false);
              $table->text('descripcion')->nullable(true);
              $table->unsignedBigInteger('lote_id')->nullable(false);
              $table->foreign('lote_id')->references('id')

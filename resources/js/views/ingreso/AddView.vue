@@ -147,11 +147,11 @@
                     </div>
                   </div>
                   <div v-if="data_form.tipo_ingreso === 'Donacion'">
-                    <el-form-item label="Nro de acta :" prop="acta">
-                      <el-input v-model="data_form.acta" style="width:170px"></el-input>
+                    <el-form-item label="Nro de acta :" prop="nro_acta">
+                      <el-input v-model="data_form.nro_acta" style="width:170px"></el-input>
                     </el-form-item>
-                      <el-form-item label="Fecha comprobante :" label-position="top" prop="fecha_comprobante">
-                          <el-date-picker type="date" v-model="data_form.fecha_comprobante" placeholder="Fecha comprobante"></el-date-picker>
+                      <el-form-item label="Fecha de acta :" label-position="top" prop="fecha_acta">
+                          <el-date-picker type="date" v-model="data_form.fecha_acta" placeholder="Fecha comprobante"></el-date-picker>
                       </el-form-item>
                     <el-form-item label="Proveedor :" prop="proveedor">
                       <el-select
@@ -237,7 +237,7 @@ export default {
             trigger: "blur",
           },
         ],
-        acta: [
+        nro_acta: [
           {
             required: true,
             message: "Este campo es obligatorio",

@@ -99,7 +99,7 @@
                                 <b>NS</b>{{ scope.row.nro_salida }}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="solicitante" label="Solicitante" width="350" sortable>
+                        <el-table-column prop="solicitante" label="Solicitante" width="340" sortable>
                             <template slot-scope="scope">
                                 {{ scope.row.solicitante.funcionario.nombre +' '+ scope.row.solicitante.funcionario.apellido }}
                             </template>
@@ -109,7 +109,7 @@
                                 {{ scope.row.solicitante.unidad.nombre }}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="created_at" label="Fecha de salida" width="120" sortable>
+                        <el-table-column prop="created_at" label="Fecha salida" width="130" sortable>
                             <template slot-scope="scope">
                                 {{ scope.row.created_at | dateformat }}
                             </template>
@@ -249,9 +249,6 @@ export default {
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
         },
-        goBack() {
-            this.$router.go(-1);
-        }
     },
     mounted() {
         store.dispatch('periodo/verify');

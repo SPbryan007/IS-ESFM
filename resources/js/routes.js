@@ -483,6 +483,49 @@ export const router = new VueRouter({
                 //     }
                 // }
             ]
+        },
+        {
+            path: "/salida",
+            components: {
+                HeaderComponent: () => import("./views/HeaderComponent.vue"),
+                SidebarComponent: () => import("./views/SidebarComponent.vue"),
+                ContentComponent: () =>
+                    import("./views/salida/SalidaView.vue")
+            },
+            children: [
+                {
+                    path: "/",
+                    name: "salida",
+                    components: {
+                        ViewRouterSalida: () =>
+                            import("./views/salida/ListView.vue")
+                    }
+                },
+                {
+                    path: "agregar",
+                    name: "addsalida",
+                    components: {
+                        ViewRouterSalida: () =>
+                            import("./views/salida/AddView.vue")
+                    }
+                },
+                {
+                    path: "agregar/detalles",
+                    name: "addsalidadetails",
+                    components: {
+                        ViewRouterSalida: () =>
+                            import("./views/salida/AddDetailsView.vue")
+                    }
+                },
+                {
+                    path: "detalle/:id",
+                    name: "viewdetailsalida",
+                    components: {
+                        ViewRouterSalida: () =>
+                            import("./views/salida/ViewDetails.vue")
+                    }
+                }
+            ]
         }
     ]
 });

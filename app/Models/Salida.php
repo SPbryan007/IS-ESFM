@@ -26,6 +26,14 @@ class Salida extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function usuario()
+    {
+        return $this->belongsTo('App\Models\User','usuario_id','id_usuario');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function autorizador()
     {
         return $this->belongsTo('App\Models\Funcionario','autorizador_id','id');
@@ -37,6 +45,14 @@ class Salida extends Model
     public function verificador()
     {
         return $this->belongsTo('App\Models\Funcionario','verificador_id','id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detallesalidas()
+    {
+        return $this->hasMany('App\Models\DetalleSalida','salida_id','id');
     }
 
 }

@@ -11,6 +11,6 @@ export const GET_ITEMS_PERIODO = state => {
     return state.items;
 };
 
-export const GET_LOTES = state => {
+export const  GET_LOTES = state => {
     return state.lotes;
 };

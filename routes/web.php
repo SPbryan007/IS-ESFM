@@ -112,6 +112,14 @@ Route::prefix('controller/ingreso')->group(function (){
     Route::delete('/{id}','IngresoController@destroy');
 });
 
+Route::prefix('controller/salida')->group(function (){
+    Route::get('/', 'SalidaController@getAll');
+    Route::get('/{id}', 'SalidaController@show');
+    Route::post('/', 'SalidaController@create');
+    Route::put('/{id}','SalidaController@update');
+    Route::delete('/{id}','SalidaController@destroy');
+});
+
 Route::prefix('controller/lote')->group(function (){
     Route::get('/', 'LoteController@getAll');
   /*  Route::post('/', 'LoteController@create');

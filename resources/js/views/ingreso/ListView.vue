@@ -271,3 +271,99 @@ export default {
 }
 
 </style>
+
+
+<!--
+<div v-if="detalle_ingreso.tipo_ingreso == 'Compra' " class="row invoice-info">
+<div class="col-md-5 invoice-col">
+    <div class="col-md-5 invoice-col">
+        <dl class="row">
+            <dt class="col-md-5">Ingresado por:</dt>
+            <dd class="col-md-7">{{ detalle_ingreso.usuario.funcionario.nombre +' '+ detalle_ingreso.usuario.funcionario.apellido }}</dd>
+            <dt class="col-md-5">Fecha de ingreso:</dt>
+            <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}</dd>
+            <dt class="col-md-5">NIT:</dt>
+            <dd class="col-md-7">{{ detalle_ingreso.proveedor.nit }}</dd>
+            <dt class="col-md-5">Proveedor:</dt>
+            <dd class="col-md-7">{{ detalle_ingreso.proveedor.nombre }}</dd>
+            <dt class="col-md-5">Fecha solicitud:</dt>
+            <dd class="col-md-7">{{ detalle_ingreso.compra.fecha_solicitud | dateformat }}</dd>
+        </dl>
+    </div>
+    <div class="col-md-4 invoice-col">
+        <dl class="row">
+            <dt class="col-md-6">&nbsp</dt>
+            <dd class="col-md-6">&nbsp</dd>
+            <dt class="col-md-6">N° Factura</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.nro_comprobante }}</dd>
+            <dt class="col-md-6">N° Autorizacion:</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.nro_autorizacion}}</dd>
+            <dt class="col-md-6">&nbsp</dt>
+            <dd class="col-md-6">&nbsp</dd>
+            <dt class="col-md-6">Formulario:</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.tipo_compra}}</dd>
+            &lt;!&ndash;<dt class="col-md-6">Fecha solicitud:</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>&ndash;&gt;
+        </dl>
+    </div>
+    <div class="col-md-3">
+        <dl class="row">
+            <dt class="col-md-6"></dt>
+            <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>12/45/1998</small></dd>
+            <dt class="col-md-6">&nbsp</dt>
+            <dd class="col-md-6">&nbsp</dd>
+            <dt class="col-md-6">&nbsp</dt>
+            <dd class="col-md-6">&nbsp</dd>
+            <dt class="col-md-6">N° Formulario</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.nro_solicitud }}</dd>
+            &lt;!&ndash;<dt class="col-md-6">Fecha solicitud:</dt>
+            <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>&ndash;&gt;
+        </dl>
+    </div>
+    &lt;!&ndash; /.col &ndash;&gt;
+</div>
+<h4 class="text-center"> <strong>Detalle Ingreso</strong></h4>
+<table class="table table-sm table-striped">
+    <thead>
+    <tr>
+        <th style="width: 10px">N°</th>
+        <th>Articulo</th>
+        <th>Medida</th>
+        <th>Cantidad</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(item,index) in detalle_ingreso.detalleingresos" :key="index">
+        <td>{{ index+1 }}.</td>
+        <td>{{ item.lote.articulo.nombre }}</td>
+        <td>{{ item.lote.articulo.unidad_medida.nombre }}</td>
+        <td>{{ (item.cantidad).toFixed(2) }}</td>
+        <td><b>Bs. </b>{{ (item.cantidad * item.lote.precio_u).toFixed(2) }}</td>
+    </tr>
+
+    </tbody>
+</table>
+<dl class="row pt-3">
+    <dt class="col-md-3">Total:</dt>
+    <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ detalle_ingreso.total | toWords }} y {{ ( detalle_ingreso.total - Math.floor(detalle_ingreso.total) ) }}/100 <b>  Bs.</b></span></dd>
+    <div class="col-md-2 text-center"><u>{{ (detalle_ingreso.total).toFixed(2) }}</u></div>
+</dl>
+<br>
+<div class="row justify-content-start">
+    <el-button
+        type="primary"
+        @click="Print()"
+        icon="el-icon-printer"
+    >Imprimir</el-button>
+</div>
+&lt;!&ndash;  <div class="row">
+      <div class="">
+         <b> <strong>Total:</strong></b>
+          <span style="border-bottom: 1px dotted #000;text-decoration: none;">
+              {{ numero | toWords }}
+          </span>
+      </div>
+  </div>&ndash;&gt;
+</div>
+-->

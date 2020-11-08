@@ -9,8 +9,9 @@ const state = {
     data_form: {
         solicitante_id:null,
         finalidad:null,
-        autorizado_por:null,
-        verificado_por:null,
+        observacion:null,
+        autorizador_id:null,
+        verificador_id:null,
         nro_pedido:null,
         fecha_pedido:null,
         detalle_salida: []
@@ -24,7 +25,8 @@ const state = {
     },
     loading_table: false,
     loading_form: false,
-    searchQuery: ""
+    searchQuery: "",
+    searchQueryAddDialog:""
 };
 const mutations = {
     [types.SET_STATUS] : (state,status) =>{
@@ -89,14 +91,19 @@ const mutations = {
         state.data_form = {
             solicitante_id:null,
             finalidad:null,
-            autorizado_por:null,
-            verificado_por:null,
+            observacion:null,
+            autorizador_id:null,
+            verificador_id:null,
+            nro_pedido:null,
+            fecha_pedido:null,
             detalle_salida: []
         };
     },
     [types.ADD_DETALLE_SALIDA]: (state, data) => {
         state.data_form.detalle_salida.push({
-            ...data
+            articulo:data.id,
+            cantidad:1,
+            stock:data.stock
         });
     },
     [types.DELETE_DETALLE_SALIDA]: (state, id) => {
