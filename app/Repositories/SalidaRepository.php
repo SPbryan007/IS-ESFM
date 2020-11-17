@@ -149,15 +149,9 @@ class SalidaRepository
     public function delete($id)
     {
         $salida = $this->getById($id);
-/*        foreach ($salida->detallesalidas()->get() as $detalle){
-            $devolucion = Salida::join('detalle_salida as ds','ds.salida_id','=','salida.id')
-                ->where('ds.lote_id', $detalle->lote()->first()->id)
-                ->where('salida.periodo_id',Periodo::latest()->first()->id)
-                ->first();
-            if(($detalle->cantidad != $detalle->lote()->first()->stock) || $devolucion){
-                throw new ConflictHttpException('No se puede anular la salida debido a que ya se realizaron movimientos.');
-            }
-        }*/
+        foreach ($salida->detallesalidas()->get() as $detalle){
+            $this->loteRepository->setStockSaldo($detalle->lote()->first()->id,$detalle,0);
+        }
         $salida->delete();
     }
 

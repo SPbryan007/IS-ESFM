@@ -28,82 +28,122 @@
     <section class="content">
       <!-- /.container-fluid -->
       <div class="container-fluid">
-        <el-table :border="true" :data="data" :default-sort="{prop: 'Nit', order: 'descending'}">
-          <el-table-column prop="Nit" label="Nit" sortable :resizable="true"></el-table-column>
-          <el-table-column prop="Nombre" label="Nombre" sortable :resizable="true"></el-table-column>
-          <el-table-column prop="Direccion" label="Dirección" sortable :resizable="true"></el-table-column>
-          <el-table-column prop="Telefono" label="Telefono" :resizable="true"></el-table-column>
-          <el-table-column prop="Responsable" label="Responsable" sortable :resizable="true"></el-table-column>
-          <el-table-column label="Accion" :resizable="true">
-            <!-- <template slot="header" slot-scope="scope">
-              <el-input v-model="search" size="mini" placeholder="Type to search" />
-            </template>-->
-            <template slot-scope="scope">
-              <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">Edit</el-button>
-              <el-button
-                size="mini"
-                type="danger"
-                @click="handleDelete(scope.$index, scope.row)"
-              >Delete</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
+          <div class="row">
+              <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-info">
+                      <div class="inner">
+                          <h3>150</h3>
+
+                          <p>Ingresos</p>
+                      </div>
+                      <div class="icon">
+                          <i class="fas fa-bag"></i>
+                      </div>
+                      <a href="#" class="small-box-footer">Ver mas.. <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+              </div>
+              <!-- ./col -->
+              <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-success">
+                      <div class="inner">
+                          <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                          <p>Bounce Rate</p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-stats-bars"></i>
+                      </div>
+                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+              </div>
+              <!-- ./col -->
+              <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-warning">
+                      <div class="inner">
+                          <h3>44</h3>
+
+                          <p>User Registrations</p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-person-add"></i>
+                      </div>
+                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+              </div>
+              <!-- ./col -->
+              <div class="col-lg-3 col-6">
+                  <!-- small box -->
+                  <div class="small-box bg-danger">
+                      <div class="inner">
+                          <h3>65</h3>
+
+                          <p>Unique Visitors</p>
+                      </div>
+                      <div class="icon">
+                          <i class="ion ion-pie-graph"></i>
+                      </div>
+                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                  </div>
+              </div>
+              <!-- ./col -->
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header border-0">
+                            Ingresos y salida  gestion 2020
+                      </div>
+                      <div class="card-body">
+                          <apexcharts width="550" type="bar" :options="chartOptions" :series="series"></apexcharts>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header border-0">
+                          Ingresos y salida  gestion 2020
+                      </div>
+                      <div class="card-body">
+                          <apexchart type="donut" :options="chartOptions" :series="series"></apexchart>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    {{ $router.options.routes[3]}}
   </div>
 </template>
 <script>
+import VueApexCharts from 'vue-apexcharts'
+
 export default {
+    components: {
+        apexcharts: VueApexCharts,
+    },
   data() {
     return {
-      headers: [
-        { key: "Nit", with: "20%", sortable: true },
-        { key: "Nombre", with: "20%", sortable: true },
-        { key: "Direccion", with: "20%", sortable: false },
-        { key: "Telefono", with: "20%", sortable: false },
-        { key: "Responsable", with: "20%", sortable: true },
-        { key: "Accion", with: "20%", sortable: false }
-      ],
-      data: [
-        {
-          Nit: "100003256485",
-          Nombre: "DISTRIBUIDORA DE GAS GLP VIRGE DE GUADALUPE",
-          Direccion: "Av.JAIME MENDOZA ESQ. HUALLPARIMACHI",
-          Telefono: "758589652",
-          Responsable: "Rosita sanchez"
+        chartOptions: {
+            chart: {
+                id: 'vuechart-example'
+            },
+            xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998,1999,2000]
+            }
         },
-        {
-          Nit: "2003256485",
-          Nombre: "Copacabana",
-          Direccion: "Calle olal",
-          Telefono: "758589652",
-          Responsable: "Melchor fernandez"
+        series: [{
+            name: 'Ingresos',
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
         },
-        {
-          Nit: "300003256485",
-          Nombre: "Santa cruz",
-          Direccion: "Calle olal",
-          Telefono: "758589652",
-          Responsable: "Juan baptista"
-        },
-        {
-          Nit: "400003256485",
-          Nombre: "Juventus",
-          Direccion: "Calle olaassssssssssssssssssssssssssssdasdasdasdsal",
-          Telefono: "758589652",
-          Responsable: "Sosa"
-        }
-      ],
-      defaultSortDir: "desc",
-      InitialSort: {
-        sortBy: "Nombre",
-        dir: "asc"
-      },
-      currentSortDir: "",
-      currentSortBy: ""
+            {
+                name: 'Salidas',
+                data: [30, 40, 45, 50, 49, 60, 70, 100]
+            }
+        ]
     };
   }
 };

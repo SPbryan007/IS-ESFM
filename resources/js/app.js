@@ -37,6 +37,10 @@ import { ServerTable, ClientTable, Event } from "vue-tables-2";
 //     [(swappables = {})]
 // );
 
+import VueApexCharts from 'vue-apexcharts'
+
+Vue.use(VueApexCharts)
+
 import VueHtmlToPaper from 'vue-html-to-paper';
 
 const options = {

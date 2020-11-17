@@ -655,7 +655,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "nav-link nav-button",
-                      attrs: { to: { name: "config" } }
+                      attrs: { to: { name: "settings" } }
                     },
                     [
                       _c("i", { staticClass: "nav-icon fas fa-calendar-alt" }),

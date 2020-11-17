@@ -183,7 +183,7 @@
             </li>
           <li class="nav-item">
             <router-link
-              :to="{ name: 'config' }"
+              :to="{ name: 'settings' }"
               class="nav-link nav-button"
             >
               <i class="nav-icon fas fa-calendar-alt"></i>

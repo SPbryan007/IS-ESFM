@@ -12,6 +12,30 @@ export const router = new VueRouter({
             redirect: "/login"
         },
         {
+            path: "/settings",
+            components: {
+                HeaderComponent: () => import("./views/HeaderComponent.vue"),
+                SidebarComponent: () => import("./views/SidebarComponent.vue"),
+                ContentComponent: () =>
+                    import("./views/settings/SettingsView.vue")
+            },
+            children: [
+                {
+                    path: "/",
+                    name: "settings",
+                    components: {
+                        ViewRouterSettings: () =>
+                            import("./views/settings/MainView.vue")
+                    }
+                    // linkActiveClass: "active",
+                    // linkExactActiveClass: "active",
+                },
+            ],
+        /*    meta: {
+                requireAuth: true
+            }*/
+        },
+        {
             path: "/dashboard",
             name: "dashboard",
             components: {
