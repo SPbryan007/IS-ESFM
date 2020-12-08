@@ -47,9 +47,15 @@ class AuthRepository
     {
         if(!Auth::attempt(['username' => $username, 'password' => $password],false))
             throw new UnauthorizedException('Nombre de usuario o contraseña incorrectos.');
-        return Auth::user();
+        return $this->userRepository->getById(Auth::user()->id_usuario);
     }
 
+    public  function getUserLogged(){
+        if(Auth::check()){
+            return $this->userRepository->getById(Auth::user()->id_usuario);
+        }
+        throw new UnauthorizedException('No ha iniciado sesion.');
+    }
 
     /**
      * @param $data
@@ -78,13 +84,14 @@ class AuthRepository
      */
     public function resetDefaultPassword($id)
     {
-        $password = $this->funRepository->getAllById($id)->documento;
-        $this->resetPassword($id,$password);
+        $data = $this->funRepository->getAllById($id);
+        $this->resetPassword($id,$data->documento,$data->documento);
     }
 
-    public function resetPassword($id,$password)
+    public function resetPassword($id,$password,$username)
     {
         $user = $this->userRepository->getAllById($id);
+        $user->username = $username;
         $user->password = bcrypt($password);
         $user->save();
      }

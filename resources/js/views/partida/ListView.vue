@@ -14,7 +14,7 @@
 
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Partidas presupuestarias</h3>
+                <h3>Partidas presupuestarias  <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addpartida' }">
@@ -25,79 +25,133 @@
                 </router-link>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-0">
-                Lista de partidas presupuestarias
-                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-between ">
-                    <div class="pull-lef ml-2">
-                        <el-form :inline="true" class="demo-form-inline">
-                            <el-form-item>
-                                <el-input
-                                    size="small"
-                                    placeholder="Buscar..."
-                                    v-model="$store.state.partida.searchQuery"
-                                    clearable
-                                >
-                                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-switch
-                                    v-model="$store.state.partida.withTrashed"
-                                    active-text="todos"
-                                    inactive-text="solo activos"
-                                    @change="$store.dispatch('partida/getItems')"
-                                >
-                                </el-switch>
-                            </el-form-item>
+        <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
+            <div class="pull-left">
+                <el-form :inline="true" class="demo-form-inline" >
+                    <el-form-item label="Mostrar:">
+                        <el-select
+                            style="width: 70px"
+                            v-model="perpage"
+                            @change="refresh()"
+                        >
+                            <el-option
+                                v-for="item in [
+                                                  { value: 5, label: '5' },
+                                                  { value: 10, label: '10' },
+                                                  { value: 25, label: '25' },
+                                                  { value: 50, label: '50' },
+                                                  { value: 100, label: '100' },
+                                            ]"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-switch
+                            v-model="$store.state.partida.withTrashed"
+                            active-text="todos"
+                            inactive-text="solo activos"
+                            @change="$store.dispatch('partida/getItems')"
+                        >
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
 
-                        </el-form>
-                    </div>
-                    <div class="pull-right">
-                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
-                            <el-form-item>
-                                <el-select
-                                    style="width: 70px"
-                                    size="small"
-                                    v-model="perpage"
-                                    @change="refresh()"
-                                >
-                                    <el-option
-                                        v-for="item in [
-                                              { value: 5, label: '5' },
-                                              { value: 10, label: '10' },
-                                              { value: 25, label: '25' },
-                                              { value: 50, label: '50' },
-                                              { value: 100, label: '100' },
-                                        ]"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </div>
-                </div>
+            </div>
+            <div class="pull-right">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label="Buscar por:">
+                        <el-input
+                            placeholder="Nombre, código"
+                            v-model="$store.state.partida.searchQuery"
+                            clearable
+                        >
+                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+        <div class="card">
+<!--            <div class="card-header border-0">-->
+<!--                Lista de partidas presupuestarias-->
+<!--                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>-->
+<!--            </div>-->
+            <div class="card-body">
+<!--                <div class="row justify-content-between ">-->
+<!--                    <div class="pull-lef ml-2">-->
+<!--                        <el-form :inline="true" class="demo-form-inline">-->
+<!--                            <el-form-item>-->
+<!--                                <el-input-->
+<!--                                    size="small"-->
+<!--                                    placeholder="Buscar..."-->
+<!--                                    v-model="$store.state.partida.searchQuery"-->
+<!--                                    clearable-->
+<!--                                >-->
+<!--                                    <i slot="prefix" class="el-input__icon el-icon-search"></i>-->
+<!--                                </el-input>-->
+<!--                            </el-form-item>-->
+<!--                            <el-form-item>-->
+<!--                                <el-switch-->
+<!--                                    v-model="$store.state.partida.withTrashed"-->
+<!--                                    active-text="todos"-->
+<!--                                    inactive-text="solo activos"-->
+<!--                                    @change="$store.dispatch('partida/getItems')"-->
+<!--                                >-->
+<!--                                </el-switch>-->
+<!--                            </el-form-item>-->
+
+<!--                        </el-form>-->
+<!--                    </div>-->
+<!--                    <div class="pull-right">-->
+<!--                        <el-form :inline="true" class="demo-form-inline" label-width="60px">-->
+<!--                            <el-form-item>-->
+<!--                                <el-select-->
+<!--                                    style="width: 70px"-->
+<!--                                    size="small"-->
+<!--                                    v-model="perpage"-->
+<!--                                    @change="refresh()"-->
+<!--                                >-->
+<!--                                    <el-option-->
+<!--                                        v-for="item in [-->
+<!--                                              { value: 5, label: '5' },-->
+<!--                                              { value: 10, label: '10' },-->
+<!--                                              { value: 25, label: '25' },-->
+<!--                                              { value: 50, label: '50' },-->
+<!--                                              { value: 100, label: '100' },-->
+<!--                                        ]"-->
+<!--                                        :key="item.value"-->
+<!--                                        :label="item.label"-->
+<!--                                        :value="item.value"-->
+<!--                                    ></el-option>-->
+<!--                                </el-select>-->
+<!--                            </el-form-item>-->
+<!--                        </el-form>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <el-table
                     stripe
                     :data="pageOfItems"
                     :default-sort="{prop: 'id', order: 'descending'}"
                     style="width: 100%"
                 >
-                    <el-table-column type="index" width="60"></el-table-column>
-                    <el-table-column :fit="true" prop="codigo" label="Codigo" width="200" sortable></el-table-column>
-                    <el-table-column prop="nombre" label="Nombre" width="200" sortable></el-table-column>
-                    <el-table-column prop="descripcion" label="Descripcion" width="300"></el-table-column>
-                    <el-table-column prop="deleted_at" label="Estado" width="150" sortable>
+                    <el-table-column type="index" label="N°" width="40"></el-table-column>
+                    <el-table-column :fit="true" prop="codigo" label="Codigo" width="100" sortable></el-table-column>
+                    <el-table-column prop="nombre" label="Nombre" width="300" sortable></el-table-column>
+                    <el-table-column prop="descripcion" label="Descripcion" width="360"></el-table-column>
+                    <el-table-column prop="deleted_at" label="Estado" width="100" sortable>
                         <template slot-scope="scope">
-                            {{ scope.row.deleted_at ?  'Inactivo' : 'Activo' }}
+                            <el-tag
+                            :type="scope.row.deleted_at ?  'warning' : 'success'"
+                            effect="dark">
+                            {{ scope.row.deleted_at ?  'INACTIVO' : 'ACTIVO' }}
+                            </el-tag>
+
                         </template>
                     </el-table-column>
-                    <el-table-column label="Operacion"  >
+                    <el-table-column label="Operación"  >
                         <template slot-scope="scope">
                             <router-link
                                 :disabled="!scope.row.deleted_at ? false : true"
@@ -119,7 +173,7 @@
                                 type="primary"
                                 size="mini"
                                 @click="OnClickAD(scope.$index, scope.row)"
-                            >Activar </el-button>
+                            >Activar</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -207,7 +261,7 @@ export default {
     },
     created() {
         store.dispatch("partida/getItems");
-    }
+    },
 };
 </script>
 

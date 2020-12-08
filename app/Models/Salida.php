@@ -20,7 +20,8 @@ class Salida extends Model
      */
     public function solicitante()
     {
-        return $this->belongsTo('App\Models\Solicitante','solicitante_id','id_solicitante');
+        //return $this->belongsTo('App\Models\Solicitante','solicitante_id','id_solicitante');
+        return $this->belongsTo('App\Models\Solicitante','solicitante_id','id');
     }
 
     /**

@@ -4,9 +4,7 @@ export const GET_FILTER_ITEMS = state => {
         return (
             searchRegex.test(item.nombre) ||
             searchRegex.test(item.codigo) ||
-            searchRegex.test(item.linea) ||
-            searchRegex.test(item.partida.codigo) ||
-            searchRegex.test(item.unidad_medida.sigla)
+            searchRegex.test(item.partida.codigo)
         );
     });
 };

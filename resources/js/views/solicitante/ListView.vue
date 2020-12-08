@@ -14,7 +14,7 @@
         </el-alert>
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Solicitantes</h3>
+                <h3>Solicitantes <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addsolicitante' }">
@@ -25,84 +25,78 @@
                 </router-link>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-0">
-                    Lista de solicitantes
-                    <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-between ">
-                        <div class="pull-lef ml-2">
-                            <el-form :inline="true" class="demo-form-inline">
-                            <el-form-item>
-                                <el-input
-                                    size="small"
-                                    placeholder="Buscar..."
-                                    v-model="$store.state.solicitante.searchQuery"
-                                    clearable
-                                >
-                                <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                                </el-input>
-                            </el-form-item>
-                                <el-form-item>
-                                    <el-switch
-                                        v-model="$store.state.solicitante.withTrashed"
-                                        active-text="todos"
-                                        inactive-text="solo activos"
-                                        @change="$store.dispatch('solicitante/getItems')"
-                                    >
-                                    </el-switch>
-                                </el-form-item>
+        <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
+            <div class="pull-left">
+                <el-form :inline="true" class="demo-form-inline" >
+                    <el-form-item label="Mostrar:">
+                        <el-select
+                            style="width: 70px"
+                            v-model="perpage"
+                            @change="refresh()"
+                        >
+                            <el-option
+                                v-for="item in [
+                                                  { value: 5, label: '5' },
+                                                  { value: 10, label: '10' },
+                                                  { value: 25, label: '25' },
+                                                  { value: 50, label: '50' },
+                                                  { value: 100, label: '100' },
+                                            ]"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-switch
+                            v-model="$store.state.solicitante.withTrashed"
+                            active-text="todos"
+                            inactive-text="solo activos"
+                            @change="$store.dispatch('solicitante/getItems')"
+                        >
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
 
-                            </el-form>
-                        </div>
-                        <div class="pull-right">
-                            <el-form :inline="true" class="demo-form-inline" label-width="60px">
-                            <el-form-item>
-                                <el-select
-                                    style="width: 70px"
-                                    size="small"
-                                    v-model="perpage"
-                                    @change="refresh()"
-                                >
-                                    <el-option
-                                        v-for="item in [
-                                              { value: 5, label: '5' },
-                                              { value: 10, label: '10' },
-                                              { value: 25, label: '25' },
-                                              { value: 50, label: '50' },
-                                              { value: 100, label: '100' },
-                                        ]"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                            </el-form>
-                        </div>
-                </div>
+            </div>
+            <div class="pull-right">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label="Buscar por:">
+                        <el-input
+                            placeholder="Nombre, Cargo"
+                            v-model="$store.state.solicitante.searchQuery"
+                            clearable
+                        >
+                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
                 <el-table
                     :fit="true"
                     stripe
                     :data="pageOfItems"
-                    :default-sort="{prop: 'id_solicitante', order: 'ascending'}"
+                    :default-sort="{prop: 'id', order: 'ascending'}"
                     style="width: 100%"
                 >
-                    <el-table-column type="index"></el-table-column>
-                    <el-table-column prop="funcionario.nombre" label="Nombre" sortable>
+                    <el-table-column type="index" label="N°" width="40"></el-table-column>
+                    <el-table-column prop="funcionario.nombre" label="Nombre" width="240" sortable>
                         <template slot-scope="scope">
                             {{ `${scope.row.funcionario.nombre} ${scope.row.funcionario.apellido}` }}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="cargo" label="Cargo" sortable></el-table-column>
+                    <el-table-column prop="cargo" label="Cargo" width="300" sortable></el-table-column>
                     <el-table-column
                         prop="unidad.nombre"
                         label="Unidad"
                         :filters="GET_FILTER_TAG_UNIDAD"
-                        :filter-method="FilterCargo"
+                        :filter-method="FilterUnidad"
                         filter-placement="bottom-end"
-                        width="240"
+                        width="210"
                     >
                         <template slot-scope="scope">
                             <el-tag type="warning" disable-transitions>
@@ -110,12 +104,21 @@
                             </el-tag>
                         </template>
                     </el-table-column>
-                    <el-table-column label="Operacion"  >
+                    <el-table-column prop="deleted_at" label="Estado" width="100" sortable>
+                        <template slot-scope="scope">
+                            <el-tag
+                                :type="scope.row.deleted_at ?  'warning' : 'success'"
+                                effect="dark">
+                                {{ scope.row.deleted_at ?  'INACTIVO' : 'ACTIVO' }}
+                            </el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="Operacion" >
                         <template slot-scope="scope">
                             <router-link
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
-                                :to="{ name: 'editsolicitante',params:{id:scope.row.id_solicitante } }"
+                                :to="{ name: 'editsolicitante',params:{id:scope.row.id } }"
                             >
                                 <el-button :disabled="!scope.row.deleted_at ? false : true" size="mini">Editar</el-button>
                             </router-link>
@@ -203,7 +206,7 @@ export default {
                 self.jw.setPage(1);
             }, 0);
         },
-        FilterCargo(value, row) {
+        FilterUnidad(value, row) {
             return row.unidad_id === value;
         },
         OnClickAD(index, row) {
@@ -219,7 +222,7 @@ export default {
                 .then(() => {
                     this.self = index;
                     store.dispatch("solicitante/deleteItem", {
-                        id: row.id_solicitante,
+                        id: row.id,
                         message: this.$message,
                         progress: this.$Progress
                     });
@@ -243,6 +246,9 @@ export default {
         }
     },
     created() {
+
+    },
+    mounted() {
         store.dispatch("solicitante/getItems");
         store.dispatch("unidad/getItems");
     }

@@ -3,7 +3,7 @@ import { URL_PARTIDA } from "./../url";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-export const getItems = ({ state, commit }) => {
+export const getItems = ({ state, commit,rootState }) => {
     commit(types.SET_LOADING_TABLE, true);
     commonProviders
         .getItems(URL_PARTIDA+`?withTrashed=${state.withTrashed}`)
@@ -12,6 +12,10 @@ export const getItems = ({ state, commit }) => {
             commit(types.SET_LOADING_TABLE, false);
         })
         .catch(error => {
+            if(error.response.status == 401){
+                rootState.login.user = null;
+                router.push({name:'login'});
+            }
             commit(types.SET_DISPLAY_MESSAGE, error.response);
             commit(types.SET_LOADING_TABLE, false);
         });
@@ -87,6 +91,7 @@ export const editItem = ({ commit, state,dispatch }, params) => {
             router.push({ name: "partida" });
         })
         .catch(error => {
+            commit(types.SET_LOADING_FORM, false);
             commit(types.SET_DISPLAY_MESSAGE, error.response);
             params.progress.fail();
         });

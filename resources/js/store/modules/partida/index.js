@@ -4,6 +4,7 @@ import * as getters from "./getters";
 
 const state = {
     items: [],
+    items_getter:[],
     withTrashed:false,
     data_form: {
         nombre : null,
@@ -62,8 +63,10 @@ const mutations = {
      * SET_ITEMS Establece los articulos recibidos
      */
     [types.SET_ITEMS]: (state, items) => {
-        state
         state.items = items;
+    },
+    [types.SET_ITEMS_GETTER]:(state,items) =>{
+        state.items_getter = items;
     },
     [types.SET_ITEM]: (state, item) => {
         state.items.push(item);

@@ -34,6 +34,14 @@ class UserRepository
             ->get();
     }
 
+    public function getById($id){
+        $user = User::with('funcionario')->find($id);
+        if(!$user){
+            throw new NotFoundHttpException("No existe el usuario con el ID : {$id}");
+        }
+        return $user;
+    }
+
     /**
      * @param $id
      * @return User

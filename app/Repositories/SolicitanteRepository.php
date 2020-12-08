@@ -56,12 +56,17 @@ class SolicitanteRepository
                /* return Solicitante::with(['funcionario' => function ($q){
                     return $q->withoutTrashed();
                 },'unidad'])->get();*/
-        return Solicitante::with(['funcionario','unidad'])
+        return Solicitante::with(['funcionario' => function($query){
+                        $query->withTrashed();
+                    },'unidad' => function($query){
+                        $query->withTrashed();
+                    }])
                     ->whereHas('funcionario' ,function($query){
-                        $query->withoutTrashed();
+                        //$query->withoutTrashed();
+                        $query->withTrashed();
                     })
                     ->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
-                    ->orderBy('id_solicitante','DESC')
+                    ->orderBy('id','DESC')
                     ->get();
 
         /*return Solicitante::with(['funcionario','unidad'])
@@ -96,11 +101,18 @@ class SolicitanteRepository
     {
         $fun    = $this->funRepository->getAllById($funcionario_id);
         $unidad = $this->unidadRepository->getById($unidad_id);
-        $solicitante                    = new Solicitante();
-        $solicitante->id_solicitante    = $fun->id;
-        $solicitante->cargo             = $cargo;
-        $solicitante->unidad_id         = $unidad->id;
-        $solicitante->save();
+        $sol = Solicitante::where('funcionario_id',$fun->id)->first();
+        if(!$sol){
+            $solicitante                    = new Solicitante();
+            $solicitante->funcionario_id    = $fun->id;
+            $solicitante->cargo             = $cargo;
+            $solicitante->unidad_id         = $unidad->id;
+            $solicitante->save();
+        }else{
+            throw new ConflictHttpException("El solicitante ya se encuentra registrado.");
+        }
+
+
       /*  try {
 
         } finally {
@@ -127,9 +139,27 @@ class SolicitanteRepository
     {
         $unidad = $this->unidadRepository->getById($data->unidad_id);
         $solicitante            = $this->getById($id);
-        $solicitante->cargo     = $data->cargo;
-        $solicitante->unidad_id = $unidad->id;
-        $solicitante->save();
+
+        if($unidad->id == $solicitante->unidad_id){
+            $solicitante->cargo     = $data->cargo;
+            $solicitante->save();
+        }else{
+            $exists = Solicitante::where('funcionario_id',$solicitante->funcionario_id)
+                ->where('unidad_id',$unidad->id)
+                ->withTrashed()
+                ->first();
+            if($exists){
+                $this->setStatus($solicitante->id);
+                $this->setStatus($exists->id);
+            }else{
+                $this->setStatus($solicitante->id);
+                $sol                    = new Solicitante();
+                $sol->funcionario_id    = $solicitante->funcionario_id;
+                $sol->cargo             = $data->cargo;
+                $sol->unidad_id         = $unidad->id;
+                $sol->save();
+            }
+        }
     }
 
 

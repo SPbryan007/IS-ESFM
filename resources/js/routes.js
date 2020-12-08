@@ -21,19 +21,17 @@ export const router = new VueRouter({
             },
             children: [
                 {
-                    path: "/",
+                    path: "/settings",
                     name: "settings",
                     components: {
                         ViewRouterSettings: () =>
                             import("./views/settings/MainView.vue")
                     }
-                    // linkActiveClass: "active",
-                    // linkExactActiveClass: "active",
                 },
             ],
-        /*    meta: {
+            meta: {
                 requireAuth: true
-            }*/
+            }
         },
         {
             path: "/dashboard",
@@ -42,10 +40,10 @@ export const router = new VueRouter({
                 HeaderComponent: () => import("./views/HeaderComponent.vue"),
                 SidebarComponent: () => import("./views/SidebarComponent.vue"),
                 ContentComponent: () => import("./views/ContentComponent.vue")
+            },
+            meta: {
+                requireAuth: true
             }
-            //     meta: {
-            //         requireAuth: true
-            //     }
         },
         {
             path: "/login",
@@ -54,6 +52,9 @@ export const router = new VueRouter({
                 LoginRouterView: () =>
                     import("./components/auth/LoginComponent.vue"),
                 SidebarComponent: () => import("./views/SidebarComponent.vue"),
+            },
+            meta: {
+                requireAuth: false
             }
         },
         {
@@ -329,7 +330,10 @@ export const router = new VueRouter({
                             import("./views/partida/EditView.vue")
                     }
                 }
-            ]
+            ],
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: "/unidad_medida",
@@ -364,7 +368,10 @@ export const router = new VueRouter({
                             import("./views/unidad_medida/EditView.vue")
                     }
                 }
-            ]
+            ],
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: "/periodo",
@@ -431,7 +438,10 @@ export const router = new VueRouter({
                             import("./views/periodo/InitialDetails.vue")
                     }
                 }
-            ]
+            ],
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: "/ingreso",
@@ -506,7 +516,10 @@ export const router = new VueRouter({
                 //             import("./views/periodo/InitialDetails.vue")
                 //     }
                 // }
-            ]
+            ],
+            meta: {
+                requireAuth: true
+            }
         },
         {
             path: "/salida",
@@ -549,23 +562,55 @@ export const router = new VueRouter({
                             import("./views/salida/ViewDetails.vue")
                     }
                 }
-            ]
-        }
+            ],
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: "/reporte",
+            components: {
+                HeaderComponent: () => import("./views/HeaderComponent.vue"),
+                SidebarComponent: () => import("./views/SidebarComponent.vue"),
+                ContentComponent: () =>
+                    import("./views/reporte/ReporteView.vue")
+            },
+            children: [
+                {
+                    path: "/reporte/movimiento",
+                    name: "saldos",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/SaldosView.vue")
+                    }
+                },
+                {
+                    path: "/reporte/general",
+                    name: "general",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/GeneralView.vue")
+                    }
+                },
+            ],
+            meta: {
+                requireAuth: true
+            }
+        },
     ]
 });
 
-// router.beforeEach((to, from, next) => {
-//     if (to.matched.some((record) => record.meta.requireAuth)) {
-//         if (!store.getters["login/getUserLogged"]) {
-//             console.log("UnAuth");
-//             next({ path: "/login" });
-//         } else {
-//             next();
-//         }
-//     } else {
-//         next();
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    if (to.matched.some((record) => record.meta.requireAuth)) {
+        if (!store.getters["login/getUserLogged"]) {
+            next({ path: "/login" });
+        } else {
+            next();
+        }
+    } else {
+        next();
+    }
+});
 // children: [
 //     {
 //         path: "home",

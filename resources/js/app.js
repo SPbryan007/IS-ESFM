@@ -66,8 +66,11 @@ Vue.use(ClientTable, {}, false, "bootstrap4", "default");
 import moment from "moment";
 Vue.filter("dateformat", arg => {
     //return moment(arg).format("YYYY-MM-DD");
-    return moment(arg).format("DD/MM/YYYY");
+    return arg ? moment(arg).format("DD/MM/YYYY") : '-';
 });
+
+import JsonExcel from "vue-json-excel";
+Vue.component("downloadExcel", JsonExcel);
 
 import * as writtenNumber from 'written-number';
 writtenNumber.defaults.lang = 'es';

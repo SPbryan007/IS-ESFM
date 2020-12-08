@@ -63,6 +63,16 @@ const actions = {
             .catch(err => {
                 console.log(err);
             });
+    },
+    getUser: ({state}) => {
+        axios
+            .get("/auth/getUserLogged")
+            .then(response => {
+                state.user = response.data
+            })
+            .catch(err => {
+
+            });
     }
 };
 

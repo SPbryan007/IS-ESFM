@@ -1,9 +1,10 @@
 <template>
     <div class="login-page">
+        <h4 class="text-muted text-center">ALMACEN E.S.F.M.</h4>
         <div class="login-box">
-            <div class="login-logo">
-                <h2 class="text-muted">SAP - ESFM</h2>
-            </div>
+<!--            <div class="login-logo">-->
+<!--                <h2 class="text-muted">ALMACEN</h2>-->
+<!--            </div>-->
 
             <!-- /.login-logo -->
             <div class="card">
@@ -38,15 +39,23 @@
                         </el-form-item>
 
                         <el-form-item>
-                            <button
-                                type="button"
-                                class="btn btn-block btn-info"
-                                v-loading.fullscreen.lock="loading"
-                                element-loading-text="Iniciando sesion..."
+                            <el-button
+                                type="primary"
+                                style="width: 100%"
+                                :loading="loading"
                                 @click="submitForm('LoginForm')"
                             >
                                 Iniciar sesion
-                            </button>
+                            </el-button>
+<!--                            <button-->
+<!--                                type="button"-->
+<!--                                class="btn btn-block btn-primary"-->
+<!--                                v-loading.fullscreen.lock="loading"-->
+<!--                                element-loading-text="Iniciando sesion..."-->
+<!--                                @click="submitForm('LoginForm')"-->
+<!--                            >-->
+<!--                                Iniciar sesion-->
+<!--                            </button>-->
                         </el-form-item>
                     </el-form>
                     <!-- <div class="text-center mb-2">

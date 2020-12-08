@@ -1,6 +1,7 @@
 <template>
 
 
+
     <div class="col-md-12">
         <el-alert
             v-if="alert.show"
@@ -20,7 +21,7 @@
           </div>-->
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Funcionarios</h3>
+                <h3>Funcionarios <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addfuncionario' }">
@@ -31,70 +32,64 @@
                 </router-link>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-0">
-                Lista de funcionarios
-                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-between ">
-                    <div class="pull-lef ml-2">
-                        <el-form :inline="true" class="demo-form-inline">
-                            <el-form-item>
-                                <el-input
-                                    size="small"
-                                    placeholder="Buscar..."
-                                    v-model="$store.state.funcionario.searchQuery"
-                                    clearable
-                                >
-                                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-switch
-                                    v-model="$store.state.funcionario.withTrashed"
-                                    active-text="todos"
-                                    inactive-text="solo activos"
-                                    @change="$store.dispatch('funcionario/getItems')"
-                                >
-                                </el-switch>
-                            </el-form-item>
+        <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
+            <div class="pull-left">
+                <el-form :inline="true" class="demo-form-inline" >
+                    <el-form-item label="Mostrar:">
+                        <el-select
+                            style="width: 70px"
+                            v-model="perpage"
+                            @change="refresh()"
+                        >
+                            <el-option
+                                v-for="item in [
+                                                  { value: 5, label: '5' },
+                                                  { value: 10, label: '10' },
+                                                  { value: 25, label: '25' },
+                                                  { value: 50, label: '50' },
+                                                  { value: 100, label: '100' },
+                                            ]"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-switch
+                            v-model="$store.state.funcionario.withTrashed"
+                            active-text="todos"
+                            inactive-text="solo activos"
+                            @change="$store.dispatch('funcionario/getItems')"
+                        >
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
 
-                        </el-form>
-                    </div>
-                    <div class="pull-right">
-                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
-                            <el-form-item>
-                                <el-select
-                                    style="width: 70px"
-                                    size="small"
-                                    v-model="perpage"
-                                    @change="refresh()"
-                                >
-                                    <el-option
-                                        v-for="item in [
-                                              { value: 5, label: '5' },
-                                              { value: 10, label: '10' },
-                                              { value: 25, label: '25' },
-                                              { value: 50, label: '50' },
-                                              { value: 100, label: '100' },
-                                        ]"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </div>
-                </div>
+            </div>
+            <div class="pull-right">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label="Buscar por:">
+                        <el-input
+                            placeholder="C.I.,Nombre, Apellido"
+                            v-model="$store.state.funcionario.searchQuery"
+                            clearable
+                        >
+                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
                 <el-table
                     stripe
                     :data="pageOfItems"
                     :default-sort="{prop: 'id', order: 'ascending'}"
                     style="width: 100%"
                 >
-                    <el-table-column type="index" width="60"></el-table-column>
+                    <el-table-column type="index" label="N°" width="40"></el-table-column>
                     <el-table-column type="expand">
                         <template slot-scope="props">
                             <!--<p>Estado: {{ props.row.deleted_at ?  'Inactivo' : 'Activo' }}</p>-->
@@ -107,20 +102,32 @@
                     <el-table-column prop="documento" label="C.I" width="150" sortable></el-table-column>
                     <el-table-column prop="deleted_at" label="Estado" width="150" sortable>
                         <template slot-scope="scope">
-                            {{ scope.row.deleted_at ?  'Inactivo' : 'Activo' }}
+                            <el-tag
+                                :type="scope.row.deleted_at ?  'warning' : 'success'"
+                                effect="dark">
+                                {{ scope.row.deleted_at ?  'INACTIVO' : 'ACTIVO' }}
+                            </el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column label="Operacion"  >
                         <template slot-scope="scope">
                             <router-link
+                                v-if="!scope.row.deleted_at && !((scope.row.user) && (scope.row.user? scope.row.user.rol == 'ADMINISTRADOR': true ) && !(scope.row.id == $store.state.login.user.id_usuario))"
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'editfuncionario',params:{id:scope.row.id } }"
                             >
                                 <el-button :disabled="!scope.row.deleted_at ? false : true" size="mini">Editar</el-button>
                             </router-link>
+
+
+<!--                            (scope.row.id == $store.state.login.user.id_usuario) || (scope.row.user? scope.row.user.rol == 'ADMINISTRADOR': true )-->
+<!--                            scope.row.user.rol == 'ADMINISTRADOR': false ) && (scope.row.id != $store.state.login.user.id_usuario && (scope.row.id != $store.state.login.user.id_usuario
+
+ -->
                             <el-button
-                                v-if="!scope.row.deleted_at"
+                                v-if="!scope.row.deleted_at && !((scope.row.user) && (scope.row.user? scope.row.user.rol == 'ADMINISTRADOR': true ) || (scope.row.id == $store.state.login.user.id_usuario))"
+
                                 :loading="loading_form && scope.$index == self"
                                 type="danger"
                                 size="mini"
@@ -223,7 +230,7 @@ export default {
     },
     created() {
         store.dispatch("funcionario/getItems");
-    }
+    },
 };
 </script>
 

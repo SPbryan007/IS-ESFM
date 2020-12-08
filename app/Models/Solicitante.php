@@ -10,12 +10,12 @@ class Solicitante extends Model
     use SoftDeletes;
 
     protected $table = 'solicitante';
-    protected $primaryKey = 'id_solicitante';
+    protected $primaryKey = 'id';
     public $timestamps = true;
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'cargo','unidad_id'
+        'cargo','unidad_id','funcionario_id'
     ];
 
     /**
@@ -23,7 +23,8 @@ class Solicitante extends Model
      */
     public function funcionario(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo('App\Models\Funcionario','id_solicitante','id');
+//        return $this->belongsTo('App\Models\Funcionario','id_solicitante','id');
+        return $this->belongsTo('App\Models\Funcionario','funcionario_id','id');
             //->withoutTrashed();
     }
 
@@ -40,7 +41,8 @@ class Solicitante extends Model
      */
     public function salidas()
     {
-        return $this->hasMany('App\Models\Salida','solicitante_id','id_solicitante');
+       // return $this->hasMany('App\Models\Salida','solicitante_id','id_solicitante');
+        return $this->hasMany('App\Models\Salida','solicitante_id','id');
     }
 }
 

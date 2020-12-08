@@ -43,7 +43,11 @@ class ArticuloRepository
      */
     public function getAll($withTrashed)
     {
-        return Articulo::with(['partida','unidad_medida'])
+        return Articulo::with(['partida' => function($query){
+            $query->withTrashed();
+        },'unidad_medida' => function($query){
+            $query->withTrashed();
+        }])
             ->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
             ->orderBy('id','DESC')
             ->get();
@@ -97,8 +101,8 @@ class ArticuloRepository
      */
     public function update($id, $data)
     {
-        $this->partidaRepository->getById($data->partida_id);
-        $this->unidadMedidaRepository->getById($data->unidad_medida_id);
+//        $this->partidaRepository->getById($data->partida_id);
+//        $this->unidadMedidaRepository->getById($data->unidad_medida_id);
         $articulo                 = $this->getById($id);
         $articulo->nombre           =  $data->nombre;
         $articulo->linea            =  $data->linea;

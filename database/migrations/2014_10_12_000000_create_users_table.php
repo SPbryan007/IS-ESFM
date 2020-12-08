@@ -55,10 +55,26 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-        Schema::create('solicitante', function (Blueprint $table) {
+       /* Schema::create('solicitante', function (Blueprint $table) {
             $table->unsignedBigInteger('id_solicitante')->primary();
             $table->string('cargo',100);
             $table->foreign('id_solicitante')->references('id')
+                ->on('funcionario')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->unsignedBigInteger('unidad_id')->nullable(false);
+            $table->foreign('unidad_id')->references('id')
+                ->on('unidad')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->timestamps();
+            $table->softDeletes();
+        });*/
+        Schema::create('solicitante', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('funcionario_id');
+            $table->string('cargo',150);
+            $table->foreign('funcionario_id')->references('id')
                 ->on('funcionario')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');

@@ -81,14 +81,22 @@
                     <el-table-column
                         prop="nombre"
                         label="Articulo"
-                        width="720">
+                        width="600">
                     </el-table-column>
                     <el-table-column
                         prop="stock"
                         label="Stock"
                         width="100">
                         <template slot-scope="scope">
-                            {{ scope.row.stock }} <b>{{ scope.row.unidad }}</b>
+                            {{ scope.row.stock }}
+                        </template>
+                    </el-table-column>
+                    <el-table-column
+                        prop="unidad"
+                        label="Medida"
+                        width="140">
+                        <template slot-scope="scope">
+                       <b>{{ scope.row.unidad }}</b>
                         </template>
                     </el-table-column>
                     <el-table-column
@@ -191,6 +199,5 @@ export default {
             this.$router.go(-1);
         }
     },
-
 };
 </script>

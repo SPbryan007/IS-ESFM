@@ -14,7 +14,7 @@
 
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Periodo contable</h3>
+                <h3>Periodo contable  <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addperiodo' }">
@@ -25,71 +25,64 @@
                 </router-link>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-0">
-                Lista de periodos contables
-                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>
+        <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
+            <div class="pull-left">
+                <el-form :inline="true" class="demo-form-inline" >
+                    <el-form-item label="Mostrar:">
+                        <el-select
+                            style="width: 70px"
+                            v-model="perpage"
+                            @change="refresh()"
+                        >
+                            <el-option
+                                v-for="item in [
+                                                  { value: 5, label: '5' },
+                                                  { value: 10, label: '10' },
+                                                  { value: 25, label: '25' },
+                                                  { value: 50, label: '50' },
+                                                  { value: 100, label: '100' },
+                                            ]"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-switch
+                            v-model="$store.state.periodo.withTrashed"
+                            active-text="todos"
+                            inactive-text="solo activos"
+                            @change="$store.dispatch('periodo/getItems')"
+                        >
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
+
             </div>
+            <div class="pull-right">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label="Buscar por:">
+                        <el-input
+                            placeholder="Nombre, Fecha"
+                            v-model="$store.state.periodo.searchQuery"
+                            clearable
+                        >
+                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+        <div class="card">
             <div class="card-body">
-                <div class="row justify-content-between ">
-                    <div class="pull-lef ml-2">
-                        <el-form :inline="true" class="demo-form-inline">
-                            <el-form-item>
-                                <el-input
-                                    size="small"
-                                    placeholder="Buscar..."
-                                    v-model="$store.state.periodo.searchQuery"
-                                    clearable
-                                >
-                                    <i slot="prefix" class="el-input__icon el-icon-search"></i>
-                                </el-input>
-                            </el-form-item>
-                            <el-form-item>
-                                <el-switch
-                                    v-model="$store.state.periodo.withTrashed"
-                                    active-text="todos"
-                                    inactive-text="solo activos"
-                                    @change="$store.dispatch('periodo/getItems')"
-                                >
-                                </el-switch>
-                            </el-form-item>
-
-                        </el-form>
-                    </div>
-                    <div class="pull-right">
-                        <el-form :inline="true" class="demo-form-inline" label-width="60px">
-                            <el-form-item>
-                                <el-select
-                                    style="width: 70px"
-                                    size="small"
-                                    v-model="perpage"
-                                    @change="refresh()"
-                                >
-                                    <el-option
-                                        v-for="item in [
-                                              { value: 5, label: '5' },
-                                              { value: 10, label: '10' },
-                                              { value: 25, label: '25' },
-                                              { value: 50, label: '50' },
-                                              { value: 100, label: '100' },
-                                        ]"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-form-item>
-                        </el-form>
-                    </div>
-                </div>
-
                 <el-table
                     :data="pageOfItems"
                     :default-sort="{prop: 'id', order: 'descending'}"
                     style="width: 100%"
                     stripe
                 >
-                    <el-table-column type="index" width="50"></el-table-column>
+                    <el-table-column type="index" label="N°" width="50"></el-table-column>
                     <el-table-column type="expand">
                         <template slot-scope="props">
                             <p><b>Descripcion</b>: {{ props.row.descripcion }}</p>

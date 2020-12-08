@@ -78,8 +78,8 @@ const mutations = {
     },
     [types.SET_EDIT_FORM]: (state, item) => {
         state.data_form.nombre           = item.nombre;
-        state.data_form.fecha_inicio     = item.fecha_inicio;
-        state.data_form.fecha_fin        = item.fecha_fin
+        state.data_form.fecha_inicio     = moment(item.fecha_inicio).format("YYYY-M-D hh:mm:ss");;
+        state.data_form.fecha_fin        = moment(item.fecha_fin).format("YYYY-M-D hh:mm:ss");
         state.data_form.descripcion      = item.descripcion;
     },
     [types.SET_FORM]: ({state,commit}, item) => {

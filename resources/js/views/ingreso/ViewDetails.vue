@@ -23,14 +23,19 @@
                     icon="el-icon-printer"
                 >Imprimir</el-button>-->
                 <el-button
-                    type="info"
-                    @click=""
-                ><i class="fas fa-file-pdf"></i> Pdf</el-button>
+                    type="primary"
+                    @click="Print()"
+                    icon="el-icon-printer"
+                >Imprimir</el-button>
                 <el-button
-                    type="success"
-                    @click=""
+                    type="danger"
+                    @click="exportPDF(detalle_ingreso.nro_ingreso,detalle_ingreso.created_at)"
+                ><i class="fas fa-file-pdf"></i> Pdf</el-button>
+<!--                <el-button-->
+<!--                    type="success"-->
+<!--                    @click=""-->
 
-                > <i class="fas fa-file-excel"></i> Excel</el-button>
+<!--                > <i class="fas fa-file-excel"></i> Excel</el-button>-->
             </div>
         </div>
         <div class="card">
@@ -73,7 +78,7 @@
                     <div class="col-md-3">
                         <dl class="row">
                             <dt class="col-md-6"></dt>
-                            <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>12/45/1998</small></dd>
+                            <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4></dd>
                             <dt class="col-md-6">&nbsp</dt>
                             <dd class="col-md-6">&nbsp</dd>
                             <dt class="col-md-6">&nbsp</dt>
@@ -178,17 +183,10 @@
                 </table>
                 <dl class="row pt-3">
                     <dt class="col-md-3">Total:</dt>
-                    <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ Math.trunc(detalle_ingreso.total) | toWords }} y {{ ( detalle_ingreso.total - Math.floor(detalle_ingreso.total) ).toFixed(2) }}/100 <b>  Bs.</b></span></dd>
+                    <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ Math.trunc(detalle_ingreso.total) | toWords }} con {{ ( detalle_ingreso.total - Math.floor(detalle_ingreso.total) ) }}/100 <b>  Bs.</b></span></dd>
                     <div class="col-md-2 text-center"><u>{{ (detalle_ingreso.total).toFixed(2) }}</u></div>
                 </dl>
-                <br>
-                <div class="row justify-content-start">
-                    <el-button
-                        type="primary"
-                        @click="Print()"
-                        icon="el-icon-printer"
-                    >Imprimir</el-button>
-                </div>
+
               <!--  <div class="row">
                     <div class="">
                        <b> <strong>Total:</strong></b>
@@ -198,16 +196,27 @@
                     </div>
                 </div>-->
             </div>
+
         </div>
+<!--        <br>-->
+<!--        <div class="row justify-content-start">-->
+<!--           -->
+<!--        </div>-->
+
+
     </div>
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import Ingreso from './../../components/reportes/Ingreso';
 import * as lang from "vuejs-datepicker/src/locale";
 import store from "../../store/index";
 import moment from "moment";
 import { router } from "../../routes";
 export default {
+    components:{
+        Ingreso
+    },
     data() {
         return {
             numero: 1997,
@@ -223,193 +232,30 @@ export default {
         ...mapGetters("proveedor", ["GET_ITEMS_PROVEEDOR"]),
     },
     methods: {
-       /* toPrint(){
-
-
-                $('<iframe>', {name: 'myiframe',class: 'printFrame'})
-                    .appendTo('body')
-                    .contents().find('body')
-                    .append(`
-               <style type="text/css">
-                    @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css');
-                </style>
-          <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th style="width: 10px">N°</th>
-                        <th>Articulo</th>
-                        <th>Medida</th>
-                        <th>Cantidad</th>
-                        <th>Subtotal</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                    <td> Hola</td>
-</tr>
-                    </tbody>
-                   </table>
-            npm printd
-        `);
-            window.frames['myiframe'].focus();
-                window.frames['myiframe'].print();
-
-                setTimeout(() => { $(".printFrame").remove(); }, 1000);
-        },*/
         Print(){
-            this.$htmlToPaper('printMe');
+            window.open('http://localhost:8000/controller/ingreso/imprimir/'+this.$route.params.id, '_blank');
         },
-        /*submitForm(form) {
-            this.$refs[form].validate((valid) => {
-                if (valid) {
-                    router.push({ name: "addingresodetails" });
-                }
-            });
+        exportPDF(nro,date){
+            axios.get('/controller/ingreso/export_pdf/'+this.$route.params.id, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/pdf' })
+                    const link = document.createElement('a')
+                    link.href = URL.createObjectURL(blob)
+                    link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+                    link.click()
+                    URL.revokeObjectURL(link.href)
+                }).catch((err)=>{
+                    console.log('error excel');
+                });
         },
-        cancelForm(formName) {
-            this.$refs[formName].resetFields();
-            router.push({ name: "ingreso" });
-        },*/
         goBack() {
-            this.$router.go(-1);
+            router.push({name:'ingreso'});
+            // this.$router.go(-1);
         }
     },
-   /* created() {
+   mounted() {
         store.dispatch("proveedor/getItems");
-    },*/
-};
-</script>
-
-
-<!--
-<template>
-  <div class>
-      {{ detalle_ingreso }}
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-header border-0">
-          <h3 class="card-title">Detalles de ingreso</h3>
-          <div class="card-tools"></div>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <dl class="pl-5 row">
-              <dt class="col-sm-4">Periodo :</dt>
-              <dd class="col-sm-8">{{ show_detalle.gestion }}</dd>
-              <dt class="col-sm-4">Tipo de ingreso :</dt>
-              <dd class="col-sm-8">{{ show_detalle.tipo_ingreso }}</dd>
-
-              <dt class="col-sm-4" v-if="show_detalle.tipo_compra">Tipo de compra :</dt>
-              <dd class="col-sm-8" v-if="show_detalle.tipo_compra">{{ show_detalle.tipo_compra }}</dd>
-
-              <dt class="col-sm-4">Fecha de ingreso :</dt>
-              <dd class="col-sm-8">{{ show_detalle.fecha_ingreso | dateformat}}</dd>
-
-              <dt class="col-sm-4">Registrado por :</dt>
-              <dd class="col-sm-8">{{ show_detalle.usuario}}</dd>
-
-              <dt class="col-sm-4">Proveedor :</dt>
-              <dd class="col-sm-8">{{ show_detalle.proveedor}}</dd>
-
-              <dt class="col-sm-4" v-if="show_detalle.nro_acta">Nro. Acta :</dt>
-              <dd class="col-sm-8" v-if="show_detalle.nro_acta">{{ show_detalle.nro_acta}}</dd>
-
-              <dt class="col-sm-4" v-if="show_detalle.tipo_comprobante">Tipo de comprobante :</dt>
-              <dd
-                class="col-sm-8"
-                v-if="show_detalle.tipo_comprobante"
-              >{{ show_detalle.tipo_comprobante}}</dd>
-
-              <dt class="col-sm-4" v-if="show_detalle.nro_solicitud">Nro. Solicitud :</dt>
-              <dd class="col-sm-8" v-if="show_detalle.nro_solicitud">{{ show_detalle.nro_solicitud}}</dd>
-
-              <dt class="col-sm-4" v-if="show_detalle.nro_comprobante">Nro. Comprobante :</dt>
-              <dd
-                class="col-sm-8"
-                v-if="show_detalle.nro_comprobante"
-              >{{ show_detalle.nro_comprobante}}</dd>
-              <dt class="col-sm-4" v-if="show_detalle.nro_autorizacion">Nro. Autorizacion :</dt>
-              <dd
-                class="col-sm-8"
-                v-if="show_detalle.nro_autorizacion"
-              >{{ show_detalle.nro_autorizacion}}</dd>
-            </dl>
-          </div>
-          <div class="row justify-content-md-center">
-            <div class="col-md-10">
-              <el-table :data="show_detalle.detalles" style="width: 100%">
-                <el-table-column type="index" width="80"></el-table-column>
-                <el-table-column label="Articulo" width="280" prop="articulo" sortable></el-table-column>
-                <el-table-column label="Precio unitario" width="180" prop="precio" sortable>
-                  <template slot-scope="scope">Bs {{ scope.row.precio }}</template>
-                </el-table-column>
-                <el-table-column label="Cantidad" width="150" prop="cantidad" sortable>
-                  <template slot-scope="scope">
-                    {{
-                    `${scope.row.cantidad} ${scope.row.unidad_medida}`
-                    }}
-                  </template>
-                </el-table-column>
-                <el-table-column label="Sub total">
-                  <template slot-scope="scope">
-                    Bs.
-                    {{
-                    scope.row.cantidad *
-                    scope.row.precio
-                    }}
-                  </template>
-                </el-table-column>
-              </el-table>
-            </div>
-          </div>
-          <div class="row pt-4 col-md-4 offset-md-8">
-            <h5>
-              Total: Bs
-              <strong>
-                {{
-                Total(show_detalle.detalles)
-                }}
-              </strong>
-            </h5>
-          </div>
-          <div class="row pt-4 col-md-3 offset-md-1">
-            <el-button type="primary" @click="submitForm('IngresoForm')">
-              Imprimir
-              <i class="fas fa-print"></i>
-            </el-button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-<script>
-import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import store from "../../store/index";
-import moment from "moment";
-import { router } from "../../routes";
-export default {
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapState("ingreso", ["data_form","detalle_ingreso"]),
-    ...mapGetters("proveedor", ["GET_ITEMS_PROVEEDOR"]),
-  },
-  methods: {
-    Total(items) {
-      let sum = 0;
-      items.forEach((e) => {
-        sum += e.precio * e.cantidad;
-      });
-      return sum;
     },
-  },
-  updated() {
-    console.log("se ha actualizado");
-  },
-  created() {},
 };
 </script>
 
--->

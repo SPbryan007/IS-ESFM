@@ -54,7 +54,12 @@ class SalidaRepository
         )->join('detalle_salida as ds','ds.salida_id','=','salida.id')
             ->leftjoin('lote','lote.id','=','ds.lote_id')
             ->with(['solicitante'=> function($query){
-                $query->with(['funcionario','unidad']);
+                $query->with(['funcionario' => function($query2){
+                    $query2->withTrashed();
+                }, 'unidad' => function($query3){
+                    $query3->withTrashed();
+                }]);
+                $query->withTrashed();
             },'autorizador','verificador'])
             ->where('periodo_id',$periodo)
             ->orderBy('salida.id','DESC')
@@ -149,9 +154,20 @@ class SalidaRepository
     public function delete($id)
     {
         $salida = $this->getById($id);
+        DB::beginTransaction();
         foreach ($salida->detallesalidas()->get() as $detalle){
-            $this->loteRepository->setStockSaldo($detalle->lote()->first()->id,$detalle,0);
+            try {
+                $this->loteRepository->setStockSaldo(
+                    $detalle->lote()->first()->id,
+                    $detalle->cantidad,
+                    $detalle->lote()->first()->precio_u*$detalle->cantidad
+                );
+            }catch (\Exception $e){
+                DB::rollBack();
+                throw new \Exception('Ha ocurrido un error al anular la salida '.$e->getMessage());
+            }
         }
+        DB::commit();
         $salida->delete();
     }
 
@@ -162,14 +178,28 @@ class SalidaRepository
         )
             ->leftjoin('detalle_salida as ds','ds.salida_id','=','salida.id')
             ->leftjoin('lote','lote.id','=','ds.lote_id')
-            ->with(['autorizador','usuario' =>function($query){
-                $query->with('funcionario');
-            },'verificador','solicitante' => function($query){
-                    $query->with(['funcionario','unidad']);
+            ->with(['autorizador' => function($query){ $query->withTrashed();},
+                'usuario' =>function($query){
+                $query->with(['funcionario' => function($query){
+                    $query->withTrashed();
+                }]);
+                $query->withTrashed();
+            },'verificador' => function($query){
+                $query->withTrashed();
+            },'solicitante' => function($query){
+                    $query->with(['funcionario' => function($query){
+                        $query->withTrashed();
+                    },'unidad' => function($query){
+                        $query->withTrashed();
+                    }]);
+                    $query->withTrashed();
                     },'detallesalidas'=> function($query){
                     $query->with(['lote' => function($query2){
                         $query2->with(['articulo' => function($query3){
-                            $query3->with('unidad_medida');
+                            $query3->with(['unidad_medida' => function($query){
+                                $query->withTrashed();
+                            }]);
+                            $query3->withTrashed();
                         }]);
                     }]);
                 }])

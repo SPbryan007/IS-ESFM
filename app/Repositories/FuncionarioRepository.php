@@ -14,6 +14,7 @@ class FuncionarioRepository
     public function getAllFuncionario($withTrashed)
     {
         return Funcionario::withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
+                        ->with('user')
                         ->orderBy('id','DESC')
                         ->get();
     }
@@ -90,7 +91,7 @@ class FuncionarioRepository
             $funcionario->delete();
             return ['message' => 'Se ha dado de baja al funcionario.'];
         }
-        throw new NotFoundHttpException("No existe el solicitante con el ID : {$id}");
+        throw new NotFoundHttpException("No existe el funcionario con el ID : {$id}");
     }
 
 }

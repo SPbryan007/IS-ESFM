@@ -30,7 +30,8 @@ const state = {
     },
     loading_table: false,
     loading_form: false,
-    searchQuery: ""
+    searchQuery: "",
+    searchQueryAddDialog:""
 };
 const mutations = {
     [types.SET_STATUS] : (state,status) =>{
@@ -116,13 +117,17 @@ const mutations = {
     },
     [types.ADD_DETALLE_INGRESO]: (state, data) => {
         state.data_form.detalle_ingreso.push({
-            ...data
+            articulo:data.id,
+            cantidad:1,
+            precio:0,
         });
+        // state.data_form.detalle_ingreso.push({
+        //     ...data
+        // });
     },
     [types.DELETE_DETALLE_INGRESO]: (state, id) => {
         for (let i = 0; i < state.data_form.detalle_ingreso.length; i++) {
             if (state.data_form.detalle_ingreso[i].articulo == id) {
-                console.log("asdasd");
                 state.data_form.detalle_ingreso.splice(i, 1);
                 break;
             }

@@ -31,10 +31,10 @@
                     label-width="180px"
                 >
                     <el-form-item label="Nombre :" prop="nombre">
-                        <el-input style="width:250px" v-model="data_form.nombre"></el-input>
+                        <el-input style="width:400px" v-model="data_form.nombre"></el-input>
                     </el-form-item>
                     <el-form-item label="Codigo :" prop="codigo">
-                        <el-input style="width:250px" v-model="data_form.codigo"></el-input>
+                        <el-input style="width:150px" v-model="data_form.codigo"></el-input>
                     </el-form-item>
                     <el-form-item label="Descripcion :" prop="descripcion">
                         <el-input type="textarea" style="width:400px" v-model="data_form.descripcion"></el-input>
@@ -114,6 +114,6 @@ export default {
         }
     },
     created() {
-    }
+    },
 };
 </script>

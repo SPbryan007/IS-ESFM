@@ -10,13 +10,13 @@
       style="background-color: #2d373c; color: #ffffffcc"
     >
       <img
-        :src="'../img/AdminLTELogo.png'"
+        :src="'../img/logo.jpeg'"
         alt="AdminLTE Logo"
-        class="brand-image img-circle elevation-3"
-        style="opacity: 0.8"
+        class="brand-image img-circle"
+        style="opacity: 0.8;margin-left: unset"
       />
       <span class="brand-text font-weight-light">
-        <strong>SAP - ESFM</strong>
+        <strong>ALMACEN</strong>
       </span>
     </a>
 
@@ -25,13 +25,13 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
           <img
-            :src="'../img/user2-160x160.jpg'"
-            class="img-circle elevation-2"
+            :src="'../img/avatar_male.png'"
+            class="img-circle"
             alt="User Image"
           />
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ this.$store.state.login.user ? this.$store.state.login.user.funcionario.nombre+' '+this.$store.state.login.user.funcionario.apellido : ''}}</a>
         </div>
       </div>
 
@@ -58,7 +58,7 @@
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link nav-button">
               <i class="nav-icon fas fa-boxes"></i>
-              <p>Inventario</p>
+              <p>Almacen</p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
@@ -93,12 +93,12 @@
                   <p>Proveedores</p>
                 </router-link>
               </li>
-              <li class="nav-item">
-                <router-link :to="{ name: 'item' }" class="nav-link">
-                  <i class="fas fa-box-open nav-icon"></i>
-                  <p>Articulos</p>
-                </router-link>
-              </li>
+<!--              <li class="nav-item">-->
+<!--                <router-link :to="{ name: 'item' }" class="nav-link">-->
+<!--                  <i class="fas fa-box-open nav-icon"></i>-->
+<!--                  <p>Articulos</p>-->
+<!--                </router-link>-->
+<!--              </li>-->
               <li class="nav-item">
                 <router-link :to="{ name: 'ingreso' }" class="nav-link">
                   <i class="fas fa-dolly-flatbed nav-icon"></i>
@@ -140,34 +140,29 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a class="nav-link">
+                <router-link :to="{ name: 'saldos' }" class="nav-link">
                   <i class="fas fa-users nav-icon"></i>
-                  <p>Solicitantes</p>
-                </a>
+                  <p>Saldos de almacen</p>
+                </router-link>
               </li>
               <li class="nav-item">
-                <a class="nav-link">
+                <router-link :to="{ name: 'general' }" class="nav-link">
                   <i class="fas fa-network-wired nav-icon"></i>
-                  <p>Unidades Solcitantes</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link">
-                  <i class="fas fa-dolly-flatbed nav-icon"></i>
-                  <p>Gestion de salidas</p>
-                </a>
+                  <p>Reporte general</p>
+                </router-link>
               </li>
             </ul>
           </li>
-          <li class="nav-item">
+
+          <li class="nav-item" v-if=" this.$store.state.login.user ? this.$store.state.login.user.rol == 'ADMINISTRADOR' : false">
             <router-link :to="{ name: 'usuario' }" class="nav-link nav-button">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>Gestion de usuarios</p>
             </router-link>
           </li>
           <li class="nav-item">
             <router-link :to="{ name: 'periodo' }" class="nav-link nav-button">
-              <i class="nav-icon fas fa-user"></i>
+              <i class="nav-icon fas fa-stopwatch"></i>
               <p>Periodo contable</p>
             </router-link>
           </li>
@@ -177,19 +172,28 @@
                     :to="{ name: 'funcionario' }"
                     class="nav-link nav-button"
                 >
-                    <i class="nav-icon fas fa-calendar-alt"></i>
+                    <i class="nav-icon fas fa-users"></i>
                     <p>Funcionarios</p>
                 </router-link>
             </li>
-          <li class="nav-item">
-            <router-link
-              :to="{ name: 'settings' }"
-              class="nav-link nav-button"
-            >
-              <i class="nav-icon fas fa-calendar-alt"></i>
-              <p>Configuraciones</p>
-            </router-link>
-          </li>
+<!--          <li class="nav-item">-->
+<!--            <router-link-->
+<!--              :to="{ name: 'settings' }"-->
+<!--              class="nav-link nav-button"-->
+<!--            >-->
+<!--              <i class="nav-icon fas fa-calendar-alt"></i>-->
+<!--              <p>Configuraciones</p>-->
+<!--            </router-link>-->
+<!--          </li>-->
+            <li class="nav-item">
+                <router-link
+                    :to="{ name: 'settings' }"
+                    class="nav-link nav-button"
+                >
+                    <i class="nav-icon fas fa-cog"></i>
+                    <p>Configuraciones</p>
+                </router-link>
+            </li>
          <!-- <li class="nav-header">Configuraciones</li>-->
         </ul>
       </nav>
@@ -198,40 +202,17 @@
   </aside>
 </template>
 <script>
+import store from "../store";
 export default {
   data() {
     return {
-      menu: [
-        {
-          module: "Inicio",
-          icon: "fas fa-home",
-          path: "/dashboard",
-          name: "dashboard",
-        },
-        {
-          module: "Inventario",
-          icon: "fas fa-boxes",
-          children: [
-            {
-              child: "Proveedores",
-              icon: "fas fa-users",
-              name: "proveedor",
-              path: "/proveedor",
-            },
-            {
-              child: "Articulos",
-              icon: "fas fa-box-open",
-              name: "item",
-              path: "/item",
-            },
-          ],
-        },
-      ],
+        user : null
     };
   },
   methods: {},
-  mounted() {
-    console.log("Component mounted.");
+  created() {
+      store.dispatch('login/getUser');
+
   },
 };
 </script>

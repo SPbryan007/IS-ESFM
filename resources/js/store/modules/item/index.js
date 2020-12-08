@@ -10,6 +10,10 @@ const state = {
         nombre : null,
         linea : null,
         partida_id : null,
+        partida_codigo:null,
+        partida_nombre:null,
+        um_sigla:null,
+        um_nombre:null,
         unidad_medida_id:null,
     },
     alert:{
@@ -90,6 +94,10 @@ const mutations = {
         state.data_form.nombre                = item.nombre;
         state.data_form.linea                 = item.linea;
         state.data_form.partida_id            = item.partida_id;
+        state.data_form.partida_codigo        = item.partida.codigo;
+        state.data_form.partida_nombre        = item.partida.nombre;
+        state.data_form.um_sigla              = item.unidad_medida.sigla;
+        state.data_form.um_nombre             = item.unidad_medida.nombre;
         state.data_form.unidad_medida_id      = item.unidad_medida_id;
     },
     [types.SET_FORM]: (state, item) => {

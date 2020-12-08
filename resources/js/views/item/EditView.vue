@@ -32,7 +32,7 @@
                 >
 
                     <el-form-item label="Nombre :" prop="nombre">
-                        <el-input style="width:250px" v-model="data_form.nombre"></el-input>
+                        <el-input style="width:500px" v-model="data_form.nombre"></el-input>
                     </el-form-item>
                     <el-form-item label="Linea :" prop="linea">
                         <el-select
@@ -66,6 +66,13 @@
                                 :label="`${item.codigo} | ${item.nombre}`"
                                 :value="item.id"
                             ></el-option>
+
+                            <el-option
+                                v-if="!findPartida(data_form.partida_id)"
+                                :label="`${data_form.partida_codigo} | ${data_form.partida_nombre}`"
+                                :value="data_form.partida_id"
+                            ></el-option>
+
                         </el-select>
                         <router-link :to="{name:'addpartida'}">
                             <el-button type="primary" icon="el-icon-plus"></el-button>
@@ -85,6 +92,11 @@
                                 :key="index"
                                 :label="`${item.sigla} | ${item.nombre}`"
                                 :value="item.id"
+                            ></el-option>
+                            <el-option
+                                v-if="!findMedida(data_form.unidad_medida_id)"
+                                :label="`${data_form.um_sigla} | ${data_form.um_nombre}`"
+                                :value="data_form.unidad_medida_id"
                             ></el-option>
                         </el-select>
                         <router-link :to="{name:'addunidad_medida'}">
@@ -115,7 +127,38 @@ import { router } from "../../routes";
 export default {
     data() {
         return {
-
+            rules: {
+                nombre: [
+                    {
+                        required: true,
+                        message: "Este campo es obligatorio",
+                        trigger: "blur"
+                    },
+                    { min: 3, message: "Debe tener mas de 3 letras", trigger: "blur" },
+                    { max: 155, message: "Debe tener menos de 155 caracteres ", trigger: "blur" }
+                ],
+                linea: [
+                    {
+                        required: true,
+                        message: "Debe seleccionar una linea",
+                        trigger: "change"
+                    }
+                ],
+                partida_id: [
+                    {
+                        required: true,
+                        message: "Este campo es obligatorio.",
+                        trigger: "change"
+                    }
+                ],
+                unidad_medida_id: [
+                    {
+                        required: true,
+                        message: "Este campo es obligatorio.",
+                        trigger: "change"
+                    }
+                ]
+            }
         };
     },
     computed: {
@@ -148,11 +191,22 @@ export default {
         },
         goBack() {
             this.$router.go(-1);
-        }
+        },
+        findPartida(id) {
+            const items = store.getters["partida/GET_ITEMS_PARTIDA"];
+            return items.find((item) => item.id === id);
+        },
+        findMedida(id) {
+            const items = store.getters["unidad_medida/GET_ITEMS_UNIDAD_MEDIDA"];
+            return items.find((item) => item.id === id);
+        },
     },
-    created() {
+    mounted() {
         store.dispatch("partida/getItems");
         store.dispatch("unidad_medida/getItems");
-    }
+    },
+    created() {
+
+    },
 };
 </script>

@@ -4,12 +4,13 @@
 
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Backups</h3>
+                <h2>Configuraciones <i class="fas fa-cog" style="font-size: 20px"></i></h2>
             </div>
             <el-alert
+                v-if="show_error"
                 :title="'Oops, Algo salió mal'"
                 type="error"
-                :description="'Por favor verifíque la conexion con la base de datos '+ error"
+                :description="'Por favor verifíque la conexion con la base de datos :'+ error"
                 @close="show_error = false"
                 closable
                 show-icon
@@ -35,46 +36,45 @@
         </div>-->
 
            <div class="container">
-               <p>Crear nueva copia de seguridad</p>
+               <h3>Backups <i class="fas fa-history" style="font-size: 20px"></i></h3>
+               <p>Crea una copia de seguridad para respaldar los datos del sistema</p>
                <el-button type="danger" @click="backup" :loading="false">Crear nueva copia <i class="el-icon-download el-icon-right"></i></el-button>
            </div>
             <div class="container mt-5">
-                <p>Restablecer copia de seguridad</p>
-                <el-upload
-                    class="upload-demo"
-                    ref="upload"
-                    :auto-upload="false"
-                    drag
-                    :limit="1"
-                    action="https://localhost:8000/"
-                    >
-                    <i class="el-icon-upload"></i>
-                    <div class="el-upload__text">Suelta tu archivo aquí o <em>haz clic para cargar</em></div>
-                    <div slot="tip" class="el-upload__tip">Solo se admiten archivos .back</div>
-                </el-upload>
-                <br>
-                <el-button type="primary" :loading="false">Restablecer <i class="el-icon-upload el-icon-right"></i></el-button>
+                <h3>Credenciales <i class="fas fa-file-invoice" style="font-size: 20px"></i></h3>
+                <p>Si es tu primera vez en el sistema, debes cambiar tus datos de acceso por defecto.</p>
+                <el-button type="primary"  @click="credentialsForm = true" >Cambiar datos de acceso <i class="el-icon-upload el-icon-right"></i></el-button>
             </div>
-        <div class="card">
+                <el-dialog title="Cambiar datos de acceso" :visible.sync="credentialsForm">
+<!--                    <el-form :model="credentials">-->
+<!--                        <el-form-item label="usuario: " label-width="180px">-->
+<!--                            <el-input v-model="credentials.user" style="width: 300px"></el-input>-->
+<!--                        </el-form-item>-->
+<!--                        <el-form-item label="Contraseña: " label-width="180px">-->
+<!--                            <el-input v-model="credentials.user" style="width: 200px"></el-input>-->
+<!--                        </el-form-item>-->
+<!--                        <el-form-item label="Confirmar contraseña: " label-width="180px">-->
+<!--                            <el-input v-model="credentials.password" style="width: 200px"></el-input>-->
+<!--                        </el-form-item>-->
+<!--                    </el-form>-->
+                    <el-form :model="credentials" status-icon :rules="rules"  ref="ruleForm" label-width="120px" class="demo-ruleForm">
+                        <el-form-item label="Usuario: " prop="username" label-width="180px">
+                            <el-input v-model="credentials.username"  style="width: 300px"></el-input>
+                        </el-form-item>
+                        <el-form-item label="Contraseña: " prop="password" label-width="180px">
+                            <el-input type="password" v-model="credentials.password"  style="width: 200px" autocomplete="off"></el-input>
+                        </el-form-item>
+                        <el-form-item label="Confirmar contraseña: " prop="checkpass" label-width="180px">
+                            <el-input type="password" v-model="credentials.checkpass"  style="width: 200px" autocomplete="off"></el-input>
+                        </el-form-item>
 
+                        <el-form-item>
+                            <el-button type="primary" @click="restore('ruleForm')" :loading="loading" >Cambiar</el-button>
+                            <el-button @click="credentialsForm = false">Cancelar</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-dialog>
 
-          <!--  <div class="demo-image__error">
-                <div class="block">
-                    <span class="demonstration">Custom</span>
-                    <el-image>
-                        <div slot="error" class="image-slot">
-                            <i class="el-icon-picture-outline"></i>
-                        </div>
-                    </el-image>
-                </div>
-            </div>
-            <div class="card-header border-0">
-
-            </div>
-            <div class="card-body">
-
-            </div>-->
-        </div>
     </div>
 </template>
 <script>
@@ -83,9 +83,52 @@ import store from "../../store";
 export default {
 
     data() {
+        var validatePass = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('Porfavor introduzca una contraseña'));
+            } else {
+                if (this.credentials.checkpass !== '') {
+                    this.$refs.ruleForm.validateField('checkpass');
+                }
+                callback();
+            }
+        };
+        var validatePass2 = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('Porfavor introduzca la contraseña nuevamente'));
+            } else if (value !== this.credentials.password) {
+                callback(new Error('Las contraseñas no coinciden'));
+            } else {
+                callback();
+            }
+        };
         return {
+            loading:false,
+            credentialsForm:false,
+            credentials:{
+                username:null,
+                password: '',
+                checkpass:'',
+            },
+            rules: {
+                password: [
+                    { validator: validatePass, trigger: 'blur' }
+                ],
+                checkpass: [
+                    { validator: validatePass2, trigger: 'blur' }
+                ],
+                username: [
+                    {
+                        required: true,
+                        message: "Debe introducir el un nombre de usuario",
+                        trigger: "blur"
+                    },
+                    { min: 3, message: "Debe tener mas de 3 carácteres", trigger: "blur" },
+                    { min: 3, message: "Debe tener menos  30 carácteres", trigger: "blur" }
+                ]
+            },
            error:'',
-            show_error:true,
+            show_error:false
         };
     },
     computed: {
@@ -103,23 +146,30 @@ export default {
     },
     methods: {
         ...mapMutations('periodo',['CLEAR_FORM',"SET_EDIT_FORM"]),
-        restore(){
-            this.$confirm('Una vez restablezca la copia de seguridad los datos actuales se perderán y será redirigido a inicio de sesión.', 'Warning', {
-                title:"Advertencia",
-                confirmButtonText: 'Sí, restablecer',
-                cancelButtonText: 'Cancelar',
-                type: 'warning'
-            }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: 'Delete completed'
+        restore(formName){
+            this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.loading = true;
+                        this.$Progress.start();
+                        axios.put('auth/resetPassword/'+store.state.login.user.id_usuario,this.credentials)
+                            .then((data)=>{
+                                this.loading = false;
+                                this.credentialsForm = false;
+                                this.$Progress.finish();
+                                this.$message.success('Datos de acceso cambiados');
+                            })
+                            .catch((err)=>{
+                                this.loading = false;
+                                this.$Progress.fail();
+                                this.show_error=true;
+                                this.error = err;
+                            });
+
+                    } else {
+                        return false;
+                    }
                 });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: 'Delete canceled'
-                });
-            });
+
         },
         backup(){
             axios.post('http://localhost:8000/backup/create')
@@ -130,41 +180,13 @@ export default {
                     this.error = err;
                 });
         },
-        refresh() {
-            let self = this.$refs;
-            setTimeout(() => {
-                self.jw.setPage(1);
-            }, 0);
-        },
-        OnClickFinalizar(index, row) {
-            this.$confirm(
-                `¿ Esta seguro que desea finalizar el periodo ${row.nombre} ?,
-                no podra revertir los cambios una vez finalizado el periodo. `,
-                "Advertencia",
-                {
-                    confirmButtonText: row.deleted_at ? 'Sí activar' : 'Sí finalizar',
-                    cancelButtonText: "Cancelar",
-                    type: "warning"
-                }
-            )
-                .then(() => {
-                    this.self = index;
-                    store.dispatch("periodo/deleteItem", {
-                        id: row.id,
-                        message: this.$message,
-                        progress: this.$Progress
-                    });
-                })
-                .catch(() => {
-                    return null;
-                });
-        },
-        onChangePage(pageOfItems) {
-            this.pageOfItems = pageOfItems;
-        },
+
     },
     created() {
-        store.dispatch("periodo/getItems");
+
+    },
+    mounted() {
+        this.credentials.username = store.state.login.user.username;
     }
 };
 </script>

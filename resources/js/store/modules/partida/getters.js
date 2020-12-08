@@ -10,3 +10,7 @@ export const GET_FILTER_ITEMS = state => {
 export const GET_ITEMS_PARTIDA = state => {
     return state.items;
 };
+
+export const GET_ITEMS_TRASHED_PARTIDA = state => {
+    return state.items_getter;
+};

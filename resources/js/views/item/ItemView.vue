@@ -7,7 +7,7 @@
                     <div class="col-md-6 mb-1">
                         <ol class="breadcrumb float-sm-left">
                             <el-breadcrumb separator-class="el-icon-arrow-right">
-                                <el-breadcrumb-item to="/solicitante">Almacen</el-breadcrumb-item>
+                                <el-breadcrumb-item to="/item">Almacen</el-breadcrumb-item>
                                 <el-breadcrumb-item :to="{ path: '/item' }">Articulos</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'additem'">Registrar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'item'">Listar</el-breadcrumb-item>

@@ -9,6 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
 //
 //
 //
@@ -208,34 +209,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      menu: [{
-        module: "Inicio",
-        icon: "fas fa-home",
-        path: "/dashboard",
-        name: "dashboard"
-      }, {
-        module: "Inventario",
-        icon: "fas fa-boxes",
-        children: [{
-          child: "Proveedores",
-          icon: "fas fa-users",
-          name: "proveedor",
-          path: "/proveedor"
-        }, {
-          child: "Articulos",
-          icon: "fas fa-box-open",
-          name: "item",
-          path: "/item"
-        }]
-      }]
+      user: null
     };
   },
   methods: {},
-  mounted: function mounted() {
-    console.log("Component mounted.");
+  created: function created() {
+    _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('login/getUser');
   }
 });
 
@@ -321,9 +308,9 @@ var render = function() {
         },
         [
           _c("img", {
-            staticClass: "brand-image img-circle elevation-3",
-            staticStyle: { opacity: "0.8" },
-            attrs: { src: "../img/AdminLTELogo.png", alt: "AdminLTE Logo" }
+            staticClass: "brand-image img-circle",
+            staticStyle: { opacity: "0.8", "margin-left": "unset" },
+            attrs: { src: "../img/logo.jpeg", alt: "AdminLTE Logo" }
           }),
           _vm._v(" "),
           _vm._m(0)
@@ -334,12 +321,24 @@ var render = function() {
         _c("div", { staticClass: "user-panel mt-3 pb-3 mb-3 d-flex" }, [
           _c("div", { staticClass: "image" }, [
             _c("img", {
-              staticClass: "img-circle elevation-2",
-              attrs: { src: "../img/user2-160x160.jpg", alt: "User Image" }
+              staticClass: "img-circle",
+              attrs: { src: "../img/avatar_male.png", alt: "User Image" }
             })
           ]),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "info" }, [
+            _c("a", { staticClass: "d-block", attrs: { href: "#" } }, [
+              _vm._v(
+                _vm._s(
+                  this.$store.state.login.user
+                    ? this.$store.state.login.user.funcionario.nombre +
+                        " " +
+                        this.$store.state.login.user.funcionario.apellido
+                    : ""
+                )
+              )
+            ])
+          ])
         ]),
         _vm._v(" "),
         _c("nav", { staticClass: "mt-2" }, [
@@ -378,7 +377,7 @@ var render = function() {
               _c("li", { staticClass: "nav-header" }, [_vm._v("Modulos")]),
               _vm._v(" "),
               _c("li", { staticClass: "nav-item has-treeview" }, [
-                _vm._m(2),
+                _vm._m(1),
                 _vm._v(" "),
                 _c("ul", { staticClass: "nav nav-treeview" }, [
                   _c(
@@ -446,7 +445,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "nav-item has-treeview" }, [
-                _vm._m(3),
+                _vm._m(2),
                 _vm._v(" "),
                 _c("ul", { staticClass: "nav nav-treeview" }, [
                   _c(
@@ -463,26 +462,6 @@ var render = function() {
                           _c("i", { staticClass: "fas fa-users nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Proveedores")])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "item" } }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-box-open nav-icon" }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Articulos")])
                         ]
                       )
                     ],
@@ -514,7 +493,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "nav-item has-treeview" }, [
-                _vm._m(4),
+                _vm._m(3),
                 _vm._v(" "),
                 _c("ul", { staticClass: "nav nav-treeview" }, [
                   _c(
@@ -583,27 +562,77 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _vm._m(5),
-              _vm._v(" "),
-              _c(
-                "li",
-                { staticClass: "nav-item" },
-                [
+              _c("li", { staticClass: "nav-item has-treeview" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _c("ul", { staticClass: "nav nav-treeview" }, [
                   _c(
-                    "router-link",
-                    {
-                      staticClass: "nav-link nav-button",
-                      attrs: { to: { name: "usuario" } }
-                    },
+                    "li",
+                    { staticClass: "nav-item" },
                     [
-                      _c("i", { staticClass: "nav-icon fas fa-user" }),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Gestion de usuarios")])
-                    ]
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "saldos" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-users nav-icon" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Saldos de almacen")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "general" } }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-network-wired nav-icon"
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Reporte general")])
+                        ]
+                      )
+                    ],
+                    1
                   )
-                ],
-                1
-              ),
+                ])
+              ]),
+              _vm._v(" "),
+              (this.$store.state.login.user
+              ? this.$store.state.login.user.rol == "ADMINISTRADOR"
+              : false)
+                ? _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link nav-button",
+                          attrs: { to: { name: "usuario" } }
+                        },
+                        [
+                          _c("i", { staticClass: "nav-icon fas fa-users" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Gestion de usuarios")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "li",
@@ -616,7 +645,7 @@ var render = function() {
                       attrs: { to: { name: "periodo" } }
                     },
                     [
-                      _c("i", { staticClass: "nav-icon fas fa-user" }),
+                      _c("i", { staticClass: "nav-icon fas fa-stopwatch" }),
                       _vm._v(" "),
                       _c("p", [_vm._v("Periodo contable")])
                     ]
@@ -638,7 +667,7 @@ var render = function() {
                       attrs: { to: { name: "funcionario" } }
                     },
                     [
-                      _c("i", { staticClass: "nav-icon fas fa-calendar-alt" }),
+                      _c("i", { staticClass: "nav-icon fas fa-users" }),
                       _vm._v(" "),
                       _c("p", [_vm._v("Funcionarios")])
                     ]
@@ -658,7 +687,7 @@ var render = function() {
                       attrs: { to: { name: "settings" } }
                     },
                     [
-                      _c("i", { staticClass: "nav-icon fas fa-calendar-alt" }),
+                      _c("i", { staticClass: "nav-icon fas fa-cog" }),
                       _vm._v(" "),
                       _c("p", [_vm._v("Configuraciones")])
                     ]
@@ -679,17 +708,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "brand-text font-weight-light" }, [
-      _c("strong", [_vm._v("SAP - ESFM")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "info" }, [
-      _c("a", { staticClass: "d-block", attrs: { href: "#" } }, [
-        _vm._v("Alexander Pierce")
-      ])
+      _c("strong", [_vm._v("ALMACEN")])
     ])
   },
   function() {
@@ -702,7 +721,7 @@ var staticRenderFns = [
       [
         _c("i", { staticClass: "nav-icon fas fa-boxes" }),
         _vm._v(" "),
-        _c("p", [_vm._v("Inventario")])
+        _c("p", [_vm._v("Almacen")])
       ]
     )
   },
@@ -730,38 +749,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item has-treeview" }, [
-      _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-        _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
-        _vm._v(" "),
-        _c("p", [_vm._v("Reportes")])
-      ]),
+    return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
       _vm._v(" "),
-      _c("ul", { staticClass: "nav nav-treeview" }, [
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link" }, [
-            _c("i", { staticClass: "fas fa-users nav-icon" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Solicitantes")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link" }, [
-            _c("i", { staticClass: "fas fa-network-wired nav-icon" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Unidades Solcitantes")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "nav-item" }, [
-          _c("a", { staticClass: "nav-link" }, [
-            _c("i", { staticClass: "fas fa-dolly-flatbed nav-icon" }),
-            _vm._v(" "),
-            _c("p", [_vm._v("Gestion de salidas")])
-          ])
-        ])
-      ])
+      _c("p", [_vm._v("Reportes")])
     ])
   }
 ]

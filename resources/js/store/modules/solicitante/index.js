@@ -6,6 +6,7 @@ const state = {
     items: [],
     withTrashed:false,
     data_form: {
+        solicitante:null,
         funcionario_id:null,
         cargo: null,
         unidad_id: null,
@@ -63,32 +64,15 @@ const mutations = {
      * SET_ITEMS Establece los articulos recibidos
      */
     [types.SET_ITEMS]: (state, items) => {
-        state
+        // state
         state.items = items;
     },
     [types.SET_ITEM]: (state, item) => {
         state.items.push(item);
     },
-    [types.DELETE_ITEM]: (state, item) => {
-        for (let i = 0; i < state.items.length; i++) {
-            if (state.items[i].id_solicitante == item) {
-                state.items.splice(i, 1);
-                break;
-            }
-        }
-    },
-    [types.UPDATE_ITEM]: (state, item) => {
-        for (let i = 0; i < state.items.length; i++) {
-            if (state.items[i].id_solicitante == item.id_solicitante) {
-                for (const prop in item) {
-                    state.items[i][prop] = item[prop];
-                }
-                break;
-            }
-        }
-    },
     [types.SET_EDIT_FORM]: (state, item) => {
-        state.data_form.funcionario_id  = item.id_solicitante
+        state.data_form.solicitante          = item.id
+        state.data_form.funcionario_id  = item.funcionario_id
         state.data_form.cargo           = item.cargo;
         state.data_form.unidad_id       = item.unidad_id;
     },
@@ -99,6 +83,7 @@ const mutations = {
     },
     [types.CLEAR_FORM]: state => {
         state.data_form = {
+            solicitante:null,
             funcionario_id:null,
             cargo: null,
             unidad_id:null,

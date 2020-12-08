@@ -131,11 +131,10 @@ class LoteRepository
 
     public function setStockSaldo($id,$stock,$saldo)
     {
-        Lote::where('id',$id)
-            ->update([
-                'stock'        => $stock,
-                'saldo'        => $saldo,
-            ]);
+        $lote = Lote::find($id);
+        $lote->stock = $lote->stock + $stock;
+        $lote->saldo = $lote->saldo + $saldo;
+        $lote->save();
     }
 
 

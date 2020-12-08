@@ -185,7 +185,7 @@ export default {
         },
         findSolicitante(id) {
             const items = store.getters["solicitante/GET_ITEMS_SOLICITANTE"];
-            return items.find((item) => item.id_solicitante === id);
+            return items.find((item) => item.id === id);
         },
         OnclickAddDialog(index,row){
             store.commit("salida/ADD_DETALLE_SALIDA",row);

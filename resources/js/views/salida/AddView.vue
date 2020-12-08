@@ -57,7 +57,7 @@
                                                     v-for="(item, index) in GET_ITEMS_SOLICITANTE"
                                                     :key="index"
                                                     :label="`${item.funcionario.nombre} ${item.funcionario.apellido}`"
-                                                    :value="item.id_solicitante"
+                                                    :value="item.id"
                                                 ></el-option>
                                             </el-select>
                                             <router-link :to="{name:'addsolicitante'}">

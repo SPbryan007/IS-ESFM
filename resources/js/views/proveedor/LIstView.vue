@@ -14,7 +14,7 @@
 
         <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
             <div class="pull-lef">
-                <h3>Proveedores</h3>
+                <h3>Proveedores<i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addproveedor' }">
@@ -25,13 +25,62 @@
                 </router-link>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-0">
-                Lista de proveedores
-                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>
+        <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
+            <div class="pull-left">
+                <el-form :inline="true" class="demo-form-inline" >
+                    <el-form-item label="Mostrar:">
+                        <el-select
+                            style="width: 70px"
+                            v-model="perpage"
+                            @change="refresh()"
+                        >
+                            <el-option
+                                v-for="item in [
+                                                  { value: 5, label: '5' },
+                                                  { value: 10, label: '10' },
+                                                  { value: 25, label: '25' },
+                                                  { value: 50, label: '50' },
+                                                  { value: 100, label: '100' },
+                                            ]"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-switch
+                            v-model="$store.state.proveedor.withTrashed"
+                            active-text="todos"
+                            inactive-text="solo activos"
+                            @change="$store.dispatch('proveedor/getItems')"
+                        >
+                        </el-switch>
+                    </el-form-item>
+                </el-form>
+
             </div>
+            <div class="pull-right">
+                <el-form :inline="true" class="demo-form-inline">
+                    <el-form-item label="Buscar por:">
+                        <el-input
+                            placeholder="Nit, nombre, responsable"
+                            v-model="$store.state.proveedor.searchQuery"
+                            clearable
+                        >
+                            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </div>
+        <div class="card">
+<!--            <div class="card-header border-0">-->
+<!--                Lista de proveedores-->
+<!--                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>-->
+<!--            </div>-->
             <div class="card-body">
-                <div class="row justify-content-between ">
+              <!--  <div class="row justify-content-between ">
                     <div class="pull-lef ml-2">
                         <el-form :inline="true" class="demo-form-inline">
                             <el-form-item>
@@ -81,14 +130,14 @@
                             </el-form-item>
                         </el-form>
                     </div>
-                </div>
+                </div>-->
                 <el-table
                     stripe
                     :data="pageOfItems"
                     :default-sort="{prop: 'id', order: 'ascending'}"
                     style="width: 100%"
                 >
-                    <el-table-column type="index" width="30"></el-table-column>
+                    <el-table-column type="index" label="N°" width="40"></el-table-column>
                     <el-table-column type="expand">
                         <template slot-scope="props">
                             <p>Rubro: {{ props.row.rubro }}</p>
@@ -101,7 +150,11 @@
                     <el-table-column prop="responsable" label="Responsable" width="280" sortable></el-table-column>
                     <el-table-column prop="deleted_at" label="Estado" width="150" sortable>
                         <template slot-scope="scope">
-                            {{ scope.row.deleted_at ?  'Inactivo' : 'Activo' }}
+                            <el-tag
+                                :type="scope.row.deleted_at ?  'warning' : 'success'"
+                                effect="dark">
+                                {{ scope.row.deleted_at ?  'INACTIVO' : 'ACTIVO' }}
+                            </el-tag>
                         </template>
                     </el-table-column>
                     <el-table-column label="Operacion"  >

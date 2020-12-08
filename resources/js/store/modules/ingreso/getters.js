@@ -1,3 +1,5 @@
+import store from "../../index";
+
 export const GET_FILTER_ITEMS = state => {
     return state.items.filter(function(item) {
         var searchRegex = new RegExp(state.searchQuery, "i");
@@ -30,4 +32,11 @@ export const GET_TOTAL_DETALLE_INGRESOS = state => {
         total += element.precio;
     });
     return total;
+};
+
+export const GET_FILTER_ITEMS_DETAILS = (state,getters) => {
+    return store.getters['articulo/GET_LOTES'].filter(function(item) {
+        let searchRegex = new RegExp(state.searchQueryAddDialog, "i");
+        return searchRegex.test(item.nombre) || searchRegex.test(item.codigo);
+    });
 };

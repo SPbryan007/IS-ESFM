@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Repositories\SalidaRepository;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Luecano\NumeroALetras\NumeroALetras;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -126,7 +128,40 @@ class SalidaController extends Controller
         }catch (ConflictHttpException $e){
             return response()->json(['message' => $e->getMessage()],409);
         }catch (\Exception $e){
-            return response()->json('Ha ocurrido un error inesperado, verifique la conexion con la base de datos',500);
+            return response()->json($e->getMessage(),500);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id){
+        try {
+
+            $salida = $this->salidaRepository->getShowById($id);
+            $formatter = new NumeroALetras();
+            $converted = $formatter->toInvoice($salida->total, 2, 'Bolivianos');
+            $pdf = PDF::loadView('reportes.salidas.salida',['data'=> $salida,'converted' => $converted]);
+            return $pdf->setPaper('letter')->stream('salida.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function exportPDF($id){
+        try {
+            $salida = $this->salidaRepository->getShowById($id);
+            $formatter = new NumeroALetras();
+            $converted = $formatter->toInvoice($salida->total, 2, 'Bolivianos');
+            $pdf = PDF::loadView('reportes.salidas.salida',['data'=> $salida,'converted' => $converted]);
+            return $pdf->setPaper('letter')->download('salida.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
         }
     }
 }

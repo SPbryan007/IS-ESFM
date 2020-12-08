@@ -33,10 +33,10 @@
                     label-width="180px"
                 >
                     <el-form-item label="Nombre :" prop="nombre">
-                        <el-input style="width:250px" v-model="data_form.nombre"></el-input>
+                        <el-input style="width:400px" v-model="data_form.nombre"></el-input>
                     </el-form-item>
                     <el-form-item label="Codigo :" prop="codigo">
-                        <el-input style="width:250px" v-model="data_form.codigo"></el-input>
+                        <el-input style="width:150px" v-model="data_form.codigo"></el-input>
                     </el-form-item>
                     <el-form-item label="Descripcion :" prop="descripcion">
                         <el-input type="textarea" style="width:400px" v-model="data_form.descripcion"></el-input>
@@ -73,7 +73,7 @@ export default {
                         trigger: "blur"
                     },
                     { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" },
-                    { max: 100, message: "Debe tener menos de 100 caracteres", trigger: "blur" }
+                    { max: 155, message: "Debe tener menos de 100 caracteres", trigger: "blur" }
                 ],
                 codigo: [
                     {
@@ -82,7 +82,7 @@ export default {
                         trigger: "blur"
                     },
                     { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" },
-                    { max: 5, message: "Debe tener menos de 5 caracteres", trigger: "blur" }
+                    { max: 6, message: "Debe tener menos de 5 caracteres", trigger: "blur" }
                 ]
             }
         };

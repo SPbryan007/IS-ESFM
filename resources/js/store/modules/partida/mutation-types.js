@@ -2,6 +2,7 @@
  * MUTATIONS PARTIDA
  */
 export const SET_ITEMS = "SET_ITEMS";
+
 export const SET_ITEM = "SET_ITEM";
 export const SET_LOADING_TABLE = "SET_LOADING_TABLE";
 export const SET_ERROR_TABLE = "SET_ERROR_TABLE";

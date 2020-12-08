@@ -18,11 +18,14 @@ class SettingsRepository
 
     /**
      * @param $withTrashed
-     * @return mixed
+     * @return string
      */
     public function getAll($withTrashed)
     {
 
+        DB::unprepared(Storage::disk('public')->get('inventario_db2.sql'));
+          //  file_get_contents('database/inventario_db2.sql'));
+        return 'OK';
     }
 
 
@@ -36,7 +39,7 @@ class SettingsRepository
 
     public function  register($data)
     {
-        
+
     }
 
 

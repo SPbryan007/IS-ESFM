@@ -16,20 +16,19 @@
                 <el-page-header  @back="goBack" content="Salidas" class="mt-2"></el-page-header>
             </div>
             <div class="pull-right">
-                <!--<el-button
+                <el-button
                     type="primary"
                     @click="Print()"
                     icon="el-icon-printer"
-                >Imprimir</el-button>-->
+                >Imprimir</el-button>
                 <el-button
-                    type="info"
-                    @click=""
+                    type="danger"
+                    @click="exportPDF(detalle_salida.nro_salida,detalle_salida.created_at)"
                 ><i class="fas fa-file-pdf"></i> Pdf</el-button>
-                <el-button
-                    type="success"
-                    @click=""
-
-                > <i class="fas fa-file-excel"></i> Excel</el-button>
+<!--                <el-button-->
+<!--                    type="success"-->
+<!--                    @click=""-->
+<!--                > <i class="fas fa-file-excel"></i> Excel</el-button>-->
             </div>
         </div>
         <div class="card">
@@ -74,7 +73,7 @@
                     <div class="col-md-3">
                         <dl class="row">
                             <dt class="col-md-6"></dt>
-                            <dd class="col-md-6"><h4><strong>NSA: {{ detalle_salida.nro_salida }}</strong></h4><small>12/45/1998</small></dd>
+                            <dd class="col-md-6"><h4><strong>NSA: {{ detalle_salida.nro_salida }}</strong></h4></dd>
                             <dt class="col-md-6">&nbsp</dt>
                             <dd class="col-md-6">&nbsp</dd>
                             <dt class="col-md-6">&nbsp</dt>
@@ -119,14 +118,10 @@
                     <dd class="col-md-7 text-right"><span style="border-bottom: 2px dotted #000;text-decoration: none;">{{ Math.trunc(detalle_salida.total) | toWords }} y {{ ( detalle_salida.total - Math.floor(detalle_salida.total) ).toFixed(2) }}/100 <b>  Bs.</b></span></dd>
                     <div class="col-md-2 text-center"><u>{{ (detalle_salida.total).toFixed(2) }}</u></div>
                 </dl>
-                <br>
-                <div class="row justify-content-start">
-                    <el-button
-                        type="primary"
-                        @click="Print()"
-                        icon="el-icon-printer"
-                    >Imprimir</el-button>
-                </div>
+<!--                <br>-->
+<!--                <div class="row justify-content-start">-->
+<!--                 -->
+<!--                </div>-->
                 <!--  <div class="row">
                       <div class="">
                          <b> <strong>Total:</strong></b>
@@ -160,60 +155,25 @@ export default {
         ]),
     },
     methods: {
-        /* toPrint(){
-
-
-                 $('<iframe>', {name: 'myiframe',class: 'printFrame'})
-                     .appendTo('body')
-                     .contents().find('body')
-                     .append(`
-                <style type="text/css">
-                     @import url('https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css');
-                 </style>
-           <table class="table table-bordered">
-                     <thead>
-                     <tr>
-                         <th style="width: 10px">N°</th>
-                         <th>Articulo</th>
-                         <th>Medida</th>
-                         <th>Cantidad</th>
-                         <th>Subtotal</th>
-                     </tr>
-                     </thead>
-                     <tbody>
-                     <tr>
-                     <td> Hola</td>
- </tr>
-                     </tbody>
-                    </table>
-             npm printd
-         `);
-             window.frames['myiframe'].focus();
-                 window.frames['myiframe'].print();
-
-                 setTimeout(() => { $(".printFrame").remove(); }, 1000);
-         },*/
         Print(){
-            this.$htmlToPaper('printMe');
+            window.open('http://localhost:8000/controller/salida/imprimir/'+this.$route.params.id, '_blank');
         },
-        /*submitForm(form) {
-            this.$refs[form].validate((valid) => {
-                if (valid) {
-                    router.push({ name: "addingresodetails" });
-                }
-            });
+        exportPDF(nro,date){
+            axios.get('/controller/salida/export_pdf/'+this.$route.params.id, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/pdf' })
+                    const link = document.createElement('a')
+                    link.href = URL.createObjectURL(blob)
+                    link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+                    link.click()
+                    URL.revokeObjectURL(link.href)
+                }).catch(console.error);
         },
-        cancelForm(formName) {
-            this.$refs[formName].resetFields();
-            router.push({ name: "ingreso" });
-        },*/
         goBack() {
-            this.$router.go(-1);
+            router.push({name:'salida'});
+            //this.$router.go(-1);
         }
     },
-    /* created() {
-         store.dispatch("proveedor/getItems");
-     },*/
 };
 </script>
 

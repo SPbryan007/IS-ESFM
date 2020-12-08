@@ -178,6 +178,6 @@ export default {
   },
   created() {
     this.$store.dispatch("item/GET_DATA_FROM_SERVER");
-  }
+  },
 };
 </script>

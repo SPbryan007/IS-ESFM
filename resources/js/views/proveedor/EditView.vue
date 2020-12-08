@@ -88,7 +88,7 @@ export default {
                         message: "Este campo es obligatorio.",
                         trigger: "blur"
                     },
-                    { min: 8, message: "Debe tener mas de 8 numeros", trigger: "blur" }
+                    { min: 6, message: "Debe tener mas de 8 numeros", trigger: "blur" }
                 ]
             }
         };

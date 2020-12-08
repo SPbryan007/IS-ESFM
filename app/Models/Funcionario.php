@@ -28,11 +28,12 @@ class Funcionario extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function solicitante(): \Illuminate\Database\Eloquent\Relations\HasOne
+    public function solicitantes(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasOne('App\Models\Solicitante','id_solicitante','id');
+       // return $this->hasOne('App\Models\Solicitante','id_solicitante','id');
+        return $this->hasMany('App\Models\Solicitante','funcionario_id','id');
             //->withoutTrashed();
     }
 

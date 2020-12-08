@@ -2,6 +2,7 @@
  * MUTATIONS PROVEEDOR
  */
 export const SET_ITEMS = "SET_ITEMS";
+export const SET_ITEMS_GETTER = "SET_ITEMS_GETTER";
 export const SET_ITEM = "SET_ITEM";
 export const SET_LOADING_TABLE = "SET_LOADING_TABLE";
 export const SET_DISPLAY_MESSAGE = "SET_DISPLAY_MESSAGE";

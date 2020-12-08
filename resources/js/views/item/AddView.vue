@@ -34,7 +34,7 @@
                 >
 
                     <el-form-item label="Nombre :" prop="nombre">
-                        <el-input style="width:250px" v-model="data_form.nombre"></el-input>
+                        <el-input style="width:500px" v-model="data_form.nombre"></el-input>
                     </el-form-item>
                     <el-form-item label="Linea :" prop="linea">
                         <el-select
@@ -184,6 +184,6 @@ export default {
     created() {
         store.dispatch("partida/getItems");
         store.dispatch("unidad_medida/getItems");
-    }
+    },
 };
 </script>

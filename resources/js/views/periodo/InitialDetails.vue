@@ -175,7 +175,7 @@ export default {
   methods: {},
   created() {
     this.$store.dispatch("proveedor/GET_DATA_FROM_SERVER");
-  }
+  },
 };
 </script>
 

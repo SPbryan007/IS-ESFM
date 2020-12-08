@@ -43,7 +43,9 @@ class IngresoRepository
             )
             ->leftjoin('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
             ->leftjoin('lote','lote.id','=','di.lote_id')
-            ->with(['proveedor'])
+            ->with(['proveedor' => function($query){
+                $query->withTrashed();
+            }])
             ->where('periodo_id',$periodo)
             ->orderBy('ingreso.id','DESC')
             ->groupBy('ingreso.id')
@@ -187,16 +189,23 @@ class IngresoRepository
     public function delete($id)
     {
         $ingreso = $this->getById($id);
+        if($ingreso->tipo_ingreso == Ingreso::INV_INICIAL){
+            throw new ConflictHttpException('No se puede anular el inventario inicial.');
+        }
         foreach ($ingreso->detalleingresos()->get() as $detalle){
             $devolucion = Ingreso::join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
                 ->where('di.lote_id', $detalle->lote()->first()->id)
-                ->where('ingreso.tipo_ingreso',Ingreso::DONACION)
-                ->where('ingreso.periodo_id',Periodo::latest()->first()->id)
+                ->where('ingreso.tipo_ingreso',$ingreso->tipo_ingreso)
+                ->where('ingreso.periodo_id',1)
+//                ->where('ingreso.periodo_id',Periodo::latest()->first()->id)
                 ->first();
-            if(($detalle->cantidad != $detalle->lote()->first()->stock) || $devolucion){
+            if(($detalle->cantidad != $detalle->lote()->first()->stock) || !$devolucion){
                 throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se realizaron movimientos.');
             }
         }
+//        if($ingreso->detalleingresos()->get()[0]->cantidad != $total){
+//            throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se realizaron movimientos.');
+//        }
         $ingreso->delete();
     }
 
@@ -207,13 +216,21 @@ class IngresoRepository
         )
             ->leftjoin('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
             ->leftjoin('lote','lote.id','=','di.lote_id')
-            ->with(['proveedor','compra','donacion',
+            ->with(['proveedor' => function($query){
+                $query->withTrashed();
+            },'compra','donacion',
                 'usuario' => function($query){
-                    $query->with('funcionario');
+                    $query->with(['funcionario' => function($query){
+                        $query->withTrashed();
+                    }]);
+                    $query->withTrashed();
             },'detalleingresos'=> function($query){
                 $query->with(['lote' => function($query2){
                     $query2->with(['articulo' => function($query3){
-                        $query3->with('unidad_medida');
+                        $query3->with(['unidad_medida' => function($query){
+                            $query->withTrashed();
+                        }]);
+                        $query3->withTrashed();
                     }]);
                 }]);
             }])

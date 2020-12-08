@@ -145,7 +145,7 @@ class FuncionarioController extends Controller
         }catch (NotFoundHttpException $e){
             return response()->json(['message' => $e->getMessage()],404);
         }catch (\Exception $e){
-            return response()->json(['message' => 'Ha ocurrido un error inesperado, verifique la conexion con la base de datos'],500);
+            return response()->json(['message' => 'Ha ocurrido un error inesperado, verifique la conexion con la base de datos'.$e],500);
         }
     }
 }

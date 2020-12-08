@@ -103,6 +103,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -129,7 +131,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.navbar-dark .navbar-nav .nav-link {\r\n  color: rgba(52, 58, 64, 0.6);\n}\r\n", ""]);
+exports.push([module.i, "\n.navbar-dark .navbar-nav .nav-link {\n  color: rgba(52, 58, 64, 0.6);\n}\n", ""]);
 
 // exports
 
@@ -192,32 +194,24 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
-        _c("li", { staticClass: "nav-item dropdown" }, [
-          _vm._m(1),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-menu dropdown-menu-right" }, [
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "dropdown-divider" }),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "dropdown-item",
-                attrs: { href: "#" },
-                on: { click: _vm.logout }
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                "data-widget": "control-sidebar",
+                "data-slide": "true",
+                href: "#"
               },
-              [
-                _c("i", { staticClass: "fas fa-sign-out-alt mr-2" }),
-                _vm._v("Cerrar session\n        ")
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _vm._m(4)
+              on: { click: _vm.logout }
+            },
+            [
+              _c("i", { staticClass: "fas fa-power-off" }),
+              _vm._v(" Salir\n        ")
+            ]
+          )
+        ])
       ])
     ]
   )
@@ -238,119 +232,6 @@ var staticRenderFns = [
           [_c("i", { staticClass: "fas fa-bars" })]
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass: "nav-link",
-        attrs: { "data-toggle": "dropdown", href: "#" }
-      },
-      [_c("i", { staticClass: "fa fa-users mr-2" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-user mr-2" }),
-      _vm._v(" Perfil\n        ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item dropdown" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: { "data-toggle": "dropdown", href: "#" }
-        },
-        [
-          _c("i", { staticClass: "far fa-bell" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "badge badge-warning navbar-badge" }, [
-            _vm._v("15")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right" },
-        [
-          _c("span", { staticClass: "dropdown-item dropdown-header" }, [
-            _vm._v("15 Notifications")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-envelope mr-2" }),
-            _vm._v(" 4 new messages\n          "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("3 mins")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-users mr-2" }),
-            _vm._v(" 8 friend requests\n          "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("12 hours")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _c("i", { staticClass: "fas fa-file mr-2" }),
-            _vm._v(" 3 new reports\n          "),
-            _c("span", { staticClass: "float-right text-muted text-sm" }, [
-              _vm._v("2 days")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass: "dropdown-item dropdown-footer",
-              attrs: { href: "#" }
-            },
-            [_vm._v("See All Notifications")]
-          )
-        ]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: {
-            "data-widget": "control-sidebar",
-            "data-slide": "true",
-            href: "#"
-          }
-        },
-        [_c("i", { staticClass: "fas fa-th-large" })]
-      )
     ])
   }
 ]

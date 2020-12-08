@@ -19,6 +19,7 @@ export const getItems = ({ state, commit }) => {
 };
 export const editItem = ({state, commit, dispatch},params)=>{
     params.progress.start();
+    commit(types.CONVERT_DATE);
     commit(types.SET_LOADING_FORM, true);
     commonProviders
         .update(URL_PERIODO + params.id, state.data_form)

@@ -66,6 +66,8 @@ class SolicitanteController extends Controller
             return response()->json(['message' => 'El solicitante se ha registrado con éxito.'],201);
         }catch (NotFoundHttpException $e){
             return response()->json(['message' => $e->getMessage()],404);
+        }catch (ConflictHttpException $e){
+            return response()->json(['message' => $e->getMessage()],409);
         }catch (QueryException $e){
             $errorCode = $e->errorInfo[1];
             if($errorCode == 1062){

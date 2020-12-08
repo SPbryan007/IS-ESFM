@@ -76,7 +76,6 @@ const mutations = {
      * SET_ITEMS Establece los articulos recibidos
      */
     [types.SET_ITEMS]: (state, items) => {
-        state
         state.items = items;
     },
     [types.SET_ITEM]: (state, item) => {

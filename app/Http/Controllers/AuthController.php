@@ -26,7 +26,6 @@ class AuthController extends Controller
         $this->authRepository = $authRepository;
     }
 
-
     /**
      * @param Request $request
      * @return \Illuminate\Http\Response
@@ -50,6 +49,16 @@ class AuthController extends Controller
         }
     }
 
+    public function getUserLogged(){
+        try {
+            $user = $this->authRepository->getUserLogged();
+            return response()->json($user,200);
+        }catch (UnauthorizedException $e){
+            return response()->json(['error' => $e->getMessage()],401);
+        }catch (\Exception $e){
+            return response()->json(['error' => 'Ha ocurrido un error inesperado. Error > '.$e->getMessage()],500);
+        }
+    }
 
     /**
      * @param Request $request
@@ -102,12 +111,13 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'password' => 'required|string|max:30',
+            'username'     => 'required|string|max:30'
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);
         }
         try {
-            $this->authRepository->resetPassword($user,$request->password);
+            $this->authRepository->resetPassword($user,$request->password,$request->username);
             return response()->json(['message' => 'Se ha restablecito la contraseña con exito'],200);
         }catch (NotFoundHttpException $e){
             return response()->json(['message' => $e->getMessage()],404);

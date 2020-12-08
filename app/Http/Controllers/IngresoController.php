@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 use App\Models\Ingreso;
 use App\Repositories\IngresoRepository;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Luecano\NumeroALetras\NumeroALetras;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -126,7 +128,6 @@ class IngresoController extends Controller
 
     }
 
-
     /**
      * @param $id
      * @return \Illuminate\Http\Response
@@ -142,6 +143,58 @@ class IngresoController extends Controller
             return response()->json(['message' => $e->getMessage()],409);
         }catch (\Exception $e){
             return response()->json('Ha ocurrido un error inesperado, verifique la conexion con la base de datos',500);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function print($id){
+        try {
+
+            $ingreso = $this->ingresoRepository->getShowById($id);
+            $formatter = new NumeroALetras();
+            $converted = $formatter->toInvoice($ingreso->total, 2, 'Bolivianos');
+            switch ($ingreso->tipo_ingreso){
+                case 'Compra':
+                    //$pdf = PDF::loadView('reportes.ingresos.compra',['data'=> $ingreso,'converted' => $converted]);
+                    $pdf = PDF::loadView('reportes.ingresos.compra',['data'=> $ingreso,'converted' => $converted]);
+                    return $pdf->setPaper('letter')->stream('ingreso.pdf');
+                case 'Donacion':
+                    $pdf = PDF::loadView('reportes.ingresos.donacion',['data'=> $ingreso,'converted' => $converted]);
+                    return $pdf->setPaper('letter')->stream('donacion.pdf');
+                    break;
+                case 'INV_INICIAL':
+                    $pdf = PDF::loadView('reportes.ingresos.inv_inicial',['data'=> $ingreso,'converted' => $converted]);
+                    return $pdf->setPaper('letter')->stream('ingreso_inicial.pdf');
+                    break;
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
+        }
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\Response
+     */
+    public function exportPDF($id){
+        try {
+            $ingreso = $this->ingresoRepository->getShowById($id);
+            $formatter = new NumeroALetras();
+            $converted = $formatter->toInvoice($ingreso->total, 2, 'Bolivianos');
+            switch ($ingreso->tipo_ingreso){
+                case 'Compra':
+                    $pdf = PDF::loadView('reportes.ingresos.compra',['data'=> $ingreso,'converted' => $converted]);
+                    return $pdf->setPaper('letter')->download('ingreso.pdf');
+                case 'Donacion':
+                    $pdf = PDF::loadView('reportes.ingresos.donacion',['data'=> $ingreso,'converted' => $converted]);
+                    return $pdf->setPaper('letter')->download('ingreso.pdf');
+                    break;
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
         }
     }
 }
