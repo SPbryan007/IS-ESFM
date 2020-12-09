@@ -22,8 +22,8 @@ Route::get('/', function () {
 // });
 
 // Route::post('login','Auth\LoginController@login')->name('login');
-Route::get('/registrarse', function () {
-    return view('auth.register');
+Route::prefix('/controller/prueba')->group(function () {
+    Route::get('/test', 'AppController@test');
 });
 
 //Auth::routes();
@@ -33,7 +33,7 @@ Route::get('/registrarse', function () {
 // });
 Route::prefix('auth')->group(function (){
     Route::post('/login', 'AuthController@login');
-    Route::post('/register', 'AuthController@register')->middleware('auth');
+    Route::post('/register', 'AuthController@register');
     Route::post('/logout','AuthController@logout')->middleware('auth');
     Route::get('/getUserLogged','AuthController@getUserLogged')->middleware('auth');
     Route::put('/resetDefaultPassword/{user}','AuthController@resetDefaultPassword')->middleware('auth');

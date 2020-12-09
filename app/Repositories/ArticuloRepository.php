@@ -66,6 +66,17 @@ class ArticuloRepository
             ->whereNull('i.deleted_at')
             ->groupBy('articulo.id')
             ->first();
+//        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.saldo),0) as saldo'),
+//            'articulo.nombre as nombre','articulo.id as id','um.nombre as unidad')
+//            ->leftjoin('lote','lote.articulo_id','=','articulo.id')
+//            ->leftjoin('unidad_medida as um','um.id','=','articulo.unidad_medida_id')
+//            ->leftjoin('detalle_ingreso as di','di.lote_id','=','lote.id')
+//            ->leftjoin('ingreso as i','i.id','=','di.ingreso_id')
+//            ->where('articulo.id',$articulo)
+//            ->where('i.periodo_id', '=', Periodo::latest()->first()->id)
+//            ->whereNull('i.deleted_at')
+//            ->groupBy('articulo.id')
+//            ->first();
     }
 
 

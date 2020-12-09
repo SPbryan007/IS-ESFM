@@ -71,7 +71,7 @@
                                             <el-input v-model="data_form.nro_pedido" style="width:150px"></el-input>
                                         </el-form-item>
                                         <el-form-item label="Fecha de pedido :" prop="fecha_pedido">
-                                            <el-date-picker type="date" v-model="data_form.fecha_pedido"></el-date-picker>
+                                            <el-date-picker type="date" v-model="data_form.fecha_pedido" :picker-options="pickerOptions"></el-date-picker>
                                         </el-form-item>
                                         <el-form-item label="Autorizado por :" prop="autorizador_id">
                                             <el-select
@@ -150,8 +150,11 @@ import { router } from "../../routes";
 export default {
     data() {
         return {
-            sop: true,
-            tap:'',
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+            },
             rules: {
                 solicitante_id: [
                     {
@@ -194,6 +197,8 @@ export default {
         submitForm(form) {
             this.$refs[form].validate((valid) => {
                 if (valid) {
+                    store.dispatch("articulo/getItems");
+                    store.dispatch("articulo/getLotes");
                     router.push({ name: "addsalidadetails" });
                 }
             });

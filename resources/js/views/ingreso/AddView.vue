@@ -53,21 +53,20 @@
                 >
                   <div v-if="data_form.tipo_ingreso == 'Compra'">
                     <div class="row">
-                      <el-form-item label="Tipo de compra :" prop="tipo_compra">
+                      <el-form-item label="Formulario :" prop="tipo_compra">
                         <el-select
                           style="width:340px"
                           v-model="data_form.tipo_compra"
                           filterable
-                          placeholder="Seleccione el tipo de compra"
+                          placeholder="Seleccione el formulario"
                           loading-text="buscando.."
                           no-match-text="No se encontraron registros"
                         >
                           <el-option
                             v-for="(item, index) in [
-                                {key:'CA-CH',value:'Caja chica'},
-                                {key:'CO-ME',value:'Compra menor'},
-                                {key:'LP-AN',value:'Licitancion publica de ANPE'},
-                                {key:'LI-PU',value:'Licitancion publica'}
+                                {key:'COM',value:'ORDEN DE COMPRA'},
+                                {key:'SER',value:'ORDEN DE SERVICIO'},
+                                {key:'CON',value:'CONTRATO'},
                             ]"
                             :key="index"
                             :label="item.value"
@@ -82,7 +81,7 @@
                             <el-input v-model="data_form.nro_solicitud" style="width:170px"></el-input>
                         </el-form-item>
                         <el-form-item label="Fecha de solicitud :" prop="fecha_solicitud">
-                            <el-date-picker type="date" v-model="data_form.fecha_solicitud"></el-date-picker>
+                            <el-date-picker type="date" v-model="data_form.fecha_solicitud" :picker-options="pickerOptions"></el-date-picker>
                         </el-form-item>
 
 
@@ -120,7 +119,7 @@
                         <el-input v-model="data_form.nro_autorizacion" style="width:170px"></el-input>
                       </el-form-item>
                         <el-form-item label="Fecha comprobante :" label-position="top" prop="fecha_comprobante">
-                            <el-date-picker type="date" v-model="data_form.fecha_comprobante" placeholder="Fecha comprobante"></el-date-picker>
+                            <el-date-picker type="date" v-model="data_form.fecha_comprobante" placeholder="Fecha comprobante" :picker-options="pickerOptions"></el-date-picker>
                         </el-form-item>
 
 
@@ -199,8 +198,11 @@ import { router } from "../../routes";
 export default {
   data() {
     return {
-      sop: true,
-        tap:'',
+        pickerOptions: {
+            disabledDate(time) {
+                return time.getTime() > Date.now();
+            },
+        },
       rules: {
         tipo_compra: [
           {
@@ -272,6 +274,8 @@ export default {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
+            store.dispatch("articulo/getItems");
+            store.dispatch("articulo/getLotes");
           router.push({ name: "addingresodetails" });
         }
       });

@@ -83,10 +83,9 @@ class CreateIngresoTable extends Migration
         Schema::create('compra', function (Blueprint $table) {
             $table->unsignedBigInteger('id_compra')->nullable(false);
             $table->enum('tipo_compra',[
-                App\Models\Compra::CAJA_CHICA,
-                App\Models\Compra::COMPRA_MENOR,
-                App\Models\Compra::LICITANCION_ANPE,
-                App\Models\Compra::LICITACION_PUBLICA,
+                App\Models\Compra::ORDER_SERVICIO,
+                App\Models\Compra::ORDER_COMPRA,
+                App\Models\Compra::CONTRATO,
             ])->nullable(false);
             $table->string('nro_solicitud',10)->nullable(true);
             $table->enum('tipo_comprobante',[

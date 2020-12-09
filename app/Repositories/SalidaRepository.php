@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Periodo;
 use App\Models\Salida;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -85,6 +86,13 @@ class SalidaRepository
     public function  register($data)
     {
         try {
+            $now = Carbon::now();
+            $last_date= Salida::latest()->first();
+            if($last_date){
+                if(!$now->greaterThan($last_date->created_at) ){
+                    return ['message' => 'No se puede realizar la salida en fecha '.$now->format('d-m-Y').' debido a que ya exiten salidas efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
+                }
+            }
             DB::beginTransaction();
             $salida = new Salida();
             $salida->nro_salida     = '000';
@@ -99,14 +107,18 @@ class SalidaRepository
             $salida->periodo_id     = Periodo::latest()->first()->id;
             $salida->save();
             foreach ($data->detalle_salida as $detalle){
-                $cantidad = $detalle['cantidad']; // 50
+                $cantidad = $detalle['cantidad']; // 14
                 $articulo = $this->articuloRepository->getTotal($detalle['articulo']);
                 if($detalle['cantidad'] > $articulo->stock) // 50 > 140 |
                     throw new NotFoundHttpException('No existen suficientes suministros del articulo '.$detalle['articulo']);
                 $lotes = $this->loteRepository->getOldestByArticulo($detalle['articulo']);
+
+                // 10,2
+                //4,2
+
                 foreach ($lotes as $lote){
-                    if($cantidad <= $lote->stock){ // 50 <= 40
-                        $this->loteRepository->setStockSaldo(
+                    if($cantidad <= $lote->stock){ // 14 <= 10
+                        $this->loteRepository->setStockSaldoSalida(
                             $lote->id,
                             $lote->stock-$cantidad,
                             ($lote->stock-$cantidad)*$lote->precio_u
@@ -117,7 +129,7 @@ class SalidaRepository
                         break;
                     }else{
                         $cantidad = $cantidad-$lote->stock;
-                        $this->loteRepository->setStockSaldo($lote->id,0,0);
+                        $this->loteRepository->setStockSaldoSalida($lote->id,0,0);
                         $this->detalleSalidaRepository->register(
                             $lote->stock,null,$lote->id,$salida->id
                         );
@@ -203,6 +215,7 @@ class SalidaRepository
                         }]);
                     }]);
                 }])
+            ->withTrashed()
             ->where('salida.id',$id)
             ->orderBy('salida.id','DESC')
             ->groupBy('salida.id')

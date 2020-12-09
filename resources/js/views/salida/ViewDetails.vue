@@ -17,11 +17,13 @@
             </div>
             <div class="pull-right">
                 <el-button
+                    :disabled="detalle_salida.deleted_at"
                     type="primary"
                     @click="Print()"
                     icon="el-icon-printer"
                 >Imprimir</el-button>
                 <el-button
+                    :disabled="detalle_salida.deleted_at"
                     type="danger"
                     @click="exportPDF(detalle_salida.nro_salida,detalle_salida.created_at)"
                 ><i class="fas fa-file-pdf"></i> Pdf</el-button>
@@ -87,7 +89,7 @@
                     <!-- /.col -->
                 </div>
 
-                <h4 class="text-center"> <strong>Detalle Salida</strong></h4>
+                <h4 class="text-center"> <strong>Detalle Salida <span  v-if="detalle_salida.deleted_at" class="badge badge-danger">ANULADO</span></strong></h4>
                 <table class="table table-sm table-striped">
                     <thead>
                     <tr>

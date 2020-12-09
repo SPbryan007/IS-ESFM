@@ -9,7 +9,7 @@ const state = {
     data_form: {
         nro_acta: "",
         tipo_ingreso: "Compra",
-        tipo_comprobante: null,
+        tipo_comprobante: "FACTURA",
         tipo_compra: "",
         nro_compra: 0,
         nro_solicitud: "",

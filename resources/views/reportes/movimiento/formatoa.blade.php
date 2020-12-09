@@ -241,10 +241,10 @@
                 <td style="text-align: center">{{ $item->partida }}</td>
                 <td style="text-align: left">{{ $item->articulo }}</td>
                 <td style="text-align: right">{{ $item->c_inicial }}</td>
-                <td style="text-align: right">{{ $item->s_inicial }}</td>
+                <td style="text-align: right">{{ round($item->s_inicial,2) }}</td>
                 <td style="text-align: right">{{ $item->c_final}}</td>
-                <td style="text-align: right">{{ $item->precio_u }}</td>
-                <td style="text-align: right">{{ $item->s_final }}</td>
+                <td style="text-align: right">{{ round($item->precio_u,2) }}</td>
+                <td style="text-align: right">{{ round($item->s_final,2) }}</td>
             </tr>
         @endforeach
 
@@ -253,10 +253,10 @@
         <tr>
             <th colspan="3" scope="row">TOTALES</th>
             <td scope="row" style="text-align: right;font-weight: bold"></td>
-            <td scope="row" style="padding-right:3px;text-align: right;font-weight: bold">{{ $ts_inicial  }}</td>
+            <td scope="row" style="padding-right:3px;text-align: right;font-weight: bold">{{ round($ts_inicial,2)  }}</td>
             <td scope="row" style="text-align: right;font-weight: bold"></td>
             <td scope="row" ></td>
-            <td scope="row"style="padding-right:3px;text-align: right;font-weight: bold">{{ $ts_final  }}</td>
+            <td scope="row"style="padding-right:3px;text-align: right;font-weight: bold">{{ round($ts_final,2)  }}</td>
         </tr>
         </tfoot>
 
@@ -272,23 +272,23 @@
         </thead>
         <tr>
             <td style="text-align: center">1</td>
-            <td style="text-align: right">{{ $l1s_inicial }}</td>
-            <td style="text-align: right">{{ $l1s_final }}</td>
+            <td style="text-align: right">{{ round($l1s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l1s_final,2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center">2</td>
-            <td style="text-align: right">{{ $l2s_inicial }}</td>
-            <td style="text-align: right">{{ $l2s_final}}</td>
+            <td style="text-align: right">{{ round($l2s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l2s_final,2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center">3</td>
-            <td style="text-align: right">{{ $l3s_inicial }}</td>
-            <td style="text-align: right">{{ $l3s_final }}</td>
+            <td style="text-align: right">{{ round($l3s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l3s_final,2) }}</td>
         </tr>
         <tr>
             <th style="text-align: center;font-weight: bold">TOTALES</th>
-            <th style="text-align: right;font-weight: bold">{{ $ts_inicial }}</th>
-            <th style="text-align: right;font-weight: bold">{{ $ts_final }}</th>
+            <th style="text-align: right;font-weight: bold">{{ round($ts_inicial,2) }}</th>
+            <th style="text-align: right;font-weight: bold">{{ round($ts_final,2) }}</th>
         </tr>
     </table>
 {{--    <table>--}}

@@ -23,11 +23,13 @@
                     icon="el-icon-printer"
                 >Imprimir</el-button>-->
                 <el-button
+                    :disabled="detalle_ingreso.deleted_at"
                     type="primary"
                     @click="Print()"
                     icon="el-icon-printer"
                 >Imprimir</el-button>
                 <el-button
+                    :disabled="detalle_ingreso.deleted_at"
                     type="danger"
                     @click="exportPDF(detalle_ingreso.nro_ingreso,detalle_ingreso.created_at)"
                 ><i class="fas fa-file-pdf"></i> Pdf</el-button>
@@ -40,6 +42,7 @@
         </div>
         <div class="card">
             <div class="card-header border-0">
+
                 <h3 class="card-title">Detalle de ingreso</h3>
                 <div class="card-tools"></div>
             </div>
@@ -159,7 +162,7 @@
                 </div>
 
 
-                <h4 class="text-center"> <strong>Detalle Ingreso</strong></h4>
+                <h4 class="text-center"> <strong>Detalle Ingreso  <span  v-if="detalle_ingreso.deleted_at" class="badge badge-danger">ANULADO</span></strong></h4>
                 <table class="table table-sm table-striped">
                     <thead>
                     <tr>

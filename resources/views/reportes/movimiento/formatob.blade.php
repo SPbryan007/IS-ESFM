@@ -9,6 +9,7 @@
         .invoice-box {
             max-width: 900px;
             margin: auto;
+            margin-left: 10px;
             /*   padding: 30px;*/
             /*  border: 1px solid #eee;
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
@@ -160,7 +161,7 @@
         <table>
             <tr>
                 <td  style="width: 100px;vertical-align: inherit">
-                    <div style="width: 150px; margin-left: 100px">
+                    <div style="width: 140px; margin-left: 100px">
                         <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
                     </div>
                 </td>
@@ -191,7 +192,7 @@
         </tr>
         <tr class="heading">
             <th colspan="2" scope="col">ENTRADAS</th>
-            <th colspan="2" scope="col">SALIDASEnrique Bunbury</th>
+            <th colspan="2" scope="col">SALIDAS</th>
         </tr>
         <tr class="heading">
             <th scope="col" class="pa">CANTIDAD</th>
@@ -212,16 +213,16 @@
                 <td style="text-align: center;">{{ $item->partida }}</td>
                 <td style="text-align: left;">{{ $item->articulo }}</td>
                 <td style="text-align: right;">{{ $item->c_inicial  }}</td>
-                <td style="text-align: right;">{{ $item->s_inicial }}</td>
+                <td style="text-align: right;">{{ round($item->s_inicial,2) }}</td>
 
                 <td style="text-align: right;">{{ $item->c_entrada  }}</td>
-                <td style="text-align: right;">{{ $item->s_entrada }}</td>
+                <td style="text-align: right;">{{ round($item->s_entrada,2) }}</td>
                 <td style="text-align: right;">{{ $item->c_salida  }}</td>
-                <td style="text-align: right;">{{ $item->s_salida }}</td>
+                <td style="text-align: right;">{{ round($item->s_salida,2) }}</td>
 
                 <td style="text-align: right;">{{ $item->c_final  }}</td>
-                <td style="text-align: right;">{{ $item->precio_u }}</td>
-                <td style="text-align: right;">{{ $item->s_final  }}</td>
+                <td style="text-align: right;">{{ round($item->precio_u,2) }}</td>
+                <td style="text-align: right;">{{ round($item->s_final,2)  }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -229,16 +230,16 @@
         <tr >
             <th colspan="3" scope="row" style="text-align: center;font-weight: bold">TOTALES</th>
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ $ts_inicial  }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_inicial,2)  }}</td>
 
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ $ts_entrada  }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_entrada,2)  }}</td>
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ $ts_salida }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_salida,2) }}</td>
 
             <td  style="text-align: right;font-weight: bold"></td>
             <td style=""></td>
-            <td style="padding-right: 3px;text-align: right;font-weight: bold">{{ $ts_final }}</td>
+            <td style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_final,2) }}</td>
         </tr>
         </tfoot>
     </table>
@@ -255,31 +256,31 @@
         </thead>
         <tr>
             <td style="text-align: center">1</td>
-            <td style="text-align: right">{{ $l1s_inicial }}</td>
-            <td style="text-align: right">{{ $l1s_entradas }}</td>
-            <td style="text-align: right">{{ $l1s_salidas }}</td>
-            <td style="text-align: right">{{ $l1s_final }}</td>
+            <td style="text-align: right">{{ round($l1s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l1s_entradas,2) }}</td>
+            <td style="text-align: right">{{ round($l1s_salidas,2) }}</td>
+            <td style="text-align: right">{{ round($l1s_final ,2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center">2</td>
-            <td style="text-align: right">{{ $l2s_inicial }}</td>
-            <td style="text-align: right">{{ $l2s_entradas }}</td>
-            <td style="text-align: right">{{ $l2s_salidas }}</td>
-            <td style="text-align: right">{{ $l2s_final}}</td>
+            <td style="text-align: right">{{ round($l2s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l2s_entradas,2) }}</td>
+            <td style="text-align: right">{{ round($l2s_salidas,2) }}</td>
+            <td style="text-align: right">{{ round($l2s_final,2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center">3</td>
-            <td style="text-align: right">{{ $l3s_inicial }}</td>
-            <td style="text-align: right">{{ $l3s_entradas }}</td>
-            <td style="text-align: right">{{ $l3s_salidas }}</td>
-            <td style="text-align: right">{{ $l3s_final }}</td>
+            <td style="text-align: right">{{ round($l3s_inicial,2) }}</td>
+            <td style="text-align: right">{{ round($l3s_entradas,2) }}</td>
+            <td style="text-align: right">{{ round($l3s_salidas,2) }}</td>
+            <td style="text-align: right">{{ round($l3s_final,2) }}</td>
         </tr>
         <tr>
             <th style="text-align: center;font-weight: bold">TOTALES</th>
-            <th style="text-align: right;font-weight: bold">{{ $ts_inicial }}</th>
-            <td style="text-align: right;font-weight: bold">{{ $ts_entrada }}</td>
-            <td style="text-align: right;font-weight: bold">{{ $ts_salida }}</td>
-            <th style="text-align: right;font-weight: bold">{{ $ts_final }}</th>
+            <th style="text-align: right;font-weight: bold">{{ round($ts_inicial,2) }}</th>
+            <td style="text-align: right;font-weight: bold">{{ round($ts_entrada,2) }}</td>
+            <td style="text-align: right;font-weight: bold">{{ round($ts_salida,2) }}</td>
+            <th style="text-align: right;font-weight: bold">{{ round($ts_final,2) }}</th>
         </tr>
     </table>
 

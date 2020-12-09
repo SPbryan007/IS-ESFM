@@ -178,29 +178,29 @@
                 <td>{{ item.partida  }}</td>
                 <td>{{ item.articulo }}</td>
                 <td>{{ item.c_inicial }}</td>
-                <td>{{ item.s_inicial }}</td>
+                <td>{{ (item.s_inicial).toFixed(2) }}</td>
                 <td v-if="consulta.formato == 'B'" >{{ item.c_entrada }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.s_entrada }}</td>
+                <td v-if="consulta.formato == 'B'" >{{ (item.s_entrada).toFixed(2) }}</td>
                 <td v-if="consulta.formato == 'B'" >{{ item.c_salida }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.s_salida }}</td>
+                <td v-if="consulta.formato == 'B'" >{{ (item.s_salida).toFixed(2) }}</td>
                 <td>{{ item.c_final }}</td>
-                <td>{{ item.precio_u }}</td>
-                <td>{{ item.s_final }}</td>
+                <td>{{ (item.precio_u).toFixed(2) }}</td>
+                <td>{{ (item.s_final).toFixed(2) }}</td>
             </tr>
             <tr>
                 <td colspan="4" class="font-weight-bold"> TOTALES </td>
                 <td class="font-weight-bold"></td>
-                <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
+                <td class="font-weight-bold">{{ (totales.ts_inicial).toFixed(2) }}</td>
 
                 <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ totales.ts_entrada }}</td>
+                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ (totales.ts_entrada).toFixed(2) }}</td>
                 <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ totales.ts_salida }}</td>
+                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ (totales.ts_salida).toFixed(2) }}</td>
 
 
                 <td class="font-weight-bold"></td>
                 <td class="font-weight-bold"></td>
-                <td class="font-weight-bold">{{ totales.ts_final }}</td>
+                <td class="font-weight-bold">{{ (totales.ts_final).toFixed(2) }}</td>
             </tr>
             </tbody>
            <!-- <tfoot>
@@ -248,31 +248,31 @@
                 </tr>
                 <tr>
                     <th class="font-weight-normal">1</th>
-                    <th class="font-weight-normal">{{ totales.l1s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l1s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l1s_salidas }}</th>
-                    <th class="font-weight-normal">{{ totales.l1s_final }}</th>
+                    <th class="font-weight-normal">{{ (totales.l1s_inicial).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_entradas).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_salidas).toFixed(2) }}</th>
+                    <th class="font-weight-normal">{{ (totales.l1s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">2</th>
                     <th class="font-weight-normal">{{ totales.l2s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l2s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l2s_salidas }}</th>
-                    <th class="font-weight-normal">{{ totales.l2s_final}}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_entradas).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_salidas).toFixed(2) }}</th>
+                    <th class="font-weight-normal">{{ (totales.l2s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">3</th>
-                    <th class="font-weight-normal">{{ totales.l3s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l3s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l3s_salidas }}</th>
-                    <th class="font-weight-normal">{{ totales.l3s_final }}</th>
+                    <th class="font-weight-normal">{{ (totales.l3s_inicial).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_entradas).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_salidas).toFixed(2) }}</th>
+                    <th class="font-weight-normal">{{ (totales.l3s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-bold">TOTALES</th>
-                    <th class="font-weight-bold">{{ totales.ts_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ totales.ts_entrada }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ totales.ts_salida }}</th>
-                    <th class="font-weight-bold text-primary">{{ totales.ts_final }}</th>
+                    <th class="font-weight-bold">{{ (totales.ts_inicial).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_entrada).toFixed(2) }}</th>
+                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_salida).toFixed(2) }}</th>
+                    <th class="font-weight-bold text-primary">{{ (totales.ts_final).toFixed(2) }}</th>
                 </tr>
             </table>
         </el-dialog>

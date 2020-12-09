@@ -7,6 +7,7 @@ use App\Models\Compra;
 use App\Models\Ingreso;
 
 use App\Models\Periodo;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
@@ -70,6 +71,13 @@ class IngresoRepository
     public function compra($data)
     {
         try {
+            $now = Carbon::now();
+            $last_date= Ingreso::latest()->first();
+            if($last_date){
+                if(!$now->greaterThan($last_date->created_at) ){
+                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
+                }
+            }
             DB::beginTransaction();
             $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id);
             $compra = new Compra();
@@ -86,7 +94,7 @@ class IngresoRepository
                 $lote = $this->loteRepository->register(
                     $detalle['cantidad'],
                     $detalle['precio'],
-                    $detalle['precio']/$detalle['cantidad'],
+                    ($detalle['precio']/$detalle['cantidad']),
                     $detalle['articulo']
                 );
                 $this->detalleIngresoRepository->register(
@@ -108,6 +116,13 @@ class IngresoRepository
     public function donacion($data)
     {
         try {
+            $now = Carbon::now();
+            $last_date= Ingreso::latest()->first();
+            if($last_date){
+                if(!$now->greaterThan($last_date->created_at) ){
+                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
+                }
+            }
             DB::beginTransaction();
             $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id);
             $compra = new Donacion();
@@ -234,6 +249,7 @@ class IngresoRepository
                     }]);
                 }]);
             }])
+            ->withTrashed()
             ->where('ingreso.id',$id)
             ->orderBy('ingreso.id','DESC')
             ->groupBy('ingreso.id')

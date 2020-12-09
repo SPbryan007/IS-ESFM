@@ -260,7 +260,7 @@
             <td style="text-align: left;width: 140px"><b>Fecha acta:</b></td>
             <td style="text-align: left;width: 140px"> {{ date('d/m/Y',strtotime($data->donacion->fecha_acta)) }}</td>
             <td style="text-align: left;width: 80px"><b>Formulario:</b></td>
-            <td style="text-align: left;width: 160px"> DONACIÓN </td>
+            <td style="text-align: left;width: 160px;font-weight: bold"> DONACIÓN </td>
             <td style="text-align: left;width: 20px"><b>N°:</b></td>
             <td style="text-align: left"> {{ $data->donacion->nro_acta }}</td>
         </tr>
@@ -317,8 +317,8 @@
                 <td>{{ $item->lote->articulo->nombre}}</td>
                 <td>{{ $item->lote->articulo->unidad_medida->nombre }}</td>
                 <td style="text-align: right">{{ $item->cantidad  }}</td>
-                <td style="text-align: right">{{ $item->lote->precio_u }}</td>
-                <td style="text-align: right">{{ $item->lote->precio_u*$item->cantidad }}</td>
+                <td style="text-align: right">{{ round($item->lote->precio_u,2) }}</td>
+                <td style="text-align: right">{{ round($item->lote->precio_u*$item->cantidad,2) }}</td>
             </tr>
         @endforeach
 
@@ -330,7 +330,7 @@
         <!-- style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"-->
         <tr >
             <td style="width:30px"><b>Total: </b></td>
-            <td style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"><span style="font-size: 14px;" >{{ $converted }}<b> - Bs.</b> <u>{{ $data->total  }}</u></span></td>
+            <td style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"><span style="font-size: 12px;" >{{ $converted }}<b> - Bs.</b> <u>{{ $data->total  }}</u></span></td>
         </tr>
     </table>
 

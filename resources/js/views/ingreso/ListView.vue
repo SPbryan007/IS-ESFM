@@ -138,24 +138,22 @@
                         </el-table-column>-->
                         <el-table-column label="Operacion" >
                             <template slot-scope="scope">
-                                <el-tag
-                                    v-if="scope.row.deleted_at"
-                                >
-                                    <strong>ANULADO</strong>
-                                </el-tag>
+
                                 <router-link
-                                    v-if="!scope.row.deleted_at"
                                     :disabled="!scope.row.deleted_at ? false : true"
                                     v-on:click.native="$store.dispatch('ingreso/getDetalleById',scope.row.id)"
                                     :to="{ name: 'viewdetailingreso',params:{id:scope.row.id } }"
                                 >
                                     <el-button
-                                        v-if="!scope.row.deleted_at"
                                         size="mini"
                                         type="default"
                                         icon="el-icon-view"
                                     >Ver</el-button>
-
+                                    <el-tag
+                                        v-if="scope.row.deleted_at"
+                                    >
+                                        <strong>ANULADO</strong>
+                                    </el-tag>
                                 </router-link>
                                 <el-button
                                     v-if="!scope.row.deleted_at"

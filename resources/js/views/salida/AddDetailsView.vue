@@ -43,8 +43,8 @@
                         <el-table :data="pageOfItems">
                             <el-table-column property="codigo" label="Codigo" width="90"></el-table-column>
                             <el-table-column property="nombre" label="Articulo" width="370"></el-table-column>
-                            <el-table-column property="stock" label="Disponibles" width="100"></el-table-column>
-                            <el-table-column property="unidad" label="Medida" width="200">
+                            <el-table-column property="stock" label="Disponibles" width="150"></el-table-column>
+                            <el-table-column property="unidad" label="Medida" width="150">
 
                             </el-table-column>
                             <el-table-column>
@@ -217,9 +217,12 @@ export default {
             this.$router.go(-1);
         }
     },
-    mounted() {
-        store.dispatch("articulo/getItems");
-        store.dispatch("articulo/getLotes");
-    },
+    // mounted() {
+    //     store.dispatch("articulo/getItems");
+    //     store.dispatch("articulo/getLotes");
+    // },
+    // created(){
+    //
+    // }
 };
 </script>

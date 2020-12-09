@@ -9,10 +9,9 @@ class Compra extends Model
     const FACTURA = 'FACTURA';
     const RECIBO = 'RECIBO';
 
-    const CAJA_CHICA = 'CA-CH';
-    const COMPRA_MENOR = 'CO-ME';
-    const LICITANCION_ANPE = 'LP-AN';
-    const LICITACION_PUBLICA = 'LI-PU';
+    const ORDER_COMPRA = 'COM';
+    const ORDER_SERVICIO = 'SER';
+    const CONTRATO = 'CON';
 
     protected $table = 'compra';
     protected $primaryKey = 'id_compra';

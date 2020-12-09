@@ -65,16 +65,16 @@
             <td style="border: 15px solid #000000;font-size: 9px;text-align: center;">{{ $item->partida }}</td>
             <td style="border: 15px solid #000000;font-size: 9px;text-align: left;">{{ $item->articulo }}</td>
             <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_inicial  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->s_inicial }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_inicial,2) }}</td>
 
             <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_entrada  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->s_entrada }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_entrada,2) }}</td>
             <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_salida  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->s_salida }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_salida,2) }}</td>
 
             <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_final  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->precio_u }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->s_final  }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->precio_u,2) }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_final,2)  }}</td>
         </tr>
     @endforeach
     </tbody>
@@ -82,16 +82,16 @@
     <tr>
         <th colspan="4" scope="row" style="border: 15px solid #000000;text-align: center;font-size: 9px;font-weight: bold">TOTALES</th>
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ $data['ts_inicial']  }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_inicial'],2)  }}</td>
 
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ $data['ts_entrada']  }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_entrada'],2)  }}</td>
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ $data['ts_salida'] }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_salida'],2) }}</td>
 
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
         <td style="border: 15px solid #000000;"></td>
-        <td style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ $data['ts_final'] }}</td>
+        <td style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_final'],2) }}</td>
     </tr>
     </tfoot>
 
@@ -109,30 +109,30 @@
     </thead>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">1</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l1s_inicial'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l1s_entradas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l1s_salidas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l1s_final'] }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_inicial'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_entradas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_salidas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_final'],2) }}</td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">2</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_inicial'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_entradas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_salidas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_final']}}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_inicial'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_entradas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_salidas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_final'],2) }}</td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">3</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l3s_inicial'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_entradas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l2s_salidas'] }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ $data['l3s_final'] }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_inicial'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_entradas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_salidas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_final'],2) }}</td>
     </tr>
     <tr>
         <th colspan="2"  style="text-align: center;font-weight: bold;border: 15px solid #000000;font-size: 9px;">TOTALES</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ $data['ts_inicial'] }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ $data['ts_entrada'] }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ $data['ts_salida'] }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ $data['ts_final'] }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_inicial'],2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_entrada'],2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_salida'],2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_final'],2) }}</th>
     </tr>
 </table>

@@ -34,5 +34,13 @@ class Lote extends Model
         return $this->hasMany('App\Models\DetalleIngreso','lote_id','id');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function detallesalida()
+    {
+        return $this->hasMany('App\Models\DetalleSalida','lote_id','id');
+    }
+
 
 }

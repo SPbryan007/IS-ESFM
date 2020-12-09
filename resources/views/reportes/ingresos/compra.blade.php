@@ -14,6 +14,7 @@
             /*   padding: 30px;*/
             /*  border: 1px solid #eee;
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
+            margin-top:-25px;
             font-size: 16px;
             line-height: 24px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
@@ -162,13 +163,13 @@
         <table>
             <tr>
                 <td  style="width: 150px;vertical-align: inherit">
-                    <div style="width: 150px">
+                    <div style="width: 130px">
                         <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
                     </div>
                 </td>
                 <td style="text-align: center">
-                    <h2>ALMACEN</h2>
-                    <h3>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b> <br>
+
+                    <h3>ALMACEN <br> ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b> <br>
                         FORMULARIO DE INGRESO
                         </h3>
                 </td>
@@ -226,22 +227,23 @@
            </tr>
      </table>-->
 
-    <table style="font-size: 13px" cellpadding="0" cellspacing="0">
-        <tr class="details">
-            <td></td>
-            <td colspan="5" style="text-align: right;font-size: 25px;font-weight: bold">NIA: {{ $data->nro_ingreso  }}</td>
-        </tr>
+    <table style="font-size: 13px; line-height: 20px;" cellpadding="0" cellspacing="0">
+{{--        <tr class="details">--}}
+{{--            <td>Ingresado por:</td>--}}
+{{--            <td colspan="5" style="text-align: right;font-size: 20px;font-weight: bold">NIA: {{ $data->nro_ingreso  }}</td>--}}
+{{--        </tr>--}}
         <tr class="details">
             <td style="width: 140px"><b>Ingresado por:</b></td>
             <td colspan="4" style="text-align: left;">     {{ $data->usuario->funcionario->nombre." ".$data->usuario->funcionario->apellido  }}</td>
-            <td style="text-align: right">{{ date('d/m/Y',strtotime($data->created_at)) }}</td>
+            <td style="text-align: right;font-size: 20px;font-weight: bold">NIA: {{ $data->nro_ingreso  }}</td>
         </tr>
         <tr class="details">
             <td style="width: 140px"><b>Fecha de ingreso:</b></td>
-            <td colspan="5" style="text-align: left">{{ date('d/m/Y',strtotime($data->created_at)) }}</td>
+            <td colspan="4" style="text-align: left">{{ date('d/m/Y',strtotime($data->created_at)) }}</td>
+            <td style="text-align: right">{{ date('d/m/Y',strtotime($data->created_at)) }}</td>
         </tr>
     </table>
-    <table style="font-size: 13px">
+    <table style="font-size: 13px;line-height: 18px;" cellpadding="0" cellspacing="0">
         <tr class="details">
             <td style="text-align: left;width: 30px"><b>NIT:</b></td>
             <td style="text-align: left;width: 140px"> {{ $data->proveedor->nit }}</td>
@@ -251,18 +253,18 @@
             <td style="text-align: left">{{ $data->compra->nro_autorizacion  }}</td>
         </tr>
     </table>
-    <table  style="font-size: 13px;">
+    <table  style="font-size: 13px;line-height: 18px;" cellpadding="0" cellspacing="0">
         <tr class="details">
             <td style="text-align: left;width: 140px"><b>Proveedor:</b></td>
             <td style="text-align: left">{{ $data->proveedor->nombre }}</td>
         </tr>
     </table>
-    <table style="font-size: 13px">
+    <table style="font-size: 13px;line-height: 18px;" cellpadding="0" cellspacing="0">
         <tr class="details">
             <td style="text-align: left;width: 140px"><b>Fecha Solicitud:</b></td>
             <td style="text-align: left;width: 140px"> {{ date('d/m/Y',strtotime($data->compra->fecha_solicitud)) }}</td>
             <td style="text-align: left;width: 80px"><b>Formulario:</b></td>
-            <td style="text-align: left;width: 160px"> {{ $data->compra->tipo_compra  }} </td>
+            <td style="text-align: left;width: 160px;font-weight: bold"> {{ $data->compra->tipo_compra == 'COM' ? 'ORDEN DE COMPRA' :  $data->compra->tipo_compra == 'CON' ? 'CONTRATO' : 'ORDEN DE SERVICIO'}} </td>
             <td style="text-align: left;width: 20px"><b>N°:</b></td>
             <td style="text-align: left"> {{ $data->compra->nro_solicitud }}</td>
         </tr>
@@ -288,7 +290,7 @@
                                   Bryan Fernandez Flores<br>
                                   100021542<br>
                                   IMPRENTA OFFSET ASUNCION <br>
-                                  10/06/2020 <br>
+                                  10/06/2php020 <br>
                                   1548 <br>
                                   1002125421 <br>
 
@@ -298,8 +300,8 @@
                   </td>
               </tr>
      </table>-->
-    <h2 class="text-center">Detalle de Ingreso</h2>
-    <table style=" font-size: 10px;" cellpadding="0" border="1" cellspacing="0">
+    <h3 class="text-center" style="margin-bottom: 5px;margin-top: 10px">Detalle de ingreso</h3>
+    <table style=" font-size: 10px;line-height: 18px;" cellpadding="0" border="1" cellspacing="0">
         <thead>
             <tr class="heading">
                 <th scope="col" style="width:25px">N°</th>
@@ -319,24 +321,23 @@
                 <td>{{ $item->lote->articulo->nombre}}</td>
                 <td>{{ $item->lote->articulo->unidad_medida->nombre }}</td>
                 <td style="text-align: right">{{ $item->cantidad  }}</td>
-                <td style="text-align: right">{{ $item->lote->precio_u }}</td>
-                <td style="text-align: right">{{ $item->lote->precio_u*$item->cantidad }}</td>
+                <td style="text-align: right">{{ round($item->lote->precio_u,2) }}</td>
+                <td style="text-align: right">{{ round($item->lote->precio_u*$item->cantidad,2) }}</td>
             </tr>
             @endforeach
 
         </tbody>
 
     </table>
-    <br>
     <table>
         <!-- style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"-->
         <tr >
             <td style="width:30px"><b>Total: </b></td>
-            <td style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"><span style="font-size: 14px;" >{{ $converted }}<b> - Bs.</b> <u>{{ $data->total  }}</u></span></td>
+            <td style="border-bottom: 2px dotted rgb(0, 0, 0); text-decoration: none;"><span style="font-size: 12px;" >{{ $converted }}<b> - Bs.</b> <u>{{ $data->total  }}</u></span></td>
         </tr>
     </table>
 
-    <footer style="margin-top: 2.5cm">
+    <footer style="margin-top: 2cm">
 
         <table style="text-align: center">
             <tr>

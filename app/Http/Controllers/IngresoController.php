@@ -71,6 +71,7 @@ class IngresoController extends Controller
                     break;
             }
             return response()->json($ingreso,$ingreso['status']);
+       // return response()->json($request,404);
     }
 
     /**

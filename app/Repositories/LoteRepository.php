@@ -71,9 +71,12 @@ class LoteRepository
                 $query->where('id','=',$articulo);
             })
             ->leftjoin('detalle_ingreso as di','di.lote_id','=','lote.id')
+            //->leftjoin('detalle_salida as ds','ds.lote_id','=','lote.id')
             ->leftjoin('ingreso as i','i.id','=','di.ingreso_id')
+           // ->leftjoin('salida as s','s.id','=','ds.salida_id')
             ->where('i.periodo_id', '=', Periodo::latest()->first()->id)
             ->whereNull('i.deleted_at')
+           // ->whereNull('s.deleted_at')
             ->where('stock','<>',0)
             ->with('articulo')
             ->oldest()
@@ -135,6 +138,14 @@ class LoteRepository
         $lote->stock = $lote->stock + $stock;
         $lote->saldo = $lote->saldo + $saldo;
         $lote->save();
+    }
+
+    public function setStockSaldoSalida($id,$stock,$saldo)
+    {
+        Lote::where('id',$id)->update([
+           'stock' => $stock,
+           'saldo' => $saldo
+        ]);
     }
 
 
