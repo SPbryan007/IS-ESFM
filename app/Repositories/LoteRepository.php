@@ -21,6 +21,49 @@ class LoteRepository
     public function getAll()
     {
 
+//        $entradas = Lote::select(
+//            DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)) as c_entrada,SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) as s_entrada'),
+//            DB::raw('0 as c_salida, 0 as s_salida'),
+//            'a.nombre as articulo'
+//        )
+//            ->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+//            ->join('partida as p', 'p.id', '=', 'a.partida_id')
+//            ->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+//            ->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+//            ->where('i.periodo_id', 1)
+//            ->whereNull('i.deleted_at')
+//            ->where('lote.precio_u', '<>', 0)
+//            ->groupBy('a.id', 'a.linea', 'lote.precio_u', 'i.created_at')
+//            ->orderBy('p.codigo', 'asc')
+//            ->orderBy('a.nombre', 'asc');
+//        $salidas = Lote::select(
+//            DB::raw('0 as c_entrada, 0 as s_entrada'),
+//            DB::raw('SUM(IFNULL(ds.cantidad,0)) as c_salida,SUM(IFNULL(ds.cantidad,0)*IFNULL(lote.precio_u,0)) as s_salida'),
+//            'a.nombre as articulo'
+//        )
+//            ->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+//            ->join('partida as p', 'p.id', '=', 'a.partida_id')
+//            ->join('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+//            ->join('salida as s', 's.id', '=', 'ds.salida_id')
+//            ->where('s.periodo_id',1)
+//            ->whereNull('s.deleted_at')
+//            ->where('lote.precio_u', '<>', 0)
+//            ->groupBy('a.id', 'a.linea', 'lote.precio_u', 's.created_at')
+//            ->orderBy('p.codigo', 'asc')
+//            ->orderBy('a.nombre', 'asc')
+//            ->unionAll($entradas);
+//
+//        return DB::query()->fromSub($salidas, 'q')
+//            ->select(
+//                DB::raw('SUM(c_entrada) as  cantidad_entrada')
+//
+//            )
+//            ->groupBy('articulo')
+//            ->get();
+
+
+
+
         $periodo = Periodo::latest()->withTrashed()->first();
         $periodo = $periodo ? $periodo->id : NULL;
         $query = Articulo::select(DB::raw('0 as stock,0 as saldo'),

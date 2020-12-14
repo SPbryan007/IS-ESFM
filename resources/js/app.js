@@ -165,7 +165,7 @@ Vue.use(VueProgressBar, {
 // );
 
 import App from "./App.vue";
-import App2 from "./App2.vue";
+
 
 new Vue({
     router,

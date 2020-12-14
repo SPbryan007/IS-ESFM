@@ -18,28 +18,31 @@ class CreateTrigger extends Migration
         CREATE TRIGGER NI_INGRESO_TRIGGER BEFORE INSERT ON `ingreso` FOR EACH ROW
             BEGIN
                 DECLARE IA INT;
-                SET IA = (SELECT COUNT(*)+1 FROM ingreso WHERE periodo_id = NEW.periodo_id AND deleted_at IS NULL );
-                IF(IA<10)THEN
-                    IF NOT EXISTS( SELECT 1 FROM ingreso WHERE nro_ingreso = CONCAT('00',IA) AND periodo_id = NEW.periodo_id AND deleted_at IS NULL) THEN
-                        SET NEW.nro_ingreso = CONCAT('00',IA);
-                    ELSE
-                        SET IA = IA+1;
-                        SET NEW.nro_ingreso = CONCAT('00',IA);
-                    END IF;
-                    ELSE IF(IA<100) THEN
-                           IF NOT EXISTS( SELECT 1 FROM ingreso WHERE nro_ingreso = CONCAT('0',IA) AND periodo_id = NEW.periodo_id AND deleted_at IS NULL)THEN
-                                SET NEW.nro_ingreso = CONCAT('0',IA);
-                           ELSE
-                                SET IA = IA+1;
-                                SET NEW.nro_ingreso = CONCAT('0',IA);
+                IF(NEW.tipo_ingreso != 'INV_INICIAL')THEN
+
+                    SET IA = (SELECT COUNT(*)+1 FROM ingreso WHERE periodo_id = NEW.periodo_id AND deleted_at IS NULL AND tipo_ingreso <> 'INV_INICIAL' );
+                    IF(IA<10)THEN
+                        IF NOT EXISTS( SELECT 1 FROM ingreso WHERE nro_ingreso = CONCAT('00',IA) AND periodo_id = NEW.periodo_id AND deleted_at IS NULL) THEN
+                            SET NEW.nro_ingreso = CONCAT('00',IA);
+                        ELSE
+                            SET IA = IA+1;
+                            SET NEW.nro_ingreso = CONCAT('00',IA);
+                        END IF;
+                        ELSE IF(IA<100) THEN
+                               IF NOT EXISTS( SELECT 1 FROM ingreso WHERE nro_ingreso = CONCAT('0',IA) AND periodo_id = NEW.periodo_id AND deleted_at IS NULL)THEN
+                                    SET NEW.nro_ingreso = CONCAT('0',IA);
+                               ELSE
+                                    SET IA = IA+1;
+                                    SET NEW.nro_ingreso = CONCAT('0',IA);
+                                END IF;
+                            ELSE IF(IA<1000)THEN
+                                    IF NOT EXISTS(SELECT 1 FROM ingreso WHERE nro_ingreso = IA AND periodo_id = NEW.periodo_id AND deleted_at IS NULL ) THEN
+                                    SET NEW.nro_ingreso = IA;
+                                ELSE
+                                    SET IA = IA+1;
+                                    SET NEW.nro_ingreso = IA;
+                                 END IF;
                             END IF;
-                        ELSE IF(IA<1000)THEN
-                                IF NOT EXISTS(SELECT 1 FROM ingreso WHERE nro_ingreso = IA AND periodo_id = NEW.periodo_id AND deleted_at IS NULL ) THEN
-                                SET NEW.nro_ingreso = IA;
-                            ELSE
-                                SET IA = IA+1;
-                                SET NEW.nro_ingreso = IA;
-                             END IF;
                         END IF;
                     END IF;
                 END IF;

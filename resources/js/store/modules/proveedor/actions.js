@@ -1,5 +1,5 @@
 import commonProviders from "./../providers";
-import { URL_PROVEEDOR } from "./../url";
+import { URL_PROVEEDOR } from "../url";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 

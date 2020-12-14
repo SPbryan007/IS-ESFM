@@ -255,7 +255,7 @@
                 </tr>
                 <tr>
                     <th class="font-weight-normal">2</th>
-                    <th class="font-weight-normal">{{ totales.l2s_inicial }}</th>
+                    <th class="font-weight-normal">{{ (totales.l2s_inicial).toFixed(2) }}</th>
                     <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_entradas).toFixed(2) }}</th>
                     <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_salidas).toFixed(2) }}</th>
                     <th class="font-weight-normal">{{ (totales.l2s_final).toFixed(2) }}</th>

@@ -1,1 +1,452 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[33],{19:function(e,r,t){"use strict";t.r(r),t.d(r,"af",(function(){return n})),t.d(r,"ar",(function(){return i})),t.d(r,"bg",(function(){return u})),t.d(r,"bs",(function(){return l})),t.d(r,"ca",(function(){return s})),t.d(r,"cs",(function(){return c})),t.d(r,"da",(function(){return b})),t.d(r,"de",(function(){return m})),t.d(r,"ee",(function(){return p})),t.d(r,"el",(function(){return d})),t.d(r,"en",(function(){return f})),t.d(r,"es",(function(){return v})),t.d(r,"fa",(function(){return g})),t.d(r,"fi",(function(){return M})),t.d(r,"fo",(function(){return S})),t.d(r,"fr",(function(){return _})),t.d(r,"ge",(function(){return h})),t.d(r,"gl",(function(){return J})),t.d(r,"he",(function(){return O})),t.d(r,"hr",(function(){return k})),t.d(r,"hu",(function(){return w})),t.d(r,"id",(function(){return D})),t.d(r,"is",(function(){return N})),t.d(r,"it",(function(){return j})),t.d(r,"ja",(function(){return T})),t.d(r,"kk",(function(){return F})),t.d(r,"ko",(function(){return z})),t.d(r,"lb",(function(){return C})),t.d(r,"lt",(function(){return L})),t.d(r,"lv",(function(){return x})),t.d(r,"mk",(function(){return R})),t.d(r,"mn",(function(){return G})),t.d(r,"nbNO",(function(){return V})),t.d(r,"nl",(function(){return K})),t.d(r,"pl",(function(){return $})),t.d(r,"ptBR",(function(){return B})),t.d(r,"ro",(function(){return H})),t.d(r,"ru",(function(){return U})),t.d(r,"sk",(function(){return X})),t.d(r,"slSI",(function(){return W})),t.d(r,"srCYRL",(function(){return Q})),t.d(r,"sr",(function(){return Y})),t.d(r,"sv",(function(){return q})),t.d(r,"th",(function(){return Z})),t.d(r,"tr",(function(){return ee})),t.d(r,"uk",(function(){return re})),t.d(r,"ur",(function(){return oe})),t.d(r,"vi",(function(){return ne})),t.d(r,"zh",(function(){return ie})),t.d(r,"zhHK",(function(){return le}));class o{constructor(e,r,t,o){this.language=e,this.months=r,this.monthsAbbr=t,this.days=o,this.rtl=!1,this.ymd=!1,this.yearSuffix=""}get language(){return this._language}set language(e){if("string"!=typeof e)throw new TypeError("Language must be a string");this._language=e}get months(){return this._months}set months(e){if(12!==e.length)throw new RangeError(`There must be 12 months for ${this.language} language`);this._months=e}get monthsAbbr(){return this._monthsAbbr}set monthsAbbr(e){if(12!==e.length)throw new RangeError(`There must be 12 abbreviated months for ${this.language} language`);this._monthsAbbr=e}get days(){return this._days}set days(e){if(7!==e.length)throw new RangeError(`There must be 7 days for ${this.language} language`);this._days=e}}var n=new o("Afrikaans",["Januarie","Februarie","Maart","April","Mei","Junie","Julie","Augustus","September","Oktober","November","Desember"],["Jan","Feb","Mrt","Apr","Mei","Jun","Jul","Aug","Sep","Okt","Nov","Des"],["So.","Ma.","Di.","Wo.","Do.","Vr.","Sa."]);const a=new o("Arabic",["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوڤمبر","ديسمبر"],["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوڤمبر","ديسمبر"],["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"]);a.rtl=!0;var i=a,u=new o("Bulgarian",["Януари","Февруари","Март","Април","Май","Юни","Юли","Август","Септември","Октомври","Ноември","Декември"],["Ян","Фев","Мар","Апр","Май","Юни","Юли","Авг","Сеп","Окт","Ное","Дек"],["Нд","Пн","Вт","Ср","Чт","Пт","Сб"]),l=new o("Bosnian",["Januar","Februar","Mart","April","Maj","Juni","Juli","Avgust","Septembar","Oktobar","Novembar","Decembar"],["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Avg","Sep","Okt","Nov","Dec"],["Ned","Pon","Uto","Sri","Čet","Pet","Sub"]),s=new o("Catalan",["Gener","Febrer","Març","Abril","Maig","Juny","Juliol","Agost","Setembre","Octubre","Novembre","Desembre"],["Gen","Feb","Mar","Abr","Mai","Jun","Jul","Ago","Set","Oct","Nov","Des"],["Diu","Dil","Dmr","Dmc","Dij","Div","Dis"]),c=new o("Czech",["leden","únor","březen","duben","květen","červen","červenec","srpen","září","říjen","listopad","prosinec"],["led","úno","bře","dub","kvě","čer","čec","srp","zář","říj","lis","pro"],["ne","po","út","st","čt","pá","so"]),b=new o("Danish",["Januar","Februar","Marts","April","Maj","Juni","Juli","August","September","Oktober","November","December"],["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec"],["Sø","Ma","Ti","On","To","Fr","Lø"]),m=new o("German",["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],["So.","Mo.","Di.","Mi.","Do.","Fr.","Sa."]),p=new o("Estonian",["Jaanuar","Veebruar","Märts","Aprill","Mai","Juuni","Juuli","August","September","Oktoober","November","Detsember"],["Jaan","Veebr","Märts","Apr","Mai","Juuni","Juuli","Aug","Sept","Okt","Nov","Dets"],["P","E","T","K","N","R","L"]),d=new o("Greek",["Ιανουάριος","Φεβρουάριος","Μάρτιος","Απρίλιος","Μάϊος","Ιούνιος","Ιούλιος","Αύγουστος","Σεπτέμβριος","Οκτώβριος","Νοέμβριος","Δεκέμβριος"],["Ιαν","Φεβ","Μαρ","Απρ","Μαι","Ιουν","Ιουλ","Αυγ","Σεπ","Οκτ","Νοε","Δεκ"],["Κυρ","Δευ","Τρι","Τετ","Πεμ","Παρ","Σαβ"]),f=new o("English",["January","February","March","April","May","June","July","August","September","October","November","December"],["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]),v=new o("Spanish",["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"],["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"],["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"]),g=new o("Persian",["فروردین","اردیبهشت","خرداد","تیر","مرداد","شهریور","مهر","آبان","آذر","دی","بهمن","اسفند"],["فرو","ارد","خرد","تیر","مرد","شهر","مهر","آبا","آذر","دی","بهم","اسف"],["یکشنبه","دوشنبه","سه‌شنبه","چهارشنبه","پنجشنبه","جمعه","شنبه"]),M=new o("Finnish",["tammikuu","helmikuu","maaliskuu","huhtikuu","toukokuu","kesäkuu","heinäkuu","elokuu","syyskuu","lokakuu","marraskuu","joulukuu"],["tammi","helmi","maalis","huhti","touko","kesä","heinä","elo","syys","loka","marras","joulu"],["su","ma","ti","ke","to","pe","la"]),S=new o("Faroese",["Januar","Februar","Mars","Apríl","Mai","Juni","Juli","August","Septembur","Oktobur","Novembur","Desembur"],["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Des"],["Sun","Mán","Týs","Mik","Hós","Frí","Ley"]),_=new o("French",["Janvier","Février","Mars","Avril","Mai","Juin","Juillet","Août","Septembre","Octobre","Novembre","Décembre"],["Jan","Fév","Mar","Avr","Mai","Juin","Juil","Août","Sep","Oct","Nov","Déc"],["Dim","Lun","Mar","Mer","Jeu","Ven","Sam"]),h=new o("Georgia",["იანვარი","თებერვალი","მარტი","აპრილი","მაისი","ივნისი","ივლისი","აგვისტო","სექტემბერი","ოქტომბერი","ნოემბერი","დეკემბერი"],["იან","თებ","მარ","აპრ","მაი","ივნ","ივლ","აგვ","სექ","ოქტ","ნოე","დეკ"],["კვი","ორშ","სამ","ოთხ","ხუთ","პარ","შაბ"]),J=new o("Galician",["Xaneiro","Febreiro","Marzo","Abril","Maio","Xuño","Xullo","Agosto","Setembro","Outubro","Novembro","Decembro"],["Xan","Feb","Mar","Abr","Mai","Xuñ","Xul","Ago","Set","Out","Nov","Dec"],["Dom","Lun","Mar","Mér","Xov","Ven","Sáb"]);const A=new o("Hebrew",["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"],["ינו","פבר","מרץ","אפר","מאי","יונ","יול","אוג","ספט","אוק","נוב","דצמ"],["א","ב","ג","ד","ה","ו","ש"]);A.rtl=!0;var O=A,k=new o("Croatian",["Siječanj","Veljača","Ožujak","Travanj","Svibanj","Lipanj","Srpanj","Kolovoz","Rujan","Listopad","Studeni","Prosinac"],["Sij","Velj","Ožu","Tra","Svi","Lip","Srp","Kol","Ruj","Lis","Stu","Pro"],["Ned","Pon","Uto","Sri","Čet","Pet","Sub"]),w=new o("Hungarian",["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"],["Jan","Febr","Márc","Ápr","Máj","Jún","Júl","Aug","Szept","Okt","Nov","Dec"],["Vas","Hét","Ke","Sze","Csü","Pén","Szo"]),D=new o("Indonesian",["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"],["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"],["Min","Sen","Sel","Rab","Kam","Jum","Sab"]),N=new o("Icelandic",["Janúar","Febrúar","Mars","Apríl","Maí","Júní","Júlí","Ágúst","September","Október","Nóvember","Desember"],["Jan","Feb","Mars","Apr","Maí","Jún","Júl","Ágú","Sep","Okt","Nóv","Des"],["Sun","Mán","Þri","Mið","Fim","Fös","Lau"]),j=new o("Italian",["Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno","Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"],["Gen","Feb","Mar","Apr","Mag","Giu","Lug","Ago","Set","Ott","Nov","Dic"],["Dom","Lun","Mar","Mer","Gio","Ven","Sab"]);const y=new o("Japanese",["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"],["日","月","火","水","木","金","土"]);y.yearSuffix="年",y.ymd=!0;var T=y,F=new o("Kazakh",["Қаңтар","Ақпан","Наурыз","Сәуір","Мамыр","Маусым","Шілде","Тамыз","Қыркүйек","Қазан","Қараша","Желтоқсан"],["Қаң","Ақп","Нау","Сәу","Мам","Мау","Шіл","Там","Қыр","Қаз","Қар","Жел"],["Жк","Дй","Сй","Ср","Бй","Жм","Сн"]);const P=new o("Korean",["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],["일","월","화","수","목","금","토"]);P.yearSuffix="년",P.ymd=!0;var z=P,C=new o("Luxembourgish",["Januar","Februar","Mäerz","Abrëll","Mee","Juni","Juli","August","September","Oktober","November","Dezember"],["Jan","Feb","Mäe","Abr","Mee","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],["So.","Mé.","Dë.","Më.","Do.","Fr.","Sa."]);const E=new o("Lithuanian",["Sausis","Vasaris","Kovas","Balandis","Gegužė","Birželis","Liepa","Rugpjūtis","Rugsėjis","Spalis","Lapkritis","Gruodis"],["Sau","Vas","Kov","Bal","Geg","Bir","Lie","Rugp","Rugs","Spa","Lap","Gru"],["Sek","Pir","Ant","Tre","Ket","Pen","Šeš"]);E.ymd=!0;var L=E,x=new o("Latvian",["Janvāris","Februāris","Marts","Aprīlis","Maijs","Jūnijs","Jūlijs","Augusts","Septembris","Oktobris","Novembris","Decembris"],["Jan","Feb","Mar","Apr","Mai","Jūn","Jūl","Aug","Sep","Okt","Nov","Dec"],["Sv","Pr","Ot","Tr","Ce","Pk","Se"]),R=new o("Macedonian",["Јануари","Февруари","Март","Април","Мај","Јуни","Јули","Август","Септември","Октомври","Ноември","Декември"],["Јан","Фев","Мар","Апр","Мај","Јун","Јул","Авг","Сеп","Окт","Ное","Дек"],["Нед","Пон","Вто","Сре","Чет","Пет","Саб"]);const I=new o("Mongolia",["1 дүгээр сар","2 дугаар сар","3 дугаар сар","4 дүгээр сар","5 дугаар сар","6 дугаар сар","7 дугаар сар","8 дугаар сар","9 дүгээр сар","10 дугаар сар","11 дүгээр сар","12 дугаар сар"],["1-р сар","2-р сар","3-р сар","4-р сар","5-р сар","6-р сар","7-р сар","8-р сар","9-р сар","10-р сар","11-р сар","12-р сар"],["Ня","Да","Мя","Лх","Пү","Ба","Бя"]);I.ymd=!0;var G=I,V=new o("Norwegian Bokmål",["Januar","Februar","Mars","April","Mai","Juni","Juli","August","September","Oktober","November","Desember"],["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Des"],["Sø","Ma","Ti","On","To","Fr","Lø"]),K=new o("Dutch",["januari","februari","maart","april","mei","juni","juli","augustus","september","oktober","november","december"],["jan","feb","mrt","apr","mei","jun","jul","aug","sep","okt","nov","dec"],["zo","ma","di","wo","do","vr","za"]),$=new o("Polish",["Styczeń","Luty","Marzec","Kwiecień","Maj","Czerwiec","Lipiec","Sierpień","Wrzesień","Październik","Listopad","Grudzień"],["Sty","Lut","Mar","Kwi","Maj","Cze","Lip","Sie","Wrz","Paź","Lis","Gru"],["Nd","Pn","Wt","Śr","Czw","Pt","Sob"]),B=new o("Brazilian",["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"],["Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"],["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]),H=new o("Romanian",["Ianuarie","Februarie","Martie","Aprilie","Mai","Iunie","Iulie","August","Septembrie","Octombrie","Noiembrie","Decembrie"],["Ian","Feb","Mar","Apr","Mai","Iun","Iul","Aug","Sep","Oct","Noi","Dec"],["D","L","Ma","Mi","J","V","S"]),U=new o("Russian",["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],["Янв","Февр","Март","Апр","Май","Июнь","Июль","Авг","Сент","Окт","Нояб","Дек"],["Вс","Пн","Вт","Ср","Чт","Пт","Сб"]),X=new o("Slovakian",["január","február","marec","apríl","máj","jún","júl","august","september","október","november","december"],["jan","feb","mar","apr","máj","jún","júl","aug","sep","okt","nov","dec"],["ne","po","ut","st","št","pi","so"]),W=new o("Sloveian",["Januar","Februar","Marec","April","Maj","Junij","Julij","Avgust","September","Oktober","November","December"],["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Avg","Sep","Okt","Nov","Dec"],["Ned","Pon","Tor","Sre","Čet","Pet","Sob"]),Q=new o("Serbian in Cyrillic script",["Јануар","Фебруар","Март","Април","Мај","Јун","Јул","Август","Септембар","Октобар","Новембар","Децембар"],["Јан","Феб","Мар","Апр","Мај","Јун","Јул","Авг","Сеп","Окт","Нов","Дец"],["Нед","Пон","Уто","Сре","Чет","Пет","Суб"]),Y=new o("Serbian",["Januar","Februar","Mart","April","Maj","Jun","Jul","Avgust","Septembar","Oktobar","Novembar","Decembar"],["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Avg","Sep","Okt","Nov","Dec"],["Ned","Pon","Uto","Sre","Čet","Pet","Sub"]),q=new o("Swedish",["Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"],["Jan","Feb","Mar","Apr","Maj","Jun","Jul","Aug","Sep","Okt","Nov","Dec"],["Sön","Mån","Tis","Ons","Tor","Fre","Lör"]),Z=new o("Thai",["มกราคม","กุมภาพันธ์","มีนาคม","เมษายน","พฤษภาคม","มิถุนายน","กรกฎาคม","สิงหาคม","กันยายน","ตุลาคม","พฤศจิกายน","ธันวาคม"],["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."],["อา","จ","อ","พ","พฤ","ศ","ส"]),ee=new o("Turkish",["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],["Oca","Şub","Mar","Nis","May","Haz","Tem","Ağu","Eyl","Eki","Kas","Ara"],["Paz","Pzt","Sal","Çar","Per","Cum","Cmt"]),re=new o("Ukraine",["Січень","Лютий","Березень","Квітень","Травень","Червень","Липень","Серпень","Вересень","Жовтень","Листопад","Грудень"],["Січ","Лют","Бер","Квіт","Трав","Чер","Лип","Серп","Вер","Жовт","Лист","Груд"],["Нд","Пн","Вт","Ср","Чт","Пт","Сб"]);const te=new o("Urdu",["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","سپتمبر","اکتوبر","نومبر","دسمبر"],["جنوری","فروری","مارچ","اپریل","مئی","جون","جولائی","اگست","سپتمبر","اکتوبر","نومبر","دسمبر"],["اتوار","پیر","منگل","بدھ","جمعرات","جمعہ","ہفتہ"]);te.rtl=!0;var oe=te,ne=new o("Vietnamese",["Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5","Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12"],["T 01","T 02","T 03","T 04","T 05","T 06","T 07","T 08","T 09","T 10","T 11","T 12"],["CN","Thứ 2","Thứ 3","Thứ 4","Thứ 5","Thứ 6","Thứ 7"]);const ae=new o("Chinese",["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"],["日","一","二","三","四","五","六"]);ae.yearSuffix="年";var ie=ae;const ue=new o("Chinese_HK",["壹月","贰月","叁月","肆月","伍月","陆月","柒月","捌月","玖月","拾月","拾壹月","拾贰月"],["壹月","贰月","叁月","肆月","伍月","陆月","柒月","捌月","玖月","拾月","拾壹月","拾贰月"],["日","壹","贰","叁","肆","伍","陆"]);ue.yearSuffix="年";var le=ue},404:function(e,r,t){"use strict";t.r(r);var o=t(1);t(19),t(2),t(0),t(4);function n(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(e);r&&(o=o.filter((function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable}))),t.push.apply(t,o)}return t}function a(e,r,t){return r in e?Object.defineProperty(e,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[r]=t,e}var i={data:function(){return{proveedores:[{idProveedor:1,nombre:"POLLOS ROSITA"}],lote_form:{cantidad:0,precio_unitario:0,tipo_ingreso:"COMPRA",descripcion:"SALDO INICIAL",donacion:{institucion:"",responsable:"",telefono:""},compra:{nro_compra:"",nro_solicitud:"",nro_factura:"",nro_autorizacion:"",proveedor:null}}}},computed:function(e){for(var r=1;r<arguments.length;r++){var t=null!=arguments[r]?arguments[r]:{};r%2?n(Object(t),!0).forEach((function(r){a(e,r,t[r])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(t)):n(Object(t)).forEach((function(r){Object.defineProperty(e,r,Object.getOwnPropertyDescriptor(t,r))}))}return e}({saldo:function(){return this.lote_form.cantidad*this.lote_form.precio_unitario}},Object(o.c)("proveedor",["GET_ITEMS_PROVEEDORES"])),methods:{},created:function(){this.$store.dispatch("proveedor/GET_DATA_FROM_SERVER")}},u=t(3),l=Object(u.a)(i,(function(){var e=this,r=e.$createElement,t=e._self._c||r;return t("div",{},[t("div",{staticClass:"col-md-12"},[t("div",{staticClass:"card"},[e._m(0),e._v(" "),t("div",{staticClass:"card-body"},[t("div",{staticClass:"row"},[t("div",{staticClass:"col-md-8"},[t("div",{staticClass:"row"},[t("el-form",{ref:"lote_form",staticClass:"labeles",attrs:{model:e.lote_form,"label-width":"170px"}},[t("el-form-item",{attrs:{label:"Tipo de ingreso :"}},[t("el-radio",{attrs:{label:"COMPRA",border:""},model:{value:e.lote_form.tipo_ingreso,callback:function(r){e.$set(e.lote_form,"tipo_ingreso",r)},expression:"lote_form.tipo_ingreso"}},[e._v("COMPRA")]),e._v(" "),t("el-radio",{attrs:{label:"DONACION",border:""},model:{value:e.lote_form.tipo_ingreso,callback:function(r){e.$set(e.lote_form,"tipo_ingreso",r)},expression:"lote_form.tipo_ingreso"}},[e._v("DONACION")]),e._v(" "),t("el-radio",{attrs:{label:"DEVOLUCION",border:""},model:{value:e.lote_form.tipo_ingreso,callback:function(r){e.$set(e.lote_form,"tipo_ingreso",r)},expression:"lote_form.tipo_ingreso"}},[e._v("DEVOLUCION")])],1)],1)],1),e._v(" "),t("div",{staticClass:"row"},[t("el-form",{ref:"lote_form",staticClass:"labeles",attrs:{model:e.lote_form,"label-width":"170px"}},["COMPRA"==e.lote_form.tipo_ingreso?t("div",{attrs:{id:"compra"}},[t("div",{staticClass:"row"},[t("el-form-item",{attrs:{label:"Nro de Compra"}},[t("el-input",{staticStyle:{width:"170px"},model:{value:e.lote_form.compra.nro_compra,callback:function(r){e.$set(e.lote_form.compra,"nro_compra",r)},expression:"lote_form.compra.nro_compra"}})],1),e._v(" "),t("el-form-item",{attrs:{label:"Nro de Solicitud"}},[t("el-input",{staticStyle:{width:"170px"},model:{value:e.lote_form.compra.nro_solicitud,callback:function(r){e.$set(e.lote_form.compra,"nro_solicitud",r)},expression:"lote_form.compra.nro_solicitud"}})],1)],1),e._v(" "),t("div",{staticClass:"row"},[t("el-form-item",{attrs:{label:"Nro de Factura"}},[t("el-input",{staticStyle:{width:"170px"},model:{value:e.lote_form.compra.nro_factura,callback:function(r){e.$set(e.lote_form.compra,"nro_factura",r)},expression:"lote_form.compra.nro_factura"}})],1),e._v(" "),t("el-form-item",{attrs:{label:"Nro authorizacion"}},[t("el-input",{staticStyle:{width:"170px"},model:{value:e.lote_form.compra.nro_autorizacion,callback:function(r){e.$set(e.lote_form.compra,"nro_autorizacion",r)},expression:"lote_form.compra.nro_autorizacion"}})],1),e._v(" "),t("el-form-item",{attrs:{label:"Proveedor"}},[t("el-select",{staticStyle:{width:"340px"},attrs:{filterable:"",placeholder:"Seleccione el proveedor","loading-text":"buscando..","no-match-text":"No se encontraron registros"},model:{value:e.lote_form.compra.proveedor,callback:function(r){e.$set(e.lote_form.compra,"proveedor",r)},expression:"lote_form.compra.proveedor"}},e._l(e.GET_ITEMS_PROVEEDORES,(function(e,r){return t("el-option",{key:r,attrs:{label:e.nombre,value:e.idProveedor}})})),1),e._v(" "),t("router-link",{attrs:{to:{name:"addproveedor"}}},[t("el-button",{attrs:{type:"primary",icon:"el-icon-plus"}})],1)],1)],1)]):e._e(),e._v(" "),"DONACION"===e.lote_form.tipo_ingreso?t("div",{attrs:{id:"donacion"}},[t("el-form-item",{attrs:{label:"Proveedor"}},[t("el-select",{staticStyle:{width:"340px"},attrs:{filterable:"",placeholder:"Seleccione el proveedor","loading-text":"buscando..","no-match-text":"No se encontraron registros"},model:{value:e.lote_form.compra.proveedor,callback:function(r){e.$set(e.lote_form.compra,"proveedor",r)},expression:"lote_form.compra.proveedor"}},e._l(e.GET_ITEMS_PROVEEDORES,(function(e,r){return t("el-option",{key:r,attrs:{label:e.nombre,value:e.idProveedor}})})),1),e._v(" "),t("router-link",{attrs:{to:{name:"addproveedor"}}},[t("el-button",{attrs:{type:"primary",icon:"el-icon-plus"}})],1)],1)],1):e._e(),e._v(" "),t("div",{attrs:{id:"devolucion"}}),e._v(" "),t("el-form-item",[t("el-button",{attrs:{type:"primary"},on:{click:e.onSubmit}},[e._v("Agregar lote")]),e._v(" "),t("el-button",[e._v("Cancelar")])],1)],1)],1)]),e._v(" "),t("div",{staticClass:"col-md-4 pl-5 border border-bottom-0 border-bottom-0 border-right-0 border-top-0"},[t("div",[t("el-form",{ref:"lote_form",staticClass:"labeles",attrs:{rules:e.rules_lote_form,model:e.lote_form,"label-width":"120px"}},[t("el-form-item",{attrs:{label:"Cantidad en Kg."}},[t("el-input-number",{attrs:{"controls-position":"right",precision:2,min:1,max:10},model:{value:e.lote_form.cantidad,callback:function(r){e.$set(e.lote_form,"cantidad",r)},expression:"lote_form.cantidad"}})],1),e._v(" "),t("el-form-item",{attrs:{label:"Precio unitario"}},[t("el-input-number",{attrs:{"controls-position":"right",precision:2,step:.1,max:10,disabled:"DONACION"==e.lote_form.tipo_ingreso},model:{value:e.lote_form.precio_unitario,callback:function(r){e.$set(e.lote_form,"precio_unitario",r)},expression:"lote_form.precio_unitario"}})],1),e._v(" "),t("el-form-item",{attrs:{label:"Saldo"}},[t("el-input",{staticStyle:{width:"200px"},attrs:{value:"Bs. "+e.saldo,placeholder:"Please input",disabled:!0}})],1)],1)],1)])])])])])])}),[function(){var e=this.$createElement,r=this._self._c||e;return r("div",{staticClass:"card-header border-0"},[r("h3",{staticClass:"card-title"},[this._v("PAPEL MEMEMBRETADO - NUEVO LOTE")]),this._v(" "),r("div",{staticClass:"card-tools"})])}],!1,null,null,null);r.default=l.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[33],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      rules: {
+        nombre: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe contener al menos 3 letras.",
+          trigger: "blur"
+        }],
+        apellido: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe contener al menos 3 letras.",
+          trigger: "blur"
+        }],
+        documento: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe contener al menos 6 letras.",
+          trigger: "blur"
+        }]
+      }
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("funcionario", ["data_form", "loading_form", "alert"])),
+  methods: {
+    submitForm: function submitForm(form) {
+      var _this = this;
+
+      this.$refs[form].validate(function (valid) {
+        if (valid) {
+          _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("funcionario/addItem", {
+            message: _this.$message,
+            progress: _this.$Progress
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    cancelForm: function cancelForm(formName) {
+      this.$refs[formName].resetFields();
+      this.$router.go(-1);
+    },
+    goBack: function goBack() {
+      this.$router.go(-1);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "col-md-12" },
+    [
+      _vm.alert.show
+        ? _c("el-alert", {
+            attrs: {
+              title: _vm.alert.title,
+              type: _vm.alert.color,
+              description: _vm.alert.message,
+              "show-icon": "",
+              closable: ""
+            },
+            on: {
+              close: function($event) {
+                _vm.alert.show = false
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
+        [
+          _c(
+            "div",
+            { staticClass: "pull-lef" },
+            [
+              _c("el-page-header", {
+                staticClass: "mt-2",
+                attrs: { content: "Funcionario" },
+                on: { back: _vm.goBack }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "pull-right" })
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c(
+              "el-form",
+              {
+                ref: "FuncionarioAddForm",
+                staticClass: "labeles",
+                attrs: {
+                  model: _vm.data_form,
+                  rules: _vm.rules,
+                  "label-width": "180px"
+                }
+              },
+              [
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "Nombre :", prop: "nombre" } },
+                  [
+                    _c("el-input", {
+                      staticStyle: { width: "400px" },
+                      model: {
+                        value: _vm.data_form.nombre,
+                        callback: function($$v) {
+                          _vm.$set(_vm.data_form, "nombre", $$v)
+                        },
+                        expression: "data_form.nombre"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "Apellido :", prop: "apellido" } },
+                  [
+                    _c("el-input", {
+                      staticStyle: { width: "400px" },
+                      model: {
+                        value: _vm.data_form.apellido,
+                        callback: function($$v) {
+                          _vm.$set(_vm.data_form, "apellido", $$v)
+                        },
+                        expression: "data_form.apellido"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "C.I. :", prop: "documento" } },
+                  [
+                    _c("el-input", {
+                      staticStyle: { width: "200px" },
+                      model: {
+                        value: _vm.data_form.documento,
+                        callback: function($$v) {
+                          _vm.$set(_vm.data_form, "documento", $$v)
+                        },
+                        expression: "data_form.documento"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "Telefono :", prop: "telefono" } },
+                  [
+                    _c("el-input", {
+                      staticStyle: { width: "150px" },
+                      model: {
+                        value: _vm.data_form.telefono,
+                        callback: function($$v) {
+                          _vm.$set(_vm.data_form, "telefono", $$v)
+                        },
+                        expression: "data_form.telefono"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  { attrs: { label: "Direccion :", prop: "direccion" } },
+                  [
+                    _c("el-input", {
+                      staticStyle: { width: "350px" },
+                      model: {
+                        value: _vm.data_form.direccion,
+                        callback: function($$v) {
+                          _vm.$set(_vm.data_form, "direccion", $$v)
+                        },
+                        expression: "data_form.direccion"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "el-form-item",
+                  [
+                    _c(
+                      "el-button",
+                      {
+                        attrs: { type: "primary", loading: _vm.loading_form },
+                        on: {
+                          click: function($event) {
+                            return _vm.submitForm("FuncionarioAddForm")
+                          }
+                        }
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Registar\n                        "
+                        ),
+                        _c("i", { staticClass: "fas fa-save" })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "el-button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.cancelForm("FuncionarioAddForm")
+                          }
+                        }
+                      },
+                      [_vm._v("Cancelar")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header border-0" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _vm._v("Registrar funcionario")
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/funcionario/AddView.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/funcionario/AddView.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddView.vue?vue&type=template&id=f0ad473a& */ "./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a&");
+/* harmony import */ var _AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddView.vue?vue&type=script&lang=js& */ "./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/funcionario/AddView.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/funcionario/AddView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddView.vue?vue&type=template&id=f0ad473a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/funcionario/AddView.vue?vue&type=template&id=f0ad473a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_f0ad473a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);
