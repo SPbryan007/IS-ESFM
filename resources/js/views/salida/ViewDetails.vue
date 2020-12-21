@@ -138,7 +138,6 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import * as lang from "vuejs-datepicker/src/locale";
 import store from "../../store/index";
 import moment from "moment";
 import { router } from "../../routes";

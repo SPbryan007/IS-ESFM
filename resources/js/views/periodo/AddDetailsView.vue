@@ -83,7 +83,6 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
-import * as lang from "vuejs-datepicker/src/locale";
 import store from "../../store/index";
 import moment from "moment";
 import { router } from "../../routes";
@@ -91,7 +90,7 @@ export default {
   data() {
     return {
       moment: moment,
-      languages: lang,
+      languages: 'es',
       has_errors: false
     };
   },

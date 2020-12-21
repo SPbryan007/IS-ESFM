@@ -57,7 +57,7 @@
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item>
-                        <el-button :loading="loading" type="primary" @click="GET_ITEMS_REMA('QueryForm')">Consultar</el-button>
+                        <el-button :loading="loading" type="primary" @click="GET_ITEMS_REGE('QueryForm')">Consultar</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -116,97 +116,106 @@
                 </el-form>
             </div>
         </div>
-        <table class="table table-bordered text-center" style="background-color: white; font-size:12px">
-            <thead>
-            <tr>
-                <th rowspan="3" scope="col" class="pa">N°</th>
-                <th rowspan="3" scope="col" class="pa">Linea</th>
-                <th rowspan="3" scope="col" class="pa">Partida</th>
-                <th rowspan="3" scope="col" class="pa">Descripción</th>
-                <th rowspan="2" scope="col" class="pa">Saldo inicial <br> Al {{ consulta.del | dateformat}}</th>
-                <th rowspan="2" scope="col" class="pa">Saldo inicial <br> Al {{ consulta.del | dateformat }}</th>
-
-                <th v-if="consulta.formato == 'B'" colspan="4" scope="col" class="pa">{{ consulta.periodo ? 'Movimiento durante '+findPeriodo(consulta.periodo).nombre : 'Movimiento durante -' }}</th>
-
-                <th rowspan="2" scope="col" class="pa">Saldo final <br> {{ consulta.al | dateformat }}</th>
-                <th rowspan="2" scope="col" class="pa">Valor <br> Unitario</th>
-                <th rowspan="2" scope="col" class="pa">Saldo final <br> Al {{ consulta.al | dateformat }}</th>
-
-
-            </tr>
-            <tr>
-
-                <th v-if="consulta.formato == 'B'" colspan="2" scope="col" class="pa">Entradas</th>
-                <th v-if="consulta.formato == 'B'" colspan="2" scope="col" class="pa">Salidas</th>
-
-            </tr>
-            <tr>
-                <th scope="col" class="pa">Cantidad</th>
-                <th scope="col" class="pa">Bs</th>
-
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Cantidad</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Bs</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Cantidad</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Bs</th>
-
-                <th scope="col" class="pa">Cantidad</th>
-                <th scope="col" class="pa">Bs</th>
-                <th scope="col" class="pa">Bs</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(item, index) in pageOfItems"  :key="index">
-                <th scope="row">{{ index+1 }}</th>
-                <td>{{ item.linea  }}</td>
-                <td>{{ item.partida  }}</td>
-                <td>{{ item.articulo }}</td>
-                <td>{{ item.c_inicial }}</td>
-                <td>{{ item.s_inicial }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.c_entrada }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.s_entrada }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.c_salida }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.s_salida }}</td>
-                <td>{{ item.c_final }}</td>
-                <td>{{ item.precio_u }}</td>
-                <td>{{ item.s_final }}</td>
-            </tr>
-            <tr>
-                <td colspan="4" class="font-weight-bold"> TOTALES </td>
-                <td class="font-weight-bold"></td>
-                <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
-
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ totales.ts_entrada }}</td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ totales.ts_salida }}</td>
+        <div style="width:100%; overflow-x: scroll; overflow-y:hidden;">
+            <table class="table table-bordered text-center" style="background-color: white; font-size:12px;">
+                <thead>
+                <tr>
+                    <th rowspan="2" scope="col" class="pa" style="min-width: 40px">N°</th>
+                    <th rowspan="2" scope="col" class="pa" style="min-width: 40px">Linea</th>
+                    <th rowspan="2" scope="col" class="pa" style="min-width: 80px">Código</th>
+                    <th rowspan="2" scope="col" class="pa" style="min-width: 300px">Producto</th>
+                    <th rowspan="2" scope="col" class="pa">NI</th>
+                    <th rowspan="2" scope="col" class="pa">NS</th>
+                    <th rowspan="2" scope="col" class="pa">Fecha</th>
+                    <th rowspan="2" scope="col" class="pa">Medida</th>
+                    <th rowspan="2" scope="col" class="pa" style="min-width: 150px">Unidad</th>
+                    <th rowspan="1" scope="col" colspan="3" class="pa">Saldo inicial</th>
+                    <th rowspan="1" scope="col" colspan="3" class="pa">Ingresos</th>
+                    <th rowspan="1" scope="col" colspan="3" class="pa">Salidas</th>
+                    <th rowspan="1" scope="col" colspan="3" class="pa">Saldo Final</th>
 
 
-                <td class="font-weight-bold"></td>
-                <td class="font-weight-bold"></td>
-                <td class="font-weight-bold">{{ totales.ts_final }}</td>
-            </tr>
-            </tbody>
-            <!-- <tfoot>
-                 <tr>
-                     <td class="font-weight-bold"></td>
-                     <td class="font-weight-bold">1, 2</td>
-                     <td class="font-weight-bold"></td>
-                     <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
-                     <td>155</td>
-                     <td colspan="3" class="font-weight-bold">SALDO FINAL AL 31/12/2019</td>
-                     <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
-                 </tr>
-                 <tr style=": 2px">
-                     <td class="font-weight-bold"></td>
-                     <td class="font-weight-bold">3</td>
-                     <td class="font-weight-bold"></td>
-                     <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
-                     <td>155</td>
-                     <td  colspan="3" class="font-weight-bold" >SALDO FINAL AL 31/12/2019</td>
-                     <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
-                 </tr>
-             </tfoot>-->
-        </table>
+                </tr>
+
+                <tr>
+                    <th scope="col" class="pa">Cant.</th>
+                    <th scope="col" class="pa">P.U</th>
+                    <th scope="col" class="pa">C.Total</th>
+
+                    <th scope="col" class="pa">Cant.</th>
+                    <th scope="col" class="pa">P.U</th>
+                    <th scope="col" class="pa">C.Total</th>
+
+                    <th scope="col" class="pa">Cant.</th>
+                    <th scope="col" class="pa">P.U</th>
+                    <th scope="col" class="pa">C.Total</th>
+
+                    <th scope="col" class="pa">Cant.</th>
+                    <th scope="col" class="pa">P.U</th>
+                    <th scope="col" class="pa">C.Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(item, index) in pageOfItems"  :key="index">
+                    <th scope="row">{{ index+1 }}</th>
+                    <td>{{ item.linea  }}</td>
+                    <td>{{ item.codigo }}</td>
+                    <td>{{ item.articulo }}</td>
+                    <td>{{ item.ni == '000'? '-' : item.ni }}</td>
+                    <td>{{ item.ni == '000'? '-' : item.ns }}</td>
+                    <td>{{ item.fecha | dateformat }}</td>
+                    <td>{{ item.medida }}</td>
+                    <td>{{ item.unidad }}</td>
+                    <td>{{ item.c_inicial }}</td>
+                    <td>{{ item.precio_u }}</td>
+                    <td>{{ item.s_inicial }}</td>
+                    <td>{{ item.c_ingreso }}</td>
+                    <td>{{ item.precio_u  }}</td>
+                    <td>{{ item.s_ingreso }}</td>
+                    <td>{{ item.c_salida }}</td>
+                    <td>{{ item.precio_u }}</td>
+                    <td>{{ item.s_salida }}</td>
+                    <td>{{ item.c_final }}</td>
+                    <td>{{ item.precio_u }}</td>
+                    <td>{{ item.s_final }}</td>
+                </tr>
+                            <tr>
+                                <td colspan="4" class="font-weight-bold"> TOTALES </td>
+                                <td colspan="5" class="font-weight-bold"></td>
+                                <td colspan="2" class="font-weight-bold"></td>
+                                <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
+
+                                <td colspan="2" class="font-weight-bold"></td>
+                                <td class="font-weight-bold">{{ totales.ts_entrada }}</td>
+                                <td colspan="2" class="font-weight-bold"></td>
+                                <td class="font-weight-bold">{{ totales.ts_salida }}</td>
+                                <td colspan="2" class="font-weight-bold"></td>
+                                <td class="font-weight-bold">{{ totales.ts_final }}</td>
+                            </tr>
+                </tbody>
+                <!-- <tfoot>
+                     <tr>
+                         <td class="font-weight-bold"></td>
+                         <td class="font-weight-bold">1, 2</td>
+                         <td class="font-weight-bold"></td>
+                         <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
+                         <td>155</td>
+                         <td colspan="3" class="font-weight-bold">SALDO FINAL AL 31/12/2019</td>
+                         <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
+                     </tr>
+                     <tr style=": 2px">
+                         <td class="font-weight-bold"></td>
+                         <td class="font-weight-bold">3</td>
+                         <td class="font-weight-bold"></td>
+                         <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
+                         <td>155</td>
+                         <td  colspan="3" class="font-weight-bold" >SALDO FINAL AL 31/12/2019</td>
+                         <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
+                     </tr>
+                 </tfoot>-->
+            </table>
+        </div>
+
         <div class="row justify-content-center mt-4">
             <el-button @click="details_view = true" >Ver Resumen <i  class="el-icon-view el-icon--right"></i></el-button>
         </div>
@@ -225,36 +234,36 @@
                 <tr>
                     <th>LINEA</th>
                     <th>SALDO INICIAL AL {{ consulta.del | dateformat }}</th>
-                    <th v-if="consulta.formato == 'B'">INGRESOS</th>
-                    <th v-if="consulta.formato == 'B'">SALIDAS</th>
+                    <th>INGRESOS</th>
+                    <th>SALIDAS</th>
                     <th>SALDO FINAL AL {{ consulta.al | dateformat }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">1</th>
                     <th class="font-weight-normal">{{ totales.l1s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l1s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l1s_salidas }}</th>
+                    <th class="font-weight-normal">{{ totales.l1s_entradas }}</th>
+                    <th class="font-weight-normal">{{ totales.l1s_salidas }}</th>
                     <th class="font-weight-normal">{{ totales.l1s_final }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">2</th>
                     <th class="font-weight-normal">{{ totales.l2s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l2s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l2s_salidas }}</th>
+                    <th class="font-weight-normal">{{ totales.l2s_entradas }}</th>
+                    <th class="font-weight-normal">{{ totales.l2s_salidas }}</th>
                     <th class="font-weight-normal">{{ totales.l2s_final}}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">3</th>
                     <th class="font-weight-normal">{{ totales.l3s_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l3s_entradas }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ totales.l3s_salidas }}</th>
+                    <th class="font-weight-normal">{{ totales.l3s_entradas }}</th>
+                    <th class="font-weight-normal">{{ totales.l3s_salidas }}</th>
                     <th class="font-weight-normal">{{ totales.l3s_final }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-bold">TOTALES</th>
                     <th class="font-weight-bold">{{ totales.ts_inicial }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ totales.ts_entrada }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ totales.ts_salida }}</th>
+                    <th >{{ totales.ts_entrada }}</th>
+                    <th >{{ totales.ts_salida }}</th>
                     <th class="font-weight-bold text-primary">{{ totales.ts_final }}</th>
                 </tr>
             </table>
@@ -355,8 +364,10 @@ export default {
             return this.items.filter(function(item) {
                 var searchRegex = new RegExp(self.searchQuery, "i");
                 return (
-                    searchRegex.test(item.partida) ||
-                    searchRegex.test(item.articulo)
+                    searchRegex.test(item.codigo) ||
+                    searchRegex.test(item.articulo) ||
+                    searchRegex.test(item.unidad) ||
+                    searchRegex.test(item.medida)
                 );
             });
         },
@@ -369,18 +380,18 @@ export default {
                 self.jw.setPage(1);
             }, 0);
         },
-        GET_ITEMS_REMA(form) {
+        GET_ITEMS_REGE(form) {
             this.$refs[form].validate(valid => {
                 this.loading = true;
                 if (valid) {
                     this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
                     this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
                     this.$Progress.start();
-                    axios.post('/controller/reportes/saldos_almacen/',this.consulta)
+                    axios.post('/controller/reportes/kardex/',this.consulta)
                         .then((response) =>{
                             this.items = response.data.data;
                             this.totales.ts_inicial = response.data.ts_inicial;
-                            this.totales.ts_entrada = response.data.ts_entrada;
+                            this.totales.ts_entrada = response.data.ts_ingreso;
                             this.totales.ts_salida = response.data.ts_salida;
                             this.totales.ts_final = response.data.ts_final;
                             this.totales.l1s_inicial = response.data.l1s_inicial;
@@ -419,28 +430,28 @@ export default {
         Print(){
             this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
             this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-            window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
+            window.open('http://localhost:8000/controller/reportes/kardex_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
                 '&formato=' + this.consulta.formato,'_blank');
         },
-        toExcel(){
-            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-            axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
-                .then(response => {
-                    const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
-                    const link = document.createElement('a')
-                    link.href = URL.createObjectURL(blob)
-                    //link.download = 'test'
-                    link.setAttribute('download', 'Mov_alm_form_'+this.consulta.formato+'.xlsx');
-                    //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
-                    link.click()
-                    URL.revokeObjectURL(link.href)
-                }).catch((err)=>{
-                console.log('error excel',err);
-            });
-        }
+        // toExcel(){
+        //     this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
+        //     this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
+        //     axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
+        //         .then(response => {
+        //             const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
+        //             const link = document.createElement('a')
+        //             link.href = URL.createObjectURL(blob)
+        //             //link.download = 'test'
+        //             link.setAttribute('download', 'Mov_alm_form_'+this.consulta.formato+'.xlsx');
+        //             //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+        //             link.click()
+        //             URL.revokeObjectURL(link.href)
+        //         }).catch((err)=>{
+        //         console.log('error excel',err);
+        //     });
+        // }
 
     },
     mounted() {

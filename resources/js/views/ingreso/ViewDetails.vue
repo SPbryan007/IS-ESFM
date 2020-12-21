@@ -211,15 +211,10 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
-import Ingreso from './../../components/reportes/Ingreso';
-import * as lang from "vuejs-datepicker/src/locale";
 import store from "../../store/index";
 import moment from "moment";
 import { router } from "../../routes";
 export default {
-    components:{
-        Ingreso
-    },
     data() {
         return {
             numero: 1997,

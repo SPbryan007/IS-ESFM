@@ -1,20 +1,19 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[44],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuejs_datepicker_src_locale__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuejs-datepicker/src/locale */ "./node_modules/vuejs-datepicker/src/locale/index.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -154,7 +153,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
 
 
 
@@ -162,47 +163,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      proveedores: [{
-        idProveedor: 1,
-        nombre: "POLLOS ROSITA"
-      }],
-      lote_form: {
-        cantidad: 0,
-        precio_unitario: 0,
-        tipo_ingreso: "COMPRA",
-        descripcion: "SALDO INICIAL",
-        donacion: {
-          institucion: "",
-          responsable: "",
-          telefono: ""
-        },
-        compra: {
-          nro_compra: "",
-          nro_solicitud: "",
-          nro_factura: "",
-          nro_autorizacion: "",
-          proveedor: null
-        }
-      }
+      details: {
+        lotes: [],
+        articulo: null,
+        unidad: null
+      },
+      visible: false
     };
   },
-  computed: _objectSpread({
-    saldo: function saldo() {
-      return this.lote_form.cantidad * this.lote_form.precio_unitario;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("periodo", ["data_form", "alert", "loading_form", "loading_table"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("periodo", ["GET_LOTES"])),
+  methods: {
+    ViewDetails: function ViewDetails(index, row) {
+      this.visible = true;
+      this.details.lotes = row.lotes;
+      this.details.articulo = row.nombre;
+      this.details.unidad = row.unidad;
+    },
+    Total: function Total() {
+      var total = 0;
+      _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters['periodo/GET_LOTES'].forEach(function (item) {
+        total += item.saldo;
+      });
+      return total;
+    },
+    StartPeriodo: function StartPeriodo() {
+      var _this = this;
+
+      this.$confirm("\xBF Esta seguro de iniciar el periodo ?, No se podra revertir el proceso despues de iniciar", "Advertencia", {
+        confirmButtonText: "Si iniciar",
+        cancelButtonText: "Cancelar",
+        type: "warning"
+      }).then(function () {
+        _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("periodo/startPeriodo", {
+          message: _this.$message
+        });
+      })["catch"](function () {
+        return null;
+      });
+    },
+    cancelar: function cancelar() {
+      _routes__WEBPACK_IMPORTED_MODULE_2__["router"].push({
+        name: "gestion"
+      });
+    },
+    goBack: function goBack() {
+      this.$router.go(-1);
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDORES"])),
-  methods: {},
-  created: function created() {
-    this.$store.dispatch("proveedor/GET_DATA_FROM_SERVER");
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -214,479 +229,359 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("div", { staticClass: "col-md-12" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c("div", { staticClass: "card-body" }, [
-          _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-md-8" }, [
+  return _c(
+    "div",
+    { staticClass: "col-md-12" },
+    [
+      _vm.alert.show
+        ? _c("el-alert", {
+            attrs: {
+              title: _vm.alert.title,
+              type: _vm.alert.color,
+              description: _vm.alert.message,
+              "show-icon": "",
+              closable: ""
+            },
+            on: {
+              close: function($event) {
+                _vm.alert.show = false
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
+        [
+          _c(
+            "div",
+            { staticClass: "pull-lef" },
+            [
+              _c("el-page-header", {
+                staticClass: "mt-2",
+                attrs: { content: "Inventario inicial" },
+                on: { back: _vm.goBack }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "pull-right" },
+            [
               _c(
-                "div",
-                { staticClass: "row" },
-                [
-                  _c(
-                    "el-form",
+                "el-button",
+                {
+                  directives: [
                     {
-                      ref: "lote_form",
-                      staticClass: "labeles",
-                      attrs: { model: _vm.lote_form, "label-width": "170px" }
-                    },
-                    [
-                      _c(
-                        "el-form-item",
-                        { attrs: { label: "Tipo de ingreso :" } },
-                        [
-                          _c(
-                            "el-radio",
-                            {
-                              attrs: { label: "COMPRA", border: "" },
-                              model: {
-                                value: _vm.lote_form.tipo_ingreso,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.lote_form, "tipo_ingreso", $$v)
-                                },
-                                expression: "lote_form.tipo_ingreso"
-                              }
-                            },
-                            [_vm._v("COMPRA")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-radio",
-                            {
-                              attrs: { label: "DONACION", border: "" },
-                              model: {
-                                value: _vm.lote_form.tipo_ingreso,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.lote_form, "tipo_ingreso", $$v)
-                                },
-                                expression: "lote_form.tipo_ingreso"
-                              }
-                            },
-                            [_vm._v("DONACION")]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "el-radio",
-                            {
-                              attrs: { label: "DEVOLUCION", border: "" },
-                              model: {
-                                value: _vm.lote_form.tipo_ingreso,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.lote_form, "tipo_ingreso", $$v)
-                                },
-                                expression: "lote_form.tipo_ingreso"
-                              }
-                            },
-                            [_vm._v("DEVOLUCION")]
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "row" },
+                      name: "loading",
+                      rawName: "v-loading.fullscreen.lock",
+                      value: _vm.loading_form,
+                      expression: "loading_form",
+                      modifiers: { fullscreen: true, lock: true }
+                    }
+                  ],
+                  attrs: {
+                    disabled:
+                      !_vm.data_form.nombre && _vm.data_form.fecha_inicio,
+                    type: "primary",
+                    "element-loading-text": "Iniciando..."
+                  },
+                  on: { click: _vm.StartPeriodo }
+                },
                 [
-                  _c(
-                    "el-form",
-                    {
-                      ref: "lote_form",
-                      staticClass: "labeles",
-                      attrs: { model: _vm.lote_form, "label-width": "170px" }
-                    },
-                    [
-                      _vm.lote_form.tipo_ingreso == "COMPRA"
-                        ? _c("div", { attrs: { id: "compra" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "row" },
-                              [
-                                _c(
-                                  "el-form-item",
-                                  { attrs: { label: "Nro de Compra" } },
-                                  [
-                                    _c("el-input", {
-                                      staticStyle: { width: "170px" },
-                                      model: {
-                                        value: _vm.lote_form.compra.nro_compra,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.lote_form.compra,
-                                            "nro_compra",
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "lote_form.compra.nro_compra"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "el-form-item",
-                                  { attrs: { label: "Nro de Solicitud" } },
-                                  [
-                                    _c("el-input", {
-                                      staticStyle: { width: "170px" },
-                                      model: {
-                                        value:
-                                          _vm.lote_form.compra.nro_solicitud,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.lote_form.compra,
-                                            "nro_solicitud",
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "lote_form.compra.nro_solicitud"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "row" },
-                              [
-                                _c(
-                                  "el-form-item",
-                                  { attrs: { label: "Nro de Factura" } },
-                                  [
-                                    _c("el-input", {
-                                      staticStyle: { width: "170px" },
-                                      model: {
-                                        value: _vm.lote_form.compra.nro_factura,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.lote_form.compra,
-                                            "nro_factura",
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "lote_form.compra.nro_factura"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "el-form-item",
-                                  { attrs: { label: "Nro authorizacion" } },
-                                  [
-                                    _c("el-input", {
-                                      staticStyle: { width: "170px" },
-                                      model: {
-                                        value:
-                                          _vm.lote_form.compra.nro_autorizacion,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.lote_form.compra,
-                                            "nro_autorizacion",
-                                            $$v
-                                          )
-                                        },
-                                        expression:
-                                          "lote_form.compra.nro_autorizacion"
-                                      }
-                                    })
-                                  ],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "el-form-item",
-                                  { attrs: { label: "Proveedor" } },
-                                  [
-                                    _c(
-                                      "el-select",
-                                      {
-                                        staticStyle: { width: "340px" },
-                                        attrs: {
-                                          filterable: "",
-                                          placeholder:
-                                            "Seleccione el proveedor",
-                                          "loading-text": "buscando..",
-                                          "no-match-text":
-                                            "No se encontraron registros"
-                                        },
-                                        model: {
-                                          value: _vm.lote_form.compra.proveedor,
-                                          callback: function($$v) {
-                                            _vm.$set(
-                                              _vm.lote_form.compra,
-                                              "proveedor",
-                                              $$v
-                                            )
-                                          },
-                                          expression:
-                                            "lote_form.compra.proveedor"
-                                        }
-                                      },
-                                      _vm._l(
-                                        _vm.GET_ITEMS_PROVEEDORES,
-                                        function(item, index) {
-                                          return _c("el-option", {
-                                            key: index,
-                                            attrs: {
-                                              label: item.nombre,
-                                              value: item.idProveedor
-                                            }
-                                          })
-                                        }
-                                      ),
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "router-link",
-                                      {
-                                        attrs: { to: { name: "addproveedor" } }
-                                      },
-                                      [
-                                        _c("el-button", {
-                                          attrs: {
-                                            type: "primary",
-                                            icon: "el-icon-plus"
-                                          }
-                                        })
-                                      ],
-                                      1
-                                    )
-                                  ],
-                                  1
-                                )
-                              ],
-                              1
-                            )
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _vm.lote_form.tipo_ingreso === "DONACION"
-                        ? _c(
-                            "div",
-                            { attrs: { id: "donacion" } },
-                            [
-                              _c(
-                                "el-form-item",
-                                { attrs: { label: "Proveedor" } },
-                                [
-                                  _c(
-                                    "el-select",
-                                    {
-                                      staticStyle: { width: "340px" },
-                                      attrs: {
-                                        filterable: "",
-                                        placeholder: "Seleccione el proveedor",
-                                        "loading-text": "buscando..",
-                                        "no-match-text":
-                                          "No se encontraron registros"
-                                      },
-                                      model: {
-                                        value: _vm.lote_form.compra.proveedor,
-                                        callback: function($$v) {
-                                          _vm.$set(
-                                            _vm.lote_form.compra,
-                                            "proveedor",
-                                            $$v
-                                          )
-                                        },
-                                        expression: "lote_form.compra.proveedor"
-                                      }
-                                    },
-                                    _vm._l(_vm.GET_ITEMS_PROVEEDORES, function(
-                                      item,
-                                      index
-                                    ) {
-                                      return _c("el-option", {
-                                        key: index,
-                                        attrs: {
-                                          label: item.nombre,
-                                          value: item.idProveedor
-                                        }
-                                      })
-                                    }),
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "router-link",
-                                    { attrs: { to: { name: "addproveedor" } } },
-                                    [
-                                      _c("el-button", {
-                                        attrs: {
-                                          type: "primary",
-                                          icon: "el-icon-plus"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("div", { attrs: { id: "devolucion" } }),
-                      _vm._v(" "),
-                      _c(
-                        "el-form-item",
-                        [
-                          _c(
-                            "el-button",
-                            {
-                              attrs: { type: "primary" },
-                              on: { click: _vm.onSubmit }
-                            },
-                            [_vm._v("Agregar lote")]
-                          ),
-                          _vm._v(" "),
-                          _c("el-button", [_vm._v("Cancelar")])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
+                  _vm._v("\n                Iniciar\n                "),
+                  _c("i", { staticClass: "fas fa-clock" })
+                ]
               )
-            ]),
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header border-0" }, [
+          _c("h3", { staticClass: "card-title" }, [
+            _vm._v("Inventario inicial   "),
+            _vm.loading_table
+              ? _c("i", {
+                  staticClass: "el-icon-loading",
+                  staticStyle: { "font-size": "1.3rem" }
+                })
+              : _vm._e()
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "d-flex justify-content-lg-start align-items-center mb-1"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c("p", { staticClass: "d-flex flex-column text-left" }, [
+                  _c(
+                    "i",
+                    { staticClass: "ion ion-android-arrow-up text-primary" },
+                    [_vm._v("Periodo : ")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v("\n                  Del\n                    "),
+                    _c("i", { staticClass: "font-weight-light" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(
+                            _vm._f("dateformat")(_vm.data_form.fecha_inicio)
+                          ) +
+                          "\n                    "
+                      )
+                    ]),
+                    _vm._v(" al\n                        "),
+                    _c("i", { staticClass: "font-weight-light" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(
+                            _vm._f("dateformat")(_vm.data_form.fecha_fin)
+                          ) +
+                          "\n                        "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-muted" }, [
+                    _vm._v(_vm._s(_vm.data_form.nombre))
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "el-dialog",
+              {
+                attrs: { title: _vm.details.articulo, visible: _vm.visible },
+                on: {
+                  "update:visible": function($event) {
+                    _vm.visible = $event
+                  }
+                }
+              },
+              [
+                _c(
+                  "el-table",
+                  { attrs: { data: _vm.details.lotes } },
+                  [
+                    _c("el-table-column", { attrs: { type: "index" } }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "detalleingreso.precio_u",
+                        label: "Precio Unitario",
+                        width: "220"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.precio_u) +
+                                  "\n                        "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "stock",
+                        label: "Stock",
+                        width: "220"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(scope.row.stock) +
+                                  " "
+                              ),
+                              _c("b", [_vm._v(_vm._s(_vm.details.unidad))])
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "saldo",
+                        label: "Saldo",
+                        width: "220"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.saldo) +
+                                  "\n                        "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-table",
+              {
+                staticStyle: { width: "100%" },
+                attrs: { data: _vm.GET_LOTES, stripe: "" }
+              },
+              [
+                _c("el-table-column", { attrs: { type: "index" } }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "nombre", label: "Articulo", width: "600" }
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "stock", label: "Stock", width: "100" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(scope.row.stock) +
+                              "\n                    "
+                          )
+                        ]
+                      }
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "unidad", label: "Medida", width: "140" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [_c("b", [_vm._v(_vm._s(scope.row.unidad))])]
+                      }
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "saldo", label: "Saldo", width: "100" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _c("b", [_vm._v("Bs: ")]),
+                          _vm._v(
+                            _vm._s(scope.row.saldo) + "\n                    "
+                          )
+                        ]
+                      }
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _c("el-button", {
+                            attrs: { icon: "el-icon-view", circle: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.ViewDetails(scope.$index, scope.row)
+                              }
+                            }
+                          })
+                        ]
+                      }
+                    }
+                  ])
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
               {
                 staticClass:
-                  "col-md-4 pl-5 border border-bottom-0 border-bottom-0 border-right-0 border-top-0"
+                  "d-flex justify-content-end align-items-center mt-3"
               },
               [
-                _c(
-                  "div",
-                  [
-                    _c(
-                      "el-form",
-                      {
-                        ref: "lote_form",
-                        staticClass: "labeles",
-                        attrs: {
-                          rules: _vm.rules_lote_form,
-                          model: _vm.lote_form,
-                          "label-width": "120px"
-                        }
-                      },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Cantidad en Kg." } },
-                          [
-                            _c("el-input-number", {
-                              attrs: {
-                                "controls-position": "right",
-                                precision: 2,
-                                min: 1,
-                                max: 10
-                              },
-                              model: {
-                                value: _vm.lote_form.cantidad,
-                                callback: function($$v) {
-                                  _vm.$set(_vm.lote_form, "cantidad", $$v)
-                                },
-                                expression: "lote_form.cantidad"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Precio unitario" } },
-                          [
-                            _c("el-input-number", {
-                              attrs: {
-                                "controls-position": "right",
-                                precision: 2,
-                                step: 0.1,
-                                max: 10,
-                                disabled:
-                                  _vm.lote_form.tipo_ingreso == "DONACION"
-                              },
-                              model: {
-                                value: _vm.lote_form.precio_unitario,
-                                callback: function($$v) {
-                                  _vm.$set(
-                                    _vm.lote_form,
-                                    "precio_unitario",
-                                    $$v
-                                  )
-                                },
-                                expression: "lote_form.precio_unitario"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Saldo" } },
-                          [
-                            _c("el-input", {
-                              staticStyle: { width: "200px" },
-                              attrs: {
-                                value: "Bs. " + _vm.saldo,
-                                placeholder: "Please input",
-                                disabled: true
-                              }
-                            })
-                          ],
-                          1
-                        )
-                      ],
-                      1
+                _c("p", { staticClass: "d-flex flex-column text-left" }, [
+                  _c(
+                    "i",
+                    { staticClass: "ion ion-android-arrow-up text-primary" },
+                    [_vm._v("Saldo total:  ")]
+                  ),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "font-weight-light" }, [
+                    _c("b", [_vm._v("Bs : ")]),
+                    _vm._v(
+                      "  " + _vm._s(_vm.Total()) + "\n                    "
                     )
-                  ],
-                  1
-                )
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("br")
               ]
             )
-          ])
-        ])
+          ],
+          1
+        )
       ])
-    ])
-  ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("PAPEL MEMEMBRETADO - NUEVO LOTE")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
+    return _c("p", { staticClass: "text-success text-xl" }, [
+      _c("i", { staticClass: "ion ion-ios-refresh-empty" })
     ])
   }
 ]
@@ -696,17 +591,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/InitialDetails.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/views/periodo/InitialDetails.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InitialDetails.vue?vue&type=template&id=47db3c1e& */ "./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e&");
-/* harmony import */ var _InitialDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InitialDetails.vue?vue&type=script&lang=js& */ "./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js&");
+/* harmony import */ var _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InventarioInicialView.vue?vue&type=template&id=24a4080e& */ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&");
+/* harmony import */ var _InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InventarioInicialView.vue?vue&type=script&lang=js& */ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -716,9 +611,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _InitialDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -728,38 +623,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/periodo/InitialDetails.vue"
+component.options.__file = "resources/js/views/periodo/InventarioInicialView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InitialDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InitialDetails.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InitialDetails.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InitialDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventarioInicialView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InitialDetails.vue?vue&type=template&id=47db3c1e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InitialDetails.vue?vue&type=template&id=47db3c1e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventarioInicialView.vue?vue&type=template&id=24a4080e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InitialDetails_vue_vue_type_template_id_47db3c1e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

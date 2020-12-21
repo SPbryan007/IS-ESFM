@@ -312,7 +312,7 @@
         <tbody>
         @foreach($data->detalleingresos as $item)
             <tr class="item">
-                <th scope="row" style="text-align: center">{{ $item->id  }}</th>
+                <th scope="row" style="text-align: center">{{ $loop->iteration  }}</th>
                 <td >{{ $item->lote->articulo->codigo }}</td>
                 <td>{{ $item->lote->articulo->nombre}}</td>
                 <td>{{ $item->lote->articulo->unidad_medida->nombre }}</td>

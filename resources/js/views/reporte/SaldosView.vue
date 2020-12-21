@@ -416,6 +416,8 @@ export default {
                             this.loading = false;
                         })
                         .catch((err) =>{
+                            this.alert.message = err.message;
+                            this.alert.show = true;
                             this.loading = false;
                             this.$Progress.fail();
                         })

@@ -1,229 +1,452 @@
-<?php
-
-namespace App\Http\Controllers;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
-use App\Gestion;
-use App\Articulo;
-use App\Ingreso;
-use App\Almacen;
-use App\DetalleIngreso;
-use Illuminate\Http\Request;
-
-class GestionController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        try {
-            $gestion = Gestion::all();
-            return response()->json($gestion,200);
-        } catch (\Exception $th) {
-            return response()->json($th->getMessage(),500);
-        }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        try {
-            if(Articulo::all()->count() == 0){
-                return response()->json('NO ITEMS',400);
-            }
-            $gestion =  Gestion::latest()->first();
-
-            //$gestion_id = !$periodo ? NULL : $periodo->idGestion;
-
-            DB::beginTransaction();
-
-            if($gestion){
-                $gestion_id = $gestion->idGestion;
-                $gestion->estado = Gestion::FINALIZADO;
-                $gestion->save();
-            }else{
-                $gestion_id = NULL;
-            }
+$inicial =  Lote::select(
+//DB::raw( 'lote.id as lote'),
+DB::raw('0 as c_entrada,0 as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+//DB::raw('0 as s_final'),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($al))) . "
+),0)
+as s_final"),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+),0)
+as s_inicial"),
+//   DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_inicial'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
 
 
-            $gestion = new Gestion();
-            $gestion->nombre = $request->nombre;
-            $gestion->estado =  Gestion::EN_CURSO;
-            $gestion->descripcion = $request->descripcion;
-            $gestion->fecha_inicio = $request->fecha_inicio;
-            $gestion->fecha_fin = $request->fecha_fin;
-            $gestion->save();
+)
+->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->leftjoin('partida as p', 'p.id', '=', 'a.partida_id')
+->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+// ->where('i.created_at', '<=', date('Y-m-d H:i:s', strtotime($del)) )
+->whereNull('i.deleted_at')
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id', 'a.linea','lote.precio_u','lote.id','i.created_at');
+//            ->orderBy('p.codigo', 'asc')
+//            ->orderBy('a.nombre', 'asc');
 
-            $ingreso = new Ingreso();
-            $ingreso->tipo_ingreso = Ingreso::INV_INICIAL;
-            $ingreso->usuario_id = Auth::user()->idUsuario;
-            $ingreso->gestion_id = $gestion->idGestion;
-            $ingreso->save();
-
-            $articulo = Articulo::all();
-            foreach ($articulo as $art){
-
-                $result = Articulo::select('item.idItem as item_id','di.precio_u as precio',DB::raw('(di.cantidad + IFNULL( dd.cantidad,0)) - IFNULL(ds.cantidad,0) as stock'))
-                ->leftjoin('detalle_ingreso as di', 'di.item_id', '=', 'item.idItem')
-                ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'di.idDetalle_ingreso')
-                ->leftjoin('detalle_devolucion as dd', 'dd.detalle_salida_id', '=', 'ds.idDetalle_salida')
-                ->leftjoin('ingreso as ig', 'ig.idIngreso', '=', 'di.ingreso_id')
-                ->leftjoin('periodo as g', 'g.idGestion', '=', 'ig.gestion_id')
-                ->where('g.idGestion','=',$gestion_id)
-                ->where('item.idItem','=',$art->idItem)
-                ->whereRaw('IFNULL( ds.cantidad,0) != (di.cantidad + IFNULL( dd.cantidad,0))')
-                ->orderBy('item.nombre', 'ASC')
-                ->get();
-
-                if (!$result->isEmpty()) {
-                    foreach ($result as $item) {
-                        $detalle_ingreso = new DetalleIngreso();
-                        $detalle_ingreso->cantidad = $item->stock;
-                        $detalle_ingreso->precio_u = $item->precio;
-                        $detalle_ingreso->descripcion = 'INVENTARIO INICIAL';
-                        $detalle_ingreso->item_id = $item->item_id;
-                        $detalle_ingreso->ingreso_Id = $ingreso->idIngreso;
-                        $detalle_ingreso->save();
-                    }
-                }
-
-                if($result->isEmpty()){
-                        $detalle_ingreso = new DetalleIngreso();
-                        $detalle_ingreso->cantidad = 0;
-                        $detalle_ingreso->precio_u = 0;
-                        $detalle_ingreso->descripcion = 'INVENTARIO INICIAL';
-                        $detalle_ingreso->item_id = $art->idItem;
-                        $detalle_ingreso->ingreso_Id = $ingreso->idIngreso;
-                        $detalle_ingreso->save();
-                }
-            }
-
-            DB::commit();
-            $gestion = Gestion::all();
-
-            return response()->json( $gestion,200);
-        } catch (\Exception $th) {
-            DB::rollback();
-            return response()->json($th->getMessage(),200);
-        }
+//        $final = Lote::select(
+//            DB::raw('0 as c_entrada,0 as s_entrada'),
+//            DB::raw('0 as c_salida, 0 as s_salida'),
+//            DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_final'),
+//            DB::raw('0 as s_inicial'),
+//            'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+//        )
+//            ->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+//            ->leftjoin('partida as p', 'p.id', '=', 'a.partida_id')
+//            ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+//            ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+//            ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+//            ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+//            ->where('i.periodo_id', 1)
+//            ->where('i.created_at', '<=', date('Y-m-d H:i:s', strtotime($al)) )
+//            ->whereNull('i.deleted_at')
+//            ->whereNull('s.deleted_at')
+//            ->where('lote.precio_u', '<>', 0)
+//            ->unionAll($inicial)
+//            ->groupBy('a.id', 'a.linea', 'lote.id', 'i.created_at');
+//            ->orderBy('p.codigo', 'asc')
+//            ->orderBy('a.nombre', 'asc')
 
 
-        // $ingreso = new Ingreso();
-        // $ingreso->tipo_ingreso = Ingreso::COMPRA;
-        // $ingreso->usuario_id = Auth::user()->idUsuario;
-        // $ingreso->gestion_id = $periodo->idGestion;
+$entradas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)) as c_entrada,SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id', 'a.linea','lote.precio_u','lote.id','i.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc');
 
+$salidas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('0 as c_entrada, 0 as s_entrada'),
+DB::raw('SUM(IFNULL(ds.cantidad,0)) as c_salida,SUM(IFNULL(ds.cantidad,0)*IFNULL(lote.precio_u,0)) as s_salida'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
 
-        // $resp;
-        // $items = Articulo::all();
-        // foreach ($items as $item) {
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->join('salida as s', 's.id', '=', 'ds.salida_id')
+->where('s.periodo_id',1)
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id', 'a.linea','lote.precio_u','lote.id' ,'s.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc')
+->unionAll($entradas);
+//->union($inicial);
 
-        // }
+return DB::query()->fromSub($salidas, 'q')
+->select(
+DB::raw('SUM(q.c_entrada) as c_entrada ,SUM(q.c_salida) as c_salida,SUM(q.s_entrada) as s_entrada,SUM(q.s_salida) as s_salida'),
+// DB::raw('SUM(q.c_entrada - q.c_salida) as c_final'),
+DB::raw('SUM(q.s_final) as s_final'),
+DB::raw('SUM(q.s_inicial) as s_inicial'),
+'q.lote as lote', 'q.partida as partida', 'q.articulo as articulo', 'q.precio_u as precio_u', 'q.linea as linea', 'q.num_linea as num_linea'
+)
 
-        // $detalle_ingreso = new DetalleIngreso();
-        // $detalle_ingreso->cantidad
-        // $detalle_ingreso->precio_u;
-
-        // $almacen = new Almacen();
+->join('lote','lote.id','=','q.lote')
+->join('articulo as a', 'a.id', '=', 'lote.articulo_id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->whereDate('i.created_at', '>=', $del)
+->whereDate('i.created_at', '<=', $al)
+->where('i.periodo_id', $periodo)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->unionAll($inicial)
+//  ->groupBy('a.id', 'a.linea','lote.precio_u','lote.id' ,'i.created_at')->get();
+->groupBy('q.articulo','q.partida', 'q.linea','q.precio_u','q.lote','q.num_linea')->get();
 
 
 
-        // $articulo->nombre = $request->nombre;
-        // $articulo->codigo = $request->codigo;
-        // $articulo->linea = $request->linea;
-        // $articulo->partida_id = $request->partida['value'];;
-        // $articulo->unidad_medida_id = $request->unidad_medida['value'];
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function valid_date(Request $request)
-    {
-        try {
-            $gestion = Gestion::latest()->first();
-            if(!$gestion){
-                return response()->json(true,200);
-            }
-            // if($request->fin){
 
-            // }
-            // $date_end = date($request->fin);
-            $date_end_db = date($gestion->fecha_fin);
-            $date_start =  date($request->inicio);
-            if($date_start > $date_end_db){
-                return response()->json(true,200);
-            }else{
-                return response()->json(false,200);
-            }
-            // return response()->json($periodo,200);
-        } catch (\Exception $th) {
-            return response()->json($th->getMessage(),500);
-        }
-    }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+$inicial =  Lote::select(
+//  DB::raw( 'lote.id as lote'),
+DB::raw('0 as c_entrada,0 as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+//DB::raw('0 as s_final'),
+DB::raw("IFNULL((SELECT (SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`),0)
+as c_inicial"),
+DB::raw("IFNULL((SELECT (SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($al))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`),0)
+as c_final"),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`),0)
+as s_inicial"),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($al))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`),0)
+as s_final"),
+
+
+
+//   DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_inicial'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+
+
+)
+->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->leftjoin('partida as p', 'p.id', '=', 'a.partida_id')
+->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+// ->where('i.created_at', '<=', date('Y-m-d H:i:s', strtotime($del)) )
+->whereNull('i.deleted_at')
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id','p.codigo', 'a.linea','lote.precio_u','lote.id','i.created_at');
+
+$entradas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)) as c_entrada,SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+DB::raw('0 as c_inicial'),
+DB::raw('0 as c_final'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final')
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id','p.codigo','a.linea','lote.precio_u','i.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc');
+
+$salidas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('0 as c_entrada, 0 as s_entrada'),
+DB::raw('SUM(IFNULL(ds.cantidad,0)) as c_salida,SUM(IFNULL(ds.cantidad,0)*IFNULL(lote.precio_u,0)) as s_salida'),
+DB::raw('0 as c_inicial'),
+DB::raw('0 as c_final'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final')
+
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->join('salida as s', 's.id', '=', 'ds.salida_id')
+->where('s.periodo_id',1)
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id', 'p.codigo','a.linea','lote.precio_u' ,'s.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc')
+->unionAll($entradas);
+
+$query =  DB::query()->fromSub($salidas, 'q')
+->select(
+DB::raw('SUM(q.c_entrada) as c_entrada ,SUM(q.c_salida) as c_salida,SUM(q.s_entrada) as s_entrada,SUM(q.s_salida) as s_salida'),
+DB::raw('SUM(q.c_inicial) as c_inicial'),
+DB::raw('SUM(q.c_final) as c_final'),
+DB::raw('SUM(q.s_inicial) as s_inicial'),
+DB::raw('SUM(q.s_final) as s_final'),
+
+//'q.lote as lote','q.partida as partida', 'q.articulo as articulo', 'q.precio_u as precio_u', 'q.linea as linea', 'q.num_linea as num_linea'
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+)
+->join('articulo as a', 'a.id', '=', 'q.id')
+->join('lote','lote.articulo_id','=','a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->whereDate('i.created_at', '>=', $del)
+->whereDate('i.created_at', '<=', $al)
+->where('i.periodo_id', $periodo)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->unionAll($inicial)
+->groupBy('a.id','p.codigo', 'a.linea','lote.precio_u','lote.id');
+
+return DB::query()->fromSub($query, 'q')
+->select(
+DB::raw('SUM(q.c_entrada) as c_entrada ,SUM(q.c_salida) as c_salida,SUM(q.s_entrada) as s_entrada,SUM(q.s_salida) as s_salida'),
+DB::raw('SUM(q.c_inicial) as c_inicial'),
+DB::raw('SUM(q.c_final) as c_final'),
+DB::raw('SUM(q.s_inicial) as s_inicial'),
+DB::raw('SUM(q.s_final) as s_final'),
+
+'q.articulo','q.partida','q.precio_u', 'q.linea','q.num_linea'
+
+)
+->groupBy('q.articulo','q.partida','q.linea','q.precio_u','q.num_linea')->get();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$inicial = Lote::select(
+//  DB::raw( 'lote.id as lote'),
+DB::raw('0 as c_entrada,0 as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+//DB::raw('0 as s_final'),
+DB::raw("IFNULL((SELECT (SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`,l.id),0)
+as c_inicial"),
+DB::raw("SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)) as c_final"),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`,l.id),0)
+as s_inicial"),
+DB::raw("(SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u)) as s_final"),
+
+
+
+//   DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_inicial'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+
+
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$inicial = Lote::select(
+//  DB::raw( 'lote.id as lote'),
+DB::raw('0 as c_entrada,0 as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+//DB::raw('0 as s_final'),
+DB::raw("IFNULL((SELECT (SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`,l.id),0)
+as c_inicial"),
+DB::raw("SUM(DISTINCT IFNULL(di.cantidad,0)) - SUM(IFNULL(ds.cantidad,0)) as c_final"),
+DB::raw("IFNULL((SELECT (SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u))
+FROM lote as l
+WHERE `l`.`precio_u` <> 0 AND `l`.`articulo_id` = `a`.`id` AND i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($del))) . "
+GROUP BY `a`.`id`,`l`.`precio_u`,l.id),0)
+as s_inicial"),
+DB::raw("(SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u)) as s_final"),
+
+//   DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_inicial'),
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+
+)
+->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->leftjoin('partida as p', 'p.id', '=', 'a.partida_id')
+->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+->where('i.created_at', '<=', date('Y-m-d H:i:s', strtotime($al)) )
+->whereNull('i.deleted_at')
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id','p.codigo', 'a.linea','lote.precio_u','lote.id','i.created_at');
+
+$entradas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)) as c_entrada,SUM( DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) as s_entrada'),
+DB::raw('0 as c_salida, 0 as s_salida'),
+DB::raw('0 as c_inicial'),
+DB::raw('0 as c_final'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final')
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->where('i.periodo_id', 1)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id','p.codigo','a.linea','lote.precio_u','lote.id','i.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc');
+
+$salidas = Lote::select(
+DB::raw( 'a.id as id'),
+DB::raw('0 as c_entrada, 0 as s_entrada'),
+DB::raw('SUM(IFNULL(ds.cantidad,0)) as c_salida,SUM(IFNULL(ds.cantidad,0)*IFNULL(lote.precio_u,0)) as s_salida'),
+DB::raw('0 as c_inicial'),
+DB::raw('0 as c_final'),
+DB::raw('0 as s_inicial'),
+DB::raw('0 as s_final')
+
+)
+->join('articulo as a', 'lote.articulo_id', '=', 'a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+->join('salida as s', 's.id', '=', 'ds.salida_id')
+->where('s.periodo_id',1)
+->whereNull('s.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->groupBy('a.id', 'p.codigo','a.linea','lote.precio_u' ,'lote.id','s.created_at')
+->orderBy('p.codigo', 'asc')
+->orderBy('a.nombre', 'asc')
+->unionAll($entradas);
+
+$query =  DB::query()->fromSub($salidas, 'q')
+->select(
+DB::raw('SUM(q.c_entrada) as c_entrada ,SUM(q.c_salida) as c_salida,SUM(q.s_entrada) as s_entrada,SUM(q.s_salida) as s_salida'),
+DB::raw('SUM(q.c_inicial) as c_inicial'),
+DB::raw('SUM(q.c_final) as c_final'),
+DB::raw('SUM(q.s_inicial) as s_inicial'),
+DB::raw('SUM(q.s_final) as s_final'),
+
+//'q.lote as lote','q.partida as partida', 'q.articulo as articulo', 'q.precio_u as precio_u', 'q.linea as linea', 'q.num_linea as num_linea'
+'lote.id as lote', 'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+)
+->join('articulo as a', 'a.id', '=', 'q.id')
+->join('lote','lote.articulo_id','=','a.id')
+->join('partida as p', 'p.id', '=', 'a.partida_id')
+->join('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+->join('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+->whereDate('i.created_at', '>=', $del)
+->whereDate('i.created_at', '<=', $al)
+->where('i.periodo_id', $periodo)
+->whereNull('i.deleted_at')
+->where('lote.precio_u', '<>', 0)
+->unionAll($inicial)
+->groupBy('a.id','p.codigo', 'a.linea','lote.precio_u','lote.id');
+
+return DB::query()->fromSub($query, 'q')
+->select(
+DB::raw('SUM(q.c_entrada) as c_entrada ,SUM(q.c_salida) as c_salida,SUM(q.s_entrada) as s_entrada,SUM(q.s_salida) as s_salida'),
+DB::raw('SUM(q.c_inicial) as c_inicial'),
+DB::raw('SUM(q.c_final) as c_final'),
+DB::raw('SUM(q.s_inicial) as s_inicial'),
+DB::raw('SUM(q.s_final) as s_final'),
+
+'q.articulo','q.partida','q.precio_u', 'q.linea','q.num_linea'
+
+)
+->groupBy('q.articulo','q.partida','q.linea','q.precio_u','q.num_linea')->get();

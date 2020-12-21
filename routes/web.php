@@ -123,8 +123,9 @@ Route::prefix('controller/reportes')->group(function (){
     Route::get('/movimiento_almacen_print', 'ReporteController@MovimientoAlmacenPDF')->middleware('auth');
     Route::post('/saldos_almacen', 'ReporteController@SaldosAlmacen')->middleware('auth');
     Route::post('/movimiento_almacen_excel', 'ReporteController@MovimientoAlmacenToExcel')->middleware('auth');
+    Route::post('/kardex', 'ReporteController@ReporteGeneral')->middleware('auth');
+    Route::get('/kardex_print','ReporteController@ReporteGeneralToPDF')->middleware('auth');
     //Route::get('/movimiento_almacen_excel', 'ReporteController@MovimientoAlmacenToExcel');
-
 });
 
 Route::prefix('controller/salida')->group(function (){
