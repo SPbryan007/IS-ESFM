@@ -4,10 +4,21 @@
     <meta charset="utf-8">
     <title>Reporte general del {{ date('d/m/Y',strtotime($del)) }} al {{ date('d/m/Y',strtotime($al)) }} </title>
     <style>
+        @page {
+            size: legal landscape;
+            margin-left: 30mm;
+            /*margin-right: 25mm;*/
+        }
+
         .invoice-box {
-            max-width: 900px;
+
+
+            width: 100%;
             margin: auto;
-            margin-left: 10px;
+
+            /*margin-rigth: 150px;*/
+
+
             /*   padding: 30px;*/
             /*  border: 1px solid #eee;
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
@@ -24,14 +35,17 @@
         }
 
         .invoice-box table tbody tr td {
-            padding-left: 3px;
-            padding-right: 3px;
-            vertical-align: top;
+            /*padding-left: 5px;*/
+            /*padding-right: 5px;*/
+            /*padding-bottom: 4px;*/
+            vertical-align: middle;
+            padding: 4px;
         }
         .invoice-box table tbody tr th {
-            padding-left: 3px;
-            padding-right: 3px;
-            vertical-align: top;
+            padding-left: 5px;
+            padding-right: 5px;
+            vertical-align:  middle;
+            padding-bottom: 4px;
         }
 
         .invoice-box table tr td:nth-child(2) {
@@ -63,6 +77,7 @@
             background: #eee;
             border-bottom: 1px solid #ddd;
             font-weight: bold;
+            padding: 2px;
             text-align: center;
         }
 
@@ -108,7 +123,10 @@
         .rtl table {
             text-align: right;
         }
-
+        .pa{
+            border: 0.5px solid #00000099;
+            border-bottom: 0.5px solid #00000099 !important;
+        }
         .rtl table tr td:nth-child(2) {
             text-align: left;
         }
@@ -136,151 +154,143 @@
 </head>
 
 <body>
-<!--<tr class="top">
-    <td colspan="2">
-        <table>
+    <div class="invoice-box">
+    <header >
+        <table style="margin-left: 150px">
             <tr>
-                <td class="title">
-                    <img src="./public/img/logo.jpeg" style="width:35%; max-width:300px;">
-                </td>
-
-                <td class="text-center">
-                    <h1>ALMACEN</h1>
-                    <h2>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b></h2>
-                    <h2>RECURSOS PROPIOS</h2>
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>-->
-
-<div class="invoice-box">
-    <header class="">
-        <table>
-            <tr>
-                <td  style="width: 100px;vertical-align: inherit">
-                    <div style="width: 140px; margin-left: 100px">
+                <td  style="width: 140px;vertical-align: inherit">
+                    <div style="width: 140px;float: right;margin-left: 140px">
                         <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
                     </div>
                 </td>
-                <td style="text-align: center">
+                <td style="text-align: center;">
                     {{--<h4>ALMACEN</h4>--}}
-                    <h5>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>
+                    <h4>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>
                         REPORTE GENERAL <br> DEL {{ date('d/m/Y',strtotime($del)) }} AL {{ date('d/m/Y',strtotime($al)) }}
-                        <br> (Expresado en bolivianos)
-                    </h5>
-                    <h5></h5>
+
+                    </h4>
                 </td>
             </tr>
         </table>
     </header>
-    <br>
-    <table style=" font-size: 10px;" cellpadding="0" border="1" cellspacing="0">
+
+    <table style=" font-size: 8px; border-collapse: collapse; line-height: 14px;" cellpadding="0"  cellspacing="0">
         <thead>
         <tr class="heading">
-            <th rowspan="3" scope="col"  style="width: 30px">N°</th>
-            <th rowspan="3" scope="col" style="width: 60px">LINEA</th>
-            <th rowspan="3" scope="col" style="width: 210px">PRODUCTO</th>
-            <th rowspan="3" scope="col" style="width: 210px">NI</th>
-            <th rowspan="3" scope="col" style="width: 210px">NS</th>
-            <th rowspan="3" scope="col" style="width: 210px">MEDIDA</th>
-            <th rowspan="2" scope="col" style="width: 80px"><span>SALDO INICIAL</span></th>
-            <th rowspan="2" scope="col" style="width: 80px">INGRESOS</th>
-            <th rowspan="2" scope="col" style="width: 80px">SALIDAS</th>
-            <th rowspan="2" scope="col" style="width: 80px">UNIDAD <br>SOLICITANTE </th>
-            <th colspan="4" scope="col" style="width: 200px"> SALDO FINAL</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 40px">LINEA</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 60px">CODIGO</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 220px;">PRODUCTO</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 30px">NI</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 30px">NS</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 60px">FECHA</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 60px">MEDIDA</th>
+            <th rowspan="1" class="pa" colspan="3" scope="col" style="width: 80px"><span>SALDO INICIAL</span></th>
+            <th rowspan="1" class="pa" colspan="3" scope="col" style="width: 80px">INGRESOS</th>
+            <th rowspan="1" class="pa" colspan="3"  scope="col" style="width: 80px">SALIDAS</th>
+            <th rowspan="2" class="pa" scope="col" style="width: 120px">UNIDAD <br>SOLICITANTE </th>
+            <th rowspan="1" class="pa" colspan="3" scope="col" style="width: 80px"><span>SALDO FINAL</span></th>
+
         </tr>
-        <tr class="heading">
-            <th colspan="2" scope="col">ENTRADAS</th>
-            <th colspan="2" scope="col">SALIDAS</th>
-        </tr>
-        <tr class="heading">
-            <th scope="col" class="pa">CANTIDAD</th>
-            <th scope="col" class="pa">Bs</th>
-            <th scope="col" class="pa" style="width: 70px">CANTIDAD</th>
-            <th scope="col" class="pa">Bs</th>
-            <th scope="col" class="pa" style="width: 70px">CANTIDAD</th>
-            <th scope="col" class="pa">Bs</th>
-            <th scope="col" class="pa">CANTIDAD</th>
-            <th scope="col" class="pa">Bs</th>
-            <th scope="col" class="pa">Bs</th>
+        <tr class="heading pa" >
+            <th scope="col" class="pa" style="width: 40px">CANT.</th>
+            <th scope="col" class="pa" style="width: 40px">P.U.</th>
+            <th scope="col" class="pa" style="width: 50px">C. TOTAL</th>
+            <th scope="col" class="pa" style="width: 40px">CANT.</th>
+            <th scope="col" class="pa" style="width: 40px">P.U.</th>
+            <th scope="col" class="pa" style="width: 50px">C. TOTAL</th>
+            <th scope="col" class="pa" style="width: 40px">CANT.</th>
+            <th scope="col" class="pa" style="width: 40px">P.U.</th>
+            <th scope="col" class="pa" style="width: 50px">C. TOTAL</th>
+            <th scope="col" class="pa" style="width: 40px">CANT.</th>
+            <th scope="col" class="pa" style="width: 40px">P.U.</th>
+            <th scope="col" class="pa" style="width: 50px">C. TOTAL</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody >
         @foreach($data as $item)
             <tr class="item">
-                <th scope="row" style="text-align: center;">{{ $loop->iteration  }}</th>
-                <td style="text-align: center;">{{ $item->partida }}</td>
-                <td style="text-align: left;">{{ $item->articulo }}</td>
-                <td style="text-align: right;">{{ $item->c_inicial  }}</td>
-                <td style="text-align: right;">{{ round($item->s_inicial,2) }}</td>
+                <td style="text-align: center;font-size: 9px" class="pa">{{ $item->linea }}</td>
+                <td style="text-align: center;font-size: 9px" class="pa">{{ $item->codigo }}</td>
+                <td style="text-align: left;font-size: 9px" class="pa">{{ $item->articulo  }}</td>
+                <td style="text-align: center;font-size: 9px" class="pa">{{ $item->ni  }}</td>
+                <td style="text-align: center;font-size: 9px" class="pa">{{ $item->ns  }}</td>
+                <td style="text-align: center;font-size: 9px" class="pa">{{ date('d/m/Y',strtotime($item->fecha))  }}</td>
+                <td style="text-align: left;font-size: 9px" class="pa">{{ $item->medida  }}</td>
 
-                <td style="text-align: right;">{{ $item->c_entrada  }}</td>
-                <td style="text-align: right;">{{ round($item->s_entrada,2) }}</td>
-                <td style="text-align: right;">{{ $item->c_salida  }}</td>
-                <td style="text-align: right;">{{ round($item->s_salida,2) }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->c_inicial,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->s_inicial,2) ,2) }}</td>
 
-                <td style="text-align: right;">{{ $item->c_final  }}</td>
-                <td style="text-align: right;">{{ round($item->precio_u,2) }}</td>
-                <td style="text-align: right;">{{ round($item->s_final,2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->c_ingreso,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->s_ingreso,2),2)  }}</td>
+
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->c_salida,2),2) }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->s_salida,2),2)  }}</td>
+
+                <td style="text-align: left;font-size: 9px" class="pa">
+                       {{ $item->unidad  }}
+                 </td>
+
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->c_final,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px" class="pa">{{ number_format(round($item->s_final,2),2)  }}</td>
             </tr>
         @endforeach
         </tbody>
         <tfoot>
         <tr >
-            <th colspan="3" scope="row" style="text-align: center;font-weight: bold">TOTALES</th>
-            <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_inicial,2)  }}</td>
-
-            <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_entrada,2)  }}</td>
-            <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_salida,2) }}</td>
-
-            <td  style="text-align: right;font-weight: bold"></td>
-            <td style=""></td>
-            <td style="padding-right: 3px;text-align: right;font-weight: bold">{{ round($ts_final,2) }}</td>
+            <th  class="pa" colspan="7" scope="row" style="text-align: center;font-weight: bold;padding: 4px">TOTALES</th>
+            <td  class="pa" colspan="2" ></td>
+            <td  class="pa" style="padding-right: 3px;text-align: right;font-weight: bold">{{ number_format(round($ts_inicial,2) ,2) }}</td>
+            <td  class="pa" colspan="2" style="text-align: right;font-weight: bold"></td>
+            <td  class="pa" style="padding-right: 3px;text-align: right;font-weight: bold">{{ number_format(round($ts_ingreso,2),2)  }}</td>
+            <td  class="pa" colspan="2" style="text-align: right;font-weight: bold"></td>
+            <td  class="pa" style="padding-right: 3px;text-align: right;font-weight: bold">{{ number_format(round($ts_salida,2),2) }}</td>
+            <td  class="pa" colspan="3" style="text-align: right;font-weight: bold"></td>
+            <td  class="pa" style="padding-right: 3px;text-align: right;font-weight: bold">{{ number_format(round($ts_final,2),2) }}</td>
         </tr>
         </tfoot>
     </table>
     <br>
-    <table style=" font-size: 10px;width: 40%;" cellpadding="0" border="1" cellspacing="0">
+    <table style=" font-size: 10px;width: 42%; margin-left: 110px" cellpadding="0" cellspacing="0">
         <thead>
         <tr class="heading">
-            <th scope="col" style="width: 50px">LINEA</th>
-            <th scope="col" style="width: 85px">SALDO INICIAL</th>
-            <th scope="col" style="width: 70px">INGRESOS</th>
-            <th scope="col" style="width: 70px">SALIDAS</th>
-            <th scope="col" >SALDO FINAL</th>
+            <th class="pa" scope="col" style="width: 50px">LINEA</th>
+            <th class="pa" scope="col" style="width: 85px">SALDO INICIAL</th>
+            <th class="pa" scope="col" style="width: 70px">INGRESOS</th>
+            <th class="pa" scope="col" style="width: 70px">SALIDAS</th>
+            <th class="pa" scope="col" >SALDO FINAL</th>
         </tr>
         </thead>
         <tr>
-            <td style="text-align: center">1</td>
-            <td style="text-align: right">{{ round($l1s_inicial,2) }}</td>
-            <td style="text-align: right">{{ round($l1s_entradas,2) }}</td>
-            <td style="text-align: right">{{ round($l1s_salidas,2) }}</td>
-            <td style="text-align: right">{{ round($l1s_final ,2) }}</td>
+            <td class="pa" style="text-align: center;padding: 2px !important;">1</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_inicial,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_entradas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_salidas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_final ,2),2) }}</td>
         </tr>
         <tr>
-            <td style="text-align: center">2</td>
-            <td style="text-align: right">{{ round($l2s_inicial,2) }}</td>
-            <td style="text-align: right">{{ round($l2s_entradas,2) }}</td>
-            <td style="text-align: right">{{ round($l2s_salidas,2) }}</td>
-            <td style="text-align: right">{{ round($l2s_final,2) }}</td>
+            <td class="pa" style="text-align: center;padding: 2px !important;">2</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_inicial,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_entradas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_salidas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_final,2),2) }}</td>
         </tr>
         <tr>
-            <td style="text-align: center">3</td>
-            <td style="text-align: right">{{ round($l3s_inicial,2) }}</td>
-            <td style="text-align: right">{{ round($l3s_entradas,2) }}</td>
-            <td style="text-align: right">{{ round($l3s_salidas,2) }}</td>
-            <td style="text-align: right">{{ round($l3s_final,2) }}</td>
+            <td class="pa" style="text-align: center;padding: 2px !important;">3</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_inicial,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_entradas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_salidas,2),2) }}</td>
+            <td class="pa" style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_final,2),2) }}</td>
         </tr>
         <tr>
-            <th style="text-align: center;font-weight: bold">TOTALES</th>
-            <th style="text-align: right;font-weight: bold">{{ round($ts_inicial,2) }}</th>
-            <td style="text-align: right;font-weight: bold">{{ round($ts_entrada,2) }}</td>
-            <td style="text-align: right;font-weight: bold">{{ round($ts_salida,2) }}</td>
-            <th style="text-align: right;font-weight: bold">{{ round($ts_final,2) }}</th>
+            <th class="pa" style="text-align: center;font-weight: bold;padding: 2px !important;">TOTALES</th>
+            <th class="pa" style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_inicial,2),2) }}</th>
+            <td class="pa" style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_ingreso,2),2) }}</td>
+            <td class="pa" style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_salida,2),2) }}</td>
+            <th class="pa" style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_final,2),2) }}</th>
         </tr>
     </table>
 
@@ -312,3 +322,6 @@
 
 
 </div>
+
+    </body>
+</html>

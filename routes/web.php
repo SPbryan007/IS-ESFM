@@ -121,11 +121,14 @@ Route::prefix('controller/ingreso')->group(function (){
 
 Route::prefix('controller/reportes')->group(function (){
     Route::get('/movimiento_almacen_print', 'ReporteController@MovimientoAlmacenPDF')->middleware('auth');
-    Route::post('/saldos_almacen', 'ReporteController@SaldosAlmacen')->middleware('auth');
+    Route::post('/movimiento_almacen', 'ReporteController@MovimientoAlmacen')->middleware('auth');
     Route::post('/movimiento_almacen_excel', 'ReporteController@MovimientoAlmacenToExcel')->middleware('auth');
     Route::post('/kardex', 'ReporteController@ReporteGeneral')->middleware('auth');
     Route::get('/kardex_print','ReporteController@ReporteGeneralToPDF')->middleware('auth');
-    //Route::get('/movimiento_almacen_excel', 'ReporteController@MovimientoAlmacenToExcel');
+    Route::post('/kardex_excel', 'ReporteController@ReporteGeneralToExcel');
+    Route::post('/saldos_almacen', 'ReporteController@SaldosAlmacen')->middleware('auth');
+    Route::get('/saldos_almacen_print', 'ReporteController@SaldosAlmacenToPdf')->middleware('auth');
+    Route::post('/saldos_almacen_excel', 'ReporteController@SaldosAlmacenToExcel')->middleware('auth');
 });
 
 Route::prefix('controller/salida')->group(function (){

@@ -3,19 +3,20 @@
         <el-alert
             v-if="alert.show"
             :title="'Ooops'"
-            :type="'danger'"
+            :type="'error'"
             :description="alert.message"
             @close="alert.show = false"
             closable
             show-icon
         >
         </el-alert>
+        <br>
         <el-alert
             type="info"
             :closable="false"
             effect="dark">
             <template slot="title">
-                <span class="font-weight-bold" style="font-size: 15px"> Reporte Estado de Movimiento de Almacen de Materiales y Suministros</span>
+                <span class="font-weight-bold" style="font-size: 15px"> Reporte Saldos a la fecha</span>
             </template>
         </el-alert>
         <div class="row row justify-content-between mr-1 ml-1  mt-4">
@@ -38,15 +39,6 @@
                             ></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item  label="Del" prop="del">
-                        <el-date-picker
-                            v-model="consulta.del"
-                            style="width: 160px"
-                            type="date"
-                            placeholder="Seleccione dia"
-                        >
-                        </el-date-picker>
-                    </el-form-item>
                     <el-form-item label="Al" prop="al">
                         <el-date-picker
                             v-model="consulta.al"
@@ -65,12 +57,12 @@
                 <el-button
                     type="danger"
                     @click="Print"
-                    :disabled="!consulta.periodo || !consulta.del || !consulta.al"
+                    :disabled="!consulta.periodo ||  !consulta.al"
                 ><i class="fas fa-file-pdf"></i> Exp. Pdf</el-button>
                 <el-button
                     type="success"
                     @click="toExcel"
-                    :disabled="!consulta.periodo || !consulta.del || !consulta.al"
+                    :disabled="!consulta.periodo || !consulta.al"
                 > <i class="fas fa-file-excel"></i> Exp. Excel</el-button>
 
             </div>
@@ -98,24 +90,6 @@
                                 ></el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="Formato:">
-                            <el-select
-                                style="width: 120px"
-                                v-model="consulta.formato"
-                                @change="refresh()"
-                                placeholder="Selecione el formato"
-                            >
-                                <el-option
-                                    v-for="item in [
-                                              { value: 'A', label: 'Formato A' },
-                                              { value: 'B', label: 'Formato B' },
-                                        ]"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                                ></el-option>
-                            </el-select>
-                        </el-form-item>
                     </el-form>
 
                 </div>
@@ -123,7 +97,7 @@
                     <el-form :inline="true" class="demo-form-inline">
                         <el-form-item label="Buscar por:">
                             <el-input
-                                placeholder="Articulo, partida"
+                                placeholder="Articulo, código, partida"
                                 v-model="searchQuery"
                                 clearable
                             >
@@ -136,36 +110,17 @@
         <table class="table table-bordered text-center" style="background-color: white; font-size:12px">
             <thead>
             <tr>
-                <th rowspan="3" scope="col" class="pa">N°</th>
-                <th rowspan="3" scope="col" class="pa">Linea</th>
-                <th rowspan="3" scope="col" class="pa">Partida</th>
-                <th rowspan="3" scope="col" class="pa">Descripción</th>
-                <th rowspan="2" scope="col" class="pa">Saldo inicial <br> Al {{ consulta.del | dateformat}}</th>
-                <th rowspan="2" scope="col" class="pa">Saldo inicial <br> Al {{ consulta.del | dateformat }}</th>
-
-                <th v-if="consulta.formato == 'B'" colspan="4" scope="col" class="pa">{{ consulta.periodo ? 'Movimiento durante '+findPeriodo(consulta.periodo).nombre : 'Movimiento durante -' }}</th>
-
-                <th rowspan="2" scope="col" class="pa">Saldo final <br> {{ consulta.al | dateformat }}</th>
-                <th rowspan="2" scope="col" class="pa">Valor <br> Unitario</th>
-                <th rowspan="2" scope="col" class="pa">Saldo final <br> Al {{ consulta.al | dateformat }}</th>
+                <th rowspan="2" scope="col" class="pa">N°</th>
+                <th rowspan="2" scope="col" class="pa">Partida</th>
+                <th rowspan="2" scope="col" class="pa">Código</th>
+                <th rowspan="2" scope="col" class="pa">Descripción</th>
+                <th rowspan="1" scope="col" class="pa">Saldo inicial <br> al {{ consulta.al | dateformat }}</th>
+                <th rowspan="1" scope="col" class="pa">Valor <br> Unitario</th>
+                <th rowspan="1" scope="col" class="pa">Saldo inicial <br> al {{ consulta.al | dateformat }}</th>
 
 
             </tr>
             <tr>
-
-                <th v-if="consulta.formato == 'B'" colspan="2" scope="col" class="pa">Entradas</th>
-                <th v-if="consulta.formato == 'B'" colspan="2" scope="col" class="pa">Salidas</th>
-
-            </tr>
-            <tr>
-                <th scope="col" class="pa">Cantidad</th>
-                <th scope="col" class="pa">Bs</th>
-
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Cantidad</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Bs</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Cantidad</th>
-                <th v-if="consulta.formato == 'B'" scope="col" class="pa">Bs</th>
-
                 <th scope="col" class="pa">Cantidad</th>
                 <th scope="col" class="pa">Bs</th>
                 <th scope="col" class="pa">Bs</th>
@@ -174,15 +129,9 @@
             <tbody>
             <tr v-for="(item, index) in pageOfItems"  :key="index">
                 <th scope="row">{{ index+1 }}</th>
-                <td>{{ item.linea  }}</td>
                 <td>{{ item.partida  }}</td>
+                <td>{{ item.codigo  }}</td>
                 <td>{{ item.articulo }}</td>
-                <td>{{ item.c_inicial }}</td>
-                <td>{{ (item.s_inicial).toFixed(2) }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.c_entrada }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ (item.s_entrada).toFixed(2) }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ item.c_salida }}</td>
-                <td v-if="consulta.formato == 'B'" >{{ (item.s_salida).toFixed(2) }}</td>
                 <td>{{ item.c_final }}</td>
                 <td>{{ (item.precio_u).toFixed(2) }}</td>
                 <td>{{ (item.s_final).toFixed(2) }}</td>
@@ -190,39 +139,10 @@
             <tr>
                 <td colspan="4" class="font-weight-bold"> TOTALES </td>
                 <td class="font-weight-bold"></td>
-                <td class="font-weight-bold">{{ (totales.ts_inicial).toFixed(2) }}</td>
-
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ (totales.ts_entrada).toFixed(2) }}</td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold"></td>
-                <td v-if="consulta.formato == 'B'" class="font-weight-bold">{{ (totales.ts_salida).toFixed(2) }}</td>
-
-
-                <td class="font-weight-bold"></td>
                 <td class="font-weight-bold"></td>
                 <td class="font-weight-bold">{{ (totales.ts_final).toFixed(2) }}</td>
             </tr>
             </tbody>
-           <!-- <tfoot>
-                <tr>
-                    <td class="font-weight-bold"></td>
-                    <td class="font-weight-bold">1, 2</td>
-                    <td class="font-weight-bold"></td>
-                    <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
-                    <td>155</td>
-                    <td colspan="3" class="font-weight-bold">SALDO FINAL AL 31/12/2019</td>
-                    <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
-                </tr>
-                <tr style=": 2px">
-                    <td class="font-weight-bold"></td>
-                    <td class="font-weight-bold">3</td>
-                    <td class="font-weight-bold"></td>
-                    <td class="font-weight-bold">SALDO INICAL AL 01/01/2019</td>
-                    <td>155</td>
-                    <td  colspan="3" class="font-weight-bold" >SALDO FINAL AL 31/12/2019</td>
-                    <td class="font-weight-bold">{{ totales.ts_inicial }}</td>
-                </tr>
-            </tfoot>-->
         </table>
         <div class="row justify-content-center mt-4">
             <el-button @click="details_view = true" >Ver Resumen <i  class="el-icon-view el-icon--right"></i></el-button>
@@ -241,40 +161,39 @@
             <table class="table table-bordered text-center" style="background-color: white; font-size:12px">
                 <tr>
                     <th>LINEA</th>
-                    <th>SALDO INICIAL AL {{ consulta.del | dateformat }}</th>
-                    <th v-if="consulta.formato == 'B'">INGRESOS</th>
-                    <th v-if="consulta.formato == 'B'">SALIDAS</th>
-                    <th>SALDO FINAL AL {{ consulta.al | dateformat }}</th>
+<!--                    <th v-if="consulta.formato == 'B'">INGRESOS</th>-->
+<!--                    <th v-if="consulta.formato == 'B'">SALIDAS</th>-->
+                    <th>SALDO INICIAL AL {{ consulta.al | dateformat }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">1</th>
-                    <th class="font-weight-normal">{{ (totales.l1s_inicial).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_entradas).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_salidas).toFixed(2) }}</th>
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_entradas).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l1s_salidas).toFixed(2) }}</th>-->
                     <th class="font-weight-normal">{{ (totales.l1s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">2</th>
-                    <th class="font-weight-normal">{{ (totales.l2s_inicial).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_entradas).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_salidas).toFixed(2) }}</th>
+<!--                    <th class="font-weight-normal">{{ (totales.l2s_inicial).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_entradas).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l2s_salidas).toFixed(2) }}</th>-->
                     <th class="font-weight-normal">{{ (totales.l2s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-normal">3</th>
-                    <th class="font-weight-normal">{{ (totales.l3s_inicial).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_entradas).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_salidas).toFixed(2) }}</th>
+<!--                    <th class="font-weight-normal">{{ (totales.l3s_inicial).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_entradas).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'" class="font-weight-normal">{{ (totales.l3s_salidas).toFixed(2) }}</th>-->
                     <th class="font-weight-normal">{{ (totales.l3s_final).toFixed(2) }}</th>
                 </tr>
                 <tr>
                     <th class="font-weight-bold">TOTALES</th>
-                    <th class="font-weight-bold">{{ (totales.ts_inicial).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_entrada).toFixed(2) }}</th>
-                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_salida).toFixed(2) }}</th>
+<!--                    <th class="font-weight-bold">{{ (totales.ts_inicial).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_entrada).toFixed(2) }}</th>-->
+<!--                    <th v-if="consulta.formato == 'B'">{{ (totales.ts_salida).toFixed(2) }}</th>-->
                     <th class="font-weight-bold text-primary">{{ (totales.ts_final).toFixed(2) }}</th>
                 </tr>
             </table>
+<!--            <apexchart type="line" height="350" :options="chartOptions" :series="series"></apexchart>-->
         </el-dialog>
     </div>
 </template>
@@ -286,15 +205,51 @@ export default {
 
     data() {
         return {
+            series: [
+                {
+                    name: "Linea 1",
+                    data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+                },
+                {
+                    name: "Linea 2",
+                    data: [20, 31, 45, 11, 49, 62, 69, 91, 148]
+                },
+                {
+                    name: "Linea 3",
+                    data: [20, 31, 45, 11, 49, 62, 69, 91, 148]
+                }
+
+            ],
+            chartOptions: {
+                chart: {
+                    height: 350,
+                    type: 'line',
+                    zoom: {
+                        enabled: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'straight'
+                },
+                title: {
+                    text: 'Product Trends by Month',
+                    align: 'left'
+                },
+                grid: {
+                    row: {
+                        colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+                        opacity: 0.5
+                    },
+                },
+                xaxis: {
+                    categories: ['Ene.', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep','Oct','Nov','Dic'],
+                }
+            },
             details_view:false,
             rules: {
-               /* formato: [
-                    {
-                        required: true,
-                        message: "Este campo es obligatorio",
-                        trigger: "change",
-                    },
-                ],*/
                 periodo: [
                     {
                         required: true,
@@ -302,13 +257,13 @@ export default {
                         trigger: "change",
                     },
                 ],
-                del: [
-                    {
-                        required: true,
-                        message: "Este campo es obligatorio",
-                        trigger: "change"
-                    }
-                ],
+                // del: [
+                //     {
+                //         required: true,
+                //         message: "Este campo es obligatorio",
+                //         trigger: "change"
+                //     }
+                // ],
                 al: [
                     {
                         required: true,
@@ -373,7 +328,8 @@ export default {
                 var searchRegex = new RegExp(self.searchQuery, "i");
                 return (
                     searchRegex.test(item.partida) ||
-                    searchRegex.test(item.articulo)
+                    searchRegex.test(item.articulo) ||
+                    searchRegex.test(item.codigo)
                 );
             });
         },
@@ -438,7 +394,7 @@ export default {
         Print(){
             this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
             this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-            window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
+            window.open('http://localhost:8000/controller/reportes/saldos_almacen_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
                 '&formato=' + this.consulta.formato,'_blank');
@@ -446,13 +402,13 @@ export default {
         toExcel(){
             this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
             this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-            axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
+            axios.post('/controller/reportes/saldos_almacen_excel',this.consulta, { responseType: 'blob' })
                 .then(response => {
                     const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
                     const link = document.createElement('a')
                     link.href = URL.createObjectURL(blob)
                     //link.download = 'test'
-                    link.setAttribute('download', 'Mov_alm_form_'+this.consulta.formato+'.xlsx');
+                    link.setAttribute('download', 'Saldos_almacen_al'+moment(this.consulta.al).format('DD/MM/YYYY')+'.xlsx');
                     //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
                     link.click()
                     URL.revokeObjectURL(link.href)

@@ -116,7 +116,7 @@
                 </el-form>
             </div>
         </div>
-        <div style="width:100%; overflow-x: scroll; overflow-y:hidden;">
+        <div style="width:100%; overflow-x: scroll; overflow-y:hidden;" class="scrolling">
             <table class="table table-bordered text-center" style="background-color: white; font-size:12px;">
                 <thead>
                 <tr>
@@ -432,26 +432,26 @@ export default {
             this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
             window.open('http://localhost:8000/controller/reportes/kardex_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
-                '&al=' + this.consulta.al+
-                '&formato=' + this.consulta.formato,'_blank');
+                '&al=' + this.consulta.al,
+                '_blank');
         },
-        // toExcel(){
-        //     this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-        //     this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-        //     axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
-        //         .then(response => {
-        //             const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
-        //             const link = document.createElement('a')
-        //             link.href = URL.createObjectURL(blob)
-        //             //link.download = 'test'
-        //             link.setAttribute('download', 'Mov_alm_form_'+this.consulta.formato+'.xlsx');
-        //             //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
-        //             link.click()
-        //             URL.revokeObjectURL(link.href)
-        //         }).catch((err)=>{
-        //         console.log('error excel',err);
-        //     });
-        // }
+        toExcel(){
+            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
+            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
+            axios.post('/controller/reportes/kardex_excel',this.consulta, { responseType: 'blob' })
+                .then(response => {
+                    const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
+                    const link = document.createElement('a')
+                    link.href = URL.createObjectURL(blob)
+                    //link.download = 'test'
+                    link.setAttribute('download', 'Reporte_general_'+moment(this.consulta.del).format('DD/MM/YYYY')+'_'+moment(this.consulta.al).format('DD-MM-YYYY')+'.xlsx');
+                    //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+                    link.click()
+                    URL.revokeObjectURL(link.href)
+                }).catch((err)=>{
+                console.log('error excel',err);
+            });
+        }
 
     },
     mounted() {
@@ -463,5 +463,25 @@ export default {
 <style>
 th {
     padding: 7px !important;
+}
+
+.scrolling::-webkit-scrollbar-track
+{  height: 2px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+.scrolling::-webkit-scrollbar
+{
+    height: 7px;
+    width: 2px;
+    background-color: #2d373c21;
+}
+
+.scrolling::-webkit-scrollbar-thumb
+{
+    height: 10px;
+    background-color: #0000001c;
+    border: 2px solid #2d373c21;
 }
 </style>

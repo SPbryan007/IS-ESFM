@@ -26,8 +26,6 @@ window.Vue = require("vue");
 // import VuePagination from 'v-pagination';
 // Vue.use(VuePagination);
 
-import VueApexCharts from 'vue-apexcharts'
-Vue.use(VueApexCharts)
 
 
 import ToggleButton from 'vue-js-toggle-button'
@@ -73,6 +71,11 @@ Vue.use(VueProgressBar, {
     failedColor: "red",
     height: "3px"
 });
+
+import VueApexCharts from 'vue-apexcharts'
+Vue.use(VueApexCharts)
+Vue.component('apexchart', VueApexCharts)
+
 // Vue.component(
 //     "header-component",
 //     require("./components/HeaderComponent.vue").default

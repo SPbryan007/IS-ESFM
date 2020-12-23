@@ -1,187 +1,204 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[42],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
-
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    var validateFechaFin = /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(rule, value, callback) {
-        var valid;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!(value === "")) {
-                  _context.next = 4;
-                  break;
-                }
-
-                callback(new Error("Debe seleccionar una fecha"));
-                _context.next = 8;
-                break;
-
-              case 4:
-                _context.next = 6;
-                return _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("periodo/VALIDATE_END_DATE", value);
-
-              case 6:
-                valid = _context.sent;
-                !valid ? callback(new Error("Debe seleccionar una fecha válida")) : callback();
-
-              case 8:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function validateFechaFin(_x, _x2, _x3) {
-        return _ref.apply(this, arguments);
-      };
-    }();
-
     return {
-      rules: {
-        nombre: [{
-          required: true,
-          message: "Debe introducir el nombre",
-          trigger: "blur"
-        }, {
-          min: 3,
-          message: "Debe tener mas de 3 carácteres",
-          trigger: "blur"
-        }, {
-          min: 3,
-          message: "Debe tener menos  30 carácteres",
-          trigger: "blur"
-        }],
-        fecha_fin: [{
-          required: true,
-          validator: validateFechaFin,
-          trigger: "change"
-        }]
-      }
+      moment: moment__WEBPACK_IMPORTED_MODULE_2___default.a,
+      languages: 'es',
+      has_errors: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("periodo", ["data_form", "loading_form", "alert"])),
-  methods: {
-    submitForm: function submitForm(form) {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("item", ["items"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("gestion", ["data", "error", "loading", "disabled", "success"])),
+  methods: _objectSpread({
+    hola: function hola() {// const swalWithBootstrapButtons = this.$swal.mixin({
+      //     customClass: {
+      //         confirmButton: "btn btn-success",
+      //         cancelButton: "btn btn-danger"
+      //     },
+      //     buttonsStyling: false
+      // });
+      // swalWithBootstrapButtons
+      //     .fire({
+      //         title: "Are you sure?",
+      //         text: "You won't be able to revert this!",
+      //         icon: "warning",
+      //         showCancelButton: true,
+      //         confirmButtonText: "Yes, delete it!",
+      //         cancelButtonText: "No, cancel!",
+      //         reverseButtons: true
+      //     })
+      //     .then(result => {
+      //         if (result.value) {
+      //             swalWithBootstrapButtons.fire(
+      //                 "Deleted!",
+      //                 "Your file has been deleted.",
+      //                 "success"
+      //             );
+      //         } else if (
+      //             /* Read more about handling dismissals below */
+      //             result.dismiss === Swal.DismissReason.cancel
+      //         ) {
+      //             swalWithBootstrapButtons.fire(
+      //                 "Cancelled",
+      //                 "Your imaginary file is safe :)",
+      //                 "error"
+      //             );
+      //         }
+      //     });
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("gestion", ["OnClickCancelDetails", "VALIDATE_START_DATE", "VALIDATE_END_DATE"]), {
+    AddGestion: function AddGestion() {
       var _this = this;
 
-      this.$refs[form].validate(function (valid) {
-        if (valid) {
-          _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("periodo/editItem", {
-            message: _this.$message,
-            progress: _this.$Progress,
-            id: _this.$route.params.id
-          }); //router.go(-1);
-        } else {
-          return false;
-        }
-      });
-    },
-    cancelForm: function cancelForm(formName) {
-      this.$refs[formName].resetFields();
-      this.$router.go(-1);
-    },
-    goBack: function goBack() {
-      this.$router.go(-1);
+      var data_form = this.$store.state.gestion.data;
+
+      if (!data_form.nombre || !data_form.fecha_inicio.date || !data_form.fecha_fin.date || !data_form.fecha_inicio.valid || !data_form.fecha_fin.valid) {
+        _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
+          name: "addgestion"
+        });
+      } else {
+        this.$swal({
+          title: "¿ Esta seguro ?",
+          text: "Si existe una periodo en curso esta se cerrará y no se podra revertir una vez iniciada la periodo",
+          type: "warning",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonText: "Si, Iniciar periodo",
+          cancelButtonText: "Cancelar",
+          showCloseButton: true,
+          showLoaderOnConfirm: true
+        }).then(function (result) {
+          if (result.value) {
+            _this.has_errors = false;
+
+            _this.$store.dispatch("gestion/addGestion", _this.$Progress);
+
+            _this.$swal("Correcto", "Gestion iniciada exitosamente", "success");
+          } else {
+            _this.$swal("Cancelada", "Cancel deletion", "info");
+          }
+        });
+      }
     }
+  }),
+  created: function created() {
+    this.$store.dispatch("item/GET_DATA_FROM_SERVER");
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2& ***!
-  \**************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -193,192 +210,116 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "col-md-12" },
-    [
-      _vm.alert.show
-        ? _c("el-alert", {
-            attrs: {
-              title: _vm.alert.title,
-              type: _vm.alert.color,
-              description: _vm.alert.message,
-              "show-icon": "",
-              closable: ""
-            },
-            on: {
-              close: function($event) {
-                _vm.alert.show = false
-              }
-            }
-          })
-        : _vm._e(),
+  return _c("div", { staticClass: "col-md-6 offset-md-3" }, [
+    _c("div", { staticClass: "card bg-light" }, [
+      _vm._m(0),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
-        [
-          _c(
-            "div",
-            { staticClass: "pull-lef" },
-            [
-              _c("el-page-header", {
-                staticClass: "mt-2",
-                attrs: { content: "Periodo contable" },
-                on: { back: _vm.goBack }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "pull-right" })
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+      _c("div", { staticClass: "card-body" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-md-12" }, [
+            _c("h4", { staticClass: "text-center" }, [
+              _c("p", [_vm._v(_vm._s(_vm.data.nombre))]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v(
+                  "\n              " +
+                    _vm._s(
+                      _vm
+                        .moment(_vm.data.fecha_inicio.date)
+                        .format("MMM. D, YYYY ") +
+                        " - " +
+                        _vm
+                          .moment(_vm.data.fecha_fin.date)
+                          .format("MMM. D, YYYY ")
+                    ) +
+                    "\n            "
+                )
+              ])
+            ])
+          ])
+        ]),
         _vm._v(" "),
         _c(
-          "div",
-          { staticClass: "card-body" },
+          "table",
+          { staticClass: "table table-striped table-valign-middle" },
           [
+            _vm._m(2),
+            _vm._v(" "),
             _c(
-              "el-form",
-              {
-                ref: "PeriodoEditForm",
-                staticClass: "labeles",
-                attrs: {
-                  model: _vm.data_form,
-                  rules: _vm.rules,
-                  "label-width": "120px"
-                }
-              },
-              [
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Nombre :", prop: "nombre" } },
-                  [
-                    _c("el-input", {
-                      staticStyle: { width: "250px" },
-                      model: {
-                        value: _vm.data_form.nombre,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "nombre", $$v)
-                        },
-                        expression: "data_form.nombre"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  {
-                    attrs: {
-                      disabled: true,
-                      label: "Del :",
-                      "label-position": "top",
-                      prop: "fecha_inicio"
-                    }
-                  },
-                  [
-                    _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha inicio" },
-                      model: {
-                        value: _vm.data_form.fecha_inicio,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "fecha_inicio", $$v)
-                        },
-                        expression: "data_form.fecha_inicio"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Al:", prop: "fecha_fin" } },
-                  [
-                    _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha fin" },
-                      model: {
-                        value: _vm.data_form.fecha_fin,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "fecha_fin", $$v)
-                        },
-                        expression: "data_form.fecha_fin"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Descripcion :", prop: "descripcion" } },
-                  [
-                    _c("el-input", {
-                      staticStyle: { width: "400px" },
-                      attrs: { type: "textarea" },
-                      model: {
-                        value: _vm.data_form.descripcion,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "descripcion", $$v)
-                        },
-                        expression: "data_form.descripcion"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  [
-                    _c(
-                      "el-button",
-                      {
-                        attrs: { type: "primary" },
-                        on: {
-                          click: function($event) {
-                            return _vm.submitForm("PeriodoEditForm")
-                          }
-                        }
-                      },
-                      [
+              "tbody",
+              _vm._l(_vm.items, function(item, index) {
+                return _c("tr", { key: index }, [
+                  _c("td", [_c("strong", [_vm._v(_vm._s(item.nombre))])]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("h6", [
+                      _c("span", { staticClass: "badge bg-success" }, [
+                        _vm._v(_vm._s(item.stock + " " + item.um_sigla))
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c("h6", [
+                      _c("span", { staticClass: "badge bg-info" }, [
                         _vm._v(
-                          "\n                        Guardar\n                        "
-                        ),
-                        _c("i", { staticClass: "fas fa-save" })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-button",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.cancelForm("PeriodoEditForm")
-                          }
-                        }
-                      },
-                      [_vm._v("Cancelar")]
-                    )
-                  ],
-                  1
-                )
-              ],
-              1
+                          "\n                  " +
+                            _vm._s(item.saldo + " Bs") +
+                            "\n                "
+                        )
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(3, true)
+                ])
+              }),
+              0
             )
-          ],
-          1
+          ]
         )
       ])
-    ],
-    1
-  )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _vm.loading
+          ? _c("spinner")
+          : _c("div", { staticClass: "col-md-6" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default btn-block",
+                  attrs: { type: "button" },
+                  on: { click: _vm.OnClickCancelDetails }
+                },
+                [_vm._v("Cancelar")]
+              )
+            ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-block btn-info",
+              attrs: { type: "button" },
+              on: {
+                click: function($event) {
+                  return _vm.AddGestion()
+                }
+              }
+            },
+            [_vm._v("INICIAR GESTION")]
+          )
+        ])
+      ],
+      1
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -387,10 +328,60 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header border-0" }, [
       _c("h3", { staticClass: "card-title" }, [
-        _vm._v("Editar periodo contable ")
+        _vm._v("Detalles de inicio de gestion")
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "alert alert-info alert-dismissible" }, [
+      _c(
+        "button",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "alert",
+            "aria-hidden": "true"
+          }
+        },
+        [_vm._v("×")]
+      ),
+      _vm._v(" "),
+      _c("h5", [
+        _c("i", { staticClass: "icon fas fa-info" }),
+        _vm._v(" Alert!\n        ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Item")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stock inicial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Saldo inicial")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Ver")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [
+      _c("a", { staticClass: "btn btn-tool btn-sm", attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-eye" })
+      ])
     ])
   }
 ]
@@ -400,17 +391,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/EditView.vue":
-/*!*************************************************!*\
-  !*** ./resources/js/views/periodo/EditView.vue ***!
-  \*************************************************/
+/***/ "./resources/js/views/periodo/AddDetailsView.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/views/periodo/AddDetailsView.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditView.vue?vue&type=template&id=fe4cb9e2& */ "./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2&");
-/* harmony import */ var _EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditView.vue?vue&type=script&lang=js& */ "./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddDetailsView.vue?vue&type=template&id=a09d0b34& */ "./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34&");
+/* harmony import */ var _AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddDetailsView.vue?vue&type=script&lang=js& */ "./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -420,9 +411,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -432,38 +423,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/periodo/EditView.vue"
+component.options.__file = "resources/js/views/periodo/AddDetailsView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js&":
-/*!**************************************************************************!*\
-  !*** ./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************/
+/***/ "./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/EditView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddDetailsView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/AddDetailsView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2& ***!
-  \********************************************************************************/
+/***/ "./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34&":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditView.vue?vue&type=template&id=fe4cb9e2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/EditView.vue?vue&type=template&id=fe4cb9e2&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddDetailsView.vue?vue&type=template&id=a09d0b34& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/AddDetailsView.vue?vue&type=template&id=a09d0b34&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_fe4cb9e2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_a09d0b34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

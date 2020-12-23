@@ -8,7 +8,9 @@
                         <ol class="breadcrumb float-sm-left">
                             <el-breadcrumb separator-class="el-icon-arrow-right">
                                 <el-breadcrumb-item :to="{ path: '/reporte' }">Reportes</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'movimiento'">Movimientos de almacen</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'saldos'">Saldos de almacen</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'general'">Reporte General</el-breadcrumb-item>
                                 <!--<el-breadcrumb-item v-if="this.$route.name == 'ingreso'">Listar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'editingreso'">Editar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'addingresodetails'">Detalle </el-breadcrumb-item>

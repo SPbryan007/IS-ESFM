@@ -124,8 +124,8 @@
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">3</td>
         <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_inicial'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_entradas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_salidas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_entradas'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_salidas'],2) }}</td>
         <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_final'],2) }}</td>
     </tr>
     <tr>

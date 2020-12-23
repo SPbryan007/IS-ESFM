@@ -578,10 +578,10 @@ export const router = new VueRouter({
             children: [
                 {
                     path: "/reporte/movimiento",
-                    name: "saldos",
+                    name: "movimiento",
                     components: {
                         ViewRouterReporte: () =>
-                            import("./views/reporte/SaldosView.vue")
+                            import("./views/reporte/MovimientoView.vue")
                     }
                 },
                 {
@@ -590,6 +590,36 @@ export const router = new VueRouter({
                     components: {
                         ViewRouterReporte: () =>
                             import("./views/reporte/GeneralView.vue")
+                    }
+                },
+                {
+                    path: "/reporte/saldos",
+                    name: "saldos",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/SaldosView.vue")
+                    }
+                },
+            ],
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: "/stock",
+            components: {
+                HeaderComponent: () => import("./views/HeaderComponent.vue"),
+                SidebarComponent: () => import("./views/SidebarComponent.vue"),
+                ContentComponent: () =>
+                    import("./views/stock/StockView.vue")
+            },
+            children: [
+                {
+                    path: "/stock/lotes",
+                    name: "lotes",
+                    components: {
+                        ViewRouterStock: () =>
+                            import("./views/stock/StockList.vue")
                     }
                 },
             ],

@@ -444,25 +444,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     Print: function Print() {
       this.consulta.del = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.consulta.del).format('YYYY-MM-DD 00:00:00');
       this.consulta.al = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.consulta.al).format('YYYY-MM-DD');
-      window.open('http://localhost:8000/controller/reportes/kardex_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato, '_blank');
-    } // toExcel(){
-    //     this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-    //     this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-    //     axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
-    //         .then(response => {
-    //             const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
-    //             const link = document.createElement('a')
-    //             link.href = URL.createObjectURL(blob)
-    //             //link.download = 'test'
-    //             link.setAttribute('download', 'Mov_alm_form_'+this.consulta.formato+'.xlsx');
-    //             //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
-    //             link.click()
-    //             URL.revokeObjectURL(link.href)
-    //         }).catch((err)=>{
-    //         console.log('error excel',err);
-    //     });
-    // }
+      window.open('http://localhost:8000/controller/reportes/kardex_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al, '_blank');
+    },
+    toExcel: function toExcel() {
+      var _this2 = this;
 
+      this.consulta.del = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.consulta.del).format('YYYY-MM-DD 00:00:00');
+      this.consulta.al = moment__WEBPACK_IMPORTED_MODULE_2___default()(this.consulta.al).format('YYYY-MM-DD');
+      axios.post('/controller/reportes/kardex_excel', this.consulta, {
+        responseType: 'blob'
+      }).then(function (response) {
+        var blob = new Blob([response.data], {
+          type: 'application/vnd.ms-excel'
+        });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob); //link.download = 'test'
+
+        link.setAttribute('download', 'Reporte_general_' + moment__WEBPACK_IMPORTED_MODULE_2___default()(_this2.consulta.del).format('DD/MM/YYYY') + '_' + moment__WEBPACK_IMPORTED_MODULE_2___default()(_this2.consulta.al).format('DD-MM-YYYY') + '.xlsx'); //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })["catch"](function (err) {
+        console.log('error excel', err);
+      });
+    }
   },
   mounted: function mounted() {
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('periodo/getItems');
@@ -483,7 +488,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n", ""]);
+exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n.scrolling::-webkit-scrollbar-track\n{  height: 2px;\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    background-color: #F5F5F5;\n}\n.scrolling::-webkit-scrollbar\n{\n    height: 7px;\n    width: 2px;\n    background-color: #2d373c21;\n}\n.scrolling::-webkit-scrollbar-thumb\n{\n    height: 10px;\n    background-color: #0000001c;\n    border: 2px solid #2d373c21;\n}\n", ""]);
 
 // exports
 
@@ -848,6 +853,7 @@ var render = function() {
       _c(
         "div",
         {
+          staticClass: "scrolling",
           staticStyle: {
             width: "100%",
             "overflow-x": "scroll",

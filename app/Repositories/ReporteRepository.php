@@ -91,7 +91,7 @@ class ReporteRepository
             DB::raw("(SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u)) as s_final"),
 
 //   DB::raw('SUM(DISTINCT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)) - SUM(IFNULL(ds.cantidad,0)*lote.precio_u ) as s_inicial'),
-            'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea")
+            'p.codigo as partida', 'a.nombre as articulo', 'lote.precio_u as precio_u', 'a.linea as linea', DB::raw("CONCAT('linea',a.linea) as num_linea"),'a.codigo as codigo'
 
         )
             ->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
@@ -100,13 +100,13 @@ class ReporteRepository
             ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
             ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
             ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
-            ->where('i.periodo_id', 1)
+            ->where('i.periodo_id', $periodo)
            // ->where('i.created_at', '>=', date('Y-m-d H:i:s', strtotime($del)) )
             ->where('i.created_at', '<=', date('Y-m-d H:i:s', strtotime($al)) ) //Revisar porque pude que salidas no exista
             ->whereNull('i.deleted_at')
             ->whereNull('s.deleted_at')
             ->where('lote.precio_u', '<>', 0)
-            ->groupBy('a.id','lote.precio_u','i.created_at');
+            ->groupBy('p.id','a.id','lote.precio_u','i.created_at','a.codigo');
 
 
         return DB::query()->fromSub($inicial, 'q')
@@ -116,9 +116,11 @@ class ReporteRepository
                 DB::raw('SUM(q.c_final) as c_final'),
                 DB::raw('SUM(q.s_inicial) as s_inicial'),
                 DB::raw('SUM(q.s_final) as s_final'),
-                'q.articulo','q.partida','q.precio_u', 'q.linea','q.num_linea'
+                'q.articulo','q.partida','q.precio_u', 'q.linea','q.num_linea','q.codigo'
             )
-            ->groupBy('q.articulo','q.partida','q.linea','q.precio_u','q.num_linea')->get();
+            ->orderBy('q.partida','ASC')
+            ->groupBy('q.partida','q.articulo','q.linea','q.precio_u','q.num_linea','q.codigo')->get();
+
 
         $entradas = Lote::select(
             DB::raw( 'a.id as id'),
@@ -252,6 +254,7 @@ class ReporteRepository
             ->whereBetween('s.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d H:i:s', strtotime($al))])
             ->where('lote.precio_u', '<>', 0)
             ->unionAll($ingresos)
+            ->orderBy('codigo', 'asc')
             ->orderBy('fecha', 'asc')
             ->get();
         return $salidas;

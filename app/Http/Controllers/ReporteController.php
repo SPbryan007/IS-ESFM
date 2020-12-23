@@ -43,7 +43,7 @@ class ReporteController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function SaldosAlmacen(Request $request)
+    public function MovimientoAlmacen(Request $request)
     {
         try {
             $query = $this->reporteRepository->SaldosAlmacen($request->del,$request->al,$request->periodo);
@@ -269,7 +269,7 @@ class ReporteController extends Controller
                 $request->query('al'),
                 $request->query('periodo')
             );
-            $periodo = $this->periodoRepository->getById($request->periodo);
+            $periodo = $this->periodoRepository->getById($request->query('periodo'));
             $data = [
                 'data'       => $query,
                 'del'        => $request->del,
@@ -304,6 +304,10 @@ class ReporteController extends Controller
                 'l3s_salidas'   => isset($query->groupBy('num_linea')['linea3'])
                     ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0
             ];
+            //return $data;
+            //return view('reportes.general.kardex',$data);
+            $paper_size = array(0,0,612.00,950.00);
+
             $pdf = PDF::loadView('reportes.general.kardex',$data);
             return $pdf->setPaper('legal','landscape')->stream('kardex.pdf');
 
@@ -313,16 +317,211 @@ class ReporteController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response|\Symfony\Component\HttpFoundation\BinaryFileResponse
      */
-    public function show($id)
-    {
+    public function ReporteGeneralToExcel(Request $request){
+        try {
+            $query = $this->reporteRepository->ReporteGeneral(
+                $request->del,
+                $request->al,
+                $request->periodo
+            );
+            $periodo = $this->periodoRepository->getById($request->periodo);
+            $data = [
+                'data'       => $query,
+                'del'        => $request->del,
+                'al'         => $request->al,
+                'periodo'    => $periodo->nombre,
+                'ts_inicial' => $query->sum->s_inicial,
+                'ts_entrada' => $query->sum->s_entrada,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => $query->sum->s_final,
+                'l1s_inicial'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_inicial : 0,
+                'l2s_inicial'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_inicial : 0,
+                'l3s_inicial'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_inicial : 0,
+                'l1s_final'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_final : 0,
+                'l2s_final'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_final : 0,
+                'l3s_final'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_final : 0,
+                'l1s_entradas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_entrada : 0,
+                'l2s_entradas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_entrada : 0,
+                'l3s_entradas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_entrada : 0,
+                'l1s_salidas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0,
+                'l2s_salidas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0,
+                'l3s_salidas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0,
+                'formato' => 'KARDEX'
+            ];
+            return (new MovimientoAlmacenView($data,'reportes.general.kardex_excel'))->download('kardex.xlsx');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Ha ocurrido un error inesperado en la descarga'.$e],500);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function SaldosAlmacen(Request $request){
+        try {
+            $periodo = $this->periodoRepository->getById($request->periodo);
+            $query = $this->reporteRepository->SaldosAlmacen(
+                $periodo->fecha_inicial,
+                $request->al,
+                $periodo->id
+            );
+            $data = [
+                'data'          => $query,
+                'ts_inicial'    => $query->sum->s_inicial,
+                'ts_entrada'    => $query->sum->s_entrada,
+                'ts_salida'     => $query->sum->s_salida,
+                'ts_final'      => $query->sum->s_final,
+                'l1s_inicial'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_inicial : 0,
+                'l2s_inicial'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_inicial : 0,
+                'l3s_inicial'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_inicial : 0,
+                'l1s_final'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_final : 0,
+                'l2s_final'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_final : 0,
+                'l3s_final'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_final : 0,
+                'l1s_entradas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_entrada : 0,
+                'l2s_entradas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_entrada : 0,
+                'l3s_entradas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_entrada : 0,
+                'l1s_salidas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0,
+                'l2s_salidas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0,
+                'l3s_salidas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0,
+            ];
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
+        }
 
     }
 
+
+    public function SaldosAlmacenToPdf(Request $request){
+        try {
+            $periodo = $this->periodoRepository->getById($request->query('periodo'));
+            $query = $this->reporteRepository->SaldosAlmacen(
+                $periodo->fecha_inicial,
+                $request->query('al'),
+                $periodo->id
+            );
+            $data = [
+                'data'       => $query,
+                'del'        => $periodo->fecha_inicial,
+                'al'         => $request->query('al'),
+                'periodo'    => $periodo->nombre,
+                'ts_inicial' => $query->sum->s_inicial,
+                'ts_entrada' => $query->sum->s_entrada,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => $query->sum->s_final,
+                'l1s_inicial'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_inicial : 0,
+                'l2s_inicial'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_inicial : 0,
+                'l3s_inicial'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_inicial : 0,
+                'l1s_final'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_final : 0,
+                'l2s_final'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_final : 0,
+                'l3s_final'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_final : 0,
+                'l1s_entradas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_entrada : 0,
+                'l2s_entradas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_entrada : 0,
+                'l3s_entradas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_entrada : 0,
+                'l1s_salidas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0,
+                'l2s_salidas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0,
+                'l3s_salidas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0,
+            ];
+
+            $pdf = PDF::loadView('reportes.saldos.saldos_almacen',$data);
+            return $pdf->setPaper('letter')->stream('saldos_almacen.pdf');
+
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
+        }
+
+    }
+
+    public function SaldosAlmacenToExcel(Request $request){
+        try {
+            $periodo = $this->periodoRepository->getById($request->periodo);
+            $query = $this->reporteRepository->SaldosAlmacen(
+                $periodo->fecha_inicio,
+                $request->al,
+                $request->periodo
+            );
+
+            $data = [
+                'data'       => $query,
+                'del'        => $periodo->fecha_inicio,
+                'al'         => $request->al,
+                'periodo'    => $periodo->nombre,
+                'ts_inicial' => $query->sum->s_inicial,
+                'ts_entrada' => $query->sum->s_entrada,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => $query->sum->s_final,
+                'l1s_inicial'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_inicial : 0,
+                'l2s_inicial'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_inicial : 0,
+                'l3s_inicial'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_inicial : 0,
+                'l1s_final'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_final : 0,
+                'l2s_final'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_final : 0,
+                'l3s_final'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_final : 0,
+                'l1s_entradas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_entrada : 0,
+                'l2s_entradas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_entrada : 0,
+                'l3s_entradas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_entrada : 0,
+                'l1s_salidas'   => isset($query->groupBy('num_linea')['linea1'])
+                    ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0,
+                'l2s_salidas'   => isset($query->groupBy('num_linea')['linea2'])
+                    ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0,
+                'l3s_salidas'   => isset($query->groupBy('num_linea')['linea3'])
+                    ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0,
+                'formato' => 'SALDOS'
+            ];
+            return (new MovimientoAlmacenView($data,'reportes.saldos.saldos_almacen_excel'))->download('saldos_almacen.xlsx');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Ha ocurrido un error inesperado en la descarga'.$e],500);
+        }
+    }
 
     /**
      * @param Request $request

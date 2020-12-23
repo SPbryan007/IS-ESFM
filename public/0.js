@@ -213,6 +213,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -408,6 +420,28 @@ var render = function() {
                         "router-link",
                         {
                           staticClass: "nav-link",
+                          attrs: { to: { name: "lotes" } }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-layer-group nav-icon"
+                          }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Stock")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
                           attrs: { to: { name: "partida" } }
                         },
                         [
@@ -566,6 +600,26 @@ var render = function() {
                 _vm._m(4),
                 _vm._v(" "),
                 _c("ul", { staticClass: "nav nav-treeview" }, [
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "movimiento" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-users nav-icon" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Movimientos de almacen")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
                   _c(
                     "li",
                     { staticClass: "nav-item" },

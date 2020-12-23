@@ -39,9 +39,18 @@ class MovimientoAlmacenView implements FromView,ShouldAutoSize,withDrawings
         if($this->data['formato'] == 'A'){
             $drawing->setHeight(100);
             $drawing->setCoordinates('C2');
-        }else{
+        }
+        if($this->data['formato'] == 'B'){
             $drawing->setHeight(120);
             $drawing->setCoordinates('D2');
+        }
+        if($this->data['formato'] == 'KARDEX'){
+            $drawing->setHeight(100);
+            $drawing->setCoordinates('G3');
+        }
+        if($this->data['formato'] == 'SALDOS'){
+            $drawing->setHeight(100);
+            $drawing->setCoordinates('B2');
         }
 
         return $drawing;
