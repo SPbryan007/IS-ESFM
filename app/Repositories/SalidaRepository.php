@@ -112,10 +112,6 @@ class SalidaRepository
                 if($detalle['cantidad'] > $articulo->stock) // 50 > 140 |
                     throw new NotFoundHttpException('No existen suficientes suministros del articulo '.$detalle['articulo']);
                 $lotes = $this->loteRepository->getOldestByArticulo($detalle['articulo']);
-
-                // 10,2
-                //4,2
-
                 foreach ($lotes as $lote){
                     if($cantidad <= $lote->stock){ // 14 <= 10
                         $this->loteRepository->setStockSaldoSalida(
@@ -205,21 +201,39 @@ class SalidaRepository
                         $query->withTrashed();
                     }]);
                     $query->withTrashed();
-                    },'detallesalidas'=> function($query){
+                    },
+                'detallesalidas'=> function($query){
                     $query->with(['lote' => function($query2){
                         $query2->with(['articulo' => function($query3){
-                            $query3->with(['unidad_medida' => function($query){
-                                $query->withTrashed();
-                            }]);
                             $query3->withTrashed();
+                        },'unidad_medida' => function($query){
+                            $query->withTrashed();
                         }]);
                     }]);
-                }])
+                }
+
+                ])
             ->withTrashed()
             ->where('salida.id',$id)
             ->orderBy('salida.id','DESC')
             ->groupBy('salida.id')
             ->first();
+
+//        $detalle = Salida::select(DB::raw('ROUND(SUM((ds.cantidad*lote.precio_u)), 2) as subtotal'),
+//            DB::raw('SUM(ds.cantidad) as cantidad'),
+//            DB::raw('a.nombre as articulo,a.codigo as codigo,um.nombre as unidad_medida,lote.precio_u as precio_u')
+//        )
+//            ->leftjoin('detalle_salida as ds','ds.salida_id','=','salida.id')
+//            ->leftjoin('lote','lote.id','=','ds.lote_id')
+//            ->leftjoin('unidad_medida as um','um.id','=','lote.unidad_medida_id')
+//            ->leftjoin('articulo as a','lote.articulo_id','=','a.id')
+//            ->withTrashed()
+//            ->where('salida.id',$id)
+//            ->orderBy('salida.id','DESC')
+//            ->groupBy('lote.unidad_medida_id','lote.precio_u','a.id','salida.id')
+//            ->get();
+//
+//        return ['salida' => $salida,'detallesalidas' => $detalle];
     }
 
 }

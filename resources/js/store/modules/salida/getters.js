@@ -50,9 +50,10 @@ export const GET_TOTAL_DETALLE_SALIDAS = state => {
 };
 
 export const CHECKED = state => id => {
-    let found = state.data_form.detalle_salida.find(element => element.articulo == id);
+    let found = state.data_form.detalle_salida.find(e => e.articulo == id );
     return found;
 };
+
 export const FILTER_ITEMS = state => {
     return store.getters['articulo/GET_LOTES'].map((item) => item);
 };

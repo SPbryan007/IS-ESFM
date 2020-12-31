@@ -16,6 +16,20 @@ export const getItems = ({ state, commit }) => {
             commit(types.SET_LOADING_TABLE, false);
         });
 };
+export const getLotesSalida = ({ commit }) =>{
+
+    commit(types.SET_LOADING_TABLE, true);
+    commonProviders
+        .getItems('/controller/lote/salida')
+        .then(items => {
+            commit(types.SET_LOTES, items.data);
+            commit(types.SET_LOADING_TABLE, false);
+        })
+        .catch(error => {
+            commit(types.SET_DISPLAY_MESSAGE, error.response);
+            commit(types.SET_LOADING_TABLE, false);
+        });
+};
 export const getLotes = ({ commit }) => {
     commit(types.SET_LOADING_TABLE, true);
     commonProviders

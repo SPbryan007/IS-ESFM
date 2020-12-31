@@ -147,12 +147,59 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      formLabelWidth: '120px',
+      dialogFormVisible: false,
       pageOfItems: [],
       sizePerPage: 5,
       perpage: 5,
@@ -164,37 +211,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       },
       dialogAddDetails: false,
       detalles_form: {
+        articulo_nombre: '',
+        marca: null,
+        unidad_medida: null,
         articulo: null,
         cantidad: 1,
-        precio: 0
+        precio: 0,
+        total: 0
       },
       rules: {
-        articulo: [{
+        unidad_medida: [{
           required: true,
-          message: "Debe seleccionar un articulo",
+          message: "Debe seleccionar una unidad de medida",
           trigger: "change"
         }],
-        cantidad: [{
-          required: true,
-          message: "Este campo es obligatorio",
+        marca: [{
+          required: false,
           trigger: "blur"
-        }],
-        precio: [{
-          required: true,
-          message: "Este campo es obligatorio",
+        }, {
+          max: 155,
+          message: "Debe tener menos de 155 caracteres",
           trigger: "blur"
         }]
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ingreso", ["GET_ITEMS_DETALLE_INGRESO", "GET_TOTAL_DETALLE_INGRESOS", "GET_FILTER_ITEMS_DETAILS"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("articulo", ["GET_ITEMS_ARTICULO"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ingreso", ["GET_ITEMS_DETALLE_INGRESO", "GET_TOTAL_DETALLE_INGRESOS", "GET_FILTER_ITEMS_DETAILS"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("articulo", ["GET_ITEMS_ARTICULO"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("unidad_medida", ["GET_ITEMS_UNIDAD_MEDIDA"])),
   methods: _objectSpread({
-    OnclickAddDialog: function OnclickAddDialog(index, row) {
-      _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].commit("ingreso/ADD_DETALLE_INGRESO", row);
+    OnClickAddForm: function OnClickAddForm(form) {
+      var _this = this;
+
+      this.$refs[form].validate(function (valid) {
+        if (valid) {
+          _this.dialogFormVisible = false;
+          _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].commit("ingreso/ADD_DETALLE_INGRESO", _this.detalles_form);
+
+          _this.$refs[form].resetFields();
+        }
+      });
+    },
+    OnClickCancelForm: function OnClickCancelForm(form) {
+      this.$refs[form].resetFields();
+      this.dialogFormVisible = false;
+    },
+    OnclickAddDialog: function OnclickAddDialog(row) {
+      this.detalles_form.articulo = row.id;
+      this.detalles_form.articulo_nombre = row.nombre;
+      this.dialogFormVisible = true; //   store.commit("ingreso/ADD_DETALLE_INGRESO",row);
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("ingreso", ["DELETE_DETALLE_INGRESO"]), {
     findItem: function findItem(id) {
       var items = _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters["articulo/GET_ITEMS_ARTICULO"];
+      return items.find(function (item) {
+        return item.id === id;
+      });
+    },
+    findMedida: function findMedida(id) {
+      var items = _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters["unidad_medida/GET_ITEMS_UNIDAD_MEDIDA"];
       return items.find(function (item) {
         return item.id === id;
       });
@@ -207,7 +280,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //   });
     // },
     onRegister: function onRegister() {
-      var _this = this;
+      var _this2 = this;
 
       this.$confirm("\xBF Esta seguro de registrar el ingreso ?", {
         confirmButtonText: "Sí, registrar",
@@ -215,8 +288,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: "warning"
       }).then(function () {
         _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("ingreso/addItem", {
-          message: _this.$message,
-          progress: _this.$Progress
+          message: _this2.$message,
+          progress: _this2.$Progress
         });
       })["catch"](function () {
         return null;
@@ -238,6 +311,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("articulo/getItems");
     _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("articulo/getLotes");
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("unidad_medida/getItems");
   }
 });
 
@@ -394,11 +468,246 @@ var render = function() {
                     "el-table",
                     { attrs: { data: _vm.pageOfItems } },
                     [
+                      _c(
+                        "el-dialog",
+                        {
+                          attrs: {
+                            title: _vm.detalles_form.articulo_nombre,
+                            visible: _vm.dialogFormVisible,
+                            "append-to-body": ""
+                          },
+                          on: {
+                            "update:visible": function($event) {
+                              _vm.dialogFormVisible = $event
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "el-form",
+                            {
+                              ref: "AddDetailsForm",
+                              attrs: {
+                                model: _vm.detalles_form,
+                                "label-width": "140px",
+                                rules: _vm.rules
+                              }
+                            },
+                            [
+                              _c(
+                                "el-form-item",
+                                {
+                                  attrs: {
+                                    label: "Unidad de medida:",
+                                    prop: "unidad_medida"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "el-select",
+                                    {
+                                      staticStyle: { width: "340px" },
+                                      attrs: {
+                                        filterable: "",
+                                        placeholder:
+                                          "Seleccione la unidad de medida",
+                                        "loading-text": "buscando..",
+                                        "no-match-text":
+                                          "No se encontraron registros"
+                                      },
+                                      model: {
+                                        value: _vm.detalles_form.unidad_medida,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.detalles_form,
+                                            "unidad_medida",
+                                            $$v
+                                          )
+                                        },
+                                        expression:
+                                          "detalles_form.unidad_medida"
+                                      }
+                                    },
+                                    _vm._l(
+                                      _vm.GET_ITEMS_UNIDAD_MEDIDA,
+                                      function(item, index) {
+                                        return _c("el-option", {
+                                          key: index,
+                                          attrs: {
+                                            label:
+                                              item.sigla + " | " + item.nombre,
+                                            value: item.id
+                                          }
+                                        })
+                                      }
+                                    ),
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      attrs: {
+                                        to: { name: "addunidad_medida" }
+                                      }
+                                    },
+                                    [
+                                      _c("el-button", {
+                                        attrs: {
+                                          type: "primary",
+                                          icon: "el-icon-plus"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                { attrs: { label: "Marca:", prop: "marca" } },
+                                [
+                                  _c("el-input", {
+                                    staticStyle: { width: "250px" },
+                                    model: {
+                                      value: _vm.detalles_form.marca,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.detalles_form,
+                                          "marca",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "detalles_form.marca"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                { attrs: { label: "Cantidad:" } },
+                                [
+                                  _c("el-input-number", {
+                                    attrs: { precision: 2, step: 1, min: 0.1 },
+                                    model: {
+                                      value: _vm.detalles_form.cantidad,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.detalles_form,
+                                          "cantidad",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "detalles_form.cantidad"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                { attrs: { label: "Sub Total:" } },
+                                [
+                                  _c("el-input-number", {
+                                    attrs: { precision: 2, step: 1, min: 1 },
+                                    model: {
+                                      value: _vm.detalles_form.total,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.detalles_form,
+                                          "total",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "detalles_form.total"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                { attrs: { label: "Precio U:" } },
+                                [
+                                  _vm._v(
+                                    "\n                                      " +
+                                      _vm._s(
+                                        isNaN(
+                                          _vm.detalles_form.total /
+                                            _vm.detalles_form.cantidad
+                                        )
+                                          ? 0
+                                          : (
+                                              _vm.detalles_form.total /
+                                              _vm.detalles_form.cantidad
+                                            ).toFixed(2)
+                                      ) +
+                                      " Bs.\n                                  "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            {
+                              staticClass: "dialog-footer",
+                              attrs: { slot: "footer" },
+                              slot: "footer"
+                            },
+                            [
+                              _c(
+                                "el-button",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.OnClickCancelForm(
+                                        "AddDetailsForm"
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Cancel")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-button",
+                                {
+                                  attrs: { type: "primary" },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.OnClickAddForm(
+                                        "AddDetailsForm"
+                                      )
+                                    }
+                                  }
+                                },
+                                [_vm._v("Agregar")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: { type: "index", width: "40", label: "N°" }
+                      }),
+                      _vm._v(" "),
                       _c("el-table-column", {
                         attrs: {
                           property: "codigo",
                           label: "Codigo",
-                          width: "90"
+                          width: "120"
                         }
                       }),
                       _vm._v(" "),
@@ -406,7 +715,7 @@ var render = function() {
                         attrs: {
                           property: "nombre",
                           label: "Articulo",
-                          width: "370"
+                          width: "500"
                         }
                       }),
                       _vm._v(" "),
@@ -415,14 +724,6 @@ var render = function() {
                           property: "stock",
                           label: "Disponibles",
                           width: "100"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("el-table-column", {
-                        attrs: {
-                          property: "unidad",
-                          label: "Medida",
-                          width: "200"
                         }
                       }),
                       _vm._v(" "),
@@ -442,10 +743,7 @@ var render = function() {
                                     },
                                     on: {
                                       click: function($event) {
-                                        return _vm.OnclickAddDialog(
-                                          scope.$index,
-                                          scope.row
-                                        )
+                                        return _vm.OnclickAddDialog(scope.row)
                                       }
                                     }
                                   },
@@ -461,12 +759,8 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "span",
-                    {
-                      staticClass: "dialog-footer",
-                      attrs: { slot: "footer" },
-                      slot: "footer"
-                    },
+                    "div",
+                    { staticClass: "row justify-content-center mt-4" },
                     [
                       _c("jw-pagination", {
                         ref: "jw",
@@ -486,10 +780,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "el-table",
-                {
-                  staticStyle: { width: "100%" },
-                  attrs: { data: _vm.GET_ITEMS_DETALLE_INGRESO, size: "small" }
-                },
+                { attrs: { data: _vm.GET_ITEMS_DETALLE_INGRESO } },
                 [
                   _c("el-table-column", {
                     attrs: { type: "index", width: "40", label: "N°" }
@@ -498,7 +789,7 @@ var render = function() {
                   _c("el-table-column", {
                     attrs: {
                       label: "Articulo",
-                      width: "410",
+                      width: "400",
                       prop: "articulo"
                     },
                     scopedSlots: _vm._u([
@@ -520,7 +811,15 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("el-table-column", {
-                    attrs: { label: "Medida", width: "160", prop: "medida" },
+                    attrs: { label: "Marca", width: "130", prop: "marca" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: {
+                      label: "Medida",
+                      width: "130",
+                      prop: "unidad_medida"
+                    },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
@@ -529,8 +828,7 @@ var render = function() {
                             _vm._v(
                               "\n                              " +
                                 _vm._s(
-                                  _vm.findItem(scope.row.articulo).unidad_medida
-                                    .nombre
+                                  _vm.findMedida(scope.row.unidad_medida).nombre
                                 ) +
                                 "\n                          "
                             )
@@ -541,17 +839,22 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("el-table-column", {
-                    attrs: { label: "P.U.", width: "80", prop: "precio_u" },
+                    attrs: { label: "P.U.", width: "100", prop: "precio" },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
                         fn: function(scope) {
                           return [
-                            _vm._v(
-                              "\n                              " +
-                                _vm._s(scope.row.precio / scope.row.cantidad) +
-                                "\n                          "
-                            )
+                            _c("span", { staticClass: "text-primary" }, [
+                              _vm._v(
+                                " " +
+                                  _vm._s(
+                                    (
+                                      scope.row.total / scope.row.cantidad
+                                    ).toFixed(2)
+                                  )
+                              )
+                            ])
                           ]
                         }
                       }
@@ -561,7 +864,7 @@ var render = function() {
                   _c("el-table-column", {
                     attrs: {
                       label: "Cantidad",
-                      width: "150",
+                      width: "100",
                       prop: "cantidad"
                     },
                     scopedSlots: _vm._u([
@@ -569,22 +872,11 @@ var render = function() {
                         key: "default",
                         fn: function(scope) {
                           return [
-                            _c("el-input-number", {
-                              staticStyle: { width: "120px" },
-                              attrs: {
-                                size: "mini",
-                                precision: 2,
-                                step: 1,
-                                min: 0.1
-                              },
-                              model: {
-                                value: scope.row.cantidad,
-                                callback: function($$v) {
-                                  _vm.$set(scope.row, "cantidad", $$v)
-                                },
-                                expression: "scope.row.cantidad"
-                              }
-                            })
+                            _c("span", { staticClass: "text-primary" }, [
+                              _vm._v(
+                                "  " + _vm._s(scope.row.cantidad.toFixed(2))
+                              )
+                            ])
                           ]
                         }
                       }
@@ -592,28 +884,15 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("el-table-column", {
-                    attrs: { label: "Sub Total", width: "150", prop: "precio" },
+                    attrs: { label: "Sub Total", width: "120", prop: "total" },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
                         fn: function(scope) {
                           return [
-                            _c("el-input-number", {
-                              staticStyle: { width: "120px" },
-                              attrs: {
-                                size: "mini",
-                                precision: 2,
-                                step: 1,
-                                min: 0
-                              },
-                              model: {
-                                value: scope.row.precio,
-                                callback: function($$v) {
-                                  _vm.$set(scope.row, "precio", $$v)
-                                },
-                                expression: "scope.row.precio"
-                              }
-                            })
+                            _c("span", { staticClass: "text-primary" }, [
+                              _vm._v(" " + _vm._s(scope.row.total.toFixed(2)))
+                            ])
                           ]
                         }
                       }
@@ -621,7 +900,7 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c("el-table-column", {
-                    attrs: { label: "" },
+                    attrs: { width: "50" },
                     scopedSlots: _vm._u([
                       {
                         key: "default",
@@ -631,7 +910,8 @@ var render = function() {
                               attrs: {
                                 size: "mini",
                                 type: "danger",
-                                icon: "el-icon-close"
+                                icon: "el-icon-close",
+                                circle: ""
                               },
                               on: {
                                 click: function($event) {

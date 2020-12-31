@@ -93,8 +93,10 @@ class IngresoRepository
             foreach ($data->detalle_ingreso as $detalle){
                 $lote = $this->loteRepository->register(
                     $detalle['cantidad'],
-                    $detalle['precio'],
-                    ($detalle['precio']/$detalle['cantidad']),
+                    $detalle['total'],
+                    ($detalle['total']/$detalle['cantidad']),
+                    $detalle['unidad_medida'],
+                    $detalle['marca'],
                     $detalle['articulo']
                 );
                 $this->detalleIngresoRepository->register(
@@ -133,8 +135,10 @@ class IngresoRepository
             foreach ($data->detalle_ingreso as $detalle){
                 $lote = $this->loteRepository->register(
                     $detalle['cantidad'],
-                    $detalle['precio'],
-                    $detalle['precio']/$detalle['cantidad'],
+                    $detalle['total'],
+                    ($detalle['total']/$detalle['cantidad']),
+                    $detalle['unidad_medida'],
+                    $detalle['marca'],
                     $detalle['articulo']
                 );
                 $this->detalleIngresoRepository->register(
@@ -203,25 +207,31 @@ class IngresoRepository
 
     public function delete($id)
     {
+
         $ingreso = $this->getById($id);
         if($ingreso->tipo_ingreso == Ingreso::INV_INICIAL){
+
             throw new ConflictHttpException('No se puede anular el inventario inicial.');
         }
+        DB::beginTransaction();
         foreach ($ingreso->detalleingresos()->get() as $detalle){
             $devolucion = Ingreso::join('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
                 ->where('di.lote_id', $detalle->lote()->first()->id)
                 ->where('ingreso.tipo_ingreso',$ingreso->tipo_ingreso)
-                ->where('ingreso.periodo_id',1)
+                ->where('ingreso.periodo_id',Periodo::latest()->first()->id)
 //                ->where('ingreso.periodo_id',Periodo::latest()->first()->id)
                 ->first();
             if(($detalle->cantidad != $detalle->lote()->first()->stock) || !$devolucion){
+                DB::rollBack();
                 throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se realizaron movimientos.');
             }
+            $this->loteRepository->Delete($detalle->lote()->first()->id);
         }
 //        if($ingreso->detalleingresos()->get()[0]->cantidad != $total){
 //            throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se realizaron movimientos.');
 //        }
         $ingreso->delete();
+        DB::commit();
     }
 
     public function getShowById($id)
@@ -242,10 +252,12 @@ class IngresoRepository
             },'detalleingresos'=> function($query){
                 $query->with(['lote' => function($query2){
                     $query2->with(['articulo' => function($query3){
-                        $query3->with(['unidad_medida' => function($query){
-                            $query->withTrashed();
-                        }]);
+//                        $query3->with(['unidad_medida' => function($query){
+//                            $query->withTrashed();
+//                        }]);
                         $query3->withTrashed();
+                    },'unidad_medida' => function($query){
+                        $query->withTrashed();
                     }]);
                 }]);
             }])
@@ -253,6 +265,7 @@ class IngresoRepository
             ->where('ingreso.id',$id)
             ->orderBy('ingreso.id','DESC')
             ->groupBy('ingreso.id')
+          //  ->groupBy('lote.unidad_medida_id','ingreso.id')
             ->first();
     }
 

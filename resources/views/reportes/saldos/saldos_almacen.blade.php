@@ -6,11 +6,12 @@
 
     <style>
         @page { size: letter}
+        body{
+            margin-top: 2cm;
+        }
         .invoice-box {
-            max-width: 900px;
+
             margin: auto;
-            margin-left: -10px;
-            margin-top:-40px;
             /*   padding: 30px;*/
             /*  border: 1px solid #eee;
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
@@ -121,6 +122,18 @@
         .text-center{
             text-align: center;
         }
+        header{
+            position: fixed;
+            top: -40px;
+            left: 0cm;
+            right:0cm;
+            height: 3cm;
+            color: #555;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
         /* footer{
              margin-top: 80px;
              position: absolute;
@@ -142,58 +155,34 @@
 </head>
 
 <body>
-<!--<tr class="top">
-    <td colspan="2">
-        <table>
-            <tr>
-                <td class="title">
-                    <img src="./public/img/logo.jpeg" style="width:35%; max-width:300px;">
-                </td>
-
-                <td class="text-center">
-                    <h1>ALMACEN</h1>
-                    <h2>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b></h2>
-                    <h2>RECURSOS PROPIOS</h2>
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>-->
+<header>
+    <table>
+        <tr>
+            <td  style="width: 100px;vertical-align: inherit">
+                <div style="width: 130px;">
+                    <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
+                </div>
+            </td>
+            <td style="text-align: center">
+                {{--<h4>ALMACEN</h4>--}}
+                <h5 style="margin-left: 120px">ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br> "MARISCAL SUCRE" <br>
+                    SALDOS DE ALMACEN AL {{ date('d/m/Y',strtotime($al)) }}
+                    <br> (Expresado en bolivianos)
+                </h5>
+                <h5></h5>
+            </td>
+        </tr>
+    </table>
+</header>
 
 <div class="invoice-box">
-    <header>
-        <table>
-            <tr>
-                <td  style="width: 100px;vertical-align: inherit">
-                    <div style="width: 130px;margin-left: 20px">
-                        <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
-                    </div>
-                </td>
-                <td style="text-align: center">
-                    {{--<h4>ALMACEN</h4>--}}
-                    <h5>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>
-                        SALDOS DE ALMACEN AL {{ date('d/m/Y',strtotime($al)) }}
-                        <br> (Expresado en bolivianos)
-                    </h5>
-                    <h5></h5>
-                </td>
-            </tr>
-        </table>
-        <!--        <div class="" style="float: left;text-align: left;width: 300">
-                    <img src="./public/img/logo.jpeg" style="width:65%; max-width:300px;">
-                </div>
-                <div class="text-center">
-                    <h2>ALMACEN</h2>
-                    <h3>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b> <br>RECURSOS PROPIOS</h3>
-                </div>-->
-    </header>
     <table style="  font-size: 8px; border-collapse: collapse; line-height: 12px;" cellpadding="0" border="1" cellspacing="0">
         <thead class="heading">
         <tr class="heading">
             <th rowspan="3" scope="col" class="pa" style="width: 30px">N°</th>
             <th rowspan="3" scope="col" class="pa" style="width: 60px">PARTIDA PRESUP.</th>
             <th rowspan="3" scope="col" class="pa" style="width: 60px">CÓDIGO</th>
-            <th rowspan="3" scope="col"  style="width: 265px">DESCRIPCIÓN</th>
+            <th rowspan="3" scope="col"  style="width: 320px">DESCRIPCIÓN</th>
             <th rowspan="2" scope="col"  style="width: 80px">SALDO INICIAL <br> AL {{ date('d/m/Y',strtotime($al)) }}</th>
             <th rowspan="2" scope="col"  style="width: 60px">VALOR <br>UNITARIO</th>
             <th rowspan="2" scope="col"  style="width: 80px">SALDO INICIAL <br> Al {{ date('d/m/Y',strtotime($al)) }}</th>
@@ -236,7 +225,7 @@
     <table style=" font-size: 9px;width: 40%;line-height: 12px" cellpadding="0" border="1" cellspacing="0">
         <thead>
         <tr class="heading">
-            <th scope="col" style="width: 60px">LINEA</th>
+            <th scope="col" style="width: 30px">LINEA</th>
             <th scope="col" style="width: 90px">SALDO INICIAL</th>
         </tr>
         </thead>

@@ -43,10 +43,8 @@
                         <el-table :data="pageOfItems">
                             <el-table-column property="codigo" label="Codigo" width="90"></el-table-column>
                             <el-table-column property="nombre" label="Articulo" width="370"></el-table-column>
-                            <el-table-column property="stock" label="Disponibles" width="150"></el-table-column>
-                            <el-table-column property="unidad" label="Medida" width="150">
-
-                            </el-table-column>
+                            <el-table-column property="stock" label="Stock" width="120"></el-table-column>
+                            <el-table-column property="saldo" label="Saldo" width="120"></el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">
                                     <el-button
@@ -57,11 +55,19 @@
                                     >Añadido</el-button>
                                     <el-button
                                         v-if="!CHECKED(scope.row.id)"
+                                        :disabled="scope.row.stock == 0"
                                         type="info"
                                         size="mini"
                                         @click="OnclickAddDialog(scope.$index,scope.row)"
                                         icon="el-icon-plus"
                                     >Añadir</el-button>
+                                    <router-link :to="{ name: 'addingreso' }">
+                                        <el-button
+                                            type="primary"
+                                            size="mini"
+                                        ><i class="fas fa-plus"></i></el-button>
+                                    </router-link>
+
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -99,22 +105,22 @@
                     </div>
 
                     <el-table :data="GET_ITEMS_DETALLE_SALIDA" style="width: 100%">
-                        <el-table-column type="index"></el-table-column>
-                        <el-table-column label="Código" width="120" prop="codigo" sortable>
+                        <el-table-column type="index" label="N°" width="60"></el-table-column>
+                        <el-table-column label="Código" width="130" prop="codigo" sortable>
                             <template slot-scope="scope">
                                 {{ findItem(scope.row.articulo).codigo }}
                             </template>
                         </el-table-column>
-                        <el-table-column label="Articulo" width="420" prop="articulo" sortable>
+                        <el-table-column label="Articulo" width="600" prop="articulo" sortable>
                             <template slot-scope="scope">
-                                {{ findItem(scope.row.articulo).nombre }}
+                                {{ scope.row.articulo_nombre }}
                             </template>
                         </el-table-column>
-                        <el-table-column label="Medida" width="200" prop="medida" sortable>
-                            <template slot-scope="scope">
-                                {{ findItem(scope.row.articulo).unidad_medida.nombre }}
-                            </template>
-                        </el-table-column>
+<!--                        <el-table-column label="Medida" width="200" prop="medida" sortable>-->
+<!--                            <template slot-scope="scope">-->
+<!--                                {{ scope.row.unidad_medida }}-->
+<!--                            </template>-->
+<!--                        </el-table-column>-->
                         <el-table-column label="Cantidad" width="200" prop="cantidad" sortable>
                             <template slot-scope="scope">
                                 <el-input-number size="mini" v-model="scope.row.cantidad"  :precision="2" :step="1"  :min="1" :max="scope.row.stock"></el-input-number>
@@ -127,6 +133,7 @@
                                     type="danger"
                                     @click="DELETE_DETALLE_SALIDA(scope.row.articulo)"
                                     icon="el-icon-close"
+                                    circle
                                 ></el-button>
                             </template>
                         </el-table-column>

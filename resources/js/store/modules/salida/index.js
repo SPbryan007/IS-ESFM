@@ -101,6 +101,8 @@ const mutations = {
     [types.ADD_DETALLE_SALIDA]: (state, data) => {
         state.data_form.detalle_salida.push({
             articulo:data.id,
+            articulo_nombre:data.nombre,
+            //Medidas
             cantidad:1,
             stock:data.stock
         });

@@ -147,6 +147,7 @@ Route::prefix('controller/backup')->group(function (){
 
 Route::prefix('controller/lote')->group(function (){
     Route::get('/', 'LoteController@getAll');
+    Route::get('/salida','LoteController@getLotesSalida');
   /*  Route::post('/', 'LoteController@create');
     Route::put('/{id}','LoteController@update');
     Route::delete('/{id}','LoteController@destroy');*/

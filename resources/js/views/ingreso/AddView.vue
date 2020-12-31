@@ -268,6 +268,7 @@ export default {
         "alert"
     ]),
     ...mapGetters("proveedor", ["GET_ITEMS_PROVEEDOR"]),
+
   },
   methods: {
     submitForm(form) {
@@ -289,6 +290,7 @@ export default {
   },
   created() {
     store.dispatch("proveedor/getItems");
+
   },
 };
 </script>

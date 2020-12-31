@@ -156,6 +156,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -176,8 +192,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ViewDetails: function ViewDetails(index, row) {
       this.visible = true;
       this.details.lotes = row.lotes;
-      this.details.articulo = row.nombre;
-      this.details.unidad = row.unidad;
+      this.details.articulo = row.nombre; // this.details.unidad = row.unidad;
     },
     Total: function Total() {
       var total = 0;
@@ -292,7 +307,7 @@ var render = function() {
                   on: { click: _vm.StartPeriodo }
                 },
                 [
-                  _vm._v("\n                Iniciar\n                "),
+                  _vm._v("\n                    Iniciar\n                    "),
                   _c("i", { staticClass: "fas fa-clock" })
                 ]
               )
@@ -336,24 +351,26 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("span", { staticClass: "font-weight-bold" }, [
-                    _vm._v("\n                  Del\n                    "),
-                    _c("i", { staticClass: "font-weight-light" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(
-                            _vm._f("dateformat")(_vm.data_form.fecha_inicio)
-                          ) +
-                          "\n                    "
-                      )
-                    ]),
-                    _vm._v(" al\n                        "),
+                    _vm._v(
+                      "\n                      Del\n                        "
+                    ),
                     _c("i", { staticClass: "font-weight-light" }, [
                       _vm._v(
                         "\n                            " +
                           _vm._s(
-                            _vm._f("dateformat")(_vm.data_form.fecha_fin)
+                            _vm._f("dateformat")(_vm.data_form.fecha_inicio)
                           ) +
                           "\n                        "
+                      )
+                    ]),
+                    _vm._v(" al\n                            "),
+                    _c("i", { staticClass: "font-weight-light" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(
+                            _vm._f("dateformat")(_vm.data_form.fecha_fin)
+                          ) +
+                          "\n                            "
                       )
                     ])
                   ]),
@@ -368,7 +385,11 @@ var render = function() {
             _c(
               "el-dialog",
               {
-                attrs: { title: _vm.details.articulo, visible: _vm.visible },
+                attrs: {
+                  title: _vm.details.articulo,
+                  visible: _vm.visible,
+                  width: "1000px"
+                },
                 on: {
                   "update:visible": function($event) {
                     _vm.visible = $event
@@ -384,9 +405,9 @@ var render = function() {
                     _vm._v(" "),
                     _c("el-table-column", {
                       attrs: {
-                        property: "detalleingreso.precio_u",
-                        label: "Precio Unitario",
-                        width: "220"
+                        property: "marca",
+                        label: "Marca",
+                        width: "150"
                       },
                       scopedSlots: _vm._u([
                         {
@@ -396,8 +417,76 @@ var render = function() {
                               _c("b", [_vm._v("Bs :")]),
                               _vm._v(
                                 " " +
-                                  _vm._s(scope.row.precio_u) +
-                                  "\n                        "
+                                  _vm._s(scope.row.marca) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "presentacion",
+                        label: "Presentacion",
+                        width: "200"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.presentacion) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "unidad_medida",
+                        label: "Medida",
+                        width: "150"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(scope.row.unidad_medida.nombre) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "precio_u",
+                        label: "Precio U.",
+                        width: "120"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.precio_u.toFixed(2)) +
+                                  "\n                            "
                               )
                             ]
                           }
@@ -409,7 +498,7 @@ var render = function() {
                       attrs: {
                         property: "stock",
                         label: "Stock",
-                        width: "220"
+                        width: "120"
                       },
                       scopedSlots: _vm._u([
                         {
@@ -417,11 +506,10 @@ var render = function() {
                           fn: function(scope) {
                             return [
                               _vm._v(
-                                "\n                            " +
-                                  _vm._s(scope.row.stock) +
-                                  " "
-                              ),
-                              _c("b", [_vm._v(_vm._s(_vm.details.unidad))])
+                                "\n                                " +
+                                  _vm._s(scope.row.stock.toFixed()) +
+                                  "\n                            "
+                              )
                             ]
                           }
                         }
@@ -432,7 +520,7 @@ var render = function() {
                       attrs: {
                         property: "saldo",
                         label: "Saldo",
-                        width: "220"
+                        width: "120"
                       },
                       scopedSlots: _vm._u([
                         {
@@ -442,8 +530,8 @@ var render = function() {
                               _c("b", [_vm._v("Bs :")]),
                               _vm._v(
                                 " " +
-                                  _vm._s(scope.row.saldo) +
-                                  "\n                        "
+                                  _vm._s(scope.row.saldo.toFixed(2)) +
+                                  "\n                            "
                               )
                             ]
                           }
@@ -464,7 +552,13 @@ var render = function() {
                 attrs: { data: _vm.GET_LOTES, stripe: "" }
               },
               [
-                _c("el-table-column", { attrs: { type: "index" } }),
+                _c("el-table-column", {
+                  attrs: { type: "index", label: "N°", width: "60" }
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "codigo", label: "Código", width: "120" }
+                }),
                 _vm._v(" "),
                 _c("el-table-column", {
                   attrs: { prop: "nombre", label: "Articulo", width: "600" }
@@ -478,23 +572,11 @@ var render = function() {
                       fn: function(scope) {
                         return [
                           _vm._v(
-                            "\n                        " +
+                            "\n                            " +
                               _vm._s(scope.row.stock) +
-                              "\n                    "
+                              "\n                        "
                           )
                         ]
-                      }
-                    }
-                  ])
-                }),
-                _vm._v(" "),
-                _c("el-table-column", {
-                  attrs: { prop: "unidad", label: "Medida", width: "140" },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "default",
-                      fn: function(scope) {
-                        return [_c("b", [_vm._v(_vm._s(scope.row.unidad))])]
                       }
                     }
                   ])
@@ -509,7 +591,8 @@ var render = function() {
                         return [
                           _c("b", [_vm._v("Bs: ")]),
                           _vm._v(
-                            _vm._s(scope.row.saldo) + "\n                    "
+                            _vm._s(scope.row.saldo) +
+                              "\n                        "
                           )
                         ]
                       }
@@ -557,7 +640,7 @@ var render = function() {
                   _c("i", { staticClass: "font-weight-light" }, [
                     _c("b", [_vm._v("Bs : ")]),
                     _vm._v(
-                      "  " + _vm._s(_vm.Total()) + "\n                    "
+                      "  " + _vm._s(_vm.Total()) + "\n                        "
                     )
                   ]),
                   _vm._v(" "),

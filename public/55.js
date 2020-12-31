@@ -71,106 +71,250 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      series: [70],
+      series: [{
+        name: "STOCK ",
+        data: [55, 20, 70, 20, 90]
+      }],
       chartOptions: {
         chart: {
+          type: 'area',
           height: 350,
-          type: 'radialBar'
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              size: '70%'
-            }
+          zoom: {
+            enabled: false
           }
         },
-        labels: ['Disponibles']
-      } //
-      // series: [100],
-      // chartOptions: {
-      //     chart: {
-      //         height: 350,
-      //         type: 'radialBar',
-      //         toolbar: {
-      //             show: true
-      //         }
-      //     },
-      //     plotOptions: {
-      //         radialBar: {
-      //             startAngle: -135,
-      //             endAngle: 225,
-      //             hollow: {
-      //                 margin: 0,
-      //                 size: '70%',
-      //                 background: '#fff',
-      //                 image: undefined,
-      //                 imageOffsetX: 0,
-      //                 imageOffsetY: 0,
-      //                 position: 'front',
-      //                 dropShadow: {
-      //                     enabled: true,
-      //                     top: 3,
-      //                     left: 0,
-      //                     blur: 4,
-      //                     opacity: 0.24
-      //                 }
-      //             },
-      //             track: {
-      //                 background: '#fff',
-      //                 strokeWidth: '67%',
-      //                 margin: 0, // margin is in pixels
-      //                 dropShadow: {
-      //                     enabled: true,
-      //                     top: -3,
-      //                     left: 0,
-      //                     blur: 4,
-      //                     opacity: 0.35
-      //                 }
-      //             },
-      //
-      //             dataLabels: {
-      //                 show: true,
-      //                 name: {
-      //                     offsetY: -10,
-      //                     show: true,
-      //                     color: '#888',
-      //                     fontSize: '10px'
-      //                 },
-      //                 value: {
-      //                     formatter: function (val) {
-      //                         return parseInt(val);
-      //                     },
-      //                     color: '#111',
-      //                     fontSize: '20px',
-      //                     show: true,
-      //                 }
-      //             }
-      //         }
-      //     },
-      //     fill: {
-      //         type: 'gradient',
-      //         gradient: {
-      //             shade: 'dark',
-      //             type: 'horizontal',
-      //             shadeIntensity: 0.5,
-      //             gradientToColors: ['#ABE5A1'],
-      //             inverseColors: true,
-      //             opacityFrom: 1,
-      //             opacityTo: 1,
-      //             stops: [0, 100]
-      //         }
-      //     },
-      //     stroke: {
-      //         lineCap: 'round'
-      //     },
-      //     labels: ['Disponibles'],
-      // }
-
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: 'Flujo de entradas y salidas en el tiempo',
+          align: 'left'
+        },
+        subtitle: {
+          text: 'Expresado en Unidades',
+          align: 'left'
+        },
+        labels: ['12-10-2020', '12-12-2020', '12-15-2020', '12-16-2020', '12-20-2020'],
+        xaxis: {
+          type: 'datetime',
+          lang: 'es'
+        },
+        yaxis: {
+          opposite: true
+        },
+        legend: {
+          horizontalAlign: 'left'
+        }
+      },
+      tableData: [{
+        date: '2016-05-03',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles'
+      }, {
+        date: '2016-05-02',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles'
+      }, {
+        date: '2016-05-04',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles'
+      }, {
+        date: '2016-05-01',
+        name: 'Tom',
+        address: 'No. 189, Grove St, Los Angeles'
+      }]
     };
   }
 });
@@ -192,126 +336,411 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c("apexchart", {
-              attrs: {
-                type: "radialBar",
-                height: "200",
-                options: _vm.chartOptions,
-                series: _vm.series
-              }
-            })
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(2)
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("div", { staticClass: "d-flex justify-content-between" }, [
-        _c("h3", { staticClass: "card-title" }, [_vm._v("Lote #2")]),
-        _vm._v(" "),
-        _c("a", { attrs: { href: "javascript:void(0);" } }, [
-          _vm._v("View Report")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex justify-content-between" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Precio Unitario")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-header border-0" }, [
-        _c("div", { staticClass: "d-flex justify-content-between" }, [
-          _c("h3", { staticClass: "card-title" }, [
-            _vm._v("Online Store Visitors")
-          ]),
+  return _c(
+    "div",
+    [
+      _c(
+        "div",
+        { staticClass: "row row justify-content-between mr-1 ml-1  mt-4" },
+        [
+          _c(
+            "div",
+            { staticClass: "pull-left" },
+            [
+              _c(
+                "el-form",
+                {
+                  ref: "QueryForm",
+                  staticClass: "demo-form-inline",
+                  attrs: { inline: true, rules: _vm.rules, model: _vm.consulta }
+                },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Periodo:", prop: "periodo" } },
+                    [
+                      _c(
+                        "el-select",
+                        {
+                          staticStyle: { width: "180px" },
+                          attrs: {
+                            filterable: "",
+                            "loading-text": "buscando..",
+                            "no-match-text": "No se encontraron registros",
+                            placeholder: "Seleccione periodo"
+                          },
+                          model: {
+                            value: _vm.consulta.periodo,
+                            callback: function($$v) {
+                              _vm.$set(_vm.consulta, "periodo", $$v)
+                            },
+                            expression: "consulta.periodo"
+                          }
+                        },
+                        _vm._l(_vm.GET_ITEMS_PERIODO, function(item, index) {
+                          return _c("el-option", {
+                            key: index,
+                            attrs: { label: item.nombre, value: item.id }
+                          })
+                        }),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Del", prop: "del" } },
+                    [
+                      _c("el-date-picker", {
+                        staticStyle: { width: "160px" },
+                        attrs: { type: "date", placeholder: "Seleccione dia" },
+                        model: {
+                          value: _vm.consulta.del,
+                          callback: function($$v) {
+                            _vm.$set(_vm.consulta, "del", $$v)
+                          },
+                          expression: "consulta.del"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Al", prop: "al" } },
+                    [
+                      _c("el-date-picker", {
+                        staticStyle: { width: "160px" },
+                        attrs: {
+                          type: "date",
+                          placeholder: "Seleccione un dia"
+                        },
+                        model: {
+                          value: _vm.consulta.al,
+                          callback: function($$v) {
+                            _vm.$set(_vm.consulta, "al", $$v)
+                          },
+                          expression: "consulta.al"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    [
+                      _c(
+                        "el-button",
+                        {
+                          attrs: { loading: _vm.loading, type: "primary" },
+                          on: {
+                            click: function($event) {
+                              return _vm.GET_ITEMS_REMA("QueryForm")
+                            }
+                          }
+                        },
+                        [_vm._v("Consultar")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("a", { attrs: { href: "javascript:void(0);" } }, [
-            _vm._v("View Report")
-          ])
-        ])
-      ]),
+          _c(
+            "div",
+            { staticClass: "pull-right" },
+            [
+              _c(
+                "el-button",
+                {
+                  attrs: {
+                    type: "danger",
+                    disabled:
+                      !_vm.consulta.periodo ||
+                      !_vm.consulta.del ||
+                      !_vm.consulta.al
+                  },
+                  on: { click: _vm.Print }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-file-pdf" }),
+                  _vm._v(" Exp. Pdf")
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  attrs: {
+                    type: "success",
+                    disabled:
+                      !_vm.consulta.periodo ||
+                      !_vm.consulta.del ||
+                      !_vm.consulta.al
+                  },
+                  on: { click: _vm.toExcel }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-file-excel" }),
+                  _vm._v(" Exp. Excel")
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
       _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("div", { staticClass: "d-flex" }, [
-          _c("p", { staticClass: "d-flex flex-column" }, [
-            _c("span", { staticClass: "text-bold text-lg" }, [_vm._v("820")]),
-            _vm._v(" "),
-            _c("span", [_vm._v("Visitors Over Time")])
-          ]),
+      _c(
+        "div",
+        {
+          staticClass: "row justify-content-between ml-1",
+          staticStyle: { "margin-bottom": "-20px" }
+        },
+        [
+          _c(
+            "div",
+            { staticClass: "pull-left" },
+            [
+              _c(
+                "el-form",
+                { staticClass: "demo-form-inline", attrs: { inline: true } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Mostrar:" } },
+                    [
+                      _c(
+                        "el-select",
+                        {
+                          staticStyle: { width: "70px" },
+                          on: {
+                            change: function($event) {
+                              return _vm.refresh()
+                            }
+                          },
+                          model: {
+                            value: _vm.perpage,
+                            callback: function($$v) {
+                              _vm.perpage = $$v
+                            },
+                            expression: "perpage"
+                          }
+                        },
+                        _vm._l(
+                          [
+                            { value: 5, label: "5" },
+                            { value: 10, label: "10" },
+                            { value: 25, label: "25" },
+                            { value: 50, label: "50" },
+                            { value: 100, label: "100" }
+                          ],
+                          function(item) {
+                            return _c("el-option", {
+                              key: item.value,
+                              attrs: { label: item.label, value: item.value }
+                            })
+                          }
+                        ),
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "el-form-item",
+                    [
+                      _c("el-switch", {
+                        attrs: {
+                          "active-text": "todos",
+                          "inactive-text": "solo activos"
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.$store.dispatch("usuario/getItems")
+                          }
+                        },
+                        model: {
+                          value: _vm.$store.state.usuario.withTrashed,
+                          callback: function($$v) {
+                            _vm.$set(
+                              _vm.$store.state.usuario,
+                              "withTrashed",
+                              $$v
+                            )
+                          },
+                          expression: "$store.state.usuario.withTrashed"
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("p", { staticClass: "ml-auto d-flex flex-column text-right" }, [
-            _c("span", { staticClass: "text-success" }, [
-              _c("i", { staticClass: "fas fa-arrow-up" }),
-              _vm._v(" 12.5%\n                    ")
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "text-muted" }, [
-              _vm._v("Since last week")
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "position-relative mb-4" }, [
-          _c("div", { staticClass: "chartjs-size-monitor" }, [
-            _c("div", { staticClass: "chartjs-size-monitor-expand" }, [
-              _c("div", {})
-            ]),
-            _c("div", { staticClass: "chartjs-size-monitor-shrink" }, [
-              _c("div", {})
-            ])
-          ]),
+          _c(
+            "div",
+            { staticClass: "pull-right" },
+            [
+              _c(
+                "el-form",
+                { staticClass: "demo-form-inline", attrs: { inline: true } },
+                [
+                  _c(
+                    "el-form-item",
+                    { attrs: { label: "Buscar por:" } },
+                    [
+                      _c(
+                        "el-input",
+                        {
+                          attrs: { placeholder: "Nombre", clearable: "" },
+                          model: {
+                            value: _vm.$store.state.usuario.searchQuery,
+                            callback: function($$v) {
+                              _vm.$set(
+                                _vm.$store.state.usuario,
+                                "searchQuery",
+                                $$v
+                              )
+                            },
+                            expression: "$store.state.usuario.searchQuery"
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "el-input__icon el-icon-search",
+                            attrs: { slot: "prefix" },
+                            slot: "prefix"
+                          })
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "el-tabs",
+        { attrs: { type: "border-card" } },
+        [
+          _c(
+            "el-tab-pane",
+            [
+              _c("span", { attrs: { slot: "label" }, slot: "label" }, [
+                _c("i", { staticClass: "el-icon-date" }),
+                _vm._v(" Lotes")
+              ]),
+              _vm._v(" "),
+              _c(
+                "el-table",
+                {
+                  staticStyle: { width: "100%" },
+                  attrs: { data: _vm.tableData, stripe: "" }
+                },
+                [
+                  _c("el-table-column", {
+                    attrs: { type: "index", label: "N°", width: "60" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: {
+                      prop: "name",
+                      label: "Stock Inicial",
+                      width: "180"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { prop: "address", label: "Saldo Incial" }
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { prop: "name", label: "Stock", width: "180" },
+                    scopedSlots: _vm._u([
+                      {
+                        key: "default",
+                        fn: function(scope) {
+                          return [
+                            _c("el-progress", {
+                              attrs: {
+                                color: [
+                                  { color: "#f56c6c", percentage: 20 },
+                                  { color: "#e6a23c", percentage: 40 },
+                                  { color: "#5cb87a", percentage: 60 },
+                                  { color: "#1989fa", percentage: 80 },
+                                  { color: "#6f7ad3", percentage: 100 }
+                                ],
+                                "text-inside": true,
+                                "stroke-width": 16,
+                                percentage: 100
+                              }
+                            })
+                          ]
+                        }
+                      }
+                    ])
+                  }),
+                  _vm._v(" "),
+                  _c("el-table-column", {
+                    attrs: { prop: "address", label: "Saldo" }
+                  })
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("canvas", {
-            staticClass: "chartjs-render-monitor",
-            staticStyle: { display: "block", height: "200px", width: "814px" },
-            attrs: { id: "visitors-chart", height: "250", width: "1017" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "d-flex flex-row justify-content-end" }, [
-          _c("span", { staticClass: "mr-2" }, [
-            _c("i", { staticClass: "fas fa-square text-primary" }),
-            _vm._v(" This Week\n                  ")
-          ]),
+          _c(
+            "el-tab-pane",
+            { attrs: { label: "Graficos" } },
+            [
+              _c("apexchart", {
+                attrs: {
+                  type: "area",
+                  height: "350",
+                  options: _vm.chartOptions,
+                  series: _vm.series
+                }
+              })
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("span", [
-            _c("i", { staticClass: "fas fa-square text-gray" }),
-            _vm._v(" Last Week\n                  ")
-          ])
-        ])
-      ])
-    ])
-  }
-]
+          _c("el-tab-pane", { attrs: { label: "Role" } }, [_vm._v("Role")]),
+          _vm._v(" "),
+          _c("el-tab-pane", { attrs: { label: "Task" } }, [_vm._v("Task")])
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div")
+    ],
+    1
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

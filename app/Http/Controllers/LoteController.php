@@ -29,4 +29,10 @@ class LoteController extends Controller
         $lotes = $this->loteRepository->getAll();
         return response()->json($lotes,200);
     }
+
+    public function getLotesSalida()
+    {
+        $lotes = $this->loteRepository->getLotesSalida();
+        return response()->json($lotes,200);
+    }
 }

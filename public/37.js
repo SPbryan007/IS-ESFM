@@ -231,6 +231,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -238,10 +295,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      numero: 1997
+      pageOfItems: [],
+      sizePerPage: 10,
+      perpage: 5,
+      labels: {
+        first: "<<",
+        last: ">>",
+        previous: "anterior",
+        next: "siguiente"
+      }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["detalle_ingreso", "data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDOR"])),
+  computed: _objectSpread({
+    PerPage: function PerPage() {
+      return this.perpage ? parseInt(this.perpage) : 25;
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["detalle_ingreso", "data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDOR"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ingreso", ["GET_FILTER_VIEW_DETALLE_INGRESOS"])),
   methods: {
     Print: function Print() {
       window.open('http://localhost:8000/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
@@ -266,6 +335,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
         name: 'ingreso'
       }); // this.$router.go(-1);
+    },
+    onChangePage: function onChangePage(pageOfItems) {
+      this.pageOfItems = pageOfItems;
+    },
+    refresh: function refresh() {
+      var self = this.$refs;
+      setTimeout(function () {
+        self.jw.setPage(1);
+      }, 0);
     }
   },
   mounted: function mounted() {
@@ -374,8 +452,6 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
-        _vm._m(0),
-        _vm._v(" "),
         _c(
           "div",
           { ref: "table", staticClass: "card-body", attrs: { id: "printMe" } },
@@ -546,7 +622,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -619,7 +695,7 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(1),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -656,6 +732,134 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "row justify-content-between ml-1",
+                staticStyle: { "margin-bottom": "-20px" }
+              },
+              [
+                _c(
+                  "div",
+                  { staticClass: "pull-left" },
+                  [
+                    _c(
+                      "el-form",
+                      {
+                        staticClass: "demo-form-inline",
+                        attrs: { inline: true }
+                      },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Mostrar:" } },
+                          [
+                            _c(
+                              "el-select",
+                              {
+                                staticStyle: { width: "70px" },
+                                attrs: { size: "small" },
+                                on: {
+                                  change: function($event) {
+                                    return _vm.refresh()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.perpage,
+                                  callback: function($$v) {
+                                    _vm.perpage = $$v
+                                  },
+                                  expression: "perpage"
+                                }
+                              },
+                              _vm._l(
+                                [
+                                  { value: 5, label: "5" },
+                                  { value: 10, label: "10" },
+                                  { value: 25, label: "25" },
+                                  { value: 50, label: "50" },
+                                  { value: 100, label: "100" }
+                                ],
+                                function(item) {
+                                  return _c("el-option", {
+                                    key: item.value,
+                                    attrs: {
+                                      label: item.label,
+                                      value: item.value
+                                    }
+                                  })
+                                }
+                              ),
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "pull-right" },
+                  [
+                    _c(
+                      "el-form",
+                      {
+                        staticClass: "demo-form-inline",
+                        attrs: { inline: true }
+                      },
+                      [
+                        _c(
+                          "el-form-item",
+                          { attrs: { label: "Buscar por:" } },
+                          [
+                            _c(
+                              "el-input",
+                              {
+                                attrs: {
+                                  size: "small",
+                                  placeholder: "Código, Articulo",
+                                  clearable: ""
+                                },
+                                model: {
+                                  value:
+                                    _vm.$store.state.ingreso
+                                      .searchQueryIngresoViewDetails,
+                                  callback: function($$v) {
+                                    _vm.$set(
+                                      _vm.$store.state.ingreso,
+                                      "searchQueryIngresoViewDetails",
+                                      $$v
+                                    )
+                                  },
+                                  expression:
+                                    "$store.state.ingreso.searchQueryIngresoViewDetails"
+                                }
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "el-input__icon el-icon-search",
+                                  attrs: { slot: "prefix" },
+                                  slot: "prefix"
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]
+            ),
+            _vm._v(" "),
             _c("h4", { staticClass: "text-center" }, [
               _c("strong", [
                 _vm._v("Detalle Ingreso  "),
@@ -668,22 +872,41 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("table", { staticClass: "table table-sm table-striped" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "tbody",
-                _vm._l(_vm.detalle_ingreso.detalleingresos, function(
-                  item,
-                  index
-                ) {
+                _vm._l(_vm.pageOfItems, function(item, index) {
                   return _c("tr", { key: index }, [
                     _c("td", [_vm._v(_vm._s(index + 1) + ".")]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(item.lote.articulo.codigo))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.lote.articulo.nombre))]),
                     _vm._v(" "),
                     _c("td", [
-                      _vm._v(_vm._s(item.lote.articulo.unidad_medida.nombre))
+                      _vm._v(
+                        _vm._s(
+                          !item.lote.presentacion ? "-" : item.lote.presentacion
+                        )
+                      )
                     ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(!item.lote.marca ? "-" : item.lote.marca))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        _vm._s(
+                          !item.lote.unidad_medida
+                            ? "-"
+                            : item.lote.unidad_medida.nombre
+                        )
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(item.lote.precio_u))]),
                     _vm._v(" "),
                     _c("td", [_vm._v(_vm._s(item.cantidad.toFixed(2)))]),
                     _vm._v(" "),
@@ -734,22 +957,29 @@ var render = function() {
             ])
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row justify-content-center mt-4" },
+        [
+          _c("jw-pagination", {
+            ref: "jw",
+            attrs: {
+              pageSize: _vm.PerPage,
+              items: _vm.GET_FILTER_VIEW_DETALLE_INGRESOS,
+              labels: _vm.labels
+            },
+            on: { changePage: _vm.onChangePage }
+          })
+        ],
+        1
+      )
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("h3", { staticClass: "card-title" }, [_vm._v("Detalle de ingreso")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -794,9 +1024,17 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", { staticStyle: { width: "10px" } }, [_vm._v("N°")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Codigo")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Articulo")]),
         _vm._v(" "),
+        _c("th", [_vm._v("Presentacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Marca")]),
+        _vm._v(" "),
         _c("th", [_vm._v("Medida")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Precio U.")]),
         _vm._v(" "),
         _c("th", [_vm._v("Cantidad")]),
         _vm._v(" "),

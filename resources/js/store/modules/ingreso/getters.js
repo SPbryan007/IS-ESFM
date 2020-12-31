@@ -23,13 +23,19 @@ export const GET_ITEMS_INGRESO = state => {
 export const GET_DETALLE_INGRESOS = state => {
     return state.detalle_ingreso;
 };
+export const GET_FILTER_VIEW_DETALLE_INGRESOS = state => {
+    return state.detalle_ingreso.detalleingresos.filter(function(item) {
+        let searchRegex = new RegExp(state.searchQueryIngresoViewDetails, "i");
+        return searchRegex.test(item.lote.articulo.codigo) || searchRegex.test(item.lote.articulo.nombre);
+    });
+};
 export const GET_ITEMS_DETALLE_INGRESO = state => {
     return state.data_form.detalle_ingreso;
 };
 export const GET_TOTAL_DETALLE_INGRESOS = state => {
     let total = 0;
     state.data_form.detalle_ingreso.forEach(element => {
-        total += element.precio;
+        total += element.total;
     });
     return total;
 };
@@ -40,3 +46,5 @@ export const GET_FILTER_ITEMS_DETAILS = (state,getters) => {
         return searchRegex.test(item.nombre) || searchRegex.test(item.codigo);
     });
 };
+
+

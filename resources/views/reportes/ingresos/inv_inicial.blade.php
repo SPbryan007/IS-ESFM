@@ -317,7 +317,7 @@
                 <th scope="row" style="text-align: center">{{ $item->id  }}</th>
                 <td >{{ $item->lote->articulo->codigo }}</td>
                 <td>{{ $item->lote->articulo->nombre}}</td>
-                <td>{{ $item->lote->articulo->unidad_medida->nombre }}</td>
+                <td>{{ $item->lote->unidad_medida->nombre }}</td>
                 <td style="text-align: right">{{ $item->cantidad  }}</td>
                 <td style="text-align: right">{{ $item->lote->precio_u }}</td>
                 <td style="text-align: right">{{ $item->lote->precio_u*$item->cantidad }}</td>

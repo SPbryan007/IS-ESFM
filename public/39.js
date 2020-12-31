@@ -169,12 +169,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           required: true,
           message: "Este campo es obligatorio.",
           trigger: "change"
-        }],
-        unidad_medida_id: [{
-          required: true,
-          message: "Este campo es obligatorio.",
-          trigger: "change"
-        }]
+        }] // unidad_medida_id: [
+        //     {
+        //         required: true,
+        //         message: "Este campo es obligatorio.",
+        //         trigger: "change"
+        //     }
+        // ]
+
       }
     };
   },
@@ -423,76 +425,6 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "el-form-item",
-                  {
-                    attrs: {
-                      label: "Unidad de medida :",
-                      prop: "unidad_medida_id"
-                    }
-                  },
-                  [
-                    _c(
-                      "el-select",
-                      {
-                        staticStyle: { width: "340px" },
-                        attrs: {
-                          filterable: "",
-                          placeholder: "Seleccione la unidad de medida",
-                          "loading-text": "buscando..",
-                          "no-match-text": "No se encontraron registros"
-                        },
-                        model: {
-                          value: _vm.data_form.unidad_medida_id,
-                          callback: function($$v) {
-                            _vm.$set(_vm.data_form, "unidad_medida_id", $$v)
-                          },
-                          expression: "data_form.unidad_medida_id"
-                        }
-                      },
-                      [
-                        _vm._l(_vm.GET_ITEMS_UNIDAD_MEDIDA, function(
-                          item,
-                          index
-                        ) {
-                          return _c("el-option", {
-                            key: index,
-                            attrs: {
-                              label: item.sigla + " | " + item.nombre,
-                              value: item.id
-                            }
-                          })
-                        }),
-                        _vm._v(" "),
-                        !_vm.findMedida(_vm.data_form.unidad_medida_id)
-                          ? _c("el-option", {
-                              attrs: {
-                                label:
-                                  _vm.data_form.um_sigla +
-                                  " | " +
-                                  _vm.data_form.um_nombre,
-                                value: _vm.data_form.unidad_medida_id
-                              }
-                            })
-                          : _vm._e()
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "addunidad_medida" } } },
-                      [
-                        _c("el-button", {
-                          attrs: { type: "primary", icon: "el-icon-plus" }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
                   [
                     _c(
                       "el-button",
@@ -506,7 +438,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n                        Registar\n                        "
+                          "\n                            Registar\n                            "
                         ),
                         _c("i", { staticClass: "fas fa-save" })
                       ]

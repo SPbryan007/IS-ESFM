@@ -6,11 +6,14 @@
 
     <style>
         @page { size: letter landscape }
+        body{
+            margin-top: 2cm;
+        }
         .invoice-box {
-            max-width: 900px;
+
             margin: auto;
-            margin-left: 10px;
-            margin-top: -40px;
+            /*margin-left: 10px;*/
+            /*margin-top: -40px;*/
             /*   padding: 30px;*/
             /*  border: 1px solid #eee;
               box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
@@ -121,6 +124,18 @@
         .text-center{
             text-align: center;
         }
+        header{
+            position: fixed;
+            top: -40px;
+            left: 0cm;
+            right:0cm;
+            height: 3cm;
+            color: #555;
+            font-size: 16px;
+            line-height: 16px;
+            text-align: center;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
         /* footer{
              margin-top: 80px;
              position: absolute;
@@ -142,44 +157,46 @@
 </head>
 
 <body>
-<!--<tr class="top">
-    <td colspan="2">
-        <table>
-            <tr>
-                <td class="title">
-                    <img src="./public/img/logo.jpeg" style="width:35%; max-width:300px;">
-                </td>
-
-                <td class="text-center">
-                    <h1>ALMACEN</h1>
-                    <h2>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS <br/> <b>"MARISCAL SUCRE"</b></h2>
-                    <h2>RECURSOS PROPIOS</h2>
-                </td>
-            </tr>
-        </table>
-    </td>
-</tr>-->
+<header class="">
+    <table>
+        <tr>
+            <td  style="width: 100px;vertical-align: inherit">
+                <div style="width: 130px; margin-left: 140px">
+                    <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
+                </div>
+            </td>
+            <td style="text-align: center">
+                {{--<h4>ALMACEN</h4>--}}
+                <h5 style="margin-left: 50px">ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>
+                    ESTADO DEL MOVIMIENTO DE ALMACEN DE MATERIALES Y SUMINISTROS <br> DEL {{ date('d/m/Y',strtotime($del)) }} AL {{ date('d/m/Y',strtotime($al)) }}
+                    <br> (Expresado en bolivianos)
+                </h5>
+                <h5></h5>
+            </td>
+        </tr>
+    </table>
+</header>
 
 <div class="invoice-box">
-    <header class="">
-        <table>
-            <tr>
-                <td  style="width: 100px;vertical-align: inherit">
-                    <div style="width: 140px; margin-left: 100px">
-                        <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">
-                    </div>
-                </td>
-                <td style="text-align: center">
-                    {{--<h4>ALMACEN</h4>--}}
-                    <h5>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>
-                        ESTADO DEL MOVIMIENTO DE ALMACEN DE MATERIALES Y SUMINISTROS <br> DEL {{ date('d/m/Y',strtotime($del)) }} AL {{ date('d/m/Y',strtotime($al)) }}
-                        <br> (Expresado en bolivianos)
-                    </h5>
-                    <h5></h5>
-                </td>
-            </tr>
-        </table>
-    </header>
+{{--    <header class="">--}}
+{{--        <table>--}}
+{{--            <tr>--}}
+{{--                <td  style="width: 100px;vertical-align: inherit">--}}
+{{--                    <div style="width: 140px; margin-left: 100px">--}}
+{{--                        <img src="{{ public_path('img/logo.jpeg')  }}" style="width:110%; max-width:300px;">--}}
+{{--                    </div>--}}
+{{--                </td>--}}
+{{--                <td style="text-align: center">--}}
+{{--                    --}}{{--<h4>ALMACEN</h4>--}}
+{{--                    <h5>ESCUELA SUPERIOR DE FORMACIÓN DE MAESTROS "MARISCAL SUCRE" <br>--}}
+{{--                        ESTADO DEL MOVIMIENTO DE ALMACEN DE MATERIALES Y SUMINISTROS <br> DEL {{ date('d/m/Y',strtotime($del)) }} AL {{ date('d/m/Y',strtotime($al)) }}--}}
+{{--                        <br> (Expresado en bolivianos)--}}
+{{--                    </h5>--}}
+{{--                    <h5></h5>--}}
+{{--                </td>--}}
+{{--            </tr>--}}
+{{--        </table>--}}
+{{--    </header>--}}
 
     <table style="  font-size: 8px; border-collapse: collapse; line-height: 12px;" cellpadding="0" border="1" cellspacing="0">
         <thead>
@@ -215,18 +232,18 @@
             <tr class="item">
                 <th scope="row" style="text-align: center;">{{ $loop->iteration  }}</th>
                 <td style="text-align: center;">{{ $item->partida }}</td>
-                <td style="text-align: left;">PAPEL MEMBRETADO T/CARTA E.S.F.M. "MARTISCAL SUCRE"</td>
-                <td style="text-align: right;font-size: 9px">{{ $item->c_inicial  }}</td>
-                <td style="text-align: right;font-size: 9px">{{ round($item->s_inicial,2) }}</td>
+                <td style="text-align: left;">{{ $item->articulo }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->c_inicial,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->s_inicial,2),2) }}</td>
 
-                <td style="text-align: right;font-size: 9px">{{ $item->c_entrada  }}</td>
-                <td style="text-align: right;font-size: 9px">{{ round($item->s_entrada,2) }}</td>
-                <td style="text-align: right;font-size: 9px">{{ $item->c_salida  }}</td>
-                <td style="text-align: right;font-size: 9px">{{ round($item->s_salida,2) }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->c_entrada,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->s_entrada,2),2) }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->c_salida,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->s_salida,2),2) }}</td>
 
-                <td style="text-align: right;font-size: 9px">{{ $item->c_final  }}</td>
-                <td style="text-align: right;font-size: 9px">{{ round($item->precio_u,2) }}</td>
-                <td style="text-align: right;font-size: 9px">{{ round($item->s_final,2)  }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->c_final,2),2)  }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->precio_u,2),2) }}</td>
+                <td style="text-align: right;font-size: 9px">{{ number_format(round($item->s_final,2),2)  }}</td>
             </tr>
         @endforeach
         </tbody>
@@ -234,16 +251,16 @@
         <tr >
             <th colspan="3" scope="row" style="text-align: center;font-weight: bold;padding: 3px;">TOTALES</th>
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ round($ts_inicial,2)  }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ number_format(round($ts_inicial,2),2)  }}</td>
 
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ round($ts_entrada,2)  }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ number_format(round($ts_entrada,2),2)  }}</td>
             <td  style="text-align: right;font-weight: bold"></td>
-            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ round($ts_salida,2) }}</td>
+            <td  style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ number_format(round($ts_salida,2),2) }}</td>
 
             <td  style="text-align: right;font-weight: bold"></td>
             <td style=""></td>
-            <td style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ round($ts_final,2) }}</td>
+            <td style="padding-right: 3px;text-align: right;font-weight: bold;font-size: 9px">{{ number_format(round($ts_final,2),2) }}</td>
         </tr>
         </tfoot>
     </table>
@@ -260,31 +277,31 @@
         </thead>
         <tr>
             <td style="text-align: center;padding: 2px !important;">1</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l1s_inicial,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l1s_entradas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l1s_salidas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l1s_final ,2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_inicial,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_entradas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_salidas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l1s_final ,2),2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center;padding: 2px !important;">2</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l2s_inicial,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l2s_entradas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l2s_salidas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l2s_final,2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_inicial,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_entradas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_salidas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l2s_final,2),2) }}</td>
         </tr>
         <tr>
             <td style="text-align: center;padding: 2px !important;">3</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l3s_inicial,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l3s_entradas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l3s_salidas,2) }}</td>
-            <td style="text-align: right;padding: 2px !important;">{{ round($l3s_final,2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_inicial,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_entradas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_salidas,2),2) }}</td>
+            <td style="text-align: right;padding: 2px !important;">{{ number_format(round($l3s_final,2),2) }}</td>
         </tr>
         <tr>
             <th style="text-align: center;font-weight: bold;padding: 2px !important;">TOTALES</th>
-            <th style="text-align: right;font-weight: bold;padding: 2px !important;">{{ round($ts_inicial,2) }}</th>
-            <td style="text-align: right;font-weight: bold;padding: 2px !important;">{{ round($ts_entrada,2) }}</td>
-            <td style="text-align: right;font-weight: bold;padding: 2px !important;">{{ round($ts_salida,2) }}</td>
-            <th style="text-align: right;font-weight: bold;padding: 2px !important;">{{ round($ts_final,2) }}</th>
+            <th style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_inicial,2),2) }}</th>
+            <td style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_entrada,2),2) }}</td>
+            <td style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_salida,2),2) }}</td>
+            <th style="text-align: right;font-weight: bold;padding: 2px !important;">{{ number_format(round($ts_final,2),2) }}</th>
         </tr>
     </table>
 

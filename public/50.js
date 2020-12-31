@@ -159,6 +159,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -370,7 +377,7 @@ var render = function() {
                           })
                         ]
                       ),
-                      _vm._v("  \n                        "),
+                      _vm._v("  \n                            "),
                       _c(
                         "router-link",
                         { attrs: { to: { name: "additem" } } },
@@ -408,16 +415,16 @@ var render = function() {
                       _c("el-table-column", {
                         attrs: {
                           property: "stock",
-                          label: "Disponibles",
-                          width: "150"
+                          label: "Stock",
+                          width: "120"
                         }
                       }),
                       _vm._v(" "),
                       _c("el-table-column", {
                         attrs: {
-                          property: "unidad",
-                          label: "Medida",
-                          width: "150"
+                          property: "saldo",
+                          label: "Saldo",
+                          width: "120"
                         }
                       }),
                       _vm._v(" "),
@@ -446,6 +453,7 @@ var render = function() {
                                       "el-button",
                                       {
                                         attrs: {
+                                          disabled: scope.row.stock == 0,
                                           type: "info",
                                           size: "mini",
                                           icon: "el-icon-plus"
@@ -461,7 +469,22 @@ var render = function() {
                                       },
                                       [_vm._v("Añadir")]
                                     )
-                                  : _vm._e()
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: { name: "addingreso" } } },
+                                  [
+                                    _c(
+                                      "el-button",
+                                      {
+                                        attrs: { type: "primary", size: "mini" }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-plus" })]
+                                    )
+                                  ],
+                                  1
+                                )
                               ]
                             }
                           }
@@ -548,12 +571,14 @@ var render = function() {
                   attrs: { data: _vm.GET_ITEMS_DETALLE_SALIDA }
                 },
                 [
-                  _c("el-table-column", { attrs: { type: "index" } }),
+                  _c("el-table-column", {
+                    attrs: { type: "index", label: "N°", width: "60" }
+                  }),
                   _vm._v(" "),
                   _c("el-table-column", {
                     attrs: {
                       label: "Código",
-                      width: "120",
+                      width: "130",
                       prop: "codigo",
                       sortable: ""
                     },
@@ -563,11 +588,11 @@ var render = function() {
                         fn: function(scope) {
                           return [
                             _vm._v(
-                              "\n                            " +
+                              "\n                                " +
                                 _vm._s(
                                   _vm.findItem(scope.row.articulo).codigo
                                 ) +
-                                "\n                        "
+                                "\n                            "
                             )
                           ]
                         }
@@ -578,7 +603,7 @@ var render = function() {
                   _c("el-table-column", {
                     attrs: {
                       label: "Articulo",
-                      width: "420",
+                      width: "600",
                       prop: "articulo",
                       sortable: ""
                     },
@@ -588,37 +613,9 @@ var render = function() {
                         fn: function(scope) {
                           return [
                             _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.findItem(scope.row.articulo).nombre
-                                ) +
-                                "\n                        "
-                            )
-                          ]
-                        }
-                      }
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: {
-                      label: "Medida",
-                      width: "200",
-                      prop: "medida",
-                      sortable: ""
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(scope) {
-                          return [
-                            _vm._v(
-                              "\n                            " +
-                                _vm._s(
-                                  _vm.findItem(scope.row.articulo).unidad_medida
-                                    .nombre
-                                ) +
-                                "\n                        "
+                              "\n                                " +
+                                _vm._s(scope.row.articulo_nombre) +
+                                "\n                            "
                             )
                           ]
                         }
@@ -671,7 +668,8 @@ var render = function() {
                               attrs: {
                                 size: "mini",
                                 type: "danger",
-                                icon: "el-icon-close"
+                                icon: "el-icon-close",
+                                circle: ""
                               },
                               on: {
                                 click: function($event) {

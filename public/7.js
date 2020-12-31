@@ -242,11 +242,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      dataLotes: [],
+      DialogTitle: '',
+      OpenViewLotes: false,
       self: null,
       pageOfItems: [],
       sizePerPage: 10,
@@ -270,6 +303,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       setTimeout(function () {
         self.jw.setPage(1);
       }, 0);
+    },
+    SetLotes: function SetLotes(row) {
+      this.DialogTitle = row.nombre;
+      this.dataLotes = row.lotes;
+      this.OpenViewLotes = true;
+    },
+    LoteStatus: function LoteStatus(percent) {
+      if (isNaN(percent)) percent = 0;
+      if (percent < 25) return 'exception';
+      if (percent >= 25 && percent < 50) return 'warning';
+      if (percent >= 50 && percent < 75) return '';
+      if (percent >= 75) return 'success';
+    },
+    StockRow: function StockRow(_ref) {
+      var row = _ref.row,
+          rowIndex = _ref.rowIndex;
+
+      if (row.stock == 0) {
+        return 'warning-row';
+      }
+
+      if (rowIndex === 1) {
+        return 'warning-row';
+      }
+
+      return '';
     },
     filterLinea: function filterLinea(value, row) {
       return row.linea === value;
@@ -319,7 +378,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.table th,\n.table td {\n    padding: 0.5rem;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n.linea{\n    margin-top: 10px;\n    margin-right: 40px;\n}\n", ""]);
+exports.push([module.i, "\n.el-table .warning-row {\n    background: oldlace;\n}\n.el-table .danger-row {\n    background: #ffe4e2;\n}\n.table th,\n.table td {\n    padding: 0.5rem;\n    vertical-align: top;\n    border-top: 1px solid #dee2e6;\n}\n.linea{\n    margin-top: 10px;\n    margin-right: 40px;\n}\n", ""]);
 
 // exports
 
@@ -375,6 +434,200 @@ var render = function() {
     "div",
     { staticClass: "col-md-12" },
     [
+      _c(
+        "el-dialog",
+        {
+          attrs: {
+            title: "LOTES - " + _vm.DialogTitle,
+            visible: _vm.OpenViewLotes,
+            width: "1250px"
+          },
+          on: {
+            "update:visible": function($event) {
+              _vm.OpenViewLotes = $event
+            }
+          }
+        },
+        [
+          _c(
+            "el-table",
+            { attrs: { "show-summary": "", data: _vm.dataLotes } },
+            [
+              _c("el-table-column", {
+                attrs: { type: "index", label: "N°", width: "60" }
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Marca", width: "150" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(scope.row.marca) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Medida", width: "150" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("el-tag", [
+                          _c("b", [
+                            _vm._v(_vm._s(scope.row.unidad_medida.nombre))
+                          ])
+                        ])
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Stock Ini.", width: "120" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(
+                              scope.row.detalleingreso[0].cantidad.toFixed(2)
+                            ) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Precio U.", width: "100" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(scope.row.precio_u.toFixed(2)) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { label: "Saldo Ini.", width: "120" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(
+                              (
+                                scope.row.detalleingreso[0].cantidad *
+                                scope.row.precio_u
+                              ).toFixed(2)
+                            ) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { property: "stock", label: "Stock", width: "120" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(scope.row.stock.toFixed(2)) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { property: "saldo", label: "Saldo", width: "120" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _vm._v(
+                          "\n                        " +
+                            _vm._s(scope.row.saldo.toFixed(2)) +
+                            "\n                    "
+                        )
+                      ]
+                    }
+                  }
+                ])
+              }),
+              _vm._v(" "),
+              _c("el-table-column", {
+                attrs: { property: "address", label: "%", width: "250" },
+                scopedSlots: _vm._u([
+                  {
+                    key: "default",
+                    fn: function(scope) {
+                      return [
+                        _c("el-progress", {
+                          attrs: {
+                            status: _vm.LoteStatus(
+                              (scope.row.stock * 100) /
+                                scope.row.detalleingreso[0].cantidad
+                            ),
+                            "text-inside": true,
+                            "stroke-width": 16,
+                            percentage: isNaN(
+                              (scope.row.stock * 100) /
+                                scope.row.detalleingreso[0].cantidad
+                            )
+                              ? 0
+                              : (
+                                  (scope.row.stock * 100) /
+                                  scope.row.detalleingreso[0].cantidad
+                                ).toFixed(2)
+                          }
+                        })
+                      ]
+                    }
+                  }
+                ])
+              })
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _vm.alert.show
         ? _c("el-alert", {
             attrs: {
@@ -598,12 +851,13 @@ var render = function() {
                   fit: true,
                   stripe: "",
                   data: _vm.pageOfItems,
-                  "default-sort": { prop: "id", order: "descending" }
+                  "default-sort": { prop: "id", order: "descending" },
+                  "row-class-name": _vm.StockRow
                 }
               },
               [
                 _c("el-table-column", {
-                  attrs: { type: "index", label: "N°", width: "40" }
+                  attrs: { type: "index", label: "N°", width: "50" }
                 }),
                 _vm._v(" "),
                 _c("el-table-column", {
@@ -613,26 +867,64 @@ var render = function() {
                       key: "default",
                       fn: function(props) {
                         return [
-                          _c("p", [
-                            _c("b", [_vm._v("Partida :")]),
-                            _vm._v(
-                              " " +
-                                _vm._s(props.row.partida.nombre) +
-                                "  " +
-                                _vm._s(props.row.partida.codigo)
+                          _c("div", { staticClass: "d-flex" }, [
+                            _c("p", { staticClass: "d-flex flex-column" }, [
+                              _c(
+                                "span",
+                                [
+                                  _c("b", [_vm._v("Saldo :")]),
+                                  _vm._v(" "),
+                                  _c("el-tag", [
+                                    _c(
+                                      "span",
+                                      { staticClass: "text-bold text-lg" },
+                                      [_vm._v(_vm._s(props.row.saldo))]
+                                    )
+                                  ]),
+                                  _vm._v(
+                                    "\n                                      Bs.\n                                  "
+                                  )
+                                ],
+                                1
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticClass:
+                                  "ml-auto d-flex flex-column text-right"
+                              },
+                              [
+                                _c(
+                                  "el-link",
+                                  {
+                                    on: {
+                                      click: function($event) {
+                                        _vm.OpenViewLotes = true
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _vm._v("Visualizar lotes"),
+                                    _c("i", {
+                                      staticClass: "el-icon-view el-icon--right"
+                                    })
+                                  ]
+                                )
+                              ],
+                              1
                             )
                           ]),
                           _vm._v(" "),
                           _c("p", [
-                            _c("b", [_vm._v("Unidad de medida :")]),
+                            _c("b", [_vm._v("Partida :")]),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "text-primary" }, [
+                              _vm._v(_vm._s(props.row.partida.codigo))
+                            ]),
                             _vm._v(
-                              " " +
-                                _vm._s(
-                                  props.row.unidad_medida.nombre +
-                                    " (" +
-                                    props.row.unidad_medida.sigla +
-                                    ")"
-                                )
+                              " | " + _vm._s(props.row.partida.nombre) + "  "
                             )
                           ])
                         ]
@@ -645,7 +937,7 @@ var render = function() {
                   attrs: {
                     prop: "codigo",
                     label: "Código",
-                    width: "100",
+                    width: "110",
                     sortable: ""
                   }
                 }),
@@ -654,7 +946,7 @@ var render = function() {
                   attrs: {
                     prop: "nombre",
                     label: "Nombre",
-                    width: "500",
+                    width: "510",
                     sortable: ""
                   }
                 }),
@@ -663,7 +955,7 @@ var render = function() {
                   attrs: {
                     prop: "linea",
                     label: "Linea",
-                    width: "100",
+                    width: "110",
                     filters: [
                       { text: "Linea 1", value: "1" },
                       { text: "Linea 2", value: "2" },
@@ -707,7 +999,7 @@ var render = function() {
                   attrs: {
                     prop: "deleted_at",
                     label: "Estado",
-                    width: "100",
+                    width: "110",
                     sortable: ""
                   },
                   scopedSlots: _vm._u([
@@ -748,6 +1040,22 @@ var render = function() {
                       key: "default",
                       fn: function(scope) {
                         return [
+                          !scope.row.deleted_at
+                            ? _c("el-button", {
+                                attrs: {
+                                  icon: "el-icon-view",
+                                  type: "default",
+                                  size: "mini",
+                                  circle: ""
+                                },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.SetLotes(scope.row)
+                                  }
+                                }
+                              })
+                            : _vm._e(),
+                          _vm._v(" "),
                           _c(
                             "router-link",
                             {
@@ -765,42 +1073,39 @@ var render = function() {
                               }
                             },
                             [
-                              _c(
-                                "el-button",
-                                {
-                                  attrs: {
-                                    disabled: scope.row.deleted_at,
-                                    size: "mini"
-                                  }
-                                },
-                                [_vm._v("Editar")]
-                              )
+                              _c("el-button", {
+                                attrs: {
+                                  type: "primary",
+                                  icon: "el-icon-edit",
+                                  disabled: scope.row.deleted_at,
+                                  size: "mini",
+                                  circle: ""
+                                }
+                              })
                             ],
                             1
                           ),
                           _vm._v(" "),
                           !scope.row.deleted_at
-                            ? _c(
-                                "el-button",
-                                {
-                                  attrs: {
-                                    loading:
-                                      _vm.loading_form &&
-                                      scope.$index == _vm.self,
-                                    type: "danger",
-                                    size: "mini"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.OnClickAD(
-                                        scope.$index,
-                                        scope.row
-                                      )
-                                    }
-                                  }
+                            ? _c("el-button", {
+                                attrs: {
+                                  icon: "el-icon-delete",
+                                  loading:
+                                    _vm.loading_form &&
+                                    scope.$index == _vm.self,
+                                  type: "danger",
+                                  size: "mini",
+                                  circle: ""
                                 },
-                                [_vm._v("Eliminar")]
-                              )
+                                on: {
+                                  click: function($event) {
+                                    return _vm.OnClickAD(
+                                      scope.$index,
+                                      scope.row
+                                    )
+                                  }
+                                }
+                              })
                             : _vm._e(),
                           _vm._v(" "),
                           scope.row.deleted_at

@@ -96,8 +96,9 @@
                     <el-table-column prop="rol" label="Rol" width="150" sortable>
                         <template slot-scope="scope">
                                  <toggle-button
+                                     :disabled="scope.row.id_usuario == $store.state.login.user.id_usuario"
                                      @change="ChangeRol(scope.$index,scope.row)"
-                                     :value="scope.row.rol === 'ADMINISTRADOR'? true : false"
+                                     :value="scope.row.rol == 'ADMINISTRADOR'? true : false"
                                      :color="{checked: '#13ce66', unchecked: '#6576ff', disabled: '#CCCCCC'}"
                                      :sync="false"
                                      :width="70"

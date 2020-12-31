@@ -27,6 +27,14 @@ class Lote extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function unidad_medida()
+    {
+        return $this->belongsTo('App\Models\UnidadMedida','unidad_medida_id','id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function detalleingreso()

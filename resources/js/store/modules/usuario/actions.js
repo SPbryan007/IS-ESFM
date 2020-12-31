@@ -75,6 +75,7 @@ export const changeRole = ({ commit, state,dispatch }, params) => {
     commonProviders
         .update(URL_USUARIO + params.id)
         .then(item => {
+            commit(types.SET_LOADING_FORM, false);
             dispatch('getItems');
             params.progress.finish();
             params.message({
@@ -83,6 +84,7 @@ export const changeRole = ({ commit, state,dispatch }, params) => {
             });
         })
         .catch(error => {
+            commit(types.SET_LOADING_FORM, false);
             commit(types.SET_DISPLAY_MESSAGE, error.response);
             params.progress.fail();
         });

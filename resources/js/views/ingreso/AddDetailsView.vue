@@ -1,6 +1,7 @@
 <template>
   <div class>
       <div class="col-md-12">
+
           <el-alert
               v-if="alert.show"
               :title="alert.title"
@@ -41,74 +42,118 @@
                       </div>
 
                       <el-table :data="pageOfItems">
-                          <el-table-column property="codigo" label="Codigo" width="90"></el-table-column>
-                          <el-table-column property="nombre" label="Articulo" width="370"></el-table-column>
-                          <el-table-column property="stock" label="Disponibles" width="100"></el-table-column>
-                          <el-table-column property="unidad" label="Medida" width="200">
+                          <el-dialog :title="detalles_form.articulo_nombre" :visible.sync="dialogFormVisible" append-to-body>
+                              <el-form :model="detalles_form" label-width="140px" ref="AddDetailsForm" :rules="rules">
+                                  <el-form-item label="Unidad de medida:" prop="unidad_medida">
+                                      <el-select
+                                          style="width:340px"
+                                          v-model="detalles_form.unidad_medida"
+                                          filterable
+                                          placeholder="Seleccione la unidad de medida"
+                                          loading-text="buscando.."
+                                          no-match-text="No se encontraron registros"
+                                      >
+                                          <el-option
+                                              v-for="(item, index) in GET_ITEMS_UNIDAD_MEDIDA"
+                                              :key="index"
+                                              :label="`${item.sigla} | ${item.nombre}`"
+                                              :value="item.id"
+                                          ></el-option>
+                                      </el-select>
+                                      <router-link :to="{name:'addunidad_medida'}">
+                                          <el-button type="primary" icon="el-icon-plus"></el-button>
+                                      </router-link>
+                                  </el-form-item>
+                                  <el-form-item label="Marca:" prop="marca">
+                                      <el-input  style="width:250px" v-model="detalles_form.marca" ></el-input>
+                                  </el-form-item>
+                                  <el-form-item label="Cantidad:" >
+                                      <el-input-number v-model="detalles_form.cantidad"  :precision="2" :step="1"  :min="0.1" ></el-input-number>
+                                  </el-form-item>
+                                  <el-form-item label="Sub Total:" >
+                                      <el-input-number  v-model="detalles_form.total"  :precision="2" :step="1"  :min="1" ></el-input-number>
+                                  </el-form-item>
+                                  <el-form-item label="Precio U:" >
+                                      {{ isNaN(detalles_form.total/detalles_form.cantidad) ? 0 : (detalles_form.total/detalles_form.cantidad).toFixed(2) }} Bs.
+                                  </el-form-item>
 
-                          </el-table-column>
+                              </el-form>
+                              <span slot="footer" class="dialog-footer">
+                            <el-button @click="OnClickCancelForm('AddDetailsForm')">Cancel</el-button>
+                            <el-button type="primary" @click="OnClickAddForm('AddDetailsForm')">Agregar</el-button>
+                          </span>
+                          </el-dialog>
+                          <el-table-column type="index" width="40" label="N°"></el-table-column>
+                          <el-table-column property="codigo" label="Codigo" width="120"></el-table-column>
+                          <el-table-column property="nombre" label="Articulo" width="500"></el-table-column>
+                          <el-table-column property="stock" label="Disponibles" width="100"></el-table-column>
+
                           <el-table-column>
                               <template slot-scope="scope">
                                   <el-button
                                       type="info"
                                       size="mini"
-                                      @click="OnclickAddDialog(scope.$index,scope.row)"
+                                      @click="OnclickAddDialog(scope.row)"
                                       icon="el-icon-plus"
                                   >Añadir</el-button>
                               </template>
                           </el-table-column>
                       </el-table>
+                      <div class="row justify-content-center mt-4">
+                          <jw-pagination
+                              ref="jw"
+                              :pageSize="perpage"
+                              :items="GET_FILTER_ITEMS_DETAILS"
+                              :labels="labels"
+                              @changePage="onChangePage"
+                          ></jw-pagination>
+                      </div>
 
-                      <span slot="footer" class="dialog-footer">
-                           <jw-pagination
-                               ref="jw"
-                               :pageSize="perpage"
-                               :items="GET_FILTER_ITEMS_DETAILS"
-                               :labels="labels"
-                               @changePage="onChangePage"
-                           ></jw-pagination>
-                        </span>
+
                   </el-dialog>
 
-                  <el-table :data="GET_ITEMS_DETALLE_INGRESO" style="width: 100%" size="small">
+                  <el-table :data="GET_ITEMS_DETALLE_INGRESO"  >
                       <el-table-column type="index" width="40" label="N°"></el-table-column>
 <!--                      <el-table-column label="Código" width="120" prop="codigo" sortable>-->
 <!--                          <template slot-scope="scope">-->
 <!--                              {{ findItem(scope.row.articulo).codigo }}-->
 <!--                          </template>-->
 <!--                      </el-table-column>-->
-                      <el-table-column label="Articulo" width="410" prop="articulo">
+                      <el-table-column label="Articulo" width="400" prop="articulo">
                           <template slot-scope="scope">
                               {{ findItem(scope.row.articulo).nombre }}
                           </template>
                       </el-table-column>
-                      <el-table-column label="Medida" width="160" prop="medida" >
+
+                      <el-table-column label="Marca" width="130" prop="marca" ></el-table-column>
+                      <el-table-column label="Medida" width="130" prop="unidad_medida" >
                           <template slot-scope="scope">
-                              {{ findItem(scope.row.articulo).unidad_medida.nombre }}
+                              {{ findMedida(scope.row.unidad_medida).nombre }}
                           </template>
                       </el-table-column>
-                      <el-table-column label="P.U." width="80" prop="precio_u">
+                      <el-table-column label="P.U." width="100" prop="precio">
                           <template slot-scope="scope">
-                              {{ scope.row.precio / scope.row.cantidad }}
+                             <span class="text-primary"> {{ (scope.row.total / scope.row.cantidad).toFixed(2) }}</span>
                           </template>
                       </el-table-column>
-                      <el-table-column label="Cantidad" width="150" prop="cantidad">
+                      <el-table-column label="Cantidad" width="100" prop="cantidad">
                           <template slot-scope="scope">
-                              <el-input-number size="mini" style="width:120px" v-model="scope.row.cantidad"  :precision="2" :step="1"  :min="0.1" ></el-input-number>
+                             <span class="text-primary">  {{ (scope.row.cantidad).toFixed(2) }}</span>
                           </template>
                       </el-table-column>
-                      <el-table-column label="Sub Total" width="150" prop="precio">
+                      <el-table-column label="Sub Total" width="120" prop="total">
                           <template slot-scope="scope">
-                              <el-input-number size="mini" style="width:120px" v-model="scope.row.precio"  :precision="2" :step="1"  :min="0" ></el-input-number>
+                             <span class="text-primary"> {{ (scope.row.total).toFixed(2) }}</span>
                           </template>
                       </el-table-column>
-                      <el-table-column label>
+                      <el-table-column width="50">
                           <template slot-scope="scope">
                               <el-button
                                   size="mini"
                                   type="danger"
                                   @click="DELETE_DETALLE_INGRESO(scope.row.articulo)"
                                   icon="el-icon-close"
+                                  circle
                               ></el-button>
                           </template>
                       </el-table-column>
@@ -134,6 +179,8 @@ import { router } from "../../routes";
 export default {
   data() {
     return {
+        formLabelWidth: '120px',
+        dialogFormVisible: false,
         pageOfItems: [],
         sizePerPage: 5  ,
         perpage: 5,
@@ -145,33 +192,29 @@ export default {
         },
         dialogAddDetails:false,
       detalles_form: {
-        articulo: null,
+          articulo_nombre: '',
+          marca:null,
+          unidad_medida:null,
+          articulo: null,
         cantidad: 1,
         precio: 0,
+            total:0,
       },
       rules: {
-        articulo: [
+        unidad_medida: [
           {
             required: true,
-            message: "Debe seleccionar un articulo",
+            message: "Debe seleccionar una unidad de medida",
             trigger: "change",
           },
         ],
-
-        cantidad: [
-          {
-            required: true,
-            message: "Este campo es obligatorio",
-            trigger: "blur",
-          },
-        ],
-        precio: [
-          {
-            required: true,
-            message: "Este campo es obligatorio",
-            trigger: "blur",
-          },
-        ],
+          marca: [
+              {
+                  required: false,
+                  trigger: "blur",
+              },
+              { max: 155, message: "Debe tener menos de 155 caracteres", trigger: "blur" }
+          ],
       },
     };
   },
@@ -187,14 +230,37 @@ export default {
         "GET_FILTER_ITEMS_DETAILS"
     ]),
     ...mapGetters("articulo", ["GET_ITEMS_ARTICULO"]),
+      ...mapGetters("unidad_medida", ["GET_ITEMS_UNIDAD_MEDIDA"])
   },
   methods: {
-      OnclickAddDialog(index,row){
-          store.commit("ingreso/ADD_DETALLE_INGRESO",row);
+      OnClickAddForm(form){
+          this.$refs[form].validate((valid) => {
+              if (valid) {
+                  this.dialogFormVisible = false;
+                  store.commit("ingreso/ADD_DETALLE_INGRESO",this.detalles_form);
+                  this.$refs[form].resetFields();
+              }
+          });
+
       },
+      OnClickCancelForm(form){
+          this.$refs[form].resetFields();
+          this.dialogFormVisible = false;
+      },
+      OnclickAddDialog(row){
+          this.detalles_form.articulo = row.id;
+          this.detalles_form.articulo_nombre = row.nombre;
+          this.dialogFormVisible = true;
+       //   store.commit("ingreso/ADD_DETALLE_INGRESO",row);
+      },
+
       ...mapMutations("ingreso", ["DELETE_DETALLE_INGRESO"]),
       findItem(id) {
           const items = store.getters["articulo/GET_ITEMS_ARTICULO"];
+          return items.find((item) => item.id === id);
+      },
+      findMedida(id) {
+          const items = store.getters["unidad_medida/GET_ITEMS_UNIDAD_MEDIDA"];
           return items.find((item) => item.id === id);
       },
     // submitForm(form) {
@@ -236,6 +302,7 @@ export default {
     mounted() {
         store.dispatch("articulo/getItems");
         store.dispatch("articulo/getLotes");
+        store.dispatch("unidad_medida/getItems");
     },
 };
 </script>

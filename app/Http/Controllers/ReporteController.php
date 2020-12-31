@@ -273,7 +273,7 @@ class ReporteController extends Controller
             $data = [
                 'data'       => $query,
                 'del'        => $request->del,
-                'al'         => $request->al,
+                'al'         =>  $request->query('al'),
                 'periodo'    => $periodo->nombre,
                 'ts_inicial' => $query->sum->s_inicial,
                 'ts_ingreso' => $query->sum->s_ingreso,
@@ -306,10 +306,10 @@ class ReporteController extends Controller
             ];
             //return $data;
             //return view('reportes.general.kardex',$data);
-            $paper_size = array(0,0,612.00,950.00);
+            $paper_size = array(0,0,612.00,936.00);
 
             $pdf = PDF::loadView('reportes.general.kardex',$data);
-            return $pdf->setPaper('legal','landscape')->stream('kardex.pdf');
+            return $pdf->setPaper($paper_size,'landscape')->stream('kardex.pdf');
 
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);

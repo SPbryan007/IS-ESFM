@@ -137,12 +137,20 @@ class CreateTrigger extends Migration
                                 SET NEW.codigo = CONCAT(@CP,'0',CA);
                             END IF;
                         ELSE IF(CA<1000)THEN
-                                IF NOT EXISTS(SELECT 1 FROM articulo WHERE codigo = CONCAT(@CP,CA)) THEN
+                             IF NOT EXISTS(SELECT 1 FROM articulo WHERE codigo = CONCAT(@CP,CA)) THEN
                                 SET NEW.codigo = CONCAT(@CP,CA);
-                            ELSE
+                             ELSE
                                 SET CA = CA+1;
                                 SET NEW.codigo = CONCAT(@CP,CA);
                              END IF;
+                        ELSE IF(CA>=1000)THEN
+                             IF NOT EXISTS(SELECT 1 FROM articulo WHERE codigo = CONCAT(@CP,CA)) THEN
+                                SET NEW.codigo = CONCAT(@CP,CA);
+                             ELSE
+                                SET CA = CA+1;
+                                SET NEW.codigo = CONCAT(@CP,CA);
+                             END IF;
+                           END IF;
                         END IF;
                     END IF;
                 END IF;

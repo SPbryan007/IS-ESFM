@@ -73,26 +73,26 @@
                             <el-button type="primary" icon="el-icon-plus"></el-button>
                         </router-link>
                     </el-form-item>
-                    <el-form-item label="Unidad de medida :" prop="unidad_medida_id">
-                        <el-select
-                            style="width:340px"
-                            v-model="data_form.unidad_medida_id"
-                            filterable
-                            placeholder="Seleccione la unidad de medida"
-                            loading-text="buscando.."
-                            no-match-text="No se encontraron registros"
-                        >
-                            <el-option
-                                v-for="(item, index) in GET_ITEMS_UNIDAD_MEDIDA"
-                                :key="index"
-                                :label="`${item.sigla} | ${item.nombre}`"
-                                :value="item.id"
-                            ></el-option>
-                        </el-select>
-                        <router-link :to="{name:'addunidad_medida'}">
-                            <el-button type="primary" icon="el-icon-plus"></el-button>
-                        </router-link>
-                    </el-form-item>
+<!--                    <el-form-item label="Unidad de medida :" prop="unidad_medida_id">-->
+<!--                        <el-select-->
+<!--                            style="width:340px"-->
+<!--                            v-model="data_form.unidad_medida_id"-->
+<!--                            filterable-->
+<!--                            placeholder="Seleccione la unidad de medida"-->
+<!--                            loading-text="buscando.."-->
+<!--                            no-match-text="No se encontraron registros"-->
+<!--                        >-->
+<!--                            <el-option-->
+<!--                                v-for="(item, index) in GET_ITEMS_UNIDAD_MEDIDA"-->
+<!--                                :key="index"-->
+<!--                                :label="`${item.sigla} | ${item.nombre}`"-->
+<!--                                :value="item.id"-->
+<!--                            ></el-option>-->
+<!--                        </el-select>-->
+<!--                        <router-link :to="{name:'addunidad_medida'}">-->
+<!--                            <el-button type="primary" icon="el-icon-plus"></el-button>-->
+<!--                        </router-link>-->
+<!--                    </el-form-item>-->
 
                     <el-form-item>
                         <el-button
@@ -141,13 +141,13 @@ export default {
                         trigger: "change"
                     }
                 ],
-                unidad_medida_id: [
-                    {
-                        required: true,
-                        message: "Este campo es obligatorio.",
-                        trigger: "change"
-                    }
-                ]
+                // unidad_medida_id: [
+                //     {
+                //         required: true,
+                //         message: "Este campo es obligatorio.",
+                //         trigger: "change"
+                //     }
+                // ]
             }
         };
     },

@@ -19,12 +19,17 @@ class UnidadMedida extends Model
      */
     protected $dates = ['deleted_at'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function articulos()
+//    /**
+//     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+//     */
+//    public function articulos()
+//    {
+//        return $this->hasMany('App\Models\Articulo','unidad_medida_id','id');
+//    }
+
+    public function lotes()
     {
-        return $this->hasMany('App\Models\Articulo','unidad_medida_id','id');
+        return $this->hasMany('App\Models\Lote','unidad_medida_id','id');
     }
 
 }

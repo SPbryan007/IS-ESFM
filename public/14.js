@@ -901,29 +901,29 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", [_vm._v(_vm._s(item.unidad))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.c_inicial))]),
+                      _c("td", [_vm._v(_vm._s(item.c_inicial.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.precio_u))]),
+                      _c("td", [_vm._v(_vm._s(item.precio_u.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.s_inicial))]),
+                      _c("td", [_vm._v(_vm._s(item.s_inicial.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.c_ingreso))]),
+                      _c("td", [_vm._v(_vm._s(item.c_ingreso.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.precio_u))]),
+                      _c("td", [_vm._v(_vm._s(item.precio_u.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.s_ingreso))]),
+                      _c("td", [_vm._v(_vm._s(item.s_ingreso.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.c_salida))]),
+                      _c("td", [_vm._v(_vm._s(item.c_salida.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.precio_u))]),
+                      _c("td", [_vm._v(_vm._s(item.precio_u.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.s_salida))]),
+                      _c("td", [_vm._v(_vm._s(item.s_salida.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.c_final))]),
+                      _c("td", [_vm._v(_vm._s(item.c_final.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.precio_u))]),
+                      _c("td", [_vm._v(_vm._s(item.precio_u.toFixed(2)))]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(item.s_final))])
+                      _c("td", [_vm._v(_vm._s(item.s_final.toFixed(2)))])
                     ])
                   }),
                   _vm._v(" "),
@@ -948,7 +948,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.totales.ts_inicial))
+                      _vm._v(_vm._s(_vm.totales.ts_inicial.toFixed(2)))
                     ]),
                     _vm._v(" "),
                     _c("td", {
@@ -957,7 +957,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.totales.ts_entrada))
+                      _vm._v(_vm._s(_vm.totales.ts_entrada.toFixed(2)))
                     ]),
                     _vm._v(" "),
                     _c("td", {
@@ -966,7 +966,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.totales.ts_salida))
+                      _vm._v(_vm._s(_vm.totales.ts_salida.toFixed(2)))
                     ]),
                     _vm._v(" "),
                     _c("td", {
@@ -975,7 +975,7 @@ var render = function() {
                     }),
                     _vm._v(" "),
                     _c("td", { staticClass: "font-weight-bold" }, [
-                      _vm._v(_vm._s(_vm.totales.ts_final))
+                      _vm._v(_vm._s(_vm.totales.ts_final.toFixed(2)))
                     ])
                   ])
                 ],
@@ -1069,19 +1069,19 @@ var render = function() {
                 _c("th", { staticClass: "font-weight-normal" }, [_vm._v("1")]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l1s_inicial))
+                  _vm._v(_vm._s(_vm.totales.l1s_inicial.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l1s_entradas))
+                  _vm._v(_vm._s(_vm.totales.l1s_entradas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l1s_salidas))
+                  _vm._v(_vm._s(_vm.totales.l1s_salidas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l1s_final))
+                  _vm._v(_vm._s(_vm.totales.l1s_final.toFixed(2)))
                 ])
               ]),
               _vm._v(" "),
@@ -1089,19 +1089,19 @@ var render = function() {
                 _c("th", { staticClass: "font-weight-normal" }, [_vm._v("2")]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l2s_inicial))
+                  _vm._v(_vm._s(_vm.totales.l2s_inicial.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l2s_entradas))
+                  _vm._v(_vm._s(_vm.totales.l2s_entradas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l2s_salidas))
+                  _vm._v(_vm._s(_vm.totales.l2s_salidas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l2s_final))
+                  _vm._v(_vm._s(_vm.totales.l2s_final.toFixed(2)))
                 ])
               ]),
               _vm._v(" "),
@@ -1109,19 +1109,19 @@ var render = function() {
                 _c("th", { staticClass: "font-weight-normal" }, [_vm._v("3")]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l3s_inicial))
+                  _vm._v(_vm._s(_vm.totales.l3s_inicial.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l3s_entradas))
+                  _vm._v(_vm._s(_vm.totales.l3s_entradas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l3s_salidas))
+                  _vm._v(_vm._s(_vm.totales.l3s_salidas.toFixed(2)))
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-normal" }, [
-                  _vm._v(_vm._s(_vm.totales.l3s_final))
+                  _vm._v(_vm._s(_vm.totales.l3s_final.toFixed(2)))
                 ])
               ]),
               _vm._v(" "),
@@ -1131,15 +1131,15 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-bold" }, [
-                  _vm._v(_vm._s(_vm.totales.ts_inicial))
+                  _vm._v(_vm._s(_vm.totales.ts_inicial.toFixed(2)))
                 ]),
                 _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.totales.ts_entrada))]),
+                _c("th", [_vm._v(_vm._s(_vm.totales.ts_entrada.toFixed(2)))]),
                 _vm._v(" "),
-                _c("th", [_vm._v(_vm._s(_vm.totales.ts_salida))]),
+                _c("th", [_vm._v(_vm._s(_vm.totales.ts_salida.toFixed(2)))]),
                 _vm._v(" "),
                 _c("th", { staticClass: "font-weight-bold text-primary" }, [
-                  _vm._v(_vm._s(_vm.totales.ts_final))
+                  _vm._v(_vm._s(_vm.totales.ts_final.toFixed(2)))
                 ])
               ])
             ]

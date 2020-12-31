@@ -33,7 +33,7 @@ class ArticuloController extends Controller
             $articulos = $this->articuloRepository->getAll($request->query('withTrashed'));
             return response()->json($articulos,200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'],500);
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
         }
     }
 
@@ -48,7 +48,6 @@ class ArticuloController extends Controller
             'nombre' => 'required|string|max:100',
             'linea' => 'required|string|max:2',
             'partida_id' => 'required|integer',
-            'unidad_medida_id' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);
@@ -91,7 +90,7 @@ class ArticuloController extends Controller
             'nombre' => 'required|string|max:100',
             'linea' => 'required|string|max:2',
             'partida_id' => 'required|integer',
-            'unidad_medida_id' => 'required|integer',
+//            'unidad_medida_id' => 'required|integer',
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);

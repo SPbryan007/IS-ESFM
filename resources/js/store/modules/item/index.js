@@ -6,15 +6,16 @@ const state = {
     items: [],
     withTrashed:false,
     lotes:[],
+
     data_form: {
         nombre : null,
         linea : null,
         partida_id : null,
         partida_codigo:null,
         partida_nombre:null,
-        um_sigla:null,
-        um_nombre:null,
-        unidad_medida_id:null,
+        // um_sigla:null,
+        // um_nombre:null,
+        // unidad_medida_id:null,
     },
     alert:{
         color:'',
@@ -60,6 +61,7 @@ const mutations = {
     },
     [types.SET_LOTES]: (state, lotes) => {
         state.lotes = lotes;
+
     },
 
     /**
@@ -96,9 +98,9 @@ const mutations = {
         state.data_form.partida_id            = item.partida_id;
         state.data_form.partida_codigo        = item.partida.codigo;
         state.data_form.partida_nombre        = item.partida.nombre;
-        state.data_form.um_sigla              = item.unidad_medida.sigla;
-        state.data_form.um_nombre             = item.unidad_medida.nombre;
-        state.data_form.unidad_medida_id      = item.unidad_medida_id;
+        // state.data_form.um_sigla              = item.unidad_medida.sigla;
+        // state.data_form.um_nombre             = item.unidad_medida.nombre;
+        // state.data_form.unidad_medida_id      = item.unidad_medida_id;
     },
     [types.SET_FORM]: (state, item) => {
         state.data_form = {
@@ -110,7 +112,7 @@ const mutations = {
             nombre : null,
             linea : null,
             partida_id : null,
-            unidad_medida_id:null,
+            // unidad_medida_id:null,
         };
     }
 };

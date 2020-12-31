@@ -40,20 +40,20 @@ class CreateArticulosTable extends Migration
                 ->on('partida')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->unsignedBigInteger('unidad_medida_id');
-            $table->foreign('unidad_medida_id')->references('id')
-                ->on('unidad_medida')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
             $table->timestamps();
             $table->softDeletes();
         });
-
         Schema::create('lote',function (Blueprint $table){
             $table->bigIncrements('id');
             $table->double('stock')->nullable(false);
             $table->double('saldo')->nullable(false);
             $table->double('precio_u')->nullable(false);
+            $table->string('marca',155)->nullable(true);
+            $table->unsignedBigInteger('unidad_medida_id')->nullable(true);
+            $table->foreign('unidad_medida_id')->references('id')
+                ->on('unidad_medida')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
             $table->unsignedBigInteger('articulo_id');
             $table->foreign('articulo_id')->references('id')
                 ->on('articulo')

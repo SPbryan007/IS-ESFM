@@ -174,6 +174,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -616,10 +617,11 @@ var render = function() {
                         return [
                           _c("toggle-button", {
                             attrs: {
+                              disabled:
+                                scope.row.id_usuario ==
+                                _vm.$store.state.login.user.id_usuario,
                               value:
-                                scope.row.rol === "ADMINISTRADOR"
-                                  ? true
-                                  : false,
+                                scope.row.rol == "ADMINISTRADOR" ? true : false,
                               color: {
                                 checked: "#13ce66",
                                 unchecked: "#6576ff",

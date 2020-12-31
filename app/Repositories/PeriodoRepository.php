@@ -140,19 +140,21 @@ class PeriodoRepository
                             $lote->stock,
                             $lote->saldo,
                             $lote->precio_u,
+                            $lote->unidad_medida_id,
+                            $lote->marca,
                             $lote->articulo_id
                         );
                         $this->detalleIngresoRepository->register(
                             $lote->stock,
-                            Ingreso::INV_INICIAL,
+                            'Inventario inicial',
                             $new_lote->id,
                             $ingreso->id
                         );
                     }
                 }else{
-                    $new_lote = $this->loteRepository->register(0,0,0,$articulo->id);
+                    $new_lote = $this->loteRepository->register(0,0,0,null,null,$articulo->id);
                     $this->detalleIngresoRepository->register(0,
-                        Ingreso::INV_INICIAL,
+                        'Inventario inicial',
                         $new_lote->id,
                         $ingreso->id
                     );

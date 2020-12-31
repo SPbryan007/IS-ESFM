@@ -53,22 +53,37 @@
                         <span class="text-muted">{{ data_form.nombre }}</span>
                     </p>
                 </div>
-                <el-dialog :title="details.articulo" :visible.sync="visible">
+                <el-dialog :title="details.articulo" :visible.sync="visible" width="1000px">
                     <el-table :data="details.lotes">
                         <el-table-column type="index"></el-table-column>
-                        <el-table-column property="detalleingreso.precio_u" label="Precio Unitario" width="220">
+                        <el-table-column property="marca" label="Marca" width="150">
                             <template slot-scope="scope">
-                                <b>Bs :</b> {{ scope.row.precio_u }}
+                                <b>Bs :</b> {{ scope.row.marca }}
                             </template>
                         </el-table-column>
-                        <el-table-column property="stock" label="Stock" width="220">
+                        <el-table-column property="presentacion" label="Presentacion" width="200">
                             <template slot-scope="scope">
-                                {{ scope.row.stock}} <b>{{ details.unidad }}</b>
+                                <b>Bs :</b> {{ scope.row.presentacion }}
                             </template>
                         </el-table-column>
-                        <el-table-column property="saldo" label="Saldo" width="220">
+                        <el-table-column property="unidad_medida" label="Medida" width="150">
                             <template slot-scope="scope">
-                                <b>Bs :</b> {{ scope.row.saldo }}
+                                {{ scope.row.unidad_medida.nombre }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column property="precio_u" label="Precio U." width="120">
+                            <template slot-scope="scope">
+                                <b>Bs :</b> {{ (scope.row.precio_u).toFixed(2) }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column property="stock" label="Stock" width="120">
+                            <template slot-scope="scope">
+                                {{ (scope.row.stock).toFixed() }}
+                            </template>
+                        </el-table-column>
+                        <el-table-column property="saldo" label="Saldo" width="120">
+                            <template slot-scope="scope">
+                                <b>Bs :</b> {{ (scope.row.saldo).toFixed(2) }}
                             </template>
                         </el-table-column>
                     </el-table>
@@ -77,7 +92,8 @@
                     :data="GET_LOTES"
                     stripe
                     style="width: 100%">
-                    <el-table-column type="index"></el-table-column>
+                    <el-table-column type="index" label="N°" width="60"></el-table-column>
+                    <el-table-column prop="codigo" label="Código" width="120"></el-table-column>
                     <el-table-column
                         prop="nombre"
                         label="Articulo"
@@ -91,14 +107,14 @@
                             {{ scope.row.stock }}
                         </template>
                     </el-table-column>
-                    <el-table-column
-                        prop="unidad"
-                        label="Medida"
-                        width="140">
-                        <template slot-scope="scope">
-                       <b>{{ scope.row.unidad }}</b>
-                        </template>
-                    </el-table-column>
+<!--                    <el-table-column-->
+<!--                        prop="unidad"-->
+<!--                        label="Medida"-->
+<!--                        width="140">-->
+<!--                        <template slot-scope="scope">-->
+<!--                       <b>{{ scope.row.unidad }}</b>-->
+<!--                        </template>-->
+<!--                    </el-table-column>-->
                     <el-table-column
                         prop="saldo"
                         label="Saldo"
@@ -165,7 +181,7 @@ export default {
             this.visible = true;
             this.details.lotes = row.lotes;
             this.details.articulo = row.nombre;
-            this.details.unidad = row.unidad;
+            // this.details.unidad = row.unidad;
         },
         Total(){
             let total = 0;

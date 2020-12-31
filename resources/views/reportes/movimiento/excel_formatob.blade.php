@@ -64,17 +64,17 @@
             <th scope="row" style="border: 15px solid #000000;font-size: 9px;text-align: center;">{{ $item->linea  }}</th>
             <td style="border: 15px solid #000000;font-size: 9px;text-align: center;">{{ $item->partida }}</td>
             <td style="border: 15px solid #000000;font-size: 9px;text-align: left;">{{ $item->articulo }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_inicial  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_inicial,2) }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->c_inicial ,2),2) }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->s_inicial,2),2) }}</td>
 
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_entrada  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_entrada,2) }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_salida  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_salida,2) }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->c_entrada,2),2)  }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->s_entrada,2),2) }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->c_salida,2),2)  }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->s_salida,2),2) }}</td>
 
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ $item->c_final  }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->precio_u,2) }}</td>
-            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ round($item->s_final,2)  }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format( round($item->c_final,2),2)  }}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->precio_u,2),2)}}</td>
+            <td style="border: 15px solid #000000;font-size: 9px;text-align: right;">{{ number_format(round($item->s_final,2),2)  }}</td>
         </tr>
     @endforeach
     </tbody>
@@ -82,16 +82,16 @@
     <tr>
         <th colspan="4" scope="row" style="border: 15px solid #000000;text-align: center;font-size: 9px;font-weight: bold">TOTALES</th>
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_inicial'],2)  }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_inicial'],2) ,2) }}</td>
 
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_entrada'],2)  }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_entrada'],2),2)  }}</td>
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_salida'],2) }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_salida'],2),2) }}</td>
 
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
         <td style="border: 15px solid #000000;"></td>
-        <td style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ round($data['ts_final'],2) }}</td>
+        <td style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_final'],2),2) }}</td>
     </tr>
     </tfoot>
 
@@ -109,30 +109,30 @@
     </thead>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">1</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_inicial'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_entradas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_salidas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l1s_final'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l1s_inicial'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l1s_entradas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l1s_salidas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l1s_final'],2),2) }}</td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">2</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_inicial'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_entradas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_salidas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l2s_final'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l2s_inicial'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l2s_entradas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l2s_salidas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l2s_final'],2),2) }}</td>
     </tr>
     <tr>
         <td colspan="2" style="text-align: center;border: 15px solid #000000;font-size: 9px;">3</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_inicial'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_entradas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_salidas'],2) }}</td>
-        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ round($data['l3s_final'],2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l3s_inicial'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l3s_entradas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l3s_salidas'],2),2) }}</td>
+        <td style="text-align: right;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['l3s_final'],2),2) }}</td>
     </tr>
     <tr>
         <th colspan="2"  style="text-align: center;font-weight: bold;border: 15px solid #000000;font-size: 9px;">TOTALES</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_inicial'],2) }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_entrada'],2) }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_salida'],2) }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ round($data['ts_final'],2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_inicial'],2),2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_entrada'],2),2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_salida'],2),2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_final'],2),2) }}</th>
     </tr>
 </table>

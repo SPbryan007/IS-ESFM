@@ -31,7 +31,8 @@ const state = {
     loading_table: false,
     loading_form: false,
     searchQuery: "",
-    searchQueryAddDialog:""
+    searchQueryAddDialog:"",
+    searchQueryIngresoViewDetails:"",
 };
 const mutations = {
     [types.SET_STATUS] : (state,status) =>{
@@ -117,9 +118,12 @@ const mutations = {
     },
     [types.ADD_DETALLE_INGRESO]: (state, data) => {
         state.data_form.detalle_ingreso.push({
-            articulo:data.id,
-            cantidad:1,
-            precio:0,
+            marca:data.marca,
+            unidad_medida:data.unidad_medida,
+            articulo:data.articulo,
+            cantidad:data.cantidad,
+            precio:data.cantidad/data.total,
+            total: data.total,
         });
         // state.data_form.detalle_ingreso.push({
         //     ...data
