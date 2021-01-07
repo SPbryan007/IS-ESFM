@@ -27,7 +27,7 @@
               </div>
               <div class="card-body">
                   <el-dialog title="Agregar articulos" :visible.sync="dialogAddDetails" width="60%">
-                      <div class="row justify-content-center mt-4">
+                      <div class="row justify-content-center">
                           <el-input
                               style="width:660px"
                               placeholder="Filtrar por codigo, articulo"
@@ -300,6 +300,8 @@ export default {
       }
   },
     mounted() {
+        store.state.articulo.withTrashed=false;
+        store.state.unidad_medida.withTrashed=false;
         store.dispatch("articulo/getItems");
         store.dispatch("articulo/getLotes");
         store.dispatch("unidad_medida/getItems");

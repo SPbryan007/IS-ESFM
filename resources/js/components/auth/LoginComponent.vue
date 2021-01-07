@@ -21,6 +21,7 @@
                     >
                         <el-form-item prop="username">
                             <el-input
+                                @keyup.enter.native="submitForm('LoginForm')"
                                 type="text"
                                 v-model="data.username"
                                 suffix-icon="el-icon-user-solid"
@@ -30,6 +31,7 @@
                         </el-form-item>
                         <el-form-item prop="password">
                             <el-input
+                                @keyup.enter.native="submitForm('LoginForm')"
                                 type="password"
                                 suffix-icon="el-icon-lock"
                                 v-model="data.password"

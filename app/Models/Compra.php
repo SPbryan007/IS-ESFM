@@ -12,6 +12,7 @@ class Compra extends Model
     const ORDER_COMPRA = 'COM';
     const ORDER_SERVICIO = 'SER';
     const CONTRATO = 'CON';
+    const CAJA_CHICA = 'CCH';
 
     protected $table = 'compra';
     protected $primaryKey = 'id_compra';

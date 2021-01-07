@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Donacion extends Model
 {
 
+    const ACTA_DONACION = 'ADO';
+    const DONACION_CONVENIO = 'DCO';
+
     protected $table = 'donacion';
     protected $primaryKey = 'id_donacion';
     public $timestamps = false;

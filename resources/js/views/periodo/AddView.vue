@@ -36,16 +36,27 @@
                         <el-input style="width:250px" v-model="data_form.nombre"></el-input>
                     </el-form-item>
                     <el-form-item label="Del :" label-position="top" prop="fecha_inicio">
-                        <el-date-picker type="date" v-model="data_form.fecha_inicio" placeholder="Fecha inicio"></el-date-picker>
+                        <el-date-picker type="date"
+                                        format="dd/MM/yyyy"
+                                        value-format="yyyy-MM-dd"
+                                        v-model="data_form.fecha_inicio"
+                                        placeholder="Fecha inicio"
+                        ></el-date-picker>
                     </el-form-item>
                     <el-form-item label="Al:" prop ="fecha_fin">
-                        <el-date-picker v-model="data_form.fecha_fin" type="date" placeholder="Fecha fin"></el-date-picker>
+                        <el-date-picker
+                            v-model="data_form.fecha_fin"
+                            type="date"
+                            placeholder="Fecha fin"
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
+                        ></el-date-picker>
                     </el-form-item>
                     <el-form-item label="Descripcion :" prop="descripcion">
                         <el-input type="textarea" style="width:400px" v-model="data_form.descripcion"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('PeriodoAddForm')">
+                        <el-button :disabled="disponible" type="primary" @click="submitForm('PeriodoAddForm')">
                             Siguiente
                             <i class="fas fa-arrow-right"></i>
                         </el-button>
@@ -58,6 +69,7 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import moment from "moment";
 import store from "../../store/index";
 import { router } from "../../routes";
 export default {
@@ -86,6 +98,12 @@ export default {
             }
         };
         return {
+            disponible:false,
+            pickerOptions: {
+                disabledDate(time) {
+                    return time.getTime() > Date.now();
+                },
+            },
             rules: {
                 nombre: [
                     {

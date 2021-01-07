@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[37],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -232,62 +232,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -295,68 +239,133 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      pageOfItems: [],
-      sizePerPage: 10,
-      perpage: 5,
-      labels: {
-        first: "<<",
-        last: ">>",
-        previous: "anterior",
-        next: "siguiente"
+      pickerOptions: {
+        disabledDate: function disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
+      rules: {
+        tipo_compra: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "change"
+        }],
+        tipo_acta: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "change"
+        }],
+        tipo_comprobante: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "change"
+        }],
+        nro_comprobante: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          max: 190,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }],
+        nro_solicitud: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          max: 10,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }],
+        nro_autorizacion: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          max: 190,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }],
+        nro_acta: [{
+          required: true,
+          message: "Este campo es obligatorio",
+          trigger: "blur"
+        }, {
+          max: 15,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }, {
+          min: 3,
+          message: "Debe tener menos de 190 caracteres",
+          trigger: "blur"
+        }],
+        proveedor: [{
+          required: true,
+          message: "Debe seleccionar un proveedor",
+          trigger: "change"
+        }],
+        fecha_comprobante: [{
+          type: 'date',
+          required: true,
+          message: 'Este campo es obligatorio.',
+          trigger: 'change'
+        }],
+        fecha_solicitud: [{
+          type: 'date',
+          required: true,
+          message: 'Este campo es obligatorio.',
+          trigger: 'change'
+        }]
       }
     };
   },
-  computed: _objectSpread({
-    PerPage: function PerPage() {
-      return this.perpage ? parseInt(this.perpage) : 25;
-    }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["detalle_ingreso", "data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDOR"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ingreso", ["GET_FILTER_VIEW_DETALLE_INGRESOS"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDOR"])),
   methods: {
-    Print: function Print() {
-      window.open('http://localhost:8000/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
+    submitForm: function submitForm(form) {
+      this.$refs[form].validate(function (valid) {
+        if (valid) {
+          _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("articulo/getItems");
+          _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("articulo/getLotes");
+          _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
+            name: "addingresodetails"
+          });
+        }
+      });
     },
-    exportPDF: function exportPDF(nro, date) {
-      axios.get('/controller/ingreso/export_pdf/' + this.$route.params.id, {
-        responseType: 'blob'
-      }).then(function (response) {
-        var blob = new Blob([response.data], {
-          type: 'application/pdf'
-        });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'NIA-' + nro + '-' + moment__WEBPACK_IMPORTED_MODULE_2___default()(date).format("DD/MM/YYYY");
-        link.click();
-        URL.revokeObjectURL(link.href);
-      })["catch"](function (err) {
-        console.log('error excel');
+    cancelForm: function cancelForm(formName) {
+      this.$refs[formName].resetFields();
+      _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
+        name: "ingreso"
       });
     },
     goBack: function goBack() {
-      _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
-        name: 'ingreso'
-      }); // this.$router.go(-1);
-    },
-    onChangePage: function onChangePage(pageOfItems) {
-      this.pageOfItems = pageOfItems;
-    },
-    refresh: function refresh() {
-      var self = this.$refs;
-      setTimeout(function () {
-        self.jw.setPage(1);
-      }, 0);
+      this.$router.go(-1);
     }
   },
-  mounted: function mounted() {
+  created: function created() {
     _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("proveedor/getItems");
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9& ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -406,575 +415,646 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "pull-right" },
-            [
-              _c(
-                "el-button",
-                {
-                  attrs: {
-                    disabled: _vm.detalle_ingreso.deleted_at,
-                    type: "primary",
-                    icon: "el-icon-printer"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.Print()
-                    }
-                  }
-                },
-                [_vm._v("Imprimir")]
-              ),
-              _vm._v(" "),
-              _c(
-                "el-button",
-                {
-                  attrs: {
-                    disabled: _vm.detalle_ingreso.deleted_at,
-                    type: "danger"
-                  },
-                  on: {
-                    click: function($event) {
-                      return _vm.exportPDF(
-                        _vm.detalle_ingreso.nro_ingreso,
-                        _vm.detalle_ingreso.created_at
-                      )
-                    }
-                  }
-                },
-                [_c("i", { staticClass: "fas fa-file-pdf" }), _vm._v(" Pdf")]
-              )
-            ],
-            1
-          )
+          _c("div", { staticClass: "pull-right" })
         ]
       ),
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
-        _c(
-          "div",
-          { ref: "table", staticClass: "card-body", attrs: { id: "printMe" } },
-          [
-            _vm.detalle_ingreso.tipo_ingreso == "Compra"
-              ? _c("div", { staticClass: "row invoice-info" }, [
-                  _c("div", { staticClass: "col-md-5 invoice-col" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Ingresado por:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.detalle_ingreso.usuario.funcionario.nombre +
-                              " " +
-                              _vm.detalle_ingreso.usuario.funcionario.apellido
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Fecha de ingreso:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm._f("dateformat")(_vm.detalle_ingreso.created_at)
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [_vm._v("NIT:")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.proveedor.nit))
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Proveedor:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.proveedor.nombre))
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Fecha solicitud:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm._f("dateformat")(
-                              _vm.detalle_ingreso.compra.fecha_solicitud
-                            )
-                          )
-                        )
-                      ])
-                    ])
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c(
+            "div",
+            { staticClass: "row justify-content-center" },
+            [
+              _c(
+                "el-radio-group",
+                {
+                  staticClass: "ml-5",
+                  staticStyle: { "margin-bottom": "30px" },
+                  model: {
+                    value: _vm.data_form.tipo_ingreso,
+                    callback: function($$v) {
+                      _vm.$set(_vm.data_form, "tipo_ingreso", $$v)
+                    },
+                    expression: "data_form.tipo_ingreso"
+                  }
+                },
+                [
+                  _c("el-radio-button", { attrs: { label: "Compra" } }, [
+                    _vm._v("Compra")
                   ]),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-4 invoice-col" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [
-                        _vm._v("N° Factura")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _vm._v(
-                          _vm._s(_vm.detalle_ingreso.compra.nro_comprobante)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [
-                        _vm._v("N° Autorizacion:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _vm._v(
-                          _vm._s(_vm.detalle_ingreso.compra.nro_autorizacion)
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [
-                        _vm._v("Formulario:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.compra.tipo_compra))
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-6" }),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _c("h4", [
-                          _c("strong", [
-                            _vm._v(
-                              "NIA: " + _vm._s(_vm.detalle_ingreso.nro_ingreso)
-                            )
-                          ])
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [
-                        _vm._v("N° Formulario")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.compra.nro_solicitud))
-                      ])
-                    ])
+                  _c("el-radio-button", { attrs: { label: "Donacion" } }, [
+                    _vm._v("Donación")
                   ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.detalle_ingreso.tipo_ingreso == "INV_INICIAL"
-              ? _c("div", { staticClass: "row invoice-info" }, [
-                  _c("div", { staticClass: "col-md-5 invoice-col" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Ingresado por:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.detalle_ingreso.usuario.funcionario.nombre +
-                              " " +
-                              _vm.detalle_ingreso.usuario.funcionario.apellido
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Fecha de ingreso:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm._f("dateformat")(_vm.detalle_ingreso.created_at)
-                          )
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-6" }),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _c("h4", [
-                          _c("strong", [
-                            _vm._v(
-                              "NIA: " + _vm._s(_vm.detalle_ingreso.nro_ingreso)
-                            )
-                          ])
-                        ]),
-                        _c("small", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("dateformat")(
-                                _vm.detalle_ingreso.created_at
-                              )
-                            )
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")])
-                    ])
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.detalle_ingreso.tipo_ingreso == "Donacion"
-              ? _c("div", { staticClass: "row invoice-info" }, [
-                  _c("div", { staticClass: "col-md-5 invoice-col" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Ingresado por:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.detalle_ingreso.usuario.funcionario.nombre +
-                              " " +
-                              _vm.detalle_ingreso.usuario.funcionario.apellido
-                          )
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Proveedor:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.proveedor.nombre))
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("Fecha de ingreso:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm._f("dateformat")(_vm.detalle_ingreso.created_at)
-                          )
-                        )
-                      ])
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(1),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "col-md-3" }, [
-                    _c("dl", { staticClass: "row" }, [
-                      _c("dt", { staticClass: "col-md-6" }),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [
-                        _c("h4", [
-                          _c("strong", [
-                            _vm._v(
-                              "NIA: " + _vm._s(_vm.detalle_ingreso.nro_ingreso)
-                            )
-                          ])
-                        ]),
-                        _c("small", [
-                          _vm._v(
-                            _vm._s(
-                              _vm._f("dateformat")(
-                                _vm.detalle_ingreso.created_at
-                              )
-                            )
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-5" }, [
-                        _vm._v("N° Acta:")
-                      ]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-7" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.donacion.nro_acta))
-                      ])
-                    ])
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "row justify-content-between ml-1",
-                staticStyle: { "margin-bottom": "-20px" }
-              },
-              [
-                _c(
-                  "div",
-                  { staticClass: "pull-left" },
-                  [
-                    _c(
-                      "el-form",
-                      {
-                        staticClass: "demo-form-inline",
-                        attrs: { inline: true }
-                      },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Mostrar:" } },
-                          [
-                            _c(
-                              "el-select",
-                              {
-                                staticStyle: { width: "70px" },
-                                attrs: { size: "small" },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.refresh()
-                                  }
-                                },
-                                model: {
-                                  value: _vm.perpage,
-                                  callback: function($$v) {
-                                    _vm.perpage = $$v
-                                  },
-                                  expression: "perpage"
-                                }
-                              },
-                              _vm._l(
-                                [
-                                  { value: 5, label: "5" },
-                                  { value: 10, label: "10" },
-                                  { value: 25, label: "25" },
-                                  { value: 50, label: "50" },
-                                  { value: 100, label: "100" }
-                                ],
-                                function(item) {
-                                  return _c("el-option", {
-                                    key: item.value,
-                                    attrs: {
-                                      label: item.label,
-                                      value: item.value
-                                    }
-                                  })
-                                }
-                              ),
-                              1
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "pull-right" },
-                  [
-                    _c(
-                      "el-form",
-                      {
-                        staticClass: "demo-form-inline",
-                        attrs: { inline: true }
-                      },
-                      [
-                        _c(
-                          "el-form-item",
-                          { attrs: { label: "Buscar por:" } },
-                          [
-                            _c(
-                              "el-input",
-                              {
-                                attrs: {
-                                  size: "small",
-                                  placeholder: "Código, Articulo",
-                                  clearable: ""
-                                },
-                                model: {
-                                  value:
-                                    _vm.$store.state.ingreso
-                                      .searchQueryIngresoViewDetails,
-                                  callback: function($$v) {
-                                    _vm.$set(
-                                      _vm.$store.state.ingreso,
-                                      "searchQueryIngresoViewDetails",
-                                      $$v
-                                    )
-                                  },
-                                  expression:
-                                    "$store.state.ingreso.searchQueryIngresoViewDetails"
-                                }
-                              },
-                              [
-                                _c("i", {
-                                  staticClass: "el-input__icon el-icon-search",
-                                  attrs: { slot: "prefix" },
-                                  slot: "prefix"
-                                })
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("h4", { staticClass: "text-center" }, [
-              _c("strong", [
-                _vm._v("Detalle Ingreso  "),
-                _vm.detalle_ingreso.deleted_at
-                  ? _c("span", { staticClass: "badge badge-danger" }, [
-                      _vm._v("ANULADO")
-                    ])
-                  : _vm._e()
-              ])
-            ]),
-            _vm._v(" "),
-            _c("table", { staticClass: "table table-sm table-striped" }, [
-              _vm._m(2),
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row justify-content-center" }, [
+            _c("div", { staticClass: "col-md-8 col-md-offset-4" }, [
+              _c("div", { staticClass: "row" }),
               _vm._v(" "),
               _c(
-                "tbody",
-                _vm._l(_vm.pageOfItems, function(item, index) {
-                  return _c("tr", { key: index }, [
-                    _c("td", [_vm._v(_vm._s(index + 1) + ".")]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(item.lote.articulo.codigo))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.lote.articulo.nombre))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(
-                          !item.lote.presentacion ? "-" : item.lote.presentacion
-                        )
+                "div",
+                { staticClass: "row" },
+                [
+                  _c(
+                    "el-form",
+                    {
+                      ref: "IngresoForm",
+                      staticClass: "labeles",
+                      attrs: {
+                        model: _vm.data_form,
+                        rules: _vm.rules,
+                        "label-width": "170px"
+                      }
+                    },
+                    [
+                      _vm.data_form.tipo_ingreso == "Compra"
+                        ? _c("div", [
+                            _c(
+                              "div",
+                              { staticClass: "row" },
+                              [
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Formulario :",
+                                      prop: "tipo_compra"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "el-select",
+                                      {
+                                        staticStyle: { width: "340px" },
+                                        attrs: {
+                                          filterable: "",
+                                          placeholder:
+                                            "Seleccione el formulario",
+                                          "loading-text": "buscando..",
+                                          "no-match-text":
+                                            "No se encontraron registros"
+                                        },
+                                        model: {
+                                          value: _vm.data_form.tipo_compra,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.data_form,
+                                              "tipo_compra",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "data_form.tipo_compra"
+                                        }
+                                      },
+                                      _vm._l(
+                                        [
+                                          {
+                                            key: "COM",
+                                            value: "ORDEN DE COMPRA"
+                                          },
+                                          {
+                                            key: "SER",
+                                            value: "ORDEN DE SERVICIO"
+                                          },
+                                          { key: "CON", value: "CONTRATO" },
+                                          { key: "CCH", value: "CAJA CHICA" }
+                                        ],
+                                        function(item, index) {
+                                          return _c("el-option", {
+                                            key: index,
+                                            attrs: {
+                                              label: item.value,
+                                              value: item.key
+                                            }
+                                          })
+                                        }
+                                      ),
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Nro de Solicitud :",
+                                      prop: "nro_solicitud"
+                                    }
+                                  },
+                                  [
+                                    _c("el-input", {
+                                      staticStyle: { width: "170px" },
+                                      model: {
+                                        value: _vm.data_form.nro_solicitud,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "nro_solicitud",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_form.nro_solicitud"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Fecha de solicitud :",
+                                      prop: "fecha_solicitud"
+                                    }
+                                  },
+                                  [
+                                    _c("el-date-picker", {
+                                      attrs: {
+                                        type: "date",
+                                        "picker-options": _vm.pickerOptions
+                                      },
+                                      model: {
+                                        value: _vm.data_form.fecha_solicitud,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "fecha_solicitud",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_form.fecha_solicitud"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              [
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Tipo de comprobante :",
+                                      prop: "tipo_comprobante"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "el-select",
+                                      {
+                                        staticStyle: { width: "200px" },
+                                        attrs: {
+                                          filterable: "",
+                                          placeholder:
+                                            "Seleccione el tipo de comprobante",
+                                          "loading-text": "buscando..",
+                                          "no-match-text":
+                                            "No se encontraron registros"
+                                        },
+                                        model: {
+                                          value: _vm.data_form.tipo_comprobante,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.data_form,
+                                              "tipo_comprobante",
+                                              $$v
+                                            )
+                                          },
+                                          expression:
+                                            "data_form.tipo_comprobante"
+                                        }
+                                      },
+                                      _vm._l(
+                                        [
+                                          { key: "FACTURA", value: "Factura" },
+                                          { key: "RECIBO", value: "Recibo" }
+                                        ],
+                                        function(item, index) {
+                                          return _c("el-option", {
+                                            key: index,
+                                            attrs: {
+                                              label: item.value,
+                                              value: item.key
+                                            }
+                                          })
+                                        }
+                                      ),
+                                      1
+                                    )
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Nro de Comprobante :",
+                                      prop: "nro_comprobante"
+                                    }
+                                  },
+                                  [
+                                    _c("el-input", {
+                                      staticStyle: { width: "380px" },
+                                      model: {
+                                        value: _vm.data_form.nro_comprobante,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "nro_comprobante",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_form.nro_comprobante"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _vm.data_form.tipo_comprobante == "FACTURA"
+                                  ? _c(
+                                      "el-form-item",
+                                      {
+                                        attrs: {
+                                          label: "Nro autorización :",
+                                          prop: "nro_autorizacion"
+                                        }
+                                      },
+                                      [
+                                        _c("el-input", {
+                                          staticStyle: { width: "170px" },
+                                          model: {
+                                            value:
+                                              _vm.data_form.nro_autorizacion,
+                                            callback: function($$v) {
+                                              _vm.$set(
+                                                _vm.data_form,
+                                                "nro_autorizacion",
+                                                $$v
+                                              )
+                                            },
+                                            expression:
+                                              "data_form.nro_autorizacion"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Fecha comprobante :",
+                                      "label-position": "top",
+                                      prop: "fecha_comprobante"
+                                    }
+                                  },
+                                  [
+                                    _c("el-date-picker", {
+                                      attrs: {
+                                        type: "date",
+                                        placeholder: "Fecha comprobante",
+                                        "picker-options": _vm.pickerOptions
+                                      },
+                                      model: {
+                                        value: _vm.data_form.fecha_comprobante,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "fecha_comprobante",
+                                            $$v
+                                          )
+                                        },
+                                        expression:
+                                          "data_form.fecha_comprobante"
+                                      }
+                                    })
+                                  ],
+                                  1
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "el-form-item",
+                                  {
+                                    attrs: {
+                                      label: "Proveedor :",
+                                      prop: "proveedor"
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "el-select",
+                                      {
+                                        staticStyle: { width: "340px" },
+                                        attrs: {
+                                          filterable: "",
+                                          placeholder:
+                                            "Seleccione el proveedor",
+                                          "loading-text": "buscando..",
+                                          "no-match-text":
+                                            "No se encontraron registros"
+                                        },
+                                        model: {
+                                          value: _vm.data_form.proveedor,
+                                          callback: function($$v) {
+                                            _vm.$set(
+                                              _vm.data_form,
+                                              "proveedor",
+                                              $$v
+                                            )
+                                          },
+                                          expression: "data_form.proveedor"
+                                        }
+                                      },
+                                      _vm._l(_vm.GET_ITEMS_PROVEEDOR, function(
+                                        item,
+                                        index
+                                      ) {
+                                        return _c("el-option", {
+                                          key: index,
+                                          attrs: {
+                                            label: item.nombre,
+                                            value: item.id
+                                          }
+                                        })
+                                      }),
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "router-link",
+                                      {
+                                        attrs: { to: { name: "addproveedor" } }
+                                      },
+                                      [
+                                        _c("el-button", {
+                                          attrs: {
+                                            type: "primary",
+                                            icon: "el-icon-plus"
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.data_form.tipo_ingreso === "Donacion"
+                        ? _c(
+                            "div",
+                            [
+                              _c(
+                                "el-form-item",
+                                {
+                                  attrs: {
+                                    label: "Formulario :",
+                                    prop: "tipo_donacion"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "el-select",
+                                    {
+                                      staticStyle: { width: "340px" },
+                                      attrs: {
+                                        filterable: "",
+                                        placeholder: "Seleccione el formulario",
+                                        "loading-text": "buscando..",
+                                        "no-match-text":
+                                          "No se encontraron registros"
+                                      },
+                                      model: {
+                                        value: _vm.data_form.tipo_donacion,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "tipo_donacion",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_form.tipo_donacion"
+                                      }
+                                    },
+                                    _vm._l(
+                                      [
+                                        {
+                                          key: "ADO",
+                                          value: "ACTA DE DONACION"
+                                        },
+                                        {
+                                          key: "DCO",
+                                          value: "DONACION POR CONVENIO"
+                                        }
+                                      ],
+                                      function(item, index) {
+                                        return _c("el-option", {
+                                          key: index,
+                                          attrs: {
+                                            label: item.value,
+                                            value: item.key
+                                          }
+                                        })
+                                      }
+                                    ),
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                {
+                                  attrs: {
+                                    label: "Nro de acta :",
+                                    prop: "nro_acta"
+                                  }
+                                },
+                                [
+                                  _c("el-input", {
+                                    staticStyle: { width: "170px" },
+                                    model: {
+                                      value: _vm.data_form.nro_acta,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.data_form, "nro_acta", $$v)
+                                      },
+                                      expression: "data_form.nro_acta"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                {
+                                  attrs: {
+                                    label: "Fecha de acta :",
+                                    "label-position": "top",
+                                    prop: "fecha_acta"
+                                  }
+                                },
+                                [
+                                  _c("el-date-picker", {
+                                    attrs: {
+                                      type: "date",
+                                      "picker-options": _vm.pickerOptions,
+                                      placeholder: "Fecha comprobante"
+                                    },
+                                    model: {
+                                      value: _vm.data_form.fecha_acta,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.data_form,
+                                          "fecha_acta",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "data_form.fecha_acta"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "el-form-item",
+                                {
+                                  attrs: {
+                                    label: "Proveedor :",
+                                    prop: "proveedor"
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "el-select",
+                                    {
+                                      staticStyle: { width: "340px" },
+                                      attrs: {
+                                        filterable: "",
+                                        placeholder: "Seleccione el proveedor",
+                                        "loading-text": "buscando..",
+                                        "no-match-text":
+                                          "No se encontraron registros"
+                                      },
+                                      model: {
+                                        value: _vm.data_form.proveedor,
+                                        callback: function($$v) {
+                                          _vm.$set(
+                                            _vm.data_form,
+                                            "proveedor",
+                                            $$v
+                                          )
+                                        },
+                                        expression: "data_form.proveedor"
+                                      }
+                                    },
+                                    _vm._l(_vm.GET_ITEMS_PROVEEDOR, function(
+                                      item,
+                                      index
+                                    ) {
+                                      return _c("el-option", {
+                                        key: index,
+                                        attrs: {
+                                          label: item.nombre,
+                                          value: item.id
+                                        }
+                                      })
+                                    }),
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "router-link",
+                                    { attrs: { to: { name: "addproveedor" } } },
+                                    [
+                                      _c("el-button", {
+                                        attrs: {
+                                          type: "primary",
+                                          icon: "el-icon-plus"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c(
+                        "el-form-item",
+                        [
+                          _c(
+                            "el-button",
+                            {
+                              attrs: { type: "primary" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.submitForm("IngresoForm")
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                  Siguiente\n                  "
+                              ),
+                              _c("i", { staticClass: "fas fa-arrow-right" })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "el-button",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.cancelForm("IngresoForm")
+                                }
+                              }
+                            },
+                            [_vm._v("Cancelar")]
+                          )
+                        ],
+                        1
                       )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(_vm._s(!item.lote.marca ? "-" : item.lote.marca))
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        _vm._s(
-                          !item.lote.unidad_medida
-                            ? "-"
-                            : item.lote.unidad_medida.nombre
-                        )
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.lote.precio_u))]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(_vm._s(item.cantidad.toFixed(2)))]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("b", [_vm._v("Bs. ")]),
-                      _vm._v(
-                        _vm._s((item.cantidad * item.lote.precio_u).toFixed(2))
-                      )
-                    ])
-                  ])
-                }),
-                0
+                    ],
+                    1
+                  )
+                ],
+                1
               )
-            ]),
-            _vm._v(" "),
-            _c("dl", { staticClass: "row pt-3" }, [
-              _c("dt", { staticClass: "col-md-3" }, [_vm._v("Total:")]),
-              _vm._v(" "),
-              _c("dd", { staticClass: "col-md-7 text-right" }, [
-                _c(
-                  "span",
-                  {
-                    staticStyle: {
-                      "border-bottom": "2px dotted #000",
-                      "text-decoration": "none"
-                    }
-                  },
-                  [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("toWords")(Math.trunc(_vm.detalle_ingreso.total))
-                      ) +
-                        " con " +
-                        _vm._s(
-                          _vm.detalle_ingreso.total -
-                            Math.floor(_vm.detalle_ingreso.total)
-                        ) +
-                        "/100 "
-                    ),
-                    _c("b", [_vm._v("  Bs.")])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-md-2 text-center" }, [
-                _c("u", [_vm._v(_vm._s(_vm.detalle_ingreso.total.toFixed(2)))])
-              ])
             ])
-          ]
-        )
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row justify-content-center mt-4" },
-        [
-          _c("jw-pagination", {
-            ref: "jw",
-            attrs: {
-              pageSize: _vm.PerPage,
-              items: _vm.GET_FILTER_VIEW_DETALLE_INGRESOS,
-              labels: _vm.labels
-            },
-            on: { changePage: _vm.onChangePage }
-          })
-        ],
-        1
-      )
+          ])
+        ])
+      ])
     ],
     1
   )
@@ -984,62 +1064,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 invoice-col" }, [
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v("Formulario:")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" INGRESO INICIAL ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 invoice-col" }, [
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v("Formulario:")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" Acta de donación ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", { staticStyle: { width: "10px" } }, [_vm._v("N°")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Codigo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Articulo")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Presentacion")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Marca")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Medida")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Precio U.")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Cantidad")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Subtotal")])
-      ])
+    return _c("div", { staticClass: "card-header border-0" }, [
+      _c("h3", { staticClass: "card-title" }, [_vm._v("Registro de ingresos")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
     ])
   }
 ]
@@ -1049,17 +1077,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/ingreso/ViewDetails.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/views/ingreso/ViewDetails.vue ***!
-  \****************************************************/
+/***/ "./resources/js/views/ingreso/AddView.vue":
+/*!************************************************!*\
+  !*** ./resources/js/views/ingreso/AddView.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewDetails.vue?vue&type=template&id=e1a9eea0& */ "./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0&");
-/* harmony import */ var _ViewDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewDetails.vue?vue&type=script&lang=js& */ "./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddView.vue?vue&type=template&id=28ffe4b9& */ "./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9&");
+/* harmony import */ var _AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddView.vue?vue&type=script&lang=js& */ "./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -1069,9 +1097,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _ViewDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -1081,38 +1109,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/ingreso/ViewDetails.vue"
+component.options.__file = "resources/js/views/ingreso/AddView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewDetails.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/ViewDetails.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewDetails_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/AddView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9& ***!
+  \*******************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewDetails.vue?vue&type=template&id=e1a9eea0& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/ViewDetails.vue?vue&type=template&id=e1a9eea0&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddView.vue?vue&type=template&id=28ffe4b9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/ingreso/AddView.vue?vue&type=template&id=28ffe4b9&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewDetails_vue_vue_type_template_id_e1a9eea0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddView_vue_vue_type_template_id_28ffe4b9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

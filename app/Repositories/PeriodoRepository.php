@@ -62,7 +62,7 @@ class PeriodoRepository
 
     public function getById($id) : Periodo
     {
-        $periodo = Periodo::find($id);
+        $periodo = Periodo::withTrashed()->find($id);
         if (!$periodo) {
             throw new NotFoundHttpException("No existe el periodo con el ID : {$id}");
         }
@@ -130,37 +130,77 @@ class PeriodoRepository
             $ingreso = $this->ingresoRepository->register(
                 Ingreso::INV_INICIAL,
                 NULL,
-                $periodo->id
+                $periodo->id,
+                $periodo->fecha_inicio
             );
-
-            foreach ($articulos as $articulo){
-                if(!$articulo->lotes->isEmpty()){
-                    foreach ($articulo->lotes as $lote){
-                        $new_lote = $this->loteRepository->register(
-                            $lote->stock,
-                            $lote->saldo,
-                            $lote->precio_u,
-                            $lote->unidad_medida_id,
-                            $lote->marca,
-                            $lote->articulo_id
-                        );
-                        $this->detalleIngresoRepository->register(
-                            $lote->stock,
-                            'Inventario inicial',
-                            $new_lote->id,
-                            $ingreso->id
-                        );
+            switch ($request->tipo_inventario){
+                case 'APERTURA_INVENTARIO':
+                    $detalles = [];
+                    $items = [];
+                    foreach ($request->detalle_apertura as $detalle){
+                            $new_lote = $this->loteRepository->register(
+                                $detalle['cantidad'],
+                                $detalle['total'],
+                                $detalle['total']/$detalle['cantidad'],
+                                $detalle['unidad_medida'],
+                                $detalle['marca'],
+                                $detalle['articulo']
+                            );
+                            $this->detalleIngresoRepository->register(
+                                $detalle['cantidad'],
+                                'Inventario inicial',
+                                $new_lote->id,
+                                $ingreso->id
+                            );
+                            array_push($detalles,$detalle['articulo']);
                     }
-                }else{
-                    $new_lote = $this->loteRepository->register(0,0,0,null,null,$articulo->id);
-                    $this->detalleIngresoRepository->register(0,
-                        'Inventario inicial',
-                        $new_lote->id,
-                        $ingreso->id
-                    );
-                }
+                    foreach ($articulos as $articulo){
+                        array_push($items ,$articulo->id);
+                    }
+                    $items = array_diff($items,$detalles);
+                    if(!empty($items)){
+                        foreach ($items as $item){
+                            $new_lote = $this->loteRepository->register(0,0,0,null,null,$item);
+                            $this->detalleIngresoRepository->register(0,
+                                'Inventario inicial',
+                                $new_lote->id,
+                                $ingreso->id
+                            );
+                        }
+                    }
+                    break;
+                case 'INICIO_INVENTARIO':
+                    foreach ($articulos as $articulo){
+                        if(!$articulo->lotes->isEmpty()){
+                            foreach ($articulo->lotes as $lote){
+                                $new_lote = $this->loteRepository->register(
+                                    $lote->stock,
+                                    $lote->saldo,
+                                    $lote->precio_u,
+                                    $lote->unidad_medida_id,
+                                    $lote->marca,
+                                    $lote->articulo_id
+                                );
+                                $this->detalleIngresoRepository->register(
+                                    $lote->stock,
+                                    'Inventario inicial',
+                                    $new_lote->id,
+                                    $ingreso->id
+                                );
+                            }
+                        }else{
+                            $new_lote = $this->loteRepository->register(0,0,0,null,null,$articulo->id);
+                            $this->detalleIngresoRepository->register(0,
+                                'Inventario inicial',
+                                $new_lote->id,
+                                $ingreso->id
+                            );
+                        }
 
+                    }
+                    break;
             }
+
             DB::commit();
             return ['message' => 'Se ha iniciado un nuevo periodo contable','status' => 201];
         }catch (NotFoundHttpException $e){

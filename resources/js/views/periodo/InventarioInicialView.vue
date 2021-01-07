@@ -18,6 +18,17 @@
             </div>
           <!--  :disabled="!data_form.nombre && !data_form.fecha_inicio"-->
             <div class="pull-right">
+                <router-link :to="{ name: 'apertura_inventario_inicial' }">
+                    <el-button
+                        :disabled="!data_form.nombre && data_form.fecha_inicio"
+                        type="success"
+                    >
+                        Nueva apertura
+                        <i class="fas fa-door-open"></i>
+
+                    </el-button>
+                </router-link>
+
                 <el-button
                     :disabled="!data_form.nombre && data_form.fecha_inicio"
                     @click="StartPeriodo" type="primary"
@@ -53,17 +64,12 @@
                         <span class="text-muted">{{ data_form.nombre }}</span>
                     </p>
                 </div>
-                <el-dialog :title="details.articulo" :visible.sync="visible" width="1000px">
+                <el-dialog :title="details.articulo" :visible.sync="visible" width="830px">
                     <el-table :data="details.lotes">
                         <el-table-column type="index"></el-table-column>
                         <el-table-column property="marca" label="Marca" width="150">
                             <template slot-scope="scope">
-                                <b>Bs :</b> {{ scope.row.marca }}
-                            </template>
-                        </el-table-column>
-                        <el-table-column property="presentacion" label="Presentacion" width="200">
-                            <template slot-scope="scope">
-                                <b>Bs :</b> {{ scope.row.presentacion }}
+                                {{ scope.row.marca ? scope.row.marca : '-' }}
                             </template>
                         </el-table-column>
                         <el-table-column property="unidad_medida" label="Medida" width="150">
@@ -86,8 +92,10 @@
                                 <b>Bs :</b> {{ (scope.row.saldo).toFixed(2) }}
                             </template>
                         </el-table-column>
+
                     </el-table>
                 </el-dialog>
+
                 <el-table
                     :data="GET_LOTES"
                     stripe
@@ -200,6 +208,7 @@ export default {
                 }
             )
                 .then(() => {
+                    store.state.periodo.data_form.tipo_inventario  = 'INICIO_INVENTARIO';
                     store.dispatch("periodo/startPeriodo", {
                         message: this.$message,
                     });

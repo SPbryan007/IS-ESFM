@@ -88,7 +88,7 @@
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_inicial'],2),2)  }}</td>
 
         <td  colspan="2" style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
-        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_entrada'],2),2)  }}</td>
+        <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_ingreso'],2),2)  }}</td>
 
         <td  colspan="2" style="border: 15px solid #000000;text-align: right;font-weight: bold"></td>
         <td  style="border: 15px solid #000000;text-align: right;font-weight: bold">{{ number_format(round($data['ts_salida'],2),2) }}</td>
@@ -134,7 +134,7 @@
     <tr>
         <th colspan="2"  style="text-align: center;font-weight: bold;border: 15px solid #000000;font-size: 9px;">TOTALES</th>
         <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_inicial'],2),2) }}</th>
-        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_entrada'],2),2) }}</th>
+        <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_ingreso'],2),2) }}</th>
         <th colspan="2" style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_salida'],2),2) }}</th>
         <th style="text-align: right;font-weight: bold;border: 15px solid #000000;font-size: 9px;">{{ number_format(round($data['ts_final'],2),2) }}</th>
     </tr>

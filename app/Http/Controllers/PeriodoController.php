@@ -47,7 +47,9 @@ class PeriodoController extends Controller
             'nombre' => 'required|string',
             'fecha_inicio' => 'required|date',
             'fecha_fin' => 'required|date',
-            'descripcion' => 'string|max:255'
+            'descripcion' => 'string|max:255',
+            'tipo_inventario' => 'required|string|max:20',
+            'detalle_apertura' => 'array'
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);
@@ -129,6 +131,8 @@ class PeriodoController extends Controller
             return response()->json($th->getMessage(),500);
         }
     }
+
+
 
     /**
      * @return \Illuminate\Http\Response

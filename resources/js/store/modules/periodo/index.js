@@ -9,10 +9,12 @@ const state = {
     withTrashed:false,
     data_form: {
         nombre: "",
-        fecha_inicio: "",
+        fecha_inicio: moment().format('YYYY-MM-DD'),
         fecha_fin: "",
         estado: "",
-        descripcion: "-"
+        descripcion: "-",
+        tipo_inventario:null,
+        detalle_apertura:[]
     },
     alert:{
         color:'',
@@ -23,7 +25,9 @@ const state = {
     current:null,
     loading_table: false,
     loading_form: false,
-    searchQuery: ""
+    searchQuery: "",
+    searchQueryAddDialog:"",
+    searchQueryDetalleApertura:"",
 };
 const mutations = {
     [types.SET_STATUS] : (state,status) =>{
@@ -88,12 +92,34 @@ const mutations = {
         };
         commit(types.CONVERT_DATE);
     },
+    [types.DELETE_DETALLE_APERTURA]: (state, id) => {
+        for (let i = 0; i < state.data_form.detalle_apertura.length; i++) {
+            if (state.data_form.detalle_apertura[i].articulo == id) {
+                state.data_form.detalle_apertura.splice(i, 1);
+                break;
+            }
+        }
+    },
+    [types.ADD_DETALLE_APERTURA]: (state, data) => {
+        state.data_form.detalle_apertura.push({
+            codigo:data.codigo,
+            marca:data.marca,
+            unidad_medida:data.unidad_medida,
+            articulo:data.articulo,
+            articulo_nombre:data.articulo_nombre,
+            cantidad:data.cantidad,
+            precio:data.total/data.cantidad,
+            total: data.total,
+        });
+    },
     [types.CLEAR_FORM]: state => {
         state.data_form = {
             nombre : "",
             fecha_inicio :  "",
             fecha_fin : "",
             descripcion: '-',
+            tipo_inventario: null,
+            detalle_apertura: []
         };
     },
     [types.CONVERT_DATE]: state => {

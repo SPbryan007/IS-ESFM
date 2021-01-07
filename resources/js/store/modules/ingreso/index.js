@@ -11,6 +11,7 @@ const state = {
         tipo_ingreso: "Compra",
         tipo_comprobante: "FACTURA",
         tipo_compra: "",
+        tipo_donacion: "",
         nro_compra: 0,
         nro_solicitud: "",
         fecha_solicitud:null,

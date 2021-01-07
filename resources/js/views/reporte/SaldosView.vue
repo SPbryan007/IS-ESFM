@@ -44,6 +44,8 @@
                             v-model="consulta.al"
                             style="width: 160px"
                             type="date"
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
                             placeholder="Seleccione un dia"
                             >
                         </el-date-picker>
@@ -62,6 +64,7 @@
                 <el-button
                     type="success"
                     @click="toExcel"
+                    :loading="loading_excel"
                     :disabled="!consulta.periodo || !consulta.al"
                 > <i class="fas fa-file-excel"></i> Exp. Excel</el-button>
 
@@ -90,6 +93,14 @@
                                 ></el-option>
                             </el-select>
                         </el-form-item>
+                        <el-form-item>
+                            <el-switch
+                                v-model="consulta.conSaldo"
+                                active-text="todos"
+                                inactive-text="solo con saldo"
+                            >
+                            </el-switch>
+                        </el-form-item>
                     </el-form>
 
                 </div>
@@ -104,6 +115,7 @@
                                 <i slot="prefix" class="el-input__icon el-icon-search"></i>
                             </el-input>
                         </el-form-item>
+
                     </el-form>
                 </div>
         </div>
@@ -310,15 +322,14 @@ export default {
                 del:null,
                 al:null,
                 periodo:null,
+                conSaldo:false,
             },
             searchQuery:'',
             loading:false,
+            loading_excel:false,
         };
     },
     computed: {
-        hola(){
-            return this.hola;
-        },
         PerPage: function() {
             return this.perpage ? parseInt(this.perpage) : 25;
         },
@@ -346,8 +357,6 @@ export default {
             this.$refs[form].validate(valid => {
                 this.loading = true;
                 if (valid) {
-                    this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-                    this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
                     this.$Progress.start();
                     axios.post('/controller/reportes/saldos_almacen/',this.consulta)
                         .then((response) =>{
@@ -392,18 +401,17 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
             window.open('http://localhost:8000/controller/reportes/saldos_almacen_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
-                '&formato=' + this.consulta.formato,'_blank');
+                '&formato=' + this.consulta.formato+'&conSaldo='+this.consulta.conSaldo,'_blank');
         },
         toExcel(){
-            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
+            this.loading_excel = true;
+            this.$Progress.start();
             axios.post('/controller/reportes/saldos_almacen_excel',this.consulta, { responseType: 'blob' })
                 .then(response => {
+
                     const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
                     const link = document.createElement('a')
                     link.href = URL.createObjectURL(blob)
@@ -412,13 +420,18 @@ export default {
                     //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
                     link.click()
                     URL.revokeObjectURL(link.href)
+                    this.$Progress.finish();
+                    this.loading_excel = false;
                 }).catch((err)=>{
+                this.$Progress.fail();
+                this.loading_excel = false;
                 console.log('error excel',err);
             });
         }
 
     },
     mounted() {
+        store.state.periodo.withTrashed=true;
         store.dispatch('periodo/getItems');
 
     },

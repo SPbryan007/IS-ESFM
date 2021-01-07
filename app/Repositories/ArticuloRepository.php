@@ -51,13 +51,13 @@ class ArticuloRepository
         $articulos = Articulo::select('articulo.*',DB::raw('0 as stock,0 as saldo'))->with(['partida' => function($query){
             $query->withTrashed();
         }])
-            ->whereDoesntHave('lotes',function($query){
+            ->whereDoesntHave('lotes',function($query) use($periodo){
                 $query->withoutTrashed();
-                $query->whereDoesntHave('detalleingreso',function($query){
+                $query->whereDoesntHave('detalleingreso',function($query) use($periodo){
                     $query->withoutTrashed();
-                    $query->whereDoesntHave('ingreso',function($query){
+                    $query->whereDoesntHave('ingreso',function($query) use($periodo){
                         $query->withoutTrashed();
-
+                        $query->where('periodo_id',$periodo);
                     });
                 });
             })
@@ -73,12 +73,15 @@ class ArticuloRepository
 
             ->with(['partida' => function($query){
             $query->withTrashed();
-        },'lotes' => function($query){
+        },'lotes' => function($query) use($periodo){
                 $query->withTrashed(false);
-                $query->with(['detalleingreso','unidad_medida']);
-                $query->whereHas('detalleingreso',function ($query){
-                    $query->whereHas('ingreso',function ($query){
+                $query->with(['detalleingreso','unidad_medida' => function($query){
+                    $query->withTrashed();
+                }]);
+                $query->whereHas('detalleingreso',function ($query) use($periodo){
+                    $query->whereHas('ingreso',function ($query) use($periodo){
                         $query->whereNull('deleted_at');
+                        $query->where('periodo_id',$periodo);
                     });
                 });
                 $query->where('stock','<>',0);
@@ -211,6 +214,7 @@ class ArticuloRepository
      */
     public function update($id, $data)
     {
+
         $this->partidaRepository->getById($data->partida_id);
 //        $this->unidadMedidaRepository->getById($data->unidad_medida_id);
         $articulo                 = $this->getById($id);

@@ -12,8 +12,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
@@ -84,6 +86,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -109,7 +123,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 5:
                 _context.next = 7;
-                return _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("periodo/VALIDATE_START_DATE", value);
+                return _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("periodo/VALIDATE_START_DATE", value);
 
               case 7:
                 valid = _context.sent;
@@ -146,7 +160,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 4:
                 _context2.next = 6;
-                return _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("periodo/VALIDATE_END_DATE", value);
+                return _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("periodo/VALIDATE_END_DATE", value);
 
               case 6:
                 valid = _context2.sent;
@@ -166,6 +180,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }();
 
     return {
+      disponible: false,
+      pickerOptions: {
+        disabledDate: function disabledDate(time) {
+          return time.getTime() > Date.now();
+        }
+      },
       rules: {
         nombre: [{
           required: true,
@@ -198,8 +218,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     submitForm: function submitForm(form) {
       this.$refs[form].validate(function (valid) {
         if (valid) {
-          _store_index__WEBPACK_IMPORTED_MODULE_2__["default"].dispatch("periodo/getLotes");
-          _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
+          _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch("periodo/getLotes");
+          _routes__WEBPACK_IMPORTED_MODULE_4__["router"].push({
             name: "inventario_inicial"
           });
         } else {
@@ -209,7 +229,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     cancelForm: function cancelForm(formName) {
       this.$refs[formName].resetFields();
-      _routes__WEBPACK_IMPORTED_MODULE_3__["router"].push({
+      _routes__WEBPACK_IMPORTED_MODULE_4__["router"].push({
         name: "periodo"
       });
     },
@@ -326,7 +346,12 @@ var render = function() {
                   },
                   [
                     _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha inicio" },
+                      attrs: {
+                        type: "date",
+                        format: "dd/MM/yyyy",
+                        "value-format": "yyyy-MM-dd",
+                        placeholder: "Fecha inicio"
+                      },
                       model: {
                         value: _vm.data_form.fecha_inicio,
                         callback: function($$v) {
@@ -344,7 +369,12 @@ var render = function() {
                   { attrs: { label: "Al:", prop: "fecha_fin" } },
                   [
                     _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha fin" },
+                      attrs: {
+                        type: "date",
+                        placeholder: "Fecha fin",
+                        format: "dd/MM/yyyy",
+                        "value-format": "yyyy-MM-dd"
+                      },
                       model: {
                         value: _vm.data_form.fecha_fin,
                         callback: function($$v) {
@@ -382,7 +412,7 @@ var render = function() {
                     _c(
                       "el-button",
                       {
-                        attrs: { type: "primary" },
+                        attrs: { disabled: _vm.disponible, type: "primary" },
                         on: {
                           click: function($event) {
                             return _vm.submitForm("PeriodoAddForm")

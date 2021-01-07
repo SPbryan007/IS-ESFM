@@ -86,12 +86,17 @@ class SalidaRepository
     public function  register($data)
     {
         try {
+            $periodo = Periodo::latest()->first();
+
             $now = Carbon::now();
             $last_date= Salida::latest()->first();
             if($last_date){
                 if(!$now->greaterThan($last_date->created_at) ){
                     return ['message' => 'No se puede realizar la salida en fecha '.$now->format('d-m-Y').' debido a que ya exiten salidas efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
                 }
+            }
+            if(!Carbon::now()->between($periodo->fecha_inicio, $periodo->fecha_fin)){
+                return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').', La fecha actual no se encuentra dentro el rango de fechas del periodo contable en curso','status' => 409];
             }
             DB::beginTransaction();
             $salida = new Salida();
@@ -161,6 +166,10 @@ class SalidaRepository
 
     public function delete($id)
     {
+        $last= Salida::where('periodo_id',Periodo::where('estado',Periodo::EN_CURSO)->latest()->first()->id)->latest()->first();
+        if($last->id != $id){
+            throw new ConflictHttpException('No se puede anular la salida debido a que ya se registraron otras salidas');
+        }
         $salida = $this->getById($id);
         DB::beginTransaction();
         foreach ($salida->detallesalidas()->get() as $detalle){
@@ -209,6 +218,7 @@ class SalidaRepository
                         },'unidad_medida' => function($query){
                             $query->withTrashed();
                         }]);
+                        $query2->withTrashed();
                     }]);
                 }
 

@@ -8,6 +8,7 @@ const state = {
     data_form: {
         nombre : null,
         sigla : null,
+        tipo:false,
         descripcion : '-',
     },
     alert:{

@@ -182,8 +182,10 @@ export default {
         }
     },
     created() {
+        store.state.partida.withTrashed=false;
+        // store.state.unidad_medida.withTrashed=false;
         store.dispatch("partida/getItems");
-        store.dispatch("unidad_medida/getItems");
+        // store.dispatch("unidad_medida/getItems");
     },
 };
 </script>

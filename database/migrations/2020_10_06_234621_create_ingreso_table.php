@@ -86,6 +86,7 @@ class CreateIngresoTable extends Migration
                 App\Models\Compra::ORDER_SERVICIO,
                 App\Models\Compra::ORDER_COMPRA,
                 App\Models\Compra::CONTRATO,
+                App\Models\Compra::CAJA_CHICA,
             ])->nullable(false);
             $table->string('nro_solicitud',10)->nullable(true);
             $table->enum('tipo_comprobante',[
@@ -104,6 +105,10 @@ class CreateIngresoTable extends Migration
 
         Schema::create('donacion', function (Blueprint $table){
             $table->unsignedBigInteger('id_donacion')->nullable(false);
+            $table->enum('tipo_donacion',[
+                App\Models\Donacion::ACTA_DONACION,
+                App\Models\Donacion::DONACION_CONVENIO,
+            ])->nullable(false);
             $table->string('nro_acta',15)->nullable(false);
             $table->date('fecha_acta')->nullable(true);
             $table->foreign('id_donacion')->references('id')

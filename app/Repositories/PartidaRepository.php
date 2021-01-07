@@ -27,7 +27,7 @@ class PartidaRepository
      */
     public function getById($id) : Partida
     {
-        $fun = Partida::find($id);
+        $fun = Partida::withTrashed()->find($id);
         if(!$fun){
             throw new NotFoundHttpException("No existe la partida con el ID : {$id}");
         }

@@ -67,12 +67,12 @@
                   <p>Articulos</p>
                 </router-link>
               </li>
-                <li class="nav-item">
-                    <router-link :to="{ name: 'lotes' }" class="nav-link">
-                        <i class="fas fa-layer-group nav-icon"></i>
-                        <p>Stock</p>
-                    </router-link>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <router-link :to="{ name: 'lotes' }" class="nav-link">-->
+<!--                        <i class="fas fa-layer-group nav-icon"></i>-->
+<!--                        <p>Stock</p>-->
+<!--                    </router-link>-->
+<!--                </li>-->
               <li class="nav-item">
                 <router-link :to="{ name: 'partida' }" class="nav-link">
                   <i class="fas fa-list nav-icon"></i>
@@ -147,19 +147,19 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link :to="{ name: 'movimiento' }" class="nav-link">
-                  <i class="fas fa-users nav-icon"></i>
+                  <i class="fas fa-file nav-icon"></i>
                   <p>Movimientos de almacen</p>
                 </router-link>
               </li>
                 <li class="nav-item">
                     <router-link :to="{ name: 'saldos' }" class="nav-link">
-                        <i class="fas fa-users nav-icon"></i>
+                        <i class="fas fa-file nav-icon"></i>
                         <p>Saldos de almacen</p>
                     </router-link>
                 </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'general' }" class="nav-link">
-                  <i class="fas fa-network-wired nav-icon"></i>
+                  <i class="fas fa-file nav-icon"></i>
                   <p>Reporte general</p>
                 </router-link>
               </li>

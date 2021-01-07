@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
         Schema::create('unidad', function (Blueprint $table) {
             $table->id();
             $table->string('nombre',100)->unique();
-            $table->unsignedBigInteger('funcionario_id')->nullable(false);
+            $table->unsignedBigInteger('funcionario_id')->nullable(true);
             $table->foreign('funcionario_id')->references('id')
                 ->on('funcionario')
                 ->onUpdate('cascade')

@@ -67,6 +67,7 @@
                                 {key:'COM',value:'ORDEN DE COMPRA'},
                                 {key:'SER',value:'ORDEN DE SERVICIO'},
                                 {key:'CON',value:'CONTRATO'},
+                                {key:'CCH',value:'CAJA CHICA'},
                             ]"
                             :key="index"
                             :label="item.value"
@@ -93,7 +94,7 @@
                     <div>
                         <el-form-item label="Tipo de comprobante :" prop="tipo_comprobante">
                             <el-select
-                                style="width:340px"
+                                style="width:200px"
                                 v-model="data_form.tipo_comprobante"
                                 filterable
                                 placeholder="Seleccione el tipo de comprobante"
@@ -109,10 +110,10 @@
                             </el-select>
                         </el-form-item>
                       <el-form-item label="Nro de Comprobante :" prop="nro_comprobante">
-                        <el-input v-model="data_form.nro_comprobante" style="width:170px"></el-input>
+                        <el-input  v-model="data_form.nro_comprobante" style="width:380px"></el-input>
                       </el-form-item>
                       <el-form-item
-                        label="Nro autorización :"
+                          label="Nro autorización :"
                         prop="nro_autorizacion"
                         v-if="data_form.tipo_comprobante == 'FACTURA'"
                       >
@@ -146,11 +147,31 @@
                     </div>
                   </div>
                   <div v-if="data_form.tipo_ingreso === 'Donacion'">
+                      <el-form-item label="Formulario :" prop="tipo_donacion">
+                          <el-select
+                              style="width:340px"
+                              v-model="data_form.tipo_donacion"
+                              filterable
+                              placeholder="Seleccione el formulario"
+                              loading-text="buscando.."
+                              no-match-text="No se encontraron registros"
+                          >
+                              <el-option
+                                  v-for="(item, index) in [
+                                {key:'ADO',value:'ACTA DE DONACION'},
+                                {key:'DCO',value:'DONACION POR CONVENIO'},
+                            ]"
+                                  :key="index"
+                                  :label="item.value"
+                                  :value="item.key"
+                              ></el-option>
+                          </el-select>
+                      </el-form-item>
                     <el-form-item label="Nro de acta :" prop="nro_acta">
                       <el-input v-model="data_form.nro_acta" style="width:170px"></el-input>
                     </el-form-item>
                       <el-form-item label="Fecha de acta :" label-position="top" prop="fecha_acta">
-                          <el-date-picker type="date" v-model="data_form.fecha_acta" placeholder="Fecha comprobante"></el-date-picker>
+                          <el-date-picker type="date" :picker-options="pickerOptions" v-model="data_form.fecha_acta" placeholder="Fecha comprobante"></el-date-picker>
                       </el-form-item>
                     <el-form-item label="Proveedor :" prop="proveedor">
                       <el-select
@@ -210,6 +231,13 @@ export default {
             trigger: "change",
           },
         ],
+          tipo_acta: [
+              {
+                  required: true,
+                  message: "Este campo es obligatorio",
+                  trigger: "change",
+              },
+          ],
         tipo_comprobante: [
           {
             required: true,
@@ -223,6 +251,8 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
+            { max: 190, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
         ],
         nro_solicitud: [
           {
@@ -230,6 +260,8 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
+            { max: 10, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
         ],
         nro_autorizacion: [
           {
@@ -237,6 +269,8 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
+            { max: 190, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
         ],
         nro_acta: [
           {
@@ -244,6 +278,8 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
+            { max: 15, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
         ],
         proveedor: [
           {
@@ -294,4 +330,5 @@ export default {
   },
 };
 </script>
+
 

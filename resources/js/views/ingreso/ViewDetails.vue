@@ -132,6 +132,8 @@
                                 <dd class="col-md-7">{{ detalle_ingreso.usuario.funcionario.nombre +' '+ detalle_ingreso.usuario.funcionario.apellido }}</dd>
                                 <dt class="col-md-5">Proveedor:</dt>
                                 <dd class="col-md-7">{{ detalle_ingreso.proveedor.nombre }}</dd>
+                                <dt class="col-md-5">NIT:</dt>
+                                <dd class="col-md-7">{{ detalle_ingreso.proveedor.nit }}</dd>
                                 <dt class="col-md-5">Fecha de ingreso:</dt>
                                 <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}</dd>
                             </dl>
@@ -142,16 +144,16 @@
                                 <dd class="col-md-6">&nbsp</dd>
                                 <dt class="col-md-6">&nbsp</dt>
                                 <dd class="col-md-6">&nbsp</dd>
-                                <dt class="col-md-6">Formulario:</dt>
-                                <dd class="col-md-6"> Acta de donación </dd>
+                                <dt class="col-md-4">Formulario:</dt>
+                                <dd class="col-md-8"> {{ detalle_ingreso.donacion.tipo_donacion == 'ADO' ? 'ACTA DE DONACION' : 'DONACION POR CONVENIO'  }}</dd>
                             </dl>
                         </div>
                         <div class="col-md-3">
                             <dl class="row">
                                 <dt class="col-md-6"></dt>
                                 <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>{{ detalle_ingreso.created_at | dateformat }}</small></dd>
-                                <dt class="col-md-5">N° Acta:</dt>
-                                <dd class="col-md-7">{{ detalle_ingreso.donacion.nro_acta }}</dd>
+                                <dt class="col-md-4">N° Acta:</dt>
+                                <dd class="col-md-8">{{ detalle_ingreso.donacion.nro_acta }}</dd>
                                 <!--<dt class="col-md-6">Fecha solicitud:</dt>
                                 <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>-->
                             </dl>
@@ -209,7 +211,6 @@
                             <th style="width: 10px">N°</th>
                             <th>Codigo</th>
                             <th>Articulo</th>
-                            <th>Presentacion</th>
                             <th>Marca</th>
                             <th>Medida</th>
                             <th>Precio U.</th>
@@ -222,7 +223,6 @@
                                 <td>{{ index+1 }}.</td>
                                 <th>{{ item.lote.articulo.codigo }}</th>
                                 <td>{{ item.lote.articulo.nombre }}</td>
-                                <td>{{ !item.lote.presentacion ? '-' : item.lote.presentacion }}</td>
                                 <td>{{ !item.lote.marca ? '-' : item.lote.marca }}</td>
                                 <td>{{ !item.lote.unidad_medida ? '-' : item.lote.unidad_medida.nombre }}</td>
                                 <td>{{ item.lote.precio_u }}</td>

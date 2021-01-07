@@ -19,7 +19,7 @@ export const getItems = ({ state, commit }) => {
 };
 export const editItem = ({state, commit, dispatch},params)=>{
     params.progress.start();
-    commit(types.CONVERT_DATE);
+ //   commit(types.CONVERT_DATE);
     commit(types.SET_LOADING_FORM, true);
     commonProviders
         .update(URL_PERIODO + params.id, state.data_form)
@@ -95,12 +95,12 @@ export const startPeriodo = ({ state, commit,dispatch }, params) => {
     commit(types.CONVERT_DATE);
     commit(types.SET_LOADING_FORM, true);
     axios.post(URL_PERIODO, state.data_form)
-        .then(items => {
+        .then(item => {
             dispatch('getItems');
             commit(types.SET_LOADING_FORM, false);
             params.message({
-                message: items.data,
-                type: "info"
+                message: item.data.message,
+                type: "success"
             });
             router.push({ name: "periodo" });
         })

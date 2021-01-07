@@ -1,9 +1,10 @@
 <template>
 
     <div class="col-md-12">
+
         <el-dialog :title="'LOTES - '+DialogTitle" :visible.sync="OpenViewLotes" width="1250px">
 
-            <el-table  show-summary :data="dataLotes">
+            <el-table  :data="dataLotes">
                 <el-table-column type="index" label="N°" width="60"></el-table-column>
                 <el-table-column label="Marca" width="150">
                     <template slot-scope="scope">
@@ -137,34 +138,29 @@
                     :data="pageOfItems"
                     :default-sort="{prop: 'id', order: 'descending'}"
                     style="width: 100%"
-                    :row-class-name="StockRow"
                 >
                     <el-table-column type="index" label="N°" width="50"></el-table-column>
                     <el-table-column type="expand">
                         <template slot-scope="props">
                             <div class="d-flex">
                                 <p class="d-flex flex-column">
+                                  <span> <b>Stock:</b>
+                                      <el-tag><span class="text-bold text-lg">{{ props.row.stock }}</span></el-tag>
+                                  </span>
+                                </p>
+                                <p class="ml-auto d-flex flex-column text-right">
+                                    <el-link @click="OpenViewLotes = true">Visualizar lotes<i class="el-icon-view el-icon--right"></i> </el-link>
+                                </p>
+                            </div>
+                            <div class="d-flex">
+                                <p class="d-flex flex-column">
                                   <span> <b>Saldo :</b>
                                       <el-tag><span class="text-bold text-lg">{{ props.row.saldo }}</span></el-tag>
                                       Bs.
                                   </span>
-
-                                </p>
-                                <p class="ml-auto d-flex flex-column text-right">
-<!--                                   <el-button type="primary" icon="el-icon-view" circle></el-button>-->
-                                    <el-link @click="OpenViewLotes = true">Visualizar lotes<i class="el-icon-view el-icon--right"></i> </el-link>
-<!--                                    <span class="text-success">-->
-<!--                                        <el-tag><span class="text-bold text-lg">{{ props.row.saldo }}</span></el-tag>-->
-<!--                                      <i class="fas fa-arrow-up"></i> 12.5%-->
-<!--                                    </span>-->
-<!--                                    <span class="text-muted">Saldo</span>-->
                                 </p>
                             </div>
                             <p><b>Partida :</b> <span class="text-primary">{{ props.row.partida.codigo }}</span> | {{ props.row.partida.nombre }}  </p>
-
-<!--                            <p><b>Visualizar Lotes :</b>     <el-button @click="OpenViewLotes = true" type="default" icon="el-icon-view" circle></el-button> </p>-->
-
-
                         </template>
                     </el-table-column>
                     <el-table-column  prop="codigo" label="Código" width="110" sortable></el-table-column>
@@ -313,15 +309,14 @@ export default {
             if(percent >= 75 )
                 return 'success';
         },
-        StockRow({row, rowIndex}) {
-            if(row.stock == 0){
-                return 'warning-row';
-            }
-            if (rowIndex === 1) {
-                return 'warning-row';
-            }
-            return '';
-        },
+        // StockRow({row, rowIndex}) {
+        //     if(row.stock === 0){
+        //         return 'warning-row';
+        //     }
+        //     // if (rowIndex === 1) {
+        //     //     return 'warning-row';
+        //     // }
+        // },
         filterLinea(value, row) {
             return row.linea === value;
         },

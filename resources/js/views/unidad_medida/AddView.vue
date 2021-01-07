@@ -42,6 +42,15 @@
                     <el-form-item label="Descripcion :" prop="descripcion">
                         <el-input type="textarea" style="width:400px" v-model="data_form.descripcion"></el-input>
                     </el-form-item>
+<!--                    <el-form-item label="Tipo :">-->
+<!--                        <toggle-button-->
+<!--                            v-model="data_form.tipo"-->
+<!--                            :value="data_form.tipo"-->
+<!--                            :color="{checked: '#13ce66', unchecked: '#6576ff', disabled: '#CCCCCC'}"-->
+<!--                            :sync="false"-->
+<!--                            :width="65"-->
+<!--                            :labels="{checked: 'Frac.', unchecked: 'Entero'}"/>-->
+<!--                    </el-form-item>-->
 
                     <el-form-item>
                         <el-button
@@ -49,7 +58,7 @@
                             :loading="loading_form"
                             @click="submitForm('UnidadMedidaAddForm')"
                         >
-                            Registar nueva unidad de medida
+                            Registar
                             <i class="fas fa-save"></i>
                         </el-button>
                         <el-button @click="cancelForm('UnidadMedidaAddForm')">Cancelar</el-button>

@@ -84,6 +84,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -276,7 +289,6 @@ var render = function() {
                   "el-form-item",
                   {
                     attrs: {
-                      disabled: true,
                       label: "Del :",
                       "label-position": "top",
                       prop: "fecha_inicio"
@@ -284,7 +296,13 @@ var render = function() {
                   },
                   [
                     _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha inicio" },
+                      attrs: {
+                        disabled: true,
+                        type: "date",
+                        placeholder: "Fecha inicio",
+                        format: "dd/MM/yyyy",
+                        "value-format": "yyyy-MM-dd"
+                      },
                       model: {
                         value: _vm.data_form.fecha_inicio,
                         callback: function($$v) {
@@ -302,7 +320,12 @@ var render = function() {
                   { attrs: { label: "Al:", prop: "fecha_fin" } },
                   [
                     _c("el-date-picker", {
-                      attrs: { type: "date", placeholder: "Fecha fin" },
+                      attrs: {
+                        type: "date",
+                        placeholder: "Fecha fin",
+                        format: "dd/MM/yyyy",
+                        "value-format": "yyyy-MM-dd"
+                      },
                       model: {
                         value: _vm.data_form.fecha_fin,
                         callback: function($$v) {

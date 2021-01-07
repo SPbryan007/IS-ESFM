@@ -43,12 +43,16 @@
                             v-model="consulta.del"
                             style="width: 160px"
                             type="date"
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
                             placeholder="Seleccione dia"
                         >
                         </el-date-picker>
                     </el-form-item>
                     <el-form-item label="Al" prop="al">
                         <el-date-picker
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
                             v-model="consulta.al"
                             style="width: 160px"
                             type="date"
@@ -71,6 +75,7 @@
                     type="success"
                     @click="toExcel"
                     :disabled="!consulta.periodo || !consulta.del || !consulta.al"
+                    :loading="loading_excel"
                 > <i class="fas fa-file-excel"></i> Exp. Excel</el-button>
 
             </div>
@@ -98,7 +103,14 @@
                             ></el-option>
                         </el-select>
                     </el-form-item>
-
+                    <el-form-item>
+                        <el-switch
+                            v-model="consulta.conSaldo"
+                            active-text="todos"
+                            inactive-text="solo con saldo"
+                        >
+                        </el-switch>
+                    </el-form-item>
                 </el-form>
 
             </div>
@@ -347,14 +359,16 @@ export default {
                 del:null,
                 al:null,
                 periodo:null,
+                conSaldo:false
             },
             searchQuery:'',
             loading:false,
+            loading_excel:false,
         };
     },
     computed: {
-        hola(){
-            return this.hola;
+        hola: function(){
+            return Date.now();
         },
         PerPage: function() {
             return this.perpage ? parseInt(this.perpage) : 25;
@@ -374,6 +388,10 @@ export default {
         ...mapGetters("periodo", ["GET_ITEMS_PERIODO"]),
     },
     methods: {
+
+        OnChangePeriodo(){
+
+        },
         refresh() {
             let self = this.$refs;
             setTimeout(() => {
@@ -384,8 +402,6 @@ export default {
             this.$refs[form].validate(valid => {
                 this.loading = true;
                 if (valid) {
-                    this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
-                    this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
                     this.$Progress.start();
                     axios.post('/controller/reportes/kardex/',this.consulta)
                         .then((response) =>{
@@ -428,18 +444,17 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
             window.open('http://localhost:8000/controller/reportes/kardex_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
-                '&al=' + this.consulta.al,
+                '&al=' + this.consulta.al+'&conSaldo='+this.consulta.conSaldo,
                 '_blank');
         },
         toExcel(){
-            this.consulta.del = moment(this.consulta.del).format('YYYY-MM-DD 00:00:00')
-            this.consulta.al = moment(this.consulta.al).format('YYYY-MM-DD')
+            this.$Progress.start();
+            this.loading_excel=true;
             axios.post('/controller/reportes/kardex_excel',this.consulta, { responseType: 'blob' })
                 .then(response => {
+
                     const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
                     const link = document.createElement('a')
                     link.href = URL.createObjectURL(blob)
@@ -448,13 +463,20 @@ export default {
                     //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
                     link.click()
                     URL.revokeObjectURL(link.href)
+                    this.loading_excel=false;
+                    this.$Progress.finish();
                 }).catch((err)=>{
+                this.alert.message = err;
+                this.alert.show = true;
+                this.loading_excel=false;
+                this.$Progress.fail();
                 console.log('error excel',err);
             });
         }
 
     },
     mounted() {
+        store.state.periodo.withTrashed=true;
         store.dispatch('periodo/getItems');
 
     },

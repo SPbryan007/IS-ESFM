@@ -420,28 +420,6 @@ var render = function() {
                         "router-link",
                         {
                           staticClass: "nav-link",
-                          attrs: { to: { name: "lotes" } }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fas fa-layer-group nav-icon"
-                          }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Stock")])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
                           attrs: { to: { name: "partida" } }
                         },
                         [
@@ -611,7 +589,7 @@ var render = function() {
                           attrs: { to: { name: "movimiento" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-users nav-icon" }),
+                          _c("i", { staticClass: "fas fa-file nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Movimientos de almacen")])
                         ]
@@ -631,7 +609,7 @@ var render = function() {
                           attrs: { to: { name: "saldos" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-users nav-icon" }),
+                          _c("i", { staticClass: "fas fa-file nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Saldos de almacen")])
                         ]
@@ -651,9 +629,7 @@ var render = function() {
                           attrs: { to: { name: "general" } }
                         },
                         [
-                          _c("i", {
-                            staticClass: "fas fa-network-wired nav-icon"
-                          }),
+                          _c("i", { staticClass: "fas fa-file nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Reporte general")])
                         ]

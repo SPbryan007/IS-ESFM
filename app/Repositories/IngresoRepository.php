@@ -71,15 +71,21 @@ class IngresoRepository
     public function compra($data)
     {
         try {
+            $periodo = Periodo::latest()->first();
+
             $now = Carbon::now();
             $last_date= Ingreso::latest()->first();
+
             if($last_date){
                 if(!$now->greaterThan($last_date->created_at) ){
                     return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
                 }
             }
+            if(!Carbon::now()->between($periodo->fecha_inicio, $periodo->fecha_fin)){
+                return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').', La fecha actual no se encuentra dentro el rango de fechas del periodo contable en curso','status' => 409];
+            }
             DB::beginTransaction();
-            $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id);
+            $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id,null);
             $compra = new Compra();
             $compra->id_compra          = $ingreso->id;
             $compra->tipo_compra        = $data->tipo_compra;
@@ -118,6 +124,7 @@ class IngresoRepository
     public function donacion($data)
     {
         try {
+            $periodo = Periodo::latest()->first();
             $now = Carbon::now();
             $last_date= Ingreso::latest()->first();
             if($last_date){
@@ -125,12 +132,17 @@ class IngresoRepository
                     return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
                 }
             }
+            if(!Carbon::now()->between($periodo->fecha_inicio, $periodo->fecha_fin)){
+                return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').', La fecha actual no se encuentra dentro el rango de fechas del periodo contable en curso','status' => 409];
+            }
             DB::beginTransaction();
-            $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id);
+            $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id,null);
             $compra = new Donacion();
-            $compra->id_donacion  = $ingreso->id;
-            $compra->nro_acta     = $data->nro_acta;
-            $compra->fecha_acta     = $data->fecha_acta;
+
+            $compra->id_donacion     = $ingreso->id;
+            $compra->tipo_donacion   = $data->tipo_donacion;
+            $compra->nro_acta        = $data->nro_acta;
+            $compra->fecha_acta      = $data->fecha_acta;
             $compra->save();
             foreach ($data->detalle_ingreso as $detalle){
                 $lote = $this->loteRepository->register(
@@ -167,14 +179,20 @@ class IngresoRepository
     public function register(
         $tipo_ingreso,
         $proveedor_id,
-        $periodo_id
+        $periodo_id,
+        $fecha_inicio
     ): Ingreso {
+
+
         $ingreso = new Ingreso();
         $ingreso->tipo_ingreso  = $tipo_ingreso;
         $ingreso->usuario_id    = Auth::user()->id_usuario;
         $ingreso->nro_ingreso   = '000';
         $ingreso->proveedor_id  = $proveedor_id;
         $ingreso->periodo_id    = $periodo_id;
+        if($tipo_ingreso == Ingreso::INV_INICIAL){
+            $ingreso->created_at = date('Y-m-d 00:00:00', strtotime($fecha_inicio));
+        }
         $ingreso->save();
         return $ingreso;
     }
@@ -207,7 +225,10 @@ class IngresoRepository
 
     public function delete($id)
     {
-
+        $last= Ingreso::where('periodo_id',Periodo::where('estado',Periodo::EN_CURSO)->latest()->first()->id)->latest()->first();
+        if($last->id != $id){
+            throw new ConflictHttpException('No se puede anular el ingreso debido a que ya se registraron ingresos');
+        }
         $ingreso = $this->getById($id);
         if($ingreso->tipo_ingreso == Ingreso::INV_INICIAL){
 
@@ -250,6 +271,7 @@ class IngresoRepository
                     }]);
                     $query->withTrashed();
             },'detalleingresos'=> function($query){
+                $query->where('cantidad','<>',0);
                 $query->with(['lote' => function($query2){
                     $query2->with(['articulo' => function($query3){
 //                        $query3->with(['unidad_medida' => function($query){
@@ -259,9 +281,12 @@ class IngresoRepository
                     },'unidad_medida' => function($query){
                         $query->withTrashed();
                     }]);
+
+                    $query2->withTrashed();
                 }]);
             }])
             ->withTrashed()
+
             ->where('ingreso.id',$id)
             ->orderBy('ingreso.id','DESC')
             ->groupBy('ingreso.id')

@@ -12,6 +12,7 @@
                                 <el-breadcrumb-item v-if="this.$route.name == 'periodo'">Listar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'editperiodo'">Editar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'inventario_inicial'">Inventario inicial</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'apertura_inventario_inicial'">Apertura nuevo inventario</el-breadcrumb-item>
                             </el-breadcrumb>
                         </ol>
                     </div>

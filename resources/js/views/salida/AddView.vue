@@ -195,6 +195,7 @@ export default {
         submitForm(form) {
             this.$refs[form].validate((valid) => {
                 if (valid) {
+                    store.state.articulo.withTrashed=false;
                     store.dispatch("articulo/getItems");
                     store.dispatch("articulo/getLotes");
                     router.push({ name: "addsalidadetails" });
@@ -210,6 +211,9 @@ export default {
         }
     },
     mounted() {
+        store.state.proveedor.withTrashed=false;
+        store.state.funcionario.withTrashed=false;
+        store.state.solicitante.withTrashed=false;
         store.dispatch("proveedor/getItems");
         store.dispatch("funcionario/getItems");
         store.dispatch("solicitante/getItems");

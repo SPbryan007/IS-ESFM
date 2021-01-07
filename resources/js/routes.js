@@ -415,29 +415,37 @@ export const router = new VueRouter({
                     }
                 },
                 {
-                    path: "agregar/detalles",
-                    name: "adddetails",
+                    path: "apertura_inventario_inicial",
+                    name: "apertura_inventario_inicial",
                     components: {
                         ViewRouterPeriodo: () =>
-                            import("./views/periodo/AddDetailsView.vue")
+                            import("./views/periodo/AperturaInventarioInicialView.vue")
                     }
                 },
-                {
-                    path: "agregar/detalles_ingreso",
-                    name: "detalles_ingreso",
-                    components: {
-                        ViewRouterPeriodo: () =>
-                            import("./views/periodo/StartedView.vue")
-                    }
-                },
-                {
-                    path: "agregar/detalles_ingreso/nuevo_lote/:id",
-                    name: "nuevo_lote",
-                    components: {
-                        ViewRouterPeriodo: () =>
-                            import("./views/periodo/InitialDetails.vue")
-                    }
-                }
+                // {
+                //     path: "agregar/detalles",
+                //     name: "adddetails",
+                //     components: {
+                //         ViewRouterPeriodo: () =>
+                //             import("./views/periodo/AddDetailsView.vue")
+                //     }
+                // },
+                // {
+                //     path: "agregar/detalles_ingreso",
+                //     name: "detalles_ingreso",
+                //     components: {
+                //         ViewRouterPeriodo: () =>
+                //             import("./views/periodo/StartedView.vue")
+                //     }
+                // },
+                // {
+                //     path: "agregar/detalles_ingreso/nuevo_lote/:id",
+                //     name: "nuevo_lote",
+                //     components: {
+                //         ViewRouterPeriodo: () =>
+                //             import("./views/periodo/InitialDetails.vue")
+                //     }
+                // }
             ],
             meta: {
                 requireAuth: true
