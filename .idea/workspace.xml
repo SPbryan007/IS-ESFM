@@ -21,8 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="89b8e662-54ca-402b-b699-c4f30e69ba6f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/LoteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/LoteRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/funcionario/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/funcionario/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/ingreso/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/ingreso/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/item/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/item/actions.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/store/modules/partida/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/partida/actions.js" afterDir="false" />
@@ -507,7 +507,7 @@
       <workItem from="1610043152213" duration="4865000" />
       <workItem from="1610063922096" duration="1630000" />
       <workItem from="1610066542064" duration="9492000" />
-      <workItem from="1610282595165" duration="6811000" />
+      <workItem from="1610282595165" duration="9401000" />
     </task>
     <servers />
   </component>

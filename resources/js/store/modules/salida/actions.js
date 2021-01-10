@@ -3,7 +3,8 @@ import commonProviders from "./../providers";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-const  URL_SALIDA = "/controller/salida/";
+const  URL_SALIDA = "/controller/salida";
+const  URL_SALIDA_ = "/controller/salida/";
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);
@@ -50,7 +51,7 @@ export const addItem = ({ commit, state, dispatch }, params) => {
 export const getDetalleById = ({ state, commit }, id) => {
     commit(types.SET_LOADING_TABLE, true);
     commonProviders
-        .getById(URL_SALIDA, id)
+        .getById(URL_SALIDA_, id)
         .then(item => {
             commit(types.SET_DETALLE_SALIDA, item.data);
             commit(types.SET_LOADING_TABLE, false);
@@ -64,7 +65,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .delete(URL_SALIDA + params.id)
+        .delete(URL_SALIDA_ + params.id)
         .then(async (item) => {
             await dispatch('getItems');
             commit(types.SET_LOADING_FORM, false);

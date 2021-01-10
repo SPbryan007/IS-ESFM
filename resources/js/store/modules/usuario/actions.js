@@ -4,7 +4,8 @@ import * as types from "./../mutation-types";
 import {router} from "../../../routes";
 
 const URL_AUTH = '/auth/';
-const URL_USUARIO = '/controller/usuario/';
+const URL_USUARIO = '/controller/usuario';
+const URL_USUARIO_ = '/controller/usuario/';
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);
@@ -52,7 +53,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .delete(URL_USUARIO + params.id)
+        .delete(URL_USUARIO_ + params.id)
         .then(async (item) => {
             /*commit(types.DELETE_ITEM, params.id);*/
             await dispatch('getItems');
@@ -76,7 +77,7 @@ export const changeRole = ({ commit, state,dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .update(URL_USUARIO + params.id)
+        .update(URL_USUARIO_ + params.id)
         .then(item => {
             commit(types.SET_LOADING_FORM, false);
             dispatch('getItems');

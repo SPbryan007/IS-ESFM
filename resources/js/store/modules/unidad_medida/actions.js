@@ -3,7 +3,8 @@ import commonProviders from "./../providers";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-const  URL_UNIDAD_MEDIDA = "/controller/unidad_medida/";
+const  URL_UNIDAD_MEDIDA = "/controller/unidad_medida";
+const  URL_UNIDAD_MEDIDA_ = "/controller/unidad_medida/";
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);
@@ -51,7 +52,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .delete(URL_UNIDAD_MEDIDA+ params.id)
+        .delete(URL_UNIDAD_MEDIDA_+ params.id)
         .then(async (item) => {
             /*commit(types.DELETE_ITEM, params.id);*/
             await dispatch('getItems');
@@ -75,7 +76,7 @@ export const editItem = ({ commit, state,dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .update(URL_UNIDAD_MEDIDA + params.id, state.data_form)
+        .update(URL_UNIDAD_MEDIDA_ + params.id, state.data_form)
         .then(item => {
             dispatch('getItems');
             /*            commit(types.UPDATE_ITEM, item.data);*/

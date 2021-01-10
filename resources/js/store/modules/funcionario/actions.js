@@ -3,7 +3,9 @@ import commonProviders from "./../providers";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-const URL_FUNCIONARIO = '/controller/funcionario/';
+const URL_FUNCIONARIO = '/controller/funcionario';
+const URL_FUNCIONARIO_ = '/controller/funcionario/';
+
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);
@@ -51,7 +53,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .delete(URL_FUNCIONARIO + params.id)
+        .delete(URL_FUNCIONARIO_ + params.id)
         .then(async (item) => {
             /*commit(types.DELETE_ITEM, params.id);*/
             await dispatch('getItems');
@@ -75,7 +77,7 @@ export const editItem = ({ commit, state,dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .update(URL_FUNCIONARIO + params.id, state.data_form)
+        .update(URL_FUNCIONARIO_ + params.id, state.data_form)
         .then(item => {
             dispatch('getItems');
             /*            commit(types.UPDATE_ITEM, item.data);*/

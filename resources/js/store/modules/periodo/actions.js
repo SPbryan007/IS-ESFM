@@ -4,9 +4,9 @@ import * as types from "./../mutation-types";
 import moment from "moment";
 import { router } from "../../../routes";
 
-const  URL_LOTE = "/controller/lote/";
-const  URL_ARTICULO = "/controller/articulo/";
-const  URL_PERIODO = "/controller/periodo/";
+const  URL_LOTE = "/controller/lote";
+const  URL_PERIODO = "/controller/periodo";
+const  URL_PERIODO_ = "/controller/periodo/";
 
 
 export const getItems = ({ state, commit }) => {
@@ -27,7 +27,7 @@ export const editItem = ({state, commit, dispatch},params)=>{
  //   commit(types.CONVERT_DATE);
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .update(URL_PERIODO + params.id, state.data_form)
+        .update(URL_PERIODO_ + params.id, state.data_form)
         .then(item => {
             dispatch('getItems');
             /*            commit(types.UPDATE_ITEM, item.data);*/
@@ -49,7 +49,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
     params.progress.start();
     commit(types.SET_LOADING_FORM, true);
     commonProviders
-        .delete(URL_PERIODO+ params.id)
+        .delete(URL_PERIODO_+ params.id)
         .then(async (item) => {
             await dispatch('getItems');
             commit(types.SET_LOADING_FORM, false);
@@ -67,7 +67,7 @@ export const deleteItem = ({ commit, dispatch }, params) => {
         });
 };
 export const VALIDATE_START_DATE = ({ state }, date) => {
-    return axios.get(URL_PERIODO+'validate'+`?date=${moment(date).format("YYYY-MM-DD")}`)
+    return axios.get(URL_PERIODO_+'validate'+`?date=${moment(date).format("YYYY-MM-DD")}`)
         .then(item => {
             return item.data;
         })
@@ -116,7 +116,7 @@ export const startPeriodo = ({ state, commit,dispatch }, params) => {
 };
 
 export const verify = ({state,commit}) =>{
-    axios.get(URL_PERIODO+'current')
+    axios.get(URL_PERIODO_+'current')
         .then((item) =>{
             state.current = item.data;
         })
