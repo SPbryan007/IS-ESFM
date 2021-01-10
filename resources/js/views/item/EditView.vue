@@ -202,6 +202,7 @@ export default {
         },
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.dispatch("partida/getItems");
         store.dispatch("unidad_medida/getItems");
     },

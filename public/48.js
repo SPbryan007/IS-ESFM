@@ -234,14 +234,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     goBack: function goBack() {
       this.$router.go(-1);
     }
-  }) // mounted() {
-  //     store.dispatch("articulo/getItems");
-  //     store.dispatch("articulo/getLotes");
-  // },
-  // created(){
-  //
-  // }
-
+  }),
+  mounted: function mounted() {
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser'); // store.dispatch("articulo/getItems");
+    // store.dispatch("articulo/getLotes");
+  },
+  created: function created() {}
 });
 
 /***/ }),

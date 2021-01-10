@@ -431,9 +431,9 @@ export default {
 
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.state.periodo.withTrashed=true;
         store.dispatch('periodo/getItems');
-
     },
 };
 </script>

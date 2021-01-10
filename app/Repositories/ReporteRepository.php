@@ -509,25 +509,29 @@ class ReporteRepository
     public function ReporteGeneral($del,$al,$periodo,$conSaldo)
     {
 
-        $periodo = Periodo::where('id',$periodo)->withTrashed()
-            ->where('estado','=',Periodo::FINALIZADO)
-            ->orWhere('estado','=',Periodo::EN_CURSO)
+
+        $periodo = Periodo::where('id', $periodo)->withTrashed()
+            ->where('estado', '=', Periodo::FINALIZADO)
+            ->orWhere('estado', '=', Periodo::EN_CURSO)
             ->first();
 
-        $saldo = filter_var($conSaldo,FILTER_VALIDATE_BOOLEAN) ? '>=' : '<>';
-        $ingresos =  Lote::select(
+        $saldo = filter_var($conSaldo, FILTER_VALIDATE_BOOLEAN) ? '>=' : '<>';
+        $ingresos = Lote::select(
             DB::raw('a.linea as linea,a.codigo as codigo,a.nombre as articulo,i.nro_ingreso as ni,null as ns,um.nombre as medida,i.created_at as fecha,lote.precio_u as precio_u,lote.id as lote'),
             DB::raw("CONCAT('linea',a.linea) as num_linea"),
             DB::raw(" IFNULL((SELECT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)
                 WHERE i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($del))) . "
+                AND i.created_at >=  " . DB::getPdo()->quote(date('Y-m-d 00:00:00', strtotime($periodo->fecha_inicio))) . "
                 ),0) as total_inicial"),
             DB::raw("null as unidad,
             IFNULL((SELECT IFNULL(di.cantidad,0)
-                WHERE i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($del))) . "
+                WHERE i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($periodo->fecha_inicio))) . "
+                AND i.created_at >=  " . DB::getPdo()->quote(date('Y-m-d 00:00:00', strtotime($periodo->fecha_inicio))) . "
 
                 ),0) as c_inicial,
             IFNULL((SELECT IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0)
-                WHERE i.created_at <=  " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($del))) . "
+                WHERE i.created_at <= " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($periodo->fecha_inicio))) . "
+                AND i.created_at >=  " . DB::getPdo()->quote(date('Y-m-d 00:00:00', strtotime($periodo->fecha_inicio))) . "
                 ),0) as s_inicial,
             IFNULL((SELECT di.cantidad
                 WHERE i.created_at >=  " . DB::getPdo()->quote(date('Y-m-d 03:00:00', strtotime($del))) . "
@@ -545,16 +549,16 @@ class ReporteRepository
             ->where('i.periodo_id', $periodo->id)
             ->whereNull('i.deleted_at')
             ->whereHas('articulo')
-           // ->whereRaw('i.created_at >= ?',[date('Y-m-d 06:00:00', strtotime($del))])
-            ->whereBetween('i.created_at',[
+            //->whereRaw('i.created_at <= ?',[date('Y-m-d 23:59:59', strtotime($al))])  //SI ALGO SALE MAL ELIMINAR
+            ->whereBetween('i.created_at', [
                 date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
                 date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
             ])
-         //   ->whereBetween('i.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d 23:59:59', strtotime($al))])
+            //   ->whereBetween('i.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d 23:59:59', strtotime($al))])
             ->where('lote.precio_u', '<>', 0);
 
 
-        $salidas =  Lote::select(
+        $salidas = Lote::select(
             DB::raw('a.linea as linea,a.codigo as codigo,a.nombre as articulo,null as ni,s.nro_salida as ns,um.nombre as medida,s.created_at as fecha,lote.precio_u as precio_u,lote.id as lote'),
             DB::raw("CONCAT('linea',a.linea) as num_linea,0 as total_inicial"),
             DB::raw('unidad.nombre as unidad,
@@ -570,40 +574,42 @@ class ReporteRepository
             ->leftjoin('unidad_medida as um', 'um.id', '=', 'lote.unidad_medida_id')
             ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
             ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
-            ->leftjoin('solicitante as so','so.id','=','s.solicitante_id')
-            ->leftjoin('unidad as unidad','unidad.id','=','so.unidad_id')
+            ->leftjoin('solicitante as so', 'so.id', '=', 's.solicitante_id')
+            ->leftjoin('unidad as unidad', 'unidad.id', '=', 'so.unidad_id')
             ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
             ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
             ->where('s.periodo_id', $periodo->id)
             ->whereNull('i.deleted_at')
             ->whereNull('s.deleted_at')
-            ->whereBetween('i.created_at',[
+            ->whereBetween('i.created_at', [
                 date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
                 date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
             ])
-            ->whereBetween('s.created_at',[
+            //->whereRaw('i.created_at <= ?',[date('Y-m-d 23:59:59', strtotime($al))])  //SI ALGO SALE MAL ELIMINAR
+            //->whereRaw('s.created_at <= ?',[date('Y-m-d 23:59:59', strtotime($al))])  //SI ALGO SALE MAL ELIMINAR
+            ->whereBetween('s.created_at', [
                 date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
                 date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
             ])
-         //   ->whereBetween('s.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d 23:59:59', strtotime($al))])
+            //   ->whereBetween('s.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d 23:59:59', strtotime($al))])
             ->where('lote.precio_u', '<>', 0)
             ->unionAll($ingresos)
-
             ->orderBy('codigo', 'asc')
             ->orderBy('fecha', 'asc')
             ->orderBy('lote', 'asc');
-            //->orderBy('ni', 'asc')
+        //->orderBy('ni', 'asc')
 
 
 //        return $salidas;
 
         return DB::query()->fromSub($salidas, 'q')
             ->select('q.*')
-            ->where('q.s_final',$saldo,0)
+            ->where('q.s_final', $saldo, 0)
+            ->whereBetween('q.fecha', [
+                date('Y-m-d H:i:s', strtotime($del)),
+                date('Y-m-d 23:59:59', strtotime($al))
+            ])
             ->get();
-
-
-//        return DB::query()->fromSub($salidas, '
 
 
 

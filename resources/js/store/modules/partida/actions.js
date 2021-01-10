@@ -1,7 +1,9 @@
 import commonProviders from "./../providers";
-import { URL_PARTIDA } from "./../url";
+//import { URL_PARTIDA } from "./../url";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
+
+const  URL_PARTIDA = "/controller/partida";
 
 export const getItems = ({ state, commit,rootState }) => {
     commit(types.SET_LOADING_TABLE, true);

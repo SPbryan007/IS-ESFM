@@ -182,10 +182,9 @@ export default {
         }
     },
     created() {
+        store.dispatch('login/getUser');
         store.state.partida.withTrashed=false;
-        // store.state.unidad_medida.withTrashed=false;
         store.dispatch("partida/getItems");
-        // store.dispatch("unidad_medida/getItems");
     },
 };
 </script>

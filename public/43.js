@@ -236,6 +236,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     goBack: function goBack() {
       this.$router.go(-1);
     }
+  },
+  mounted: function mounted() {
+    _store_index__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('login/getUser');
   }
 });
 

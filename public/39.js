@@ -195,9 +195,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   created: function created() {
-    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].state.partida.withTrashed = false; // store.state.unidad_medida.withTrashed=false;
-
-    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("partida/getItems"); // store.dispatch("unidad_medida/getItems");
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].state.partida.withTrashed = false;
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("partida/getItems");
   }
 });
 

@@ -246,6 +246,7 @@ export default {
         }
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.state.articulo.withTrashed=false;
         store.state.unidad_medida.withTrashed=false;
         store.dispatch("articulo/getItems");

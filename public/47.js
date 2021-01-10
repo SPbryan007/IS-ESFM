@@ -139,6 +139,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$router.go(-1);
     }
   },
+  mounted: function mounted() {
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
+  },
   created: function created() {}
 });
 

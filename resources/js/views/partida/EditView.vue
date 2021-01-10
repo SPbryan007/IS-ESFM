@@ -113,6 +113,9 @@ export default {
             this.$router.go(-1);
         }
     },
+    mounted() {
+        store.dispatch('login/getUser');
+    },
     created() {
     },
 };

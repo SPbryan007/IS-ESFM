@@ -224,12 +224,13 @@ export default {
             this.$router.go(-1);
         }
     },
-    // mounted() {
-    //     store.dispatch("articulo/getItems");
-    //     store.dispatch("articulo/getLotes");
-    // },
-    // created(){
-    //
-    // }
+    mounted() {
+        store.dispatch('login/getUser');
+        // store.dispatch("articulo/getItems");
+        // store.dispatch("articulo/getLotes");
+    },
+    created(){
+
+    }
 };
 </script>

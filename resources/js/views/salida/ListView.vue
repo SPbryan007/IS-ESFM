@@ -258,6 +258,7 @@ export default {
         },
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.dispatch('periodo/verify');
         store.dispatch("salida/getItems");
         store.dispatch("unidad/getItems");

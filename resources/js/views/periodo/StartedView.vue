@@ -176,6 +176,7 @@ export default {
     }
   },
   created() {
+      store.dispatch('login/getUser');
     store.dispatch("ingreso/getDetalleIngreso");
   }
 };

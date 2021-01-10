@@ -325,6 +325,7 @@ export default {
       }
   },
   created() {
+      store.dispatch('login/getUser');
     store.dispatch("proveedor/getItems");
 
   },

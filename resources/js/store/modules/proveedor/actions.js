@@ -1,7 +1,9 @@
 import commonProviders from "./../providers";
-import { URL_PROVEEDOR } from "../url";
+//import { URL_PROVEEDOR } from "../url";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
+
+const  URL_PROVEEDOR = "/controller/proveedor";
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);

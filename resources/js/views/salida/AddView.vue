@@ -211,6 +211,7 @@ export default {
         }
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.state.proveedor.withTrashed=false;
         store.state.funcionario.withTrashed=false;
         store.state.solicitante.withTrashed=false;

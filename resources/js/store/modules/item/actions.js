@@ -1,7 +1,10 @@
 import commonProviders from "./../providers";
-import { URL_ARTICULO,URL_LOTE } from "./../url";
+//import { URL_ARTICULO,URL_LOTE } from "./../url";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
+
+const  URL_ARTICULO = "/controller/articulo";
+const  URL_LOTE = "/controller/lote";
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);

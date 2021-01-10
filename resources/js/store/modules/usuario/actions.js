@@ -1,7 +1,10 @@
 import commonProviders from "./../providers";
-import {URL_ARTICULO, URL_AUTH, URL_USUARIO} from "./../url";
+//import {URL_ARTICULO, URL_AUTH, URL_USUARIO} from "./../url";
 import * as types from "./../mutation-types";
 import {router} from "../../../routes";
+
+const URL_AUTH = '/auth/';
+const URL_USUARIO = '/controller/usuario';
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);

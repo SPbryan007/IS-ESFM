@@ -333,6 +333,7 @@ export default {
         },
     },
    mounted() {
+       store.dispatch('login/getUser');
         store.dispatch("proveedor/getItems");
     },
 };

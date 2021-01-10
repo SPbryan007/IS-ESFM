@@ -238,42 +238,42 @@ class ReporteController extends Controller
                 $request->conSaldo
             );
             $periodo = $this->periodoRepository->getById($request->periodo);
-            $is = $this->reporteRepository->TIngresoSalida( $request->del, $request->al,$request->periodo);
-            $s_inicial = $query->sum->total_inicial;
+            $saldos = $this->reporteRepository->SaldosAlmacen($request->del,$request->al,$request->periodo,$request->conSaldo);
+            $s_inicial = $saldos->sum->s_inicial;
+            $l1s_inicial   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_inicial : 0;
+            $l2s_inicial   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_inicial : 0;
+            $l3s_inicial   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_inicial : 0;
 
-            $l1s_inicial   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->total_inicial : 0;
-            $l2s_inicial   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->total_inicial : 0;
-            $l3s_inicial   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->total_inicial : 0;
+            $l1s_entradas   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_entrada : 0;
+            $l2s_entradas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_entrada : 0;
+            $l3s_entradas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_entrada : 0;
 
-            $l1s_entradas   = isset($is->groupBy('num_linea')['linea1']) ? $is->groupBy('num_linea')['linea1']->sum->s_ingreso : 0;
-            $l2s_entradas   = isset($is->groupBy('num_linea')['linea2']) ? $is->groupBy('num_linea')['linea2']->sum->s_ingreso : 0;
-            $l3s_entradas   = isset($is->groupBy('num_linea')['linea3']) ? $is->groupBy('num_linea')['linea3']->sum->s_ingreso : 0;
-
-            $l1s_salidas   = isset($is->groupBy('num_linea')['linea1'])  ? $is->groupBy('num_linea')['linea1']->sum->s_salida : 0;
-            $l2s_salidas   = isset($is->groupBy('num_linea')['linea2']) ? $is->groupBy('num_linea')['linea2']->sum->s_salida : 0;
-            $l3s_salidas   = isset($is->groupBy('num_linea')['linea3']) ? $is->groupBy('num_linea')['linea3']->sum->s_salida : 0;
+            $l1s_salidas   = isset($saldos->groupBy('num_linea')['linea1'])  ? $saldos->groupBy('num_linea')['linea1']->sum->s_salida : 0;
+            $l2s_salidas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_salida : 0;
+            $l3s_salidas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_salida : 0;
 
             $l1s_final   = $l1s_inicial+$l1s_entradas-$l1s_salidas;
             $l2s_final   = $l2s_inicial+$l2s_entradas-$l2s_salidas;
             $l3s_final   = $l3s_inicial+$l3s_entradas-$l3s_salidas;
-//            $saldos = $this->reporteRepository->TotalReporteGeneral($request->del,$request->al,$periodo->id);
-//            $s_inicial = $saldos->sum->s_inicial;
+//            $is = $this->reporteRepository->TIngresoSalida( $request->del, $request->al,$request->periodo);
+//            $s_inicial = $query->sum->total_inicial;
 //
-//            $l1s_inicial   = isset($saldos->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->s_inicial : 0;
-//            $l2s_inicial   = isset($saldos->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_inicial : 0;
-//            $l3s_inicial   = isset($saldos->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_inicial : 0;
+//            $l1s_inicial   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->total_inicial : 0;
+//            $l2s_inicial   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->total_inicial : 0;
+//            $l3s_inicial   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->total_inicial : 0;
 //
-//            $l1s_entradas   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->s_ingreso : 0;
-//            $l2s_entradas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_ingreso : 0;
-//            $l3s_entradas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_ingreso : 0;
-//            $l1s_salidas   = isset($query->groupBy('num_linea')['linea1']) ?  $query->groupBy('num_linea')['linea1']->sum->s_salida : 0;
-//            $l2s_salidas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0;
-//            $l3s_salidas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0;
+//            $l1s_entradas   = isset($is->groupBy('num_linea')['linea1']) ? $is->groupBy('num_linea')['linea1']->sum->s_ingreso : 0;
+//            $l2s_entradas   = isset($is->groupBy('num_linea')['linea2']) ? $is->groupBy('num_linea')['linea2']->sum->s_ingreso : 0;
+//            $l3s_entradas   = isset($is->groupBy('num_linea')['linea3']) ? $is->groupBy('num_linea')['linea3']->sum->s_ingreso : 0;
+//
+//            $l1s_salidas   = isset($is->groupBy('num_linea')['linea1'])  ? $is->groupBy('num_linea')['linea1']->sum->s_salida : 0;
+//            $l2s_salidas   = isset($is->groupBy('num_linea')['linea2']) ? $is->groupBy('num_linea')['linea2']->sum->s_salida : 0;
+//            $l3s_salidas   = isset($is->groupBy('num_linea')['linea3']) ? $is->groupBy('num_linea')['linea3']->sum->s_salida : 0;
 //
 //            $l1s_final   = $l1s_inicial+$l1s_entradas-$l1s_salidas;
 //            $l2s_final   = $l2s_inicial+$l2s_entradas-$l2s_salidas;
 //            $l3s_final   = $l3s_inicial+$l3s_entradas-$l3s_salidas;
-
+//
 
             $data = [
                 'data'       => $query,
@@ -281,9 +281,9 @@ class ReporteController extends Controller
                 'al'         => $request->al,
                 'periodo'    => $periodo->nombre,
                 'ts_inicial' => $s_inicial,
-                'ts_ingreso' => $is->sum->s_ingreso,
-                'ts_salida'  => $is->sum->s_salida,
-                'ts_final'   => ($s_inicial+$is->sum->s_ingreso)-$is->sum->s_salida,
+                'ts_ingreso' => $saldos->sum->s_entrada,
+                'ts_salida'  => $saldos->sum->s_salida,
+                'ts_final'   => ($s_inicial+$saldos->sum->s_entrada)-$saldos->sum->s_salida,
                 'l1s_inicial'   => $l1s_inicial,
                 'l2s_inicial'   => $l2s_inicial,
                 'l3s_inicial'   => $l3s_inicial,
@@ -313,18 +313,19 @@ class ReporteController extends Controller
                 $request->query('conSaldo')
             );
             $periodo = $this->periodoRepository->getById($request->query('periodo'));
-            $s_inicial = $query->sum->total_inicial;
-            $l1s_inicial   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->total_inicial : 0;
-            $l2s_inicial   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->total_inicial : 0;
-            $l3s_inicial   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->total_inicial : 0;
+            $saldos = $this->reporteRepository->SaldosAlmacen($request->del,$request->al,$request->periodo,$request->conSaldo);
+            $s_inicial = $saldos->sum->s_inicial;
+            $l1s_inicial   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_inicial : 0;
+            $l2s_inicial   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_inicial : 0;
+            $l3s_inicial   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_inicial : 0;
 
-            $l1s_entradas   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->s_ingreso : 0;
-            $l2s_entradas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_ingreso : 0;
-            $l3s_entradas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_ingreso : 0;
+            $l1s_entradas   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_entrada : 0;
+            $l2s_entradas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_entrada : 0;
+            $l3s_entradas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_entrada : 0;
 
-            $l1s_salidas   = isset($query->groupBy('num_linea')['linea1'])  ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0;
-            $l2s_salidas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0;
-            $l3s_salidas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0;
+            $l1s_salidas   = isset($saldos->groupBy('num_linea')['linea1'])  ? $saldos->groupBy('num_linea')['linea1']->sum->s_salida : 0;
+            $l2s_salidas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_salida : 0;
+            $l3s_salidas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_salida : 0;
 
             $l1s_final   = $l1s_inicial+$l1s_entradas-$l1s_salidas;
             $l2s_final   = $l2s_inicial+$l2s_entradas-$l2s_salidas;
@@ -336,9 +337,9 @@ class ReporteController extends Controller
                 'al'         =>  $request->query('al'),
                 'periodo'    => $periodo->nombre,
                 'ts_inicial' => $s_inicial,
-                'ts_ingreso' => $query->sum->s_ingreso,
-                'ts_salida'  => $query->sum->s_salida,
-                'ts_final'   => ($s_inicial+$query->sum->s_ingreso)-$query->sum->s_salida,
+                'ts_ingreso' => $saldos->sum->s_entrada,
+                'ts_salida'  => $saldos->sum->s_salida,
+                'ts_final'   => ($s_inicial+$saldos->sum->s_entrada)-$saldos->sum->s_salida,
                 'l1s_inicial'   => $l1s_inicial,
                 'l2s_inicial'   => $l2s_inicial,
                 'l3s_inicial'   => $l3s_inicial,
@@ -377,18 +378,19 @@ class ReporteController extends Controller
                 $request->conSaldo
             );
             $periodo = $this->periodoRepository->getById($request->periodo);
-            $s_inicial = $query->sum->total_inicial;
-            $l1s_inicial   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->total_inicial : 0;
-            $l2s_inicial   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->total_inicial : 0;
-            $l3s_inicial   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->total_inicial : 0;
+            $saldos = $this->reporteRepository->SaldosAlmacen($request->del,$request->al,$request->periodo,$request->conSaldo);
+            $s_inicial = $saldos->sum->s_inicial;
+            $l1s_inicial   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_inicial : 0;
+            $l2s_inicial   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_inicial : 0;
+            $l3s_inicial   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_inicial : 0;
 
-            $l1s_entradas   = isset($query->groupBy('num_linea')['linea1']) ? $query->groupBy('num_linea')['linea1']->sum->s_ingreso : 0;
-            $l2s_entradas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_ingreso : 0;
-            $l3s_entradas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_ingreso : 0;
+            $l1s_entradas   = isset($saldos->groupBy('num_linea')['linea1']) ? $saldos->groupBy('num_linea')['linea1']->sum->s_entrada : 0;
+            $l2s_entradas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_entrada : 0;
+            $l3s_entradas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_entrada : 0;
 
-            $l1s_salidas   = isset($query->groupBy('num_linea')['linea1'])  ? $query->groupBy('num_linea')['linea1']->sum->s_salida : 0;
-            $l2s_salidas   = isset($query->groupBy('num_linea')['linea2']) ? $query->groupBy('num_linea')['linea2']->sum->s_salida : 0;
-            $l3s_salidas   = isset($query->groupBy('num_linea')['linea3']) ? $query->groupBy('num_linea')['linea3']->sum->s_salida : 0;
+            $l1s_salidas   = isset($saldos->groupBy('num_linea')['linea1'])  ? $saldos->groupBy('num_linea')['linea1']->sum->s_salida : 0;
+            $l2s_salidas   = isset($saldos->groupBy('num_linea')['linea2']) ? $saldos->groupBy('num_linea')['linea2']->sum->s_salida : 0;
+            $l3s_salidas   = isset($saldos->groupBy('num_linea')['linea3']) ? $saldos->groupBy('num_linea')['linea3']->sum->s_salida : 0;
 
             $l1s_final   = $l1s_inicial+$l1s_entradas-$l1s_salidas;
             $l2s_final   = $l2s_inicial+$l2s_entradas-$l2s_salidas;
@@ -400,9 +402,9 @@ class ReporteController extends Controller
                 'al'         => $request->al,
                 'periodo'    => $periodo->nombre,
                 'ts_inicial' => $s_inicial,
-                'ts_ingreso' => $query->sum->s_ingreso,
-                'ts_salida'  => $query->sum->s_salida,
-                'ts_final'   => ($s_inicial+$query->sum->s_ingreso)-$query->sum->s_salida,
+                'ts_ingreso' => $saldos->sum->s_entrada,
+                'ts_salida'  => $saldos->sum->s_salida,
+                'ts_final'   => ($s_inicial+$saldos->sum->s_entrada)-$saldos->sum->s_salida,
                 'l1s_inicial'   => $l1s_inicial,
                 'l2s_inicial'   => $l2s_inicial,
                 'l3s_inicial'   => $l3s_inicial,

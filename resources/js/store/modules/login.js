@@ -68,10 +68,11 @@ const actions = {
         axios
             .get("/auth/getUserLogged")
             .then(response => {
-                state.user = response.data
+                    state.user = response.data
             })
             .catch(err => {
-
+                alert('Su sesión ha expirado');
+                router.push("/login");
             });
     }
 };
