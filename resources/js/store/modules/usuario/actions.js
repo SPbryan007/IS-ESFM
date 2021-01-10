@@ -4,7 +4,7 @@ import * as types from "./../mutation-types";
 import {router} from "../../../routes";
 
 const URL_AUTH = '/auth/';
-const URL_USUARIO = '/controller/usuario';
+const URL_USUARIO = '/controller/usuario/';
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);

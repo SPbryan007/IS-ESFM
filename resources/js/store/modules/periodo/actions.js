@@ -4,9 +4,9 @@ import * as types from "./../mutation-types";
 import moment from "moment";
 import { router } from "../../../routes";
 
-const  URL_LOTE = "/controller/lote";
-const  URL_ARTICULO = "/controller/articulo";
-const  URL_PERIODO = "/controller/periodo";
+const  URL_LOTE = "/controller/lote/";
+const  URL_ARTICULO = "/controller/articulo/";
+const  URL_PERIODO = "/controller/periodo/";
 
 
 export const getItems = ({ state, commit }) => {

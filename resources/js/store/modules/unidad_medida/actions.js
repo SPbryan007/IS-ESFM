@@ -3,7 +3,7 @@ import commonProviders from "./../providers";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-const  URL_UNIDAD_MEDIDA = "/controller/unidad_medida";
+const  URL_UNIDAD_MEDIDA = "/controller/unidad_medida/";
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);

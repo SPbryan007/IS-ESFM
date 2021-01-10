@@ -3,7 +3,7 @@ import commonProviders from "./../providers";
 import * as types from "./../mutation-types";
 import { router } from "../../../routes";
 
-const URL_INGRESO = '/controller/ingreso';
+const URL_INGRESO = '/controller/ingreso/';
 
 export const getItems = ({ state, commit }) => {
     commit(types.SET_LOADING_TABLE, true);
