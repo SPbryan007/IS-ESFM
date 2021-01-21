@@ -76,7 +76,11 @@
 <!--        </div>-->
 <!--      </li>-->
 
-
+        <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+                <i class="fas fa-question"></i> inf.
+            </a>
+        </li>
       <li class="nav-item">
         <a class="nav-link" @click="logout" data-widget="control-sidebar" data-slide="true" href="#">
           <i class="fas fa-power-off"></i> Salir

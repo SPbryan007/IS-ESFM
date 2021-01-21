@@ -249,6 +249,7 @@ export default {
 
     },
     mounted() {
+        store.dispatch('login/getUser');
         store.dispatch("solicitante/getItems");
         store.dispatch("unidad/getItems");
     }

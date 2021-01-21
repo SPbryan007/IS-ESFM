@@ -126,7 +126,7 @@
                                 {{ scope.row.created_at | dateformat }}
                             </template>
                         </el-table-column>
-                        <el-table-column prop="total" label="Total" width="100"  sortable>
+                        <el-table-column prop="total" label="Total" width="120"  sortable>
                             <template slot-scope="scope">
                                 <b>Bs: </b> {{ scope.row.total }}
                             </template>

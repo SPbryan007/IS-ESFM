@@ -434,7 +434,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.pageOfItems = pageOfItems;
     }
   }),
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
+  }
 });
 
 /***/ }),

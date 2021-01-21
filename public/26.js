@@ -225,6 +225,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
     this.$store.dispatch("unidad/getItems");
   }
 });
@@ -243,7 +244,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.table th,*/\n/*.table td {*/\n/*    padding: 0.5rem;*/\n/*    vertical-align: top;*/\n/*    border-top: 1px solid #dee2e6;*/\n/*}*/\n/*th.sortable {*/\n/*    position: relative;*/\n/*    cursor: pointer;*/\n/*}*/\n\n/*th.sortable::after {*/\n/*    font-family: FontAwesome;*/\n/*    content: \"\\f0dc\";*/\n/*    position: absolute;*/\n/*    right: 8px;*/\n/*    color: #999;*/\n/*}*/\n\n/*th.sortable.asc::after {*/\n/*    content: \"\\f0d8\";*/\n/*}*/\n\n/*th.sortable.desc::after {*/\n/*    content: \"\\f0d7\";*/\n/*}*/\n\n/*th.sortable:hover::after {*/\n/*    color: #333;*/\n/*}*/\n/*.el-dropdown-link {*/\n/*    cursor: pointer;*/\n/*    color: #409eff;*/\n/*}*/\n/*.el-icon-arrow-down {*/\n/*    font-size: 12px;*/\n/*}*/\n/*.demonstration {*/\n/*    display: block;*/\n/*    color: #8492a6;*/\n/*    font-size: 14px;*/\n/*    margin-bottom: 20px;*/\n/*}*/\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/*.table th,*/\n/*.table td {*/\n/*    padding: 0.5rem;*/\n/*    vertical-align: top;*/\n/*    border-top: 1px solid #dee2e6;*/\n/*}*/\n/*th.sortable {*/\n/*    position: relative;*/\n/*    cursor: pointer;*/\n/*}*/\n\n/*th.sortable::after {*/\n/*    font-family: FontAwesome;*/\n/*    content: \"\\f0dc\";*/\n/*    position: absolute;*/\n/*    right: 8px;*/\n/*    color: #999;*/\n/*}*/\n\n/*th.sortable.asc::after {*/\n/*    content: \"\\f0d8\";*/\n/*}*/\n\n/*th.sortable.desc::after {*/\n/*    content: \"\\f0d7\";*/\n/*}*/\n\n/*th.sortable:hover::after {*/\n/*    color: #333;*/\n/*}*/\n/*.el-dropdown-link {*/\n/*    cursor: pointer;*/\n/*    color: #409eff;*/\n/*}*/\n/*.el-icon-arrow-down {*/\n/*    font-size: 12px;*/\n/*}*/\n/*.demonstration {*/\n/*    display: block;*/\n/*    color: #8492a6;*/\n/*    font-size: 14px;*/\n/*    margin-bottom: 20px;*/\n/*}*/\n", ""]);
 
 // exports
 

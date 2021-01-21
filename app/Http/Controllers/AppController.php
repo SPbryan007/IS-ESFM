@@ -582,7 +582,7 @@ class ReporteRepository
 
         $salidas = Lote::select(
             DB::raw('a.linea as linea,a.codigo as codigo,a.nombre as articulo,null as ni,s.nro_salida as ns,um.nombre as medida,s.created_at as fecha,lote.precio_u as precio_u,lote.id as lote'),
-            DB::raw("CONCAT('linea',a.linea) as num_linea,0 as total_inicial"),
+            DB::raw("CONCAT('linea',a.linea) as num_linea,0 as total_inicial,stock"),
             DB::raw('unidad.nombre as unidad,
                 di.cantidad - ( SUM(ds.cantidad) OVER (PARTITION BY lote.id  ORDER BY s.created_at)) + (ds.cantidad) as c_inicial,
                 (di.cantidad*lote.precio_u) - (SUM(ds.cantidad*lote.precio_u) OVER (PARTITION BY lote.id  ORDER BY s.created_at)) + ds.cantidad*lote.precio_u as s_inicial

@@ -8,18 +8,33 @@ use App\Models\Articulo;
 use App\Models\Ingreso;
 use App\Models\Lote;
 use App\Models\Periodo;
+use App\Models\Salida;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class LoteRepository
 {
+    /**
+     * @var ReporteRepository
+     */
+    private $reporteRepository;
 
+    /**
+     * LoteRepository constructor.
+     * @param ReporteRepository $reporteRepository
+     */
+    public function __construct(ReporteRepository $reporteRepository)
+    {
+
+        $this->reporteRepository = $reporteRepository;
+    }
 
     /**
      * @return mixed
      */
     public function getAll()
     {
+
         $periodo = Periodo::latest()->withTrashed()
                         ->where('estado','=',Periodo::FINALIZADO)
                         ->orWhere('estado','=',Periodo::EN_CURSO)
@@ -29,6 +44,7 @@ class LoteRepository
             'articulo.nombre as nombre','articulo.id as id','articulo.codigo as codigo')
                             ->doesntHave('lotes.detalleingreso.ingreso')
                             ->groupBy('articulo.id');
+
         return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.saldo),0) as saldo'),
             'articulo.nombre as nombre','articulo.id as id','articulo.codigo as codigo')
             ->leftjoin('lote','lote.articulo_id','=','articulo.id')

@@ -268,6 +268,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -667,19 +671,20 @@ var render = function() {
                   }
                 },
                 [
-                  _c(
-                    "el-button",
-                    { attrs: { type: "primary", size: "small" } },
-                    [
-                      _vm._v(
-                        "\n                        Nuevo\n                        "
-                      ),
-                      _c("i", { staticClass: "fas fa-plus" })
-                    ]
-                  )
+                  _c("el-button", { attrs: { type: "primary" } }, [
+                    _vm._v(
+                      "\n                        Nuevo\n                        "
+                    ),
+                    _c("i", { staticClass: "fas fa-plus" })
+                  ])
                 ],
                 1
-              )
+              ),
+              _vm._v(" "),
+              _c("el-button", { attrs: { type: "success" } }, [
+                _vm._v("\n                    Exportar\n                    "),
+                _c("i", { staticClass: "fas fa-download" })
+              ])
             ],
             1
           )

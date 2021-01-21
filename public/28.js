@@ -212,6 +212,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("unidad_medida/getItems");
   }
 });

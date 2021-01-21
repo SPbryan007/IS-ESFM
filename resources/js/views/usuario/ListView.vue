@@ -253,6 +253,7 @@ export default {
         },
     },
     created() {
+        store.dispatch('login/getUser');
         store.dispatch("usuario/getItems");
     },
     beforeRouteEnter(to,from,next){

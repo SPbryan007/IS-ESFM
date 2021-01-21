@@ -123,6 +123,7 @@ export default {
     }
   },
     created() {
+        store.dispatch('login/getUser');
         store.dispatch("funcionario/getItems");
     }
 };

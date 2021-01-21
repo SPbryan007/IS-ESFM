@@ -746,7 +746,7 @@ var render = function() {
                         attrs: {
                           prop: "total",
                           label: "Total",
-                          width: "100",
+                          width: "120",
                           sortable: ""
                         },
                         scopedSlots: _vm._u(

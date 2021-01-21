@@ -1,151 +1,359 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[59],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/apexcharts/dist/locales/es.json":
+/*!******************************************************!*\
+  !*** ./node_modules/apexcharts/dist/locales/es.json ***!
+  \******************************************************/
+/*! exports provided: name, options, default */
+/***/ (function(module) {
+
+module.exports = JSON.parse("{\"name\":\"es\",\"options\":{\"months\":[\"Enero\",\"Febrero\",\"Marzo\",\"Abril\",\"Mayo\",\"Junio\",\"Julio\",\"Agosto\",\"Septiembre\",\"Octubre\",\"Noviembre\",\"Diciembre\"],\"shortMonths\":[\"Ene\",\"Feb\",\"Mar\",\"Abr\",\"May\",\"Jun\",\"Jul\",\"Ago\",\"Sep\",\"Oct\",\"Nov\",\"Dic\"],\"days\":[\"Domingo\",\"Lunes\",\"Martes\",\"Miércoles\",\"Jueves\",\"Viernes\",\"Sábado\"],\"shortDays\":[\"Dom\",\"Lun\",\"Mar\",\"Mie\",\"Jue\",\"Vie\",\"Sab\"],\"toolbar\":{\"exportToSVG\":\"Descargar SVG\",\"exportToPNG\":\"Descargar PNG\",\"exportToCSV\":\"Descargar CSV\",\"menu\":\"Menu\",\"selection\":\"Seleccionar\",\"selectionZoom\":\"Seleccionar Zoom\",\"zoomIn\":\"Aumentar\",\"zoomOut\":\"Disminuir\",\"pan\":\"Navegación\",\"reset\":\"Reiniciar Zoom\"}}}");
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+/* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-apexcharts */ "./node_modules/vue-apexcharts/dist/vue-apexcharts.js");
+/* harmony import */ var vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_apexcharts__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var apexcharts_dist_locales_es_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! apexcharts/dist/locales/es.json */ "./node_modules/apexcharts/dist/locales/es.json");
+var apexcharts_dist_locales_es_json__WEBPACK_IMPORTED_MODULE_1___namespace = /*#__PURE__*/__webpack_require__.t(/*! apexcharts/dist/locales/es.json */ "./node_modules/apexcharts/dist/locales/es.json", 1);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../store */ "./resources/js/store/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    apexcharts: vue_apexcharts__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
   data: function data() {
     return {
-      rules: {
-        nombre: [{
-          required: true,
-          message: "Debe introducir un nombre",
-          trigger: "blur"
-        }, {
-          min: 3,
-          message: "Debe tener mas de 3 letras",
-          trigger: "blur"
-        }, {
-          max: 50,
-          message: "Debe tener menos de 50 caracteres",
-          trigger: "blur"
-        }],
-        sigla: [{
-          required: true,
-          message: "Debe introducir un codigo",
-          trigger: "blur"
-        }, {
-          min: 1,
-          message: "Debe tener mas de 1 caracteres",
-          trigger: "blur"
-        }, {
-          max: 6,
-          message: "Debe tener menos de 6 caracteres",
-          trigger: "blur"
+      alert: {
+        show: false,
+        message: null,
+        title: null,
+        color: null
+      },
+      data: null,
+      IOSseries: [{
+        name: 'Ingresos',
+        data: []
+      }, {
+        name: 'Salidas',
+        data: []
+      }],
+      IOSChartOptions: {
+        chart: {
+          type: 'bar',
+          height: 350
+        },
+        title: {
+          text: 'Ingresos y salidas mensuales',
+          align: 'left'
+        },
+        subtitle: {
+          text: 'Expresado en Bolivianos',
+          align: 'left'
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: '55%',
+            endingShape: 'rounded'
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ['transparent']
+        },
+        xaxis: {
+          categories: ['Ene', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dic']
+        },
+        yaxis: {
+          title: {
+            text: 'Bs'
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function formatter(val) {
+              return "Bs " + val;
+            }
+          }
+        }
+      },
+      LineStockSeries: [],
+      LineStockChartOptions: {
+        chart: {
+          width: 480,
+          height: 350,
+          type: 'pie'
+        },
+        labels: ['Linea 1', 'Linea 2', 'Linea 3'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
         }]
-      }
+      },
+      IOAreaSeries: [{
+        name: 'Saldo',
+        data: []
+      }],
+      IOAreachartOptions: {
+        chart: {
+          locales: [apexcharts_dist_locales_es_json__WEBPACK_IMPORTED_MODULE_1__],
+          defaultLocale: 'es',
+          type: 'area',
+          height: 350,
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'straight'
+        },
+        title: {
+          text: 'Flujo de entradas y salidas en el tiempo',
+          align: 'left'
+        },
+        subtitle: {
+          text: 'Expresado en Bolivianos',
+          align: 'left'
+        },
+        //labels: ['12-10-2020','12-12-2020','12-15-2020','12-16-2020','12-20-2020'],
+        xaxis: {
+          format: 'dd/MM',
+          type: 'datetime',
+          lang: 'es',
+          categories: []
+        },
+        yaxis: {
+          opposite: true
+        },
+        legend: {
+          horizontalAlign: 'left'
+        }
+      },
+      chartOptions: {
+        chart: {
+          id: 'vuechart-example'
+        },
+        xaxis: {
+          categories: ['PAPEL MEMBRETA T/CARTA', 'ARCHIVADOR TAMANO OFICIO DE COLOR ROJO CON NUMERACION']
+        }
+      },
+      series: [{
+        name: 'Ingresos',
+        data: [150]
+      }, {
+        name: 'Salidas',
+        data: [120]
+      }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("unidad_medida", ["data_form", "alert", "loading_form"])),
-  methods: {
-    submitForm: function submitForm(form) {
-      var _this = this;
+  created: function created() {
+    var _this = this;
 
-      this.$refs[form].validate(function (valid) {
-        if (valid) {
-          _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("unidad_medida/editItem", {
-            message: _this.$message,
-            progress: _this.$Progress,
-            id: _this.$route.params.id
-          }); //router.go(-1);
-        } else {
-          return false;
-        }
+    this.$Progress.start();
+    _store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('login/getUser');
+    axios.get('/controller/graphics/dashboard').then(function (resp) {
+      _this.data = resp.data;
+      _this.IOAreachartOptions.title.text = 'Flujo de caja ' + resp.data.periodo;
+      resp.data.cash_flow.forEach(function (e) {
+        _this.IOAreachartOptions.xaxis.categories.push(e.fecha);
+
+        _this.IOAreaSeries[0].data.push(e.saldo.toFixed(2));
       });
-    },
-    cancelForm: function cancelForm(formName) {
-      this.$refs[formName].resetFields();
-      this.$router.go(-1);
-    },
-    goBack: function goBack() {
-      this.$router.go(-1);
-    }
-  },
-  created: function created() {}
+      resp.data.stock_linea.forEach(function (e) {
+        _this.LineStockSeries.push(e.stock);
+      });
+      resp.data.ingreso_salida.forEach(function (e) {
+        _this.IOSseries[0].data.push(e.ingresos.toFixed(2));
+
+        _this.IOSseries[1].data.push(e.salidas.toFixed(2));
+      });
+
+      _this.$Progress.finish();
+    })["catch"](function (err) {
+      _this.$Progress.fail();
+
+      _this.alert.message = err.response.data.message;
+
+      switch (err.response.status) {
+        case 401:
+          _this.$router.push({
+            name: 'login'
+          });
+
+          break;
+
+        case 500:
+          _this.alert.color = 'error';
+          _this.alert.show = true;
+          break;
+      }
+    });
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b&":
-/*!********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b& ***!
-  \********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8& ***!
+  \****************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -159,7 +367,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "col-md-12" },
     [
       _vm.alert.show
         ? _c("el-alert", {
@@ -167,8 +374,8 @@ var render = function() {
               title: _vm.alert.title,
               type: _vm.alert.color,
               description: _vm.alert.message,
-              "show-icon": "",
-              closable: ""
+              closable: "",
+              "show-icon": ""
             },
             on: {
               close: function($event) {
@@ -178,142 +385,189 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
-        [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
           _c(
             "div",
-            { staticClass: "pull-lef" },
+            { staticClass: "small-box bg-info" },
             [
-              _c("el-page-header", {
-                staticClass: "mt-2",
-                attrs: { content: "Unidades de medida" },
-                on: { back: _vm.goBack }
-              })
+              _c("div", { staticClass: "inner" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.data.cant_prov))]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Proveedores")])
+              ]),
+              _vm._v(" "),
+              _vm._m(0),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "small-box-footer",
+                  attrs: { to: { name: "proveedor" } }
+                },
+                [
+                  _vm._v("\n                    Ver mas..   "),
+                  _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                ]
+              )
             ],
             1
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "pull-right" })
-        ]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "card" }, [
-        _vm._m(0),
+          )
+        ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "card-body" },
-          [
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
+          _c(
+            "div",
+            { staticClass: "small-box bg-warning" },
+            [
+              _c("div", { staticClass: "inner" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.data.cant_sol))]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Solicitantes")])
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "small-box-footer",
+                  attrs: { to: { name: "solicitante" } }
+                },
+                [
+                  _vm._v("\n                    Ver mas..   "),
+                  _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
+          _c(
+            "div",
+            { staticClass: "small-box bg-success" },
+            [
+              _c("div", { staticClass: "inner" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.data.cant_in))]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Ingresos " + _vm._s(_vm.data.periodo))])
+              ]),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "small-box-footer",
+                  attrs: { to: { name: "ingreso" } }
+                },
+                [
+                  _vm._v("\n                    Ver mas..   "),
+                  _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                ]
+              )
+            ],
+            1
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-lg-3 col-6" }, [
+          _c(
+            "div",
+            { staticClass: "small-box bg-danger" },
+            [
+              _c("div", { staticClass: "inner" }, [
+                _c("h3", [_vm._v(_vm._s(_vm.data.cant_sa))]),
+                _vm._v(" "),
+                _c("p", [_vm._v("Salidas " + _vm._s(_vm.data.periodo))])
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c(
+                "router-link",
+                {
+                  staticClass: "small-box-footer",
+                  attrs: { to: { name: "salida" } }
+                },
+                [
+                  _vm._v("\n                    Ver mas..   "),
+                  _c("i", { staticClass: "fas fa-arrow-circle-right" })
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-8" }, [
+          _c("div", { staticClass: "card" }, [
             _c(
-              "el-form",
-              {
-                ref: "UnidadMedidaEditForm",
-                staticClass: "labeles",
-                attrs: {
-                  model: _vm.data_form,
-                  rules: _vm.rules,
-                  "label-width": "180px"
-                }
-              },
+              "div",
+              { staticClass: "card-body" },
               [
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Nombre :", prop: "nombre" } },
-                  [
-                    _c("el-input", {
-                      staticStyle: { width: "250px" },
-                      model: {
-                        value: _vm.data_form.nombre,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "nombre", $$v)
-                        },
-                        expression: "data_form.nombre"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Sigla :", prop: "sigla" } },
-                  [
-                    _c("el-input", {
-                      staticStyle: { width: "250px" },
-                      model: {
-                        value: _vm.data_form.sigla,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "sigla", $$v)
-                        },
-                        expression: "data_form.sigla"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  { attrs: { label: "Descripcion :", prop: "descripcion" } },
-                  [
-                    _c("el-input", {
-                      staticStyle: { width: "400px" },
-                      attrs: { type: "textarea" },
-                      model: {
-                        value: _vm.data_form.descripcion,
-                        callback: function($$v) {
-                          _vm.$set(_vm.data_form, "descripcion", $$v)
-                        },
-                        expression: "data_form.descripcion"
-                      }
-                    })
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "el-form-item",
-                  [
-                    _c(
-                      "el-button",
-                      {
-                        attrs: { type: "primary", loading: _vm.loading_form },
-                        on: {
-                          click: function($event) {
-                            return _vm.submitForm("UnidadMedidaEditForm")
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        Guardar\n                        "
-                        ),
-                        _c("i", { staticClass: "fas fa-save" })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "el-button",
-                      {
-                        on: {
-                          click: function($event) {
-                            return _vm.cancelForm("UnidadMedidaEditForm")
-                          }
-                        }
-                      },
-                      [_vm._v("Cancelar")]
-                    )
-                  ],
-                  1
-                )
+                _c("apexchart", {
+                  attrs: {
+                    type: "bar",
+                    height: "290",
+                    options: _vm.IOSChartOptions,
+                    series: _vm.IOSseries
+                  }
+                })
               ],
               1
             )
-          ],
-          1
-        )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(4),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("apexchart", {
+                  attrs: {
+                    type: "pie",
+                    width: "380",
+                    height: "350",
+                    options: _vm.LineStockChartOptions,
+                    series: _vm.LineStockSeries
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _c(
+              "div",
+              { staticClass: "card-body" },
+              [
+                _c("apexchart", {
+                  attrs: {
+                    type: "area",
+                    height: "350",
+                    options: _vm.IOAreachartOptions,
+                    series: _vm.IOAreaSeries
+                  }
+                })
+              ],
+              1
+            )
+          ])
+        ])
       ])
     ],
     1
@@ -324,12 +578,40 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-truck" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-users" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-truck-loading" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fas fa-sign-out-alt" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-header border-0" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("Editar unidad de medida")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
+      _c("b", [_vm._v("Stock de articulos por linea")])
     ])
   }
 ]
@@ -339,18 +621,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/unidad_medida/EditView.vue":
-/*!*******************************************************!*\
-  !*** ./resources/js/views/unidad_medida/EditView.vue ***!
-  \*******************************************************/
+/***/ "./resources/js/views/DashboardComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/views/DashboardComponent.vue ***!
+  \***************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditView.vue?vue&type=template&id=77f7e71b& */ "./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b&");
-/* harmony import */ var _EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditView.vue?vue&type=script&lang=js& */ "./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=template&id=7f9073a8& */ "./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8&");
+/* harmony import */ var _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DashboardComponent.vue?vue&type=script&lang=js& */ "./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -359,9 +641,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -371,38 +653,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/unidad_medida/EditView.vue"
+component.options.__file = "resources/js/views/DashboardComponent.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js&":
-/*!********************************************************************************!*\
-  !*** ./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************/
+/***/ "./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/unidad_medida/EditView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/DashboardComponent.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b&":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b& ***!
-  \**************************************************************************************/
+/***/ "./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8& ***!
+  \**********************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./EditView.vue?vue&type=template&id=77f7e71b& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/unidad_medida/EditView.vue?vue&type=template&id=77f7e71b&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./DashboardComponent.vue?vue&type=template&id=7f9073a8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/DashboardComponent.vue?vue&type=template&id=7f9073a8&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditView_vue_vue_type_template_id_77f7e71b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DashboardComponent_vue_vue_type_template_id_7f9073a8___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -35,12 +35,21 @@ export const router = new VueRouter({
         },
         {
             path: "/dashboard",
-            name: "dashboard",
             components: {
                 HeaderComponent: () => import("./views/HeaderComponent.vue"),
                 SidebarComponent: () => import("./views/SidebarComponent.vue"),
                 ContentComponent: () => import("./views/ContentComponent.vue")
             },
+            children: [
+                {
+                    path: "/",
+                    name: "dashboard",
+                    components: {
+                        ViewRouterDashboard: () =>
+                            import("./views/DashboardComponent")
+                    }
+                },
+            ],
             meta: {
                 requireAuth: true
             }
@@ -53,6 +62,7 @@ export const router = new VueRouter({
                     import("./components/auth/LoginComponent.vue"),
                 SidebarComponent: () => import("./views/SidebarComponent.vue"),
             },
+
             meta: {
                 requireAuth: false
             }
@@ -638,17 +648,17 @@ export const router = new VueRouter({
     ]
 });
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some((record) => record.meta.requireAuth)) {
-        if (!store.getters["login/getUserLogged"]) {
-            next({ path: "/login" });
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some((record) => record.meta.requireAuth)) {
+//         if (!store.getters["login/getUserLogged"]) {
+//             next({ path: "/login" });
+//         } else {
+//             next();
+//         }
+//     } else {
+//         next();
+//     }
+// });
 
 // children: [
 //     {

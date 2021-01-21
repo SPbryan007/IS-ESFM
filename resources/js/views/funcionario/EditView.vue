@@ -127,6 +127,7 @@ export default {
         }
     },
     created() {
+        store.dispatch('login/getUser');
     },
 };
 </script>

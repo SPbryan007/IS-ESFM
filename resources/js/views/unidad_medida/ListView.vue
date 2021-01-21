@@ -208,6 +208,7 @@ export default {
         }
     },
     created() {
+        store.dispatch('login/getUser');
         store.dispatch("unidad_medida/getItems");
     }
 };

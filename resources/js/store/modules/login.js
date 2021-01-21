@@ -42,9 +42,7 @@ const actions = {
                     message.success("Ha iniciado la sesion correctamente");
                 })
                 .catch(err => {
-                    message.error(
-                        "Datos incorrectos, Por favor introduzca sus datos nuevamente"
-                    );
+                    message.error( "Datos incorrectos, Por favor introduzca sus datos nuevamente");
                     commit("disabled");
                     state.loading = false;
                     state.error = true;
@@ -55,12 +53,11 @@ const actions = {
     logout: ({ commit, state, getters }) => {
         axios
             .post("/auth/logout")
-            .then(response => {
-                // console.log(response.data);
+            .then((resp)=> {
                 commit("logout");
                 router.push("/login");
             })
-            .catch(err => {
+            .catch((err )=> {
                 console.log(err);
             });
     },
@@ -71,8 +68,8 @@ const actions = {
                     state.user = response.data
             })
             .catch(err => {
-                alert('Su sesión ha expirado');
-                router.push("/login");
+                let ok = confirm('Su sesión ha expirado');
+                router.push({name:'login'});
             });
     }
 };

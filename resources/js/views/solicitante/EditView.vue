@@ -213,6 +213,7 @@ export default {
       }
   },
   created() {
+      store.dispatch('login/getUser');
     store.dispatch("unidad/getItems");
     store.dispatch("funcionario/getItems");
   }

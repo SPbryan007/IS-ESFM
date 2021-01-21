@@ -124,6 +124,7 @@ export default {
         }
     },
     created() {
+        store.dispatch('login/getUser');
         store.state.funcionario.withTrashed = false;
         store.dispatch("funcionario/getItems");
     }

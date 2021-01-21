@@ -1,17 +1,17 @@
 <template>
 
     <div class="col-md-12">
-
-        <div class="row justify-content-between mb-4 mr-1 ml-1   mt-4">
+        <br>
+        <div class="row justify-content-between mb-4 mr-1 ml-1">
             <div class="pull-lef">
                 <h2>Configuraciones <i class="fas fa-cog" style="font-size: 20px"></i></h2>
             </div>
             <el-alert
-                v-if="show_error"
-                :title="'Oops, Algo salió mal'"
-                type="error"
-                :description="'Por favor verifíque la conexion con la base de datos :'+ error"
-                @close="show_error = false"
+                v-if="show_alert"
+                :title="type_alert == 'error'?  'Oops, Algo salió mal' : 'Datos restablecidos'"
+                :type="type_alert"
+                :description="message_alert"
+                @close="show_alert = false"
                 closable
                 show-icon
             >
@@ -38,7 +38,10 @@
            <div class="container">
                <h3>Backups <i class="fas fa-history" style="font-size: 20px"></i></h3>
                <p>Crea una copia de seguridad para respaldar los datos del sistema</p>
-               <el-button type="danger" @click="backup" :loading="false">Crear nueva copia <i class="el-icon-download el-icon-right"></i></el-button>
+               <el-button type="danger" @click="backup" :loading="loading_backup">Crear nueva copia <i class="el-icon-download el-icon-right"></i></el-button>
+               <p class="pt-3">Restablece datos respaldados</p>
+               <input class="btn btn-default" type="file" id="file" ref="file" v-on:change="onChangeFileUpload()" />
+               <el-button type="info" :disabled="!file" :loading="restoring" @click="restoreBackup" >Restablecer <i class="el-icon-upload el-icon-right"></i></el-button>
            </div>
             <div class="container mt-5">
                 <h3>Credenciales <i class="fas fa-file-invoice" style="font-size: 20px"></i></h3>
@@ -80,6 +83,7 @@
 <script>
 import { mapState, mapMutations, mapGetters } from "vuex";
 import store from "../../store";
+import moment from "moment";
 export default {
 
     data() {
@@ -127,8 +131,13 @@ export default {
                     { min: 3, message: "Debe tener menos  30 carácteres", trigger: "blur" }
                 ]
             },
-           error:'',
-            show_error:false
+           message_alert:'',
+            show_alert:false,
+            type_alert:'',
+            file:'',
+            restoring:false,
+            restored:false,
+            loading_backup:false,
         };
     },
     computed: {
@@ -161,8 +170,8 @@ export default {
                             .catch((err)=>{
                                 this.loading = false;
                                 this.$Progress.fail();
-                                this.show_error=true;
-                                this.error = err;
+                                this.show_alert=true;
+                                this.message_alert = err;
                             });
 
                     } else {
@@ -172,18 +181,61 @@ export default {
 
         },
         backup(){
-            axios.post('http://localhost:8000/backup/create')
-                 .then((data)=>{
-                     this.$router.push({name:'login'});
-                 })
-                .catch((err)=>{
-                    this.error = err;
+                this.loading_backup = true;
+                this.$Progress.start();
+                axios.get('/controller/backup',{ responseType: 'blob' })
+                    .then(response => {
+                        const blob = new Blob([response.data], { type: 'application/sql' })
+                        const link = document.createElement('a')
+                        link.href = URL.createObjectURL(blob)
+                        //link.download = 'test'
+                        link.setAttribute('download', moment().format('YYYY-MM-DD HH:mm:ss')+'.sql');
+                        //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+                        link.click()
+                        URL.revokeObjectURL(link.href)
+                        this.$Progress.finish();
+                        this.loading_backup = false;
+                    }).catch((err)=>{
+                    console.log('error',err.response.data.message);
+                    this.$Progress.fail();
+                    this.loading_backup = false;
+                    this.message_alert = err.response.data.message;
+                    this.show_alert = true;
                 });
         },
+        restoreBackup(){
+            this.restoring = true;
+            let formData = new FormData();
+            formData.append('file', this.file);
+            axios.post('/controller/backup/restore',
+                formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            ).then((data)=>{
+                console.log('DATA',data.data);
+                this.restoring = false;
+                this.type_alert = 'success';
+                this.message_alert = 'Los datos se han restablecido con exito.';
+                this.show_alert = true;
+                alert('copia de seguridad restablecida');
+                store.dispatch('login/logout');
+            })
+                .catch((err) => {
+                    this.type_alert = 'error';
+                    this.restoring = false;
+                    this.message_alert = err.response.data.message;
+                    this.show_alert = true;
+                });
+        },
+        onChangeFileUpload(){
+            this.file = this.$refs.file.files[0];
+        }
 
     },
     created() {
-
+        store.dispatch('login/getUser');
     },
     mounted() {
         this.credentials.username = store.state.login.user.username;

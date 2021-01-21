@@ -105,6 +105,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -194,6 +198,8 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+        _vm._m(1),
+        _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
           _c(
             "a",
@@ -232,6 +238,28 @@ var staticRenderFns = [
           [_c("i", { staticClass: "fas fa-bars" })]
         )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link",
+          attrs: {
+            "data-widget": "control-sidebar",
+            "data-slide": "true",
+            href: "#"
+          }
+        },
+        [
+          _c("i", { staticClass: "fas fa-question" }),
+          _vm._v(" inf.\n            ")
+        ]
+      )
     ])
   }
 ]

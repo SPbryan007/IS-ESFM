@@ -142,7 +142,8 @@ Route::prefix('controller/salida')->group(function (){
 });
 
 Route::prefix('controller/backup')->group(function (){
-    Route::get('/', 'SettingsController@getAll');
+    Route::get('/', 'SettingsController@backup');
+    Route::post('/restore', 'SettingsController@importFile');
 });
 
 Route::prefix('controller/lote')->group(function (){
@@ -152,6 +153,12 @@ Route::prefix('controller/lote')->group(function (){
     Route::put('/{id}','LoteController@update');
     Route::delete('/{id}','LoteController@destroy');*/
 });
+
+
+Route::prefix('controller/graphics')->group(function (){
+    Route::get('/dashboard', 'GraphicController@getDashboardGraphics');
+});
+
 
 
 /*Route::prefix('solicitante')->group(function(){

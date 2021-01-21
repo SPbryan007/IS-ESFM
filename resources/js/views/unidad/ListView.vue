@@ -219,6 +219,7 @@ export default {
         }
     },
     created() {
+        store.dispatch('login/getUser');
         this.$store.dispatch("unidad/getItems");
     },
 };

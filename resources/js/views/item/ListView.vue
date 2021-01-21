@@ -70,11 +70,15 @@
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'additem' }">
-                    <el-button type="primary" size="small">
+                    <el-button type="primary">
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
                 </router-link>
+                <el-button type="success">
+                    Exportar
+                    <i class="fas fa-download"></i>
+                </el-button>
             </div>
         </div>
         <div class="row justify-content-between ml-1" style="margin-bottom:-20px">

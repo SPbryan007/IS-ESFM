@@ -11,6 +11,8 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store */ "./resources/js/store/index.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_2__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -96,6 +98,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -155,8 +161,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           trigger: "blur"
         }]
       },
-      error: '',
-      show_error: false
+      message_alert: '',
+      show_alert: false,
+      type_alert: '',
+      file: '',
+      restoring: false,
+      restored: false,
+      loading_backup: false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("periodo", ["items", "loading_form", "loading_table", "alert", "data_form"]), {
@@ -186,8 +197,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this2.$Progress.fail();
 
-            _this2.show_error = true;
-            _this2.error = err;
+            _this2.show_alert = true;
+            _this2.message_alert = err;
           });
         } else {
           return false;
@@ -197,16 +208,67 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     backup: function backup() {
       var _this3 = this;
 
-      axios.post('http://localhost:8000/backup/create').then(function (data) {
-        _this3.$router.push({
-          name: 'login'
+      this.loading_backup = true;
+      this.$Progress.start();
+      axios.get('/controller/backup', {
+        responseType: 'blob'
+      }).then(function (response) {
+        var blob = new Blob([response.data], {
+          type: 'application/sql'
         });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob); //link.download = 'test'
+
+        link.setAttribute('download', moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD HH:mm:ss') + '.sql'); //link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+
+        link.click();
+        URL.revokeObjectURL(link.href);
+
+        _this3.$Progress.finish();
+
+        _this3.loading_backup = false;
       })["catch"](function (err) {
-        _this3.error = err;
+        console.log('error', err.response.data.message);
+
+        _this3.$Progress.fail();
+
+        _this3.loading_backup = false;
+        _this3.message_alert = err.response.data.message;
+        _this3.show_alert = true;
       });
+    },
+    restoreBackup: function restoreBackup() {
+      var _this4 = this;
+
+      this.restoring = true;
+      var formData = new FormData();
+      formData.append('file', this.file);
+      axios.post('/controller/backup/restore', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (data) {
+        console.log('DATA', data.data);
+        _this4.restoring = false;
+        _this4.type_alert = 'success';
+        _this4.message_alert = 'Los datos se han restablecido con exito.';
+        _this4.show_alert = true;
+        alert('copia de seguridad restablecida');
+        _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/logout');
+      })["catch"](function (err) {
+        _this4.type_alert = 'error';
+        _this4.restoring = false;
+        _this4.message_alert = err.response.data.message;
+        _this4.show_alert = true;
+      });
+    },
+    onChangeFileUpload: function onChangeFileUpload() {
+      this.file = this.$refs.file.files[0];
     }
   }),
-  created: function created() {},
+  created: function created() {
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
+  },
   mounted: function mounted() {
     this.credentials.username = _store__WEBPACK_IMPORTED_MODULE_1__["default"].state.login.user.username;
   }
@@ -282,26 +344,29 @@ var render = function() {
     "div",
     { staticClass: "col-md-12" },
     [
+      _c("br"),
+      _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row justify-content-between mb-4 mr-1 ml-1   mt-4" },
+        { staticClass: "row justify-content-between mb-4 mr-1 ml-1" },
         [
           _vm._m(0),
           _vm._v(" "),
-          _vm.show_error
+          _vm.show_alert
             ? _c("el-alert", {
                 attrs: {
-                  title: "Oops, Algo salió mal",
-                  type: "error",
-                  description:
-                    "Por favor verifíque la conexion con la base de datos :" +
-                    _vm.error,
+                  title:
+                    _vm.type_alert == "error"
+                      ? "Oops, Algo salió mal"
+                      : "Datos restablecidos",
+                  type: _vm.type_alert,
+                  description: _vm.message_alert,
                   closable: "",
                   "show-icon": ""
                 },
                 on: {
                   close: function($event) {
-                    _vm.show_error = false
+                    _vm.show_alert = false
                   }
                 }
               })
@@ -325,12 +390,43 @@ var render = function() {
           _c(
             "el-button",
             {
-              attrs: { type: "danger", loading: false },
+              attrs: { type: "danger", loading: _vm.loading_backup },
               on: { click: _vm.backup }
             },
             [
               _vm._v("Crear nueva copia "),
               _c("i", { staticClass: "el-icon-download el-icon-right" })
+            ]
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "pt-3" }, [
+            _vm._v("Restablece datos respaldados")
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            ref: "file",
+            staticClass: "btn btn-default",
+            attrs: { type: "file", id: "file" },
+            on: {
+              change: function($event) {
+                return _vm.onChangeFileUpload()
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "el-button",
+            {
+              attrs: {
+                type: "info",
+                disabled: !_vm.file,
+                loading: _vm.restoring
+              },
+              on: { click: _vm.restoreBackup }
+            },
+            [
+              _vm._v("Restablecer "),
+              _c("i", { staticClass: "el-icon-upload el-icon-right" })
             ]
           )
         ],

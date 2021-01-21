@@ -212,7 +212,9 @@ class ReporteController extends Controller
             ];
             switch ($request->formato){
                 case 'A':
-                    return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatoa'))->download('lote.xlsx');
+                    return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatoa'))
+
+                        ->download('lote.xlsx');
                     break;
                 case 'B':
                     return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatob'))->download('lote.xlsx');

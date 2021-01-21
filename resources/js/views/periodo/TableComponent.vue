@@ -150,6 +150,7 @@ export default {
         },
     },
     mounted() {
+        store.dispatch('login/getUser');
     },
 };
 </script>
