@@ -165,7 +165,40 @@
               </li>
             </ul>
           </li>
-
+            <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                    <i class="nav-icon fas fa-file-alt"></i>
+                    <p>Consultas</p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'ingreso_proveedor' }" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>Ingresos por proveedor</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'ingreso_usuario' }" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>Ingresos por usuario</p>
+                        </router-link>
+                    </li>
+                </ul>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'salida_solicitante' }" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>Salidas por solicitante</p>
+                        </router-link>
+                    </li>
+                    <li class="nav-item">
+                        <router-link :to="{ name: 'salida_usuario' }" class="nav-link">
+                            <i class="fas fa-truck"></i>
+                            <p>Salidas por usuario</p>
+                        </router-link>
+                    </li>
+                </ul>
+            </li>
           <li class="nav-item" v-if=" this.$store.state.login.user ? this.$store.state.login.user.rol == 'ADMINISTRADOR' : false">
             <router-link :to="{ name: 'usuario' }" class="nav-link nav-button">
               <i class="nav-icon fas fa-users"></i>

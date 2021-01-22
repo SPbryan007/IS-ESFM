@@ -15,9 +15,71 @@
             :closable="false"
             effect="dark">
             <template slot="title">
-                <span class="font-weight-bold" style="font-size: 15px"> Reporte Estado de Movimiento de Almacen de Materiales y Suministros</span>
+                <span class="font-weight-bold" style="font-size: 15px"> Ingresos por proveedor</span>
             </template>
         </el-alert>
+        <div class="row row justify-content-between mr-1 ml-1  mt-4">
+            <div class="pull-left">
+                <el-form :inline="true" :rules="rules" :model="consulta" class="demo-form-inline" ref="QueryForm">
+                    <el-form-item label="Ingresos por:" prop="" >
+                        <el-select
+                            style="width: 180px"
+                            v-model="consulta.por"
+                            filterable
+                            loading-text="buscando.."
+                            no-match-text="No se encontraron registros"
+                            placeholder="Seleccione una opción"
+                        >
+                            <el-option
+                                v-for="(item, index) in [{id:'Proveedor'},{id:'Usuario'}]"
+                                :key="index"
+                                :label="item.id"
+                                :value="item.id"
+                            ></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item  label="Del" prop="del">
+                        <el-date-picker
+                            v-model="consulta.del"
+                            style="width: 160px"
+                            type="date"
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
+                            placeholder="Seleccione dia"
+                        >
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="Al" prop="al">
+                        <el-date-picker
+                            v-model="consulta.al"
+                            style="width: 160px"
+                            type="date"
+                            format="dd/MM/yyyy"
+                            value-format="yyyy-MM-dd"
+                            placeholder="Seleccione un dia"
+                        >
+                        </el-date-picker>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button :loading="loading" type="primary" @click="GET_ITEMS_REMA('QueryForm')">Consultar</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div class="pull-right">
+                <el-button
+                    type="danger"
+                    @click="Print"
+                    :disabled="!consulta.periodo || !consulta.del || !consulta.al"
+                ><i class="fas fa-file-pdf"></i> Exp. Pdf</el-button>
+                <el-button
+                    type="success"
+                    @click="toExcel"
+                    :loading="loading_excel"
+                    :disabled="!consulta.periodo || !consulta.del || !consulta.al"
+                > <i class="fas fa-file-excel"></i> Exp. Excel</el-button>
+
+            </div>
+        </div>
         <div class="row row justify-content-between mr-1 ml-1  mt-4">
             <div class="pull-left">
                 <el-form :inline="true" :rules="rules" :model="consulta" class="demo-form-inline" ref="QueryForm">
@@ -364,7 +426,7 @@ export default {
                 next: "siguiente"
             },
             consulta:{
-                formato:'A',
+                por:'Proveedor',
                 del:null,
                 al:null,
                 periodo:null,

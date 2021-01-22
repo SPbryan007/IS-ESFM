@@ -432,30 +432,6 @@ export const router = new VueRouter({
                             import("./views/periodo/AperturaInventarioInicialView.vue")
                     }
                 },
-                // {
-                //     path: "agregar/detalles",
-                //     name: "adddetails",
-                //     components: {
-                //         ViewRouterPeriodo: () =>
-                //             import("./views/periodo/AddDetailsView.vue")
-                //     }
-                // },
-                // {
-                //     path: "agregar/detalles_ingreso",
-                //     name: "detalles_ingreso",
-                //     components: {
-                //         ViewRouterPeriodo: () =>
-                //             import("./views/periodo/StartedView.vue")
-                //     }
-                // },
-                // {
-                //     path: "agregar/detalles_ingreso/nuevo_lote/:id",
-                //     name: "nuevo_lote",
-                //     components: {
-                //         ViewRouterPeriodo: () =>
-                //             import("./views/periodo/InitialDetails.vue")
-                //     }
-                // }
             ],
             meta: {
                 requireAuth: true
@@ -502,38 +478,6 @@ export const router = new VueRouter({
                             import("./views/ingreso/ViewDetails.vue")
                     }
                 }
-                // {
-                //     path: "editar",
-                //     name: "editingreso",
-                //     components: {
-                //         ViewRouterIngreso: () =>
-                //             import("./views/ingreso/IngresoView.vue")
-                //     }
-                // }
-                // {
-                //     path: "agregar/",
-                //     name: "adddetails",
-                //     components: {
-                //         ViewRouterGestion: () =>
-                //             import("./views/periodo/AddDetailsView.vue")
-                //     }
-                // },
-                // {
-                //     path: "agregar/detalles_ingreso",
-                //     name: "detalles_ingreso",
-                //     components: {
-                //         ViewRouterGestion: () =>
-                //             import("./views/periodo/StartedView.vue")
-                //     }
-                // },
-                // {
-                //     path: "agregar/detalles_ingreso/nuevo_lote/:id",
-                //     name: "nuevo_lote",
-                //     components: {
-                //         ViewRouterGestion: () =>
-                //             import("./views/periodo/InitialDetails.vue")
-                //     }
-                // }
             ],
             meta: {
                 requireAuth: true
@@ -618,6 +562,52 @@ export const router = new VueRouter({
                             import("./views/reporte/SaldosView.vue")
                     }
                 },
+            ],
+            meta: {
+                requireAuth: true
+            }
+        },
+        {
+            path: "/consulta",
+            components: {
+                HeaderComponent: () => import("./views/HeaderComponent.vue"),
+                SidebarComponent: () => import("./views/SidebarComponent.vue"),
+                ContentComponent: () =>
+                    import("./views/consulta/ConsultaView.vue")
+            },
+            children: [
+                {
+                    path: "/consulta/ingreso_proveedor",
+                    name: "ingreso_proveedor",
+                    components: {
+                        ViewRouterConsulta: () =>
+                            import("./views/consulta/IngresoProveedorView.vue")
+                    }
+                },
+                // {
+                //     path: "/consulta/ingreso_usuario",
+                //     name: "ingreso_usuario",
+                //     components: {
+                //         ViewRouterConsulta: () =>
+                //             import("./views/consulta/IngresoUsuarioView.vue")
+                //     }
+                // },
+                // {
+                //     path: "/consulta/salida_solicitante",
+                //     name: "salida_solicitante",
+                //     components: {
+                //         ViewRouterConsulta: () =>
+                //             import("./views/consulta/SalidaSolicitanteView.vue")
+                //     }
+                // },
+                // {
+                //     path: "/consulta/salida_usuario",
+                //     name: "salida_usuario",
+                //     components: {
+                //         ViewRouterConsulta: () =>
+                //             import("./views/consulta/SalidaUsuarioView.vue")
+                //     }
+                // },
             ],
             meta: {
                 requireAuth: true

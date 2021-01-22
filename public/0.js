@@ -225,6 +225,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -640,6 +673,94 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
+              _c("li", { staticClass: "nav-item has-treeview" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c("ul", { staticClass: "nav nav-treeview" }, [
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "ingreso_proveedor" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-truck" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Ingresos por proveedor")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "ingreso_usuario" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-truck" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Ingresos por usuario")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("ul", { staticClass: "nav nav-treeview" }, [
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "salida_solicitante" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-truck" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Salidas por solicitante")])
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    { staticClass: "nav-item" },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link",
+                          attrs: { to: { name: "salida_usuario" } }
+                        },
+                        [
+                          _c("i", { staticClass: "fas fa-truck" }),
+                          _vm._v(" "),
+                          _c("p", [_vm._v("Salidas por usuario")])
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ])
+              ]),
+              _vm._v(" "),
               (this.$store.state.login.user
               ? this.$store.state.login.user.rol == "ADMINISTRADOR"
               : false)
@@ -783,6 +904,16 @@ var staticRenderFns = [
       _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
       _vm._v(" "),
       _c("p", [_vm._v("Reportes")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
+      _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
+      _vm._v(" "),
+      _c("p", [_vm._v("Consultas")])
     ])
   }
 ]
