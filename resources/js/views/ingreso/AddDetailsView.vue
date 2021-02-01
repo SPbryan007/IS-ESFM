@@ -79,7 +79,7 @@
 
                               </el-form>
                               <span slot="footer" class="dialog-footer">
-                            <el-button @click="OnClickCancelForm('AddDetailsForm')">Cancel</el-button>
+                            <el-button @click="OnClickCancelForm('AddDetailsForm')">Cancelar</el-button>
                             <el-button type="primary" @click="OnClickAddForm('AddDetailsForm')">Agregar</el-button>
                           </span>
                           </el-dialog>

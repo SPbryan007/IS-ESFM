@@ -50,15 +50,11 @@ class ReporteRepository
      */
     public function SaldosAlmacen($del, $al, $periodo,$conSaldo)
     {
-        // AND  i.created_at BETWEEN  " . DB::getPdo()->quote(date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio))) . " AND " . DB::getPdo()->quote(date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))) . "
 
         $periodo = Periodo::where('id', $periodo)->withTrashed()
             ->where('estado', '=', Periodo::FINALIZADO)
             ->orWhere('estado', '=', Periodo::EN_CURSO)
             ->first();
-//        $inv_inicial = Ingreso::where('tipo_ingreso',Ingreso::INV_INICIAL)
-//                            ->where('periodo_id',$periodo->id)
-//                            ->first();
 
         $saldo = filter_var($conSaldo, FILTER_VALIDATE_BOOLEAN) ? '>=' : '<>';
 

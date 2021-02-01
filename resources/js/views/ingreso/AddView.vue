@@ -20,7 +20,7 @@
         </div>
       <div class="card">
         <div class="card-header border-0">
-          <h3 class="card-title">Registro de ingresos</h3>
+          <h3 class="card-title">Registro de ingreso</h3>
           <div class="card-tools"></div>
         </div>
         <div class="card-body">
@@ -35,23 +35,15 @@
 
           <div class="row justify-content-center">
             <div class="col-md-8 col-md-offset-4">
-              <div class="row">
-            <!--    <el-form class="labeles" ref="tipo_ingreso" :model="data_form" label-width="170px">
-                  <el-form-item label="Tipo de ingreso :" prop="tipo_ingreso">
-                    <el-radio v-model="data_form.tipo_ingreso" label="COMPRA" border>COMPRA</el-radio>
-                    <el-radio v-model="data_form.tipo_ingreso" label="DONACION" border>DONACION</el-radio>
-                  </el-form-item>
-                </el-form>-->
-              </div>
-              <div class="row">
+              <div class="row" v-if="data_form.tipo_ingreso == 'Compra'">
                 <el-form
                   class="labeles"
-                  ref="IngresoForm"
+                  ref="IngresoCompraForm"
                   :model="data_form"
                   :rules="rules"
                   label-width="170px"
                 >
-                  <div v-if="data_form.tipo_ingreso == 'Compra'">
+                  <div>
                     <div class="row">
                       <el-form-item label="Formulario :" prop="tipo_compra">
                         <el-select
@@ -144,66 +136,90 @@
                           <el-button type="primary" icon="el-icon-plus"></el-button>
                         </router-link>
                       </el-form-item>
+                        <el-form-item label="Observaciones :" prop="observacion">
+                            <el-input type="textarea" style="width:400px" v-model="data_form.observacion"></el-input>
+                        </el-form-item>
                     </div>
                   </div>
-                  <div v-if="data_form.tipo_ingreso === 'Donacion'">
-                      <el-form-item label="Formulario :" prop="tipo_donacion">
-                          <el-select
-                              style="width:340px"
-                              v-model="data_form.tipo_donacion"
-                              filterable
-                              placeholder="Seleccione el formulario"
-                              loading-text="buscando.."
-                              no-match-text="No se encontraron registros"
-                          >
-                              <el-option
-                                  v-for="(item, index) in [
-                                {key:'ADO',value:'ACTA DE DONACION'},
-                                {key:'DCO',value:'DONACION POR CONVENIO'},
-                            ]"
-                                  :key="index"
-                                  :label="item.value"
-                                  :value="item.key"
-                              ></el-option>
-                          </el-select>
-                      </el-form-item>
-                    <el-form-item label="Nro de acta :" prop="nro_acta">
-                      <el-input v-model="data_form.nro_acta" style="width:170px"></el-input>
-                    </el-form-item>
-                      <el-form-item label="Fecha de acta :" label-position="top" prop="fecha_acta">
-                          <el-date-picker type="date" :picker-options="pickerOptions" v-model="data_form.fecha_acta" placeholder="Fecha comprobante"></el-date-picker>
-                      </el-form-item>
-                    <el-form-item label="Proveedor :" prop="proveedor">
-                      <el-select
-                        style="width:340px"
-                        v-model="data_form.proveedor"
-                        filterable
-                        placeholder="Seleccione el proveedor"
-                        loading-text="buscando.."
-                        no-match-text="No se encontraron registros"
-                      >
-                        <el-option
-                          v-for="(item, index) in GET_ITEMS_PROVEEDOR"
-                          :key="index"
-                          :label="item.nombre"
-                          :value="item.id"
-                        ></el-option>
-                      </el-select>
-                      <router-link :to="{name:'addproveedor'}">
-                        <el-button type="primary" icon="el-icon-plus"></el-button>
-                      </router-link>
-                    </el-form-item>
-                  </div>
-
                   <el-form-item>
-                    <el-button type="primary" @click="submitForm('IngresoForm')">
+                    <el-button :disabled="loading_next" :loading="loading_next" type="primary" @click="submitForm('IngresoCompraForm')">
                       Siguiente
                       <i class="fas fa-arrow-right"></i>
                     </el-button>
-                    <el-button @click="cancelForm('IngresoForm')">Cancelar</el-button>
+                    <el-button @click="cancelForm('IngresoCompraForm')">Cancelar</el-button>
                   </el-form-item>
                 </el-form>
               </div>
+                <div class="row" v-if="data_form.tipo_ingreso === 'Donacion'">
+                    <el-form
+                        class="labeles"
+                        ref="IngresoDonacionForm"
+                        :model="data_form"
+                        :rules="rulesDonacion"
+                        label-width="170px"
+                    >
+                        <div>
+                            <el-form-item label="Formulario :" prop="tipo_donacion">
+                                <el-select
+                                    style="width:340px"
+                                    v-model="data_form.tipo_donacion"
+                                    filterable
+                                    placeholder="Seleccione el formulario"
+                                    loading-text="buscando.."
+                                    no-match-text="No se encontraron registros"
+                                >
+                                    <el-option
+                                        v-for="(item, index) in [
+                                {key:'ADO',value:'ACTA DE DONACION'},
+                                {key:'DCO',value:'DONACION POR CONVENIO'},
+                            ]"
+                                        :key="index"
+                                        :label="item.value"
+                                        :value="item.key"
+                                    ></el-option>
+                                </el-select>
+                            </el-form-item>
+                            <el-form-item label="Nro de acta :" prop="nro_acta">
+                                <el-input v-model="data_form.nro_acta" style="width:170px"></el-input>
+                            </el-form-item>
+                            <el-form-item label="Fecha de acta :" label-position="top" prop="fecha_acta">
+                                <el-date-picker type="date" :picker-options="pickerOptions" v-model="data_form.fecha_acta" placeholder="Fecha comprobante"></el-date-picker>
+                            </el-form-item>
+                            <el-form-item label="Proveedor :" prop="proveedor">
+                                <el-select
+                                    style="width:340px"
+                                    v-model="data_form.proveedor"
+                                    filterable
+                                    placeholder="Seleccione el proveedor"
+                                    loading-text="buscando.."
+                                    no-match-text="No se encontraron registros"
+                                >
+                                    <el-option
+                                        v-for="(item, index) in GET_ITEMS_PROVEEDOR"
+                                        :key="index"
+                                        :label="item.nombre"
+                                        :value="item.id"
+                                    ></el-option>
+                                </el-select>
+                                <router-link :to="{name:'addproveedor'}">
+                                    <el-button type="primary" icon="el-icon-plus"></el-button>
+                                </router-link>
+                            </el-form-item>
+                            <el-form-item label="Observaciones :" prop="observacion">
+                                <el-input type="textarea" style="width:400px" v-model="data_form.observacion"></el-input>
+                            </el-form-item>
+
+                        </div>
+
+                        <el-form-item>
+                            <el-button :disabled="loading_next" :loading="loading_next" type="primary" @click="submitForm('IngresoDonacionForm')">
+                                Siguiente
+                                <i class="fas fa-arrow-right"></i>
+                            </el-button>
+                            <el-button @click="cancelForm('IngresoDonacionForm')">Cancelar</el-button>
+                        </el-form-item>
+                    </el-form>
+                </div>
             </div>
           </div>
         </div>
@@ -218,12 +234,47 @@ import { router } from "../../routes";
 export default {
   data() {
     return {
+        loading_next:false,
         pickerOptions: {
             disabledDate(time) {
                 return time.getTime() > Date.now();
             },
         },
+        rulesDonacion: {
+            tipo_donacion: [
+                {
+                    required: true,
+                    message: "Este campo es obligatorio",
+                    trigger: "change",
+                },
+            ],
+            // tipo_acta: [
+            //     {
+            //         required: true,
+            //         message: "Este campo es obligatorio",
+            //         trigger: "change",
+            //     },
+            // ],
+            nro_acta: [
+                {
+                    required: true,
+                    message: "Este campo es obligatorio",
+                    trigger: "blur",
+                },
+                { max: 15, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+                { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
+            ],
+            proveedor: [
+                {
+                    required: true,
+                    message: "Debe seleccionar un proveedor",
+                    trigger: "change",
+                },
+            ],
+
+        },
       rules: {
+
         tipo_compra: [
           {
             required: true,
@@ -231,13 +282,7 @@ export default {
             trigger: "change",
           },
         ],
-          tipo_acta: [
-              {
-                  required: true,
-                  message: "Este campo es obligatorio",
-                  trigger: "change",
-              },
-          ],
+
         tipo_comprobante: [
           {
             required: true,
@@ -252,7 +297,7 @@ export default {
             trigger: "blur",
           },
             { max: 190, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
-            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
+            { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
         ],
         nro_solicitud: [
           {
@@ -261,7 +306,7 @@ export default {
             trigger: "blur",
           },
             { max: 10, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
-            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
+            { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
         ],
         nro_autorizacion: [
           {
@@ -270,16 +315,7 @@ export default {
             trigger: "blur",
           },
             { max: 190, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
-            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
-        ],
-        nro_acta: [
-          {
-            required: true,
-            message: "Este campo es obligatorio",
-            trigger: "blur",
-          },
-            { max: 15, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
-            { min: 3, message: "Debe tener menos de 190 caracteres", trigger: "blur" }
+            { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
         ],
         proveedor: [
           {
@@ -310,9 +346,7 @@ export default {
     submitForm(form) {
       this.$refs[form].validate((valid) => {
         if (valid) {
-            store.dispatch("articulo/getItems");
-            store.dispatch("articulo/getLotes");
-          router.push({ name: "addingresodetails" });
+            router.push({ name: "addingresodetails" });
         }
       });
     },

@@ -37,6 +37,10 @@ Vue.filter("dateformat", arg => {
     //return moment(arg).format("YYYY-MM-DD");
     return arg ? moment(arg).format("DD/MM/YYYY") : '-';
 });
+Vue.filter("timeformat", arg => {
+    //return moment(arg).format("YYYY-MM-DD");
+    return arg ? moment(arg).format("LT") : '-';
+});
 
 import * as writtenNumber from 'written-number';
 writtenNumber.defaults.lang = 'es';

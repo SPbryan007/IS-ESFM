@@ -69,7 +69,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.fade-enter,\n.fade-leave-to {\n    opacity: 0;\n    transform: translateX(2em);\n}\n.fade-enter-active,\n.fade-leave-to-active {\n    transition: all 0.3s ease;\n}\n", ""]);
+exports.push([module.i, "\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0;\r\n    transform: translateX(2em);\n}\n.fade-enter-active,\r\n.fade-leave-to-active {\r\n    transition: all 0.3s ease;\n}\r\n", ""]);
 
 // exports
 

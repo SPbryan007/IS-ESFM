@@ -77,8 +77,13 @@
 <!--      </li>-->
 
         <li class="nav-item">
+            <span class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+                <i class="fas fa-clock"></i> {{ this.$store.state.periodo? this.$store.state.periodo.current.nombre : 'Sin definir'}}
+            </span>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
-                <i class="fas fa-question"></i> inf.
+                <i class="fas fa-question"></i> Manual.
             </a>
         </li>
       <li class="nav-item">
@@ -105,7 +110,10 @@ export default {
   },
   mounted() {
     console.log("Component mounted.");
-  }
+  },
+  created() {
+      store.dispatch('periodo/verify');
+    }
 };
 </script>
 <style>

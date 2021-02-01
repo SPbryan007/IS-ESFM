@@ -58,7 +58,7 @@
                             :color="{checked: '#13ce66', unchecked: '#6576ff', disabled: '#CCCCCC'}"
                             :sync="false"
                             :width="70"
-                            :labels="{checked: 'Admin', unchecked: 'Defecto'}"/>
+                            :labels="{checked: 'Admin', unchecked: 'Invitado'}"/>
                     </el-form-item>
 
                     <el-form-item>

@@ -44,7 +44,7 @@
                             <dt class="col-md-5">Expedido por:</dt>
                             <dd class="col-md-7">{{ detalle_salida.usuario.funcionario.nombre +' '+ detalle_salida.usuario.funcionario.apellido }}</dd>
                             <dt class="col-md-5">Fecha de salida:</dt>
-                            <dd class="col-md-7">{{ detalle_salida.created_at | dateformat }}</dd>
+                            <dd class="col-md-7">{{ detalle_salida.created_at | dateformat }} <b>Hrs:</b>  {{ detalle_salida.created_at | timeformat }}</dd>
                             <dt class="col-md-5">Solicitante:</dt>
                             <dd class="col-md-7">{{ detalle_salida.solicitante.funcionario.nombre +' '+ detalle_salida.solicitante.funcionario.apellido }}</dd>
                             <dt class="col-md-5">Autorizado por:</dt>
@@ -164,7 +164,7 @@ export default {
                     const blob = new Blob([response.data], { type: 'application/pdf' })
                     const link = document.createElement('a')
                     link.href = URL.createObjectURL(blob)
-                    link.download = 'NIA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
+                    link.download = 'NSA-'+nro+'-'+moment(date).format("DD/MM/YYYY")
                     link.click()
                     URL.revokeObjectURL(link.href)
                 }).catch(console.error);

@@ -562,57 +562,89 @@ export const router = new VueRouter({
                             import("./views/reporte/SaldosView.vue")
                     }
                 },
-            ],
-            meta: {
-                requireAuth: true
-            }
-        },
-        {
-            path: "/consulta",
-            components: {
-                HeaderComponent: () => import("./views/HeaderComponent.vue"),
-                SidebarComponent: () => import("./views/SidebarComponent.vue"),
-                ContentComponent: () =>
-                    import("./views/consulta/ConsultaView.vue")
-            },
-            children: [
                 {
-                    path: "/consulta/ingreso_proveedor",
-                    name: "ingreso_proveedor",
+                    path: "/reporte/ingresos",
+                    name: "reporte_ingresos",
                     components: {
-                        ViewRouterConsulta: () =>
-                            import("./views/consulta/IngresoProveedorView.vue")
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/IngresosView.vue")
                     }
                 },
-                // {
-                //     path: "/consulta/ingreso_usuario",
-                //     name: "ingreso_usuario",
-                //     components: {
-                //         ViewRouterConsulta: () =>
-                //             import("./views/consulta/IngresoUsuarioView.vue")
-                //     }
-                // },
-                // {
-                //     path: "/consulta/salida_solicitante",
-                //     name: "salida_solicitante",
-                //     components: {
-                //         ViewRouterConsulta: () =>
-                //             import("./views/consulta/SalidaSolicitanteView.vue")
-                //     }
-                // },
-                // {
-                //     path: "/consulta/salida_usuario",
-                //     name: "salida_usuario",
-                //     components: {
-                //         ViewRouterConsulta: () =>
-                //             import("./views/consulta/SalidaUsuarioView.vue")
-                //     }
-                // },
+                {
+                    path: "/reporte/ingresos/detalle/:id",
+                    name: "reporteviewdetailingreso",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/IngresoDetailsView")
+                    }
+                },
+                {
+                    path: "/reporte/salidas/detalle/:id",
+                    name: "reporteviewdetailsalida",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/SalidaDetailsView")
+                    }
+                },
+                {
+                    path: "/reporte/salidas",
+                    name: "reporte_salidas",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/SalidasView.vue")
+                    }
+                },
             ],
             meta: {
                 requireAuth: true
             }
         },
+        // {
+        //     path: "/consulta",
+        //     components: {
+        //         HeaderComponent: () => import("./views/HeaderComponent.vue"),
+        //         SidebarComponent: () => import("./views/SidebarComponent.vue"),
+        //         ContentComponent: () =>
+        //             import("./views/consulta/ConsultaView.vue")
+        //     },
+        //     children: [
+        //         {
+        //             path: "/consulta/ingreso_proveedor",
+        //             name: "ingreso_proveedor",
+        //             components: {
+        //                 ViewRouterConsulta: () =>
+        //                     import("./views/consulta/IngresoProveedorView.vue")
+        //             }
+        //         },
+        //         // {
+        //         //     path: "/consulta/ingreso_usuario",
+        //         //     name: "ingreso_usuario",
+        //         //     components: {
+        //         //         ViewRouterConsulta: () =>
+        //         //             import("./views/consulta/IngresoUsuarioView.vue")
+        //         //     }
+        //         // },
+        //         // {
+        //         //     path: "/consulta/salida_solicitante",
+        //         //     name: "salida_solicitante",
+        //         //     components: {
+        //         //         ViewRouterConsulta: () =>
+        //         //             import("./views/consulta/SalidaSolicitanteView.vue")
+        //         //     }
+        //         // },
+        //         // {
+        //         //     path: "/consulta/salida_usuario",
+        //         //     name: "salida_usuario",
+        //         //     components: {
+        //         //         ViewRouterConsulta: () =>
+        //         //             import("./views/consulta/SalidaUsuarioView.vue")
+        //         //     }
+        //         // },
+        //     ],
+        //     meta: {
+        //         requireAuth: true
+        //     }
+        // },
         {
             path: "/stock",
             components: {

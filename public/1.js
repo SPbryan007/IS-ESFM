@@ -109,6 +109,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -118,6 +123,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["authenticated"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("login", ["logout"])),
   mounted: function mounted() {
     console.log("Component mounted.");
+  },
+  created: function created() {
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('periodo/verify');
   }
 });
 
@@ -198,6 +206,32 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "span",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                "data-widget": "control-sidebar",
+                "data-slide": "true",
+                href: "#"
+              }
+            },
+            [
+              _c("i", { staticClass: "fas fa-clock" }),
+              _vm._v(
+                " " +
+                  _vm._s(
+                    this.$store.state.periodo
+                      ? this.$store.state.periodo.current.nombre
+                      : "Sin definir"
+                  ) +
+                  "\n            "
+              )
+            ]
+          )
+        ]),
+        _vm._v(" "),
         _vm._m(1),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
@@ -257,7 +291,7 @@ var staticRenderFns = [
         },
         [
           _c("i", { staticClass: "fas fa-question" }),
-          _vm._v(" inf.\n            ")
+          _vm._v(" Manual.\n            ")
         ]
       )
     ])

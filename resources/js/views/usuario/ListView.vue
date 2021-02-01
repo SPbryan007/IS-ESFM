@@ -18,7 +18,7 @@
             </div>
             <div class="pull-right">
                 <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addusuario' }">
-                    <el-button type="primary" size="small">
+                    <el-button type="primary" >
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
@@ -83,7 +83,7 @@
                     :default-sort="{prop: 'id_usuario', order: 'descending'}"
                     style="width: 100%"
                 >
-                    <el-table-column width="60">
+                    <el-table-column width="60" label="ID">
                         <template slot-scope="scope">
                             {{ scope.row.id_usuario }}
                         </template>
@@ -96,13 +96,13 @@
                     <el-table-column prop="rol" label="Rol" width="150" sortable>
                         <template slot-scope="scope">
                                  <toggle-button
-                                     :disabled="scope.row.id_usuario == $store.state.login.user.id_usuario"
+                                     :disabled="scope.row.id_usuario == $store.state.login.user.id_usuario || scope.row.funcionario.deleted_at"
                                      @change="ChangeRol(scope.$index,scope.row)"
                                      :value="scope.row.rol == 'ADMINISTRADOR'? true : false"
                                      :color="{checked: '#13ce66', unchecked: '#6576ff', disabled: '#CCCCCC'}"
                                      :sync="false"
                                      :width="70"
-                                     :labels="{checked: 'Admin', unchecked: 'Defecto'}"/>
+                                     :labels="{checked: 'Admin', unchecked: 'Invitado'}"/>
                         </template>
                     </el-table-column>
 
@@ -133,9 +133,9 @@
                                 @click="OnClickAD(scope.$index, scope.row)"
                             >Eliminar</el-button>
                             <el-button
-
                                 v-if="scope.row.deleted_at"
                                 :loading="loading_form && scope.$index == self"
+                                :disabled="scope.row.funcionario.deleted_at"
                                 type="primary"
                                 size="mini"
                                 @click="OnClickAD(scope.$index, scope.row)"
@@ -253,16 +253,17 @@ export default {
         },
     },
     created() {
+        store.state.usuario.withTrashed = false;
         store.dispatch('login/getUser');
         store.dispatch("usuario/getItems");
     },
-    beforeRouteEnter(to,from,next){
-        if (store.getters["login/getUserLogged"].rol == 'ADMINISTRADOR') {
-            next();
-        } else {
-            next(false);
-        }
-    }
+    // beforeRouteEnter(to,from,next){
+    //     if (store.getters["login/getUserLogged"].rol == 'ADMINISTRADOR') {
+    //         next();
+    //     } else {
+    //         next(false);
+    //     }
+    // }
 };
 </script>
 

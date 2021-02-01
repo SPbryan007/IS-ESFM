@@ -164,4 +164,18 @@ class SalidaController extends Controller
             return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
         }
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function Query(Request $request)
+    {
+        try {
+            $salidas = $this->salidaRepository->queryAll($request->del,$request->al,$request->periodo);
+            return response()->json($salidas,200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'],500);
+        }
+    }
 }

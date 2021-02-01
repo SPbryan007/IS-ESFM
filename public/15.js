@@ -509,7 +509,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n.scrolling::-webkit-scrollbar-track\n{  height: 2px;\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    background-color: #F5F5F5;\n}\n.scrolling::-webkit-scrollbar\n{\n    height: 7px;\n    width: 2px;\n    background-color: #2d373c21;\n}\n.scrolling::-webkit-scrollbar-thumb\n{\n    height: 10px;\n    background-color: #0000001c;\n    border: 2px solid #2d373c21;\n}\n", ""]);
+exports.push([module.i, "\nth {\r\n    padding: 7px !important;\n}\n.scrolling::-webkit-scrollbar-track\r\n{  height: 2px;\r\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\r\n    background-color: #F5F5F5;\n}\n.scrolling::-webkit-scrollbar\r\n{\r\n    height: 7px;\r\n    width: 2px;\r\n    background-color: #2d373c21;\n}\n.scrolling::-webkit-scrollbar-thumb\r\n{\r\n    height: 10px;\r\n    background-color: #0000001c;\r\n    border: 2px solid #2d373c21;\n}\r\n", ""]);
 
 // exports
 

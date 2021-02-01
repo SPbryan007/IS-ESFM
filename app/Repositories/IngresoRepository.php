@@ -46,11 +46,33 @@ class IngresoRepository
             ->leftjoin('lote','lote.id','=','di.lote_id')
             ->with(['proveedor' => function($query){
                 $query->withTrashed();
-            }])
+            },'compra','donacion'])
             ->where('periodo_id',$periodo)
             ->orderBy('ingreso.id','DESC')
             ->groupBy('ingreso.id')
             ->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
+            ->get();
+    }
+
+    public function queryAll($del,$al,$periodo)
+    {
+        return Ingreso::select(DB::raw('ROUND(SUM((di.cantidad*lote.precio_u)), 2) as total'),
+            'ingreso.*'
+        )
+            ->leftjoin('detalle_ingreso as di','di.ingreso_id','=','ingreso.id')
+            ->leftjoin('lote','lote.id','=','di.lote_id')
+            ->with(['proveedor' => function($query){
+                $query->withTrashed();
+            },'compra','donacion','usuario' => function($query){
+                $query->with(['funcionario' => function($query){
+                    $query->withTrashed();
+                }]);
+                $query->withTrashed();
+            }])
+            ->where('periodo_id',$periodo)
+            ->whereBetween('ingreso.created_at', [date('Y-m-d H:i:s', strtotime($del)), date('Y-m-d 23:59:59', strtotime($al))])
+            ->orderBy('ingreso.id','DESC')
+            ->groupBy('ingreso.id')
             ->get();
     }
 
@@ -85,13 +107,13 @@ class IngresoRepository
                 return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').', La fecha actual no se encuentra dentro el rango de fechas del periodo contable en curso','status' => 409];
             }
             DB::beginTransaction();
-            $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id,null);
+            $ingreso = $this->register(Ingreso::COMPRA,$data->proveedor,Periodo::latest()->first()->id,null,$data->observacion);
             $compra = new Compra();
             $compra->id_compra          = $ingreso->id;
             $compra->tipo_compra        = $data->tipo_compra;
-            $compra->nro_solicitud      = $data->nro_solicitud;
             $compra->tipo_comprobante   = $data->tipo_comprobante;
             $compra->nro_comprobante    = $data->nro_comprobante;
+            $compra->nro_solicitud    = $data->nro_solicitud;
             $compra->nro_autorizacion   = $data->nro_autorizacion;
             $compra->fecha_comprobante  = $data->fecha_comprobante;
             $compra->fecha_solicitud    = $data->fecha_solicitud;
@@ -136,7 +158,7 @@ class IngresoRepository
                 return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').', La fecha actual no se encuentra dentro el rango de fechas del periodo contable en curso','status' => 409];
             }
             DB::beginTransaction();
-            $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id,null);
+            $ingreso = $this->register(Ingreso::DONACION,$data->proveedor,Periodo::latest()->first()->id,null,$data->observacion);
             $compra = new Donacion();
 
             $compra->id_donacion     = $ingreso->id;
@@ -180,7 +202,8 @@ class IngresoRepository
         $tipo_ingreso,
         $proveedor_id,
         $periodo_id,
-        $fecha_inicio
+        $fecha_inicio,
+        $observacion
     ): Ingreso {
 
 
@@ -188,6 +211,7 @@ class IngresoRepository
         $ingreso->tipo_ingreso  = $tipo_ingreso;
         $ingreso->usuario_id    = Auth::user()->id_usuario;
         $ingreso->nro_ingreso   = '000';
+        $ingreso->observacion   = $observacion;
         $ingreso->proveedor_id  = $proveedor_id;
         $ingreso->periodo_id    = $periodo_id;
         if($tipo_ingreso == Ingreso::INV_INICIAL){

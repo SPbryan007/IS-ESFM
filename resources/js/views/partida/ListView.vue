@@ -17,8 +17,8 @@
                 <h3>Partidas presupuestarias  <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
-                <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addpartida' }">
-                    <el-button type="primary" size="small">
+                <router-link v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'" v-on:click.native="CLEAR_FORM" :to="{ name: 'addpartida' }">
+                    <el-button type="primary" >
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
@@ -75,62 +75,8 @@
             </div>
         </div>
         <div class="card">
-<!--            <div class="card-header border-0">-->
-<!--                Lista de partidas presupuestarias-->
-<!--                <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i>-->
-<!--            </div>-->
             <div class="card-body">
-<!--                <div class="row justify-content-between ">-->
-<!--                    <div class="pull-lef ml-2">-->
-<!--                        <el-form :inline="true" class="demo-form-inline">-->
-<!--                            <el-form-item>-->
-<!--                                <el-input-->
-<!--                                    size="small"-->
-<!--                                    placeholder="Buscar..."-->
-<!--                                    v-model="$store.state.partida.searchQuery"-->
-<!--                                    clearable-->
-<!--                                >-->
-<!--                                    <i slot="prefix" class="el-input__icon el-icon-search"></i>-->
-<!--                                </el-input>-->
-<!--                            </el-form-item>-->
-<!--                            <el-form-item>-->
-<!--                                <el-switch-->
-<!--                                    v-model="$store.state.partida.withTrashed"-->
-<!--                                    active-text="todos"-->
-<!--                                    inactive-text="solo activos"-->
-<!--                                    @change="$store.dispatch('partida/getItems')"-->
-<!--                                >-->
-<!--                                </el-switch>-->
-<!--                            </el-form-item>-->
 
-<!--                        </el-form>-->
-<!--                    </div>-->
-<!--                    <div class="pull-right">-->
-<!--                        <el-form :inline="true" class="demo-form-inline" label-width="60px">-->
-<!--                            <el-form-item>-->
-<!--                                <el-select-->
-<!--                                    style="width: 70px"-->
-<!--                                    size="small"-->
-<!--                                    v-model="perpage"-->
-<!--                                    @change="refresh()"-->
-<!--                                >-->
-<!--                                    <el-option-->
-<!--                                        v-for="item in [-->
-<!--                                              { value: 5, label: '5' },-->
-<!--                                              { value: 10, label: '10' },-->
-<!--                                              { value: 25, label: '25' },-->
-<!--                                              { value: 50, label: '50' },-->
-<!--                                              { value: 100, label: '100' },-->
-<!--                                        ]"-->
-<!--                                        :key="item.value"-->
-<!--                                        :label="item.label"-->
-<!--                                        :value="item.value"-->
-<!--                                    ></el-option>-->
-<!--                                </el-select>-->
-<!--                            </el-form-item>-->
-<!--                        </el-form>-->
-<!--                    </div>-->
-<!--                </div>-->
                 <el-table
                     stripe
                     :data="pageOfItems"
@@ -154,6 +100,7 @@
                     <el-table-column label="Operación"  >
                         <template slot-scope="scope">
                             <router-link
+                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'editpartida',params:{id:scope.row.id } }"
@@ -162,6 +109,7 @@
                             </router-link>
                             <el-button
                                 v-if="!scope.row.deleted_at"
+                                :disabled="$store.getters['login/getUserLogged'].rol != 'ADMINISTRADOR'"
                                 :loading="loading_form && scope.$index == self"
                                 type="danger"
                                 size="mini"

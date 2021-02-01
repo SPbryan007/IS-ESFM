@@ -17,8 +17,8 @@
                 <h3>Solicitantes <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
-                <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addsolicitante' }">
-                    <el-button type="primary" size="small">
+                <router-link v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"  v-on:click.native="CLEAR_FORM" :to="{ name: 'addsolicitante' }">
+                    <el-button type="primary">
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
@@ -116,6 +116,7 @@
                     <el-table-column label="Operacion" >
                         <template slot-scope="scope">
                             <router-link
+                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'editsolicitante',params:{id:scope.row.id } }"
@@ -125,6 +126,7 @@
                             <el-button
                                 v-if="!scope.row.deleted_at"
                                 :loading="loading_form && scope.$index == self"
+                                :disabled="$store.getters['login/getUserLogged'].rol != 'ADMINISTRADOR'"
                                 type="danger"
                                 size="mini"
                                 @click="OnClickAD(scope.$index, scope.row)"

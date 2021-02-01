@@ -16,8 +16,8 @@
                     <h3>Salidas <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
                 </div>
                 <div class="pull-right">
-                    <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addsalida' }">
-                        <el-button type="primary" size="small">
+                    <router-link v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"  v-on:click.native="CLEAR_FORM" :to="{ name: 'addsalida' }">
+                        <el-button type="primary">
                             Nuevo
                             <i class="fas fa-plus"></i>
                         </el-button>
@@ -150,7 +150,7 @@
                                 </router-link>
                                 <el-button
                                     v-if="!scope.row.deleted_at"
-                                    :disabled="scope.row.deleted_at"
+                                    :disabled="scope.row.deleted_at || $store.getters['login/getUserLogged'].rol != 'ADMINISTRADOR'"
                                     :loading="loading_form && scope.$index == self"
                                     type="danger"
                                     size="mini"

@@ -24,6 +24,7 @@ export const GET_DETALLE_INGRESOS = state => {
     return state.detalle_ingreso;
 };
 export const GET_FILTER_VIEW_DETALLE_INGRESOS = state => {
+
     return state.detalle_ingreso.detalleingresos.filter(function(item) {
         let searchRegex = new RegExp(state.searchQueryIngresoViewDetails, "i");
         return searchRegex.test(item.lote.articulo.codigo) || searchRegex.test(item.lote.articulo.nombre);

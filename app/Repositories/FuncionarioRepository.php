@@ -5,7 +5,9 @@ namespace App\Repositories;
 
 
 use App\Models\Funcionario;
+use App\Models\Solicitante;
 use App\Models\Unidad;
+use App\Models\User;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class FuncionarioRepository
@@ -89,6 +91,18 @@ class FuncionarioRepository
             Unidad::where('funcionario_id',$funcionario->id)
                     ->update(['funcionario_id' => NULL]);
             $funcionario->delete();
+            $user = User::find($id);
+            if($user){
+                $user->delete();
+            }
+            $sol = Solicitante::where('funcionario_id',$id)->get();
+            if($sol){
+                foreach ($sol as $item){
+                    $item->delete();
+                }
+            }
+
+
             return ['message' => 'Se ha dado de baja al funcionario.'];
         }
         throw new NotFoundHttpException("No existe el funcionario con el ID : {$id}");

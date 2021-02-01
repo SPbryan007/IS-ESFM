@@ -69,16 +69,16 @@
 
             </div>
             <div class="pull-right">
-                <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'additem' }">
+                <router-link v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'" v-on:click.native="CLEAR_FORM" :to="{ name: 'additem' }">
                     <el-button type="primary">
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
                 </router-link>
-                <el-button type="success">
-                    Exportar
-                    <i class="fas fa-download"></i>
-                </el-button>
+<!--                <el-button type="success">-->
+<!--                    Exportar-->
+<!--                    <i class="fas fa-download"></i>-->
+<!--                </el-button>-->
             </div>
         </div>
         <div class="row justify-content-between ml-1" style="margin-bottom:-20px">
@@ -215,6 +215,7 @@
                                 circle
                             ></el-button>
                             <router-link
+                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"
                                 :disabled="scope.row.deleted_at"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'edititem',params:{id:scope.row.id } }"
@@ -225,6 +226,7 @@
                                 icon="el-icon-delete"
                                 v-if="!scope.row.deleted_at"
                                 :loading="loading_form && scope.$index == self"
+                                :disabled="$store.getters['login/getUserLogged'].rol != 'ADMINISTRADOR'"
                                 type="danger"
                                 size="mini"
                                 @click="OnClickAD(scope.$index, scope.row)"
@@ -290,6 +292,7 @@ export default {
     },
     methods: {
         ...mapMutations("articulo",["SET_EDIT_FORM","CLEAR_FORM"]),
+
         refresh() {
             let self = this.$refs;
             setTimeout(() => {

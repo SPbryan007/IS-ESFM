@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[48],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -12,6 +12,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _store_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../store/index */ "./resources/js/store/index.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -166,88 +168,83 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      pageOfItems: [],
-      sizePerPage: 5,
-      perpage: 5,
-      labels: {
-        first: "<<",
-        last: ">>",
-        previous: "anterior",
-        next: "siguiente"
-      },
-      dialogAddDetails: false,
-      detalles_form: {
+      details: {
+        lotes: [],
         articulo: null,
-        cantidad: 1,
-        precio: 0
-      }
+        unidad: null
+      },
+      visible: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("salida", ["data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("salida", ["GET_ITEMS_DETALLE_SALIDA", "GET_TOTAL_DETALLE_SALIDAS", "GET_FILTER_ITEMS_DETAILS", "CHECKED"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("articulo", ["GET_ITEMS_ARTICULO", "GET_LOTES"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("salida", ["DELETE_DETALLE_SALIDA"]), {
-    findItem: function findItem(id) {
-      var items = _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters["articulo/GET_ITEMS_ARTICULO"];
-      return items.find(function (item) {
-        return item.id === id;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("periodo", ["data_form", "alert", "loading_form", "loading_table"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("periodo", ["GET_LOTES"])),
+  methods: {
+    ViewDetails: function ViewDetails(index, row) {
+      this.visible = true;
+      this.details.lotes = row.lotes;
+      this.details.articulo = row.nombre; // this.details.unidad = row.unidad;
+    },
+    Total: function Total() {
+      var total = 0;
+      _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters['periodo/GET_LOTES'].forEach(function (item) {
+        total += item.saldo;
       });
+      return total;
     },
-    findSolicitante: function findSolicitante(id) {
-      var items = _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].getters["solicitante/GET_ITEMS_SOLICITANTE"];
-      return items.find(function (item) {
-        return item.id === id;
-      });
-    },
-    OnclickAddDialog: function OnclickAddDialog(index, row) {
-      _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].commit("salida/ADD_DETALLE_SALIDA", row);
-    },
-    onRegister: function onRegister() {
+    StartPeriodo: function StartPeriodo() {
       var _this = this;
 
-      this.$confirm("\xBF Esta seguro de registrar la salida ?", {
-        confirmButtonText: "Sí, registrar",
+      this.$confirm("\xBF Esta seguro de iniciar el periodo ?, No se podra revertir el proceso despues de iniciar", "Advertencia", {
+        confirmButtonText: "Si iniciar",
         cancelButtonText: "Cancelar",
         type: "warning"
       }).then(function () {
-        _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("salida/addItem", {
-          message: _this.$message,
-          progress: _this.$Progress
+        _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].state.periodo.data_form.tipo_inventario = 'INICIO_INVENTARIO';
+        _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("periodo/startPeriodo", {
+          message: _this.$message
         });
       })["catch"](function () {
         return null;
       });
     },
-    cancelForm: function cancelForm(formName) {
-      this.$refs[formName].resetFields();
+    cancelar: function cancelar() {
       _routes__WEBPACK_IMPORTED_MODULE_2__["router"].push({
-        name: "salida"
+        name: "gestion"
       });
-    },
-    onChangePage: function onChangePage(pageOfItems) {
-      this.pageOfItems = pageOfItems;
     },
     goBack: function goBack() {
       this.$router.go(-1);
     }
-  }),
-  mounted: function mounted() {
-    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser'); // store.dispatch("articulo/getItems");
-    // store.dispatch("articulo/getLotes");
   },
-  created: function created() {}
+  mounted: function mounted() {
+    _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
+  }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&":
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e& ***!
+  \***************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -259,40 +256,382 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c(
-      "div",
-      { staticClass: "col-md-12" },
-      [
-        _vm.alert.show
-          ? _c("el-alert", {
-              attrs: {
-                title: _vm.alert.title,
-                type: _vm.alert.color,
-                description: _vm.alert.message,
-                "show-icon": "",
-                closable: ""
-              },
-              on: {
-                close: function($event) {
-                  _vm.alert.show = false
-                }
+  return _c(
+    "div",
+    { staticClass: "col-md-12" },
+    [
+      _vm.alert.show
+        ? _c("el-alert", {
+            attrs: {
+              title: _vm.alert.title,
+              type: _vm.alert.color,
+              description: _vm.alert.message,
+              "show-icon": "",
+              closable: ""
+            },
+            on: {
+              close: function($event) {
+                _vm.alert.show = false
               }
-            })
-          : _vm._e(),
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
+        [
+          _c(
+            "div",
+            { staticClass: "pull-lef" },
+            [
+              _c("el-page-header", {
+                staticClass: "mt-2",
+                attrs: { content: "Inventario inicial" },
+                on: { back: _vm.goBack }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "pull-right" },
+            [
+              _c(
+                "router-link",
+                { attrs: { to: { name: "apertura_inventario_inicial" } } },
+                [
+                  _c(
+                    "el-button",
+                    {
+                      attrs: {
+                        disabled:
+                          !_vm.data_form.nombre && _vm.data_form.fecha_inicio,
+                        type: "success"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                        Nueva apertura\n                        "
+                      ),
+                      _c("i", { staticClass: "fas fa-door-open" })
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "el-button",
+                {
+                  directives: [
+                    {
+                      name: "loading",
+                      rawName: "v-loading.fullscreen.lock",
+                      value: _vm.loading_form,
+                      expression: "loading_form",
+                      modifiers: { fullscreen: true, lock: true }
+                    }
+                  ],
+                  attrs: {
+                    disabled:
+                      !_vm.data_form.nombre && _vm.data_form.fecha_inicio,
+                    type: "primary",
+                    "element-loading-text": "Iniciando..."
+                  },
+                  on: { click: _vm.StartPeriodo }
+                },
+                [
+                  _vm._v("\n                    Iniciar\n                    "),
+                  _c("i", { staticClass: "fas fa-clock" })
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "card-header border-0" }, [
+          _c("h3", { staticClass: "card-title" }, [
+            _vm._v("Inventario inicial   "),
+            _vm.loading_table
+              ? _c("i", {
+                  staticClass: "el-icon-loading",
+                  staticStyle: { "font-size": "1.3rem" }
+                })
+              : _vm._e()
+          ])
+        ]),
         _vm._v(" "),
         _c(
           "div",
-          { staticClass: "row justify-content-between mb-4  mr-1 ml-1  mt-4" },
+          { staticClass: "card-body" },
           [
             _c(
               "div",
-              { staticClass: "pull-lef" },
+              {
+                staticClass:
+                  "d-flex justify-content-lg-start align-items-center mb-1"
+              },
               [
-                _c("el-page-header", {
-                  staticClass: "mt-2",
-                  attrs: { content: "Salidas" },
-                  on: { back: _vm.goBack }
+                _vm._m(0),
+                _vm._v(" "),
+                _c("p", { staticClass: "d-flex flex-column text-left" }, [
+                  _c(
+                    "i",
+                    { staticClass: "ion ion-android-arrow-up text-primary" },
+                    [_vm._v("Periodo : ")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "font-weight-bold" }, [
+                    _vm._v(
+                      "\n                      Del\n                        "
+                    ),
+                    _c("i", { staticClass: "font-weight-light" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(
+                            _vm._f("dateformat")(_vm.data_form.fecha_inicio)
+                          ) +
+                          "\n                        "
+                      )
+                    ]),
+                    _vm._v(" al\n                            "),
+                    _c("i", { staticClass: "font-weight-light" }, [
+                      _vm._v(
+                        "\n                                " +
+                          _vm._s(
+                            _vm._f("dateformat")(_vm.data_form.fecha_fin)
+                          ) +
+                          "\n                            "
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-muted" }, [
+                    _vm._v(_vm._s(_vm.data_form.nombre))
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "el-dialog",
+              {
+                attrs: {
+                  title: _vm.details.articulo,
+                  visible: _vm.visible,
+                  width: "830px"
+                },
+                on: {
+                  "update:visible": function($event) {
+                    _vm.visible = $event
+                  }
+                }
+              },
+              [
+                _c(
+                  "el-table",
+                  { attrs: { data: _vm.details.lotes } },
+                  [
+                    _c("el-table-column", { attrs: { type: "index" } }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "marca",
+                        label: "Marca",
+                        width: "150"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(
+                                    scope.row.marca ? scope.row.marca : "-"
+                                  ) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "unidad_medida",
+                        label: "Medida",
+                        width: "150"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(scope.row.unidad_medida.nombre) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "precio_u",
+                        label: "Precio U.",
+                        width: "120"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.precio_u.toFixed(2)) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "stock",
+                        label: "Stock",
+                        width: "120"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(scope.row.stock.toFixed()) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    }),
+                    _vm._v(" "),
+                    _c("el-table-column", {
+                      attrs: {
+                        property: "saldo",
+                        label: "Saldo",
+                        width: "120"
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function(scope) {
+                            return [
+                              _c("b", [_vm._v("Bs :")]),
+                              _vm._v(
+                                " " +
+                                  _vm._s(scope.row.saldo.toFixed(2)) +
+                                  "\n                            "
+                              )
+                            ]
+                          }
+                        }
+                      ])
+                    })
+                  ],
+                  1
+                )
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "el-table",
+              {
+                staticStyle: { width: "100%" },
+                attrs: { data: _vm.GET_LOTES, stripe: "" }
+              },
+              [
+                _c("el-table-column", {
+                  attrs: { type: "index", label: "N°", width: "60" }
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "codigo", label: "Código", width: "120" }
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "nombre", label: "Articulo", width: "600" }
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "stock", label: "Stock", width: "100" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(scope.row.stock) +
+                              "\n                        "
+                          )
+                        ]
+                      }
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  attrs: { prop: "saldo", label: "Saldo", width: "100" },
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _c("b", [_vm._v("Bs: ")]),
+                          _vm._v(
+                            _vm._s(scope.row.saldo) +
+                              "\n                        "
+                          )
+                        ]
+                      }
+                    }
+                  ])
+                }),
+                _vm._v(" "),
+                _c("el-table-column", {
+                  scopedSlots: _vm._u([
+                    {
+                      key: "default",
+                      fn: function(scope) {
+                        return [
+                          _c("el-button", {
+                            attrs: { icon: "el-icon-view", circle: "" },
+                            on: {
+                              click: function($event) {
+                                return _vm.ViewDetails(scope.$index, scope.row)
+                              }
+                            }
+                          })
+                        ]
+                      }
+                    }
+                  ])
                 })
               ],
               1
@@ -300,438 +639,46 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "pull-right" },
+              {
+                staticClass:
+                  "d-flex justify-content-end align-items-center mt-3"
+              },
               [
-                _c(
-                  "el-button",
-                  {
-                    attrs: { type: "info", size: "", icon: "el-icon-plus" },
-                    on: {
-                      click: function($event) {
-                        _vm.dialogAddDetails = true
-                      }
-                    }
-                  },
-                  [_vm._v("Agregar")]
-                )
-              ],
-              1
+                _c("p", { staticClass: "d-flex flex-column text-left" }, [
+                  _c(
+                    "i",
+                    { staticClass: "ion ion-android-arrow-up text-primary" },
+                    [_vm._v("Saldo total:  ")]
+                  ),
+                  _vm._v(" "),
+                  _c("i", { staticClass: "font-weight-light" }, [
+                    _c("b", [_vm._v("Bs : ")]),
+                    _vm._v(
+                      "  " + _vm._s(_vm.Total()) + "\n                        "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("br")
+                ]),
+                _vm._v(" "),
+                _c("br")
+              ]
             )
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "card-body" },
-            [
-              _c(
-                "el-dialog",
-                {
-                  attrs: {
-                    title: "Agregar articulos",
-                    visible: _vm.dialogAddDetails,
-                    width: "60%"
-                  },
-                  on: {
-                    "update:visible": function($event) {
-                      _vm.dialogAddDetails = $event
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "row justify-content-center mt-4" },
-                    [
-                      _c(
-                        "el-input",
-                        {
-                          staticStyle: { width: "660px" },
-                          attrs: {
-                            placeholder: "Filtrar por codigo, articulo",
-                            clearable: ""
-                          },
-                          model: {
-                            value: _vm.$store.state.salida.searchQueryAddDialog,
-                            callback: function($$v) {
-                              _vm.$set(
-                                _vm.$store.state.salida,
-                                "searchQueryAddDialog",
-                                $$v
-                              )
-                            },
-                            expression:
-                              "$store.state.salida.searchQueryAddDialog"
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "el-input__icon el-icon-search",
-                            attrs: { slot: "prefix" },
-                            slot: "prefix"
-                          })
-                        ]
-                      ),
-                      _vm._v("  \n                            "),
-                      _c(
-                        "router-link",
-                        { attrs: { to: { name: "additem" } } },
-                        [
-                          _c("el-button", {
-                            attrs: { type: "primary", icon: "el-icon-plus" }
-                          })
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "el-table",
-                    { attrs: { data: _vm.pageOfItems } },
-                    [
-                      _c("el-table-column", {
-                        attrs: {
-                          property: "codigo",
-                          label: "Codigo",
-                          width: "90"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("el-table-column", {
-                        attrs: {
-                          property: "nombre",
-                          label: "Articulo",
-                          width: "370"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("el-table-column", {
-                        attrs: {
-                          property: "stock",
-                          label: "Stock",
-                          width: "120"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("el-table-column", {
-                        attrs: {
-                          property: "saldo",
-                          label: "Saldo",
-                          width: "120"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("el-table-column", {
-                        scopedSlots: _vm._u([
-                          {
-                            key: "default",
-                            fn: function(scope) {
-                              return [
-                                _vm.CHECKED(scope.row.id)
-                                  ? _c(
-                                      "el-button",
-                                      {
-                                        attrs: {
-                                          type: "success",
-                                          size: "mini",
-                                          icon: "el-icon-check"
-                                        }
-                                      },
-                                      [_vm._v("Añadido")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                !_vm.CHECKED(scope.row.id)
-                                  ? _c(
-                                      "el-button",
-                                      {
-                                        attrs: {
-                                          disabled: scope.row.stock == 0,
-                                          type: "info",
-                                          size: "mini",
-                                          icon: "el-icon-plus"
-                                        },
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.OnclickAddDialog(
-                                              scope.$index,
-                                              scope.row
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_vm._v("Añadir")]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c(
-                                  "router-link",
-                                  { attrs: { to: { name: "addingreso" } } },
-                                  [
-                                    _c(
-                                      "el-button",
-                                      {
-                                        attrs: { type: "primary", size: "mini" }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-plus" })]
-                                    )
-                                  ],
-                                  1
-                                )
-                              ]
-                            }
-                          }
-                        ])
-                      })
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass: "dialog-footer",
-                      attrs: { slot: "footer" },
-                      slot: "footer"
-                    },
-                    [
-                      _c("jw-pagination", {
-                        ref: "jw",
-                        attrs: {
-                          pageSize: _vm.perpage,
-                          items: _vm.GET_FILTER_ITEMS_DETAILS,
-                          labels: _vm.labels
-                        },
-                        on: { changePage: _vm.onChangePage }
-                      })
-                    ],
-                    1
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "row invoice-info" }, [
-                _c("div", { staticClass: "col-md-4 invoice-col" }, [
-                  _c("dl", { staticClass: "row" }, [
-                    _c("dt", { staticClass: "col-md-4" }, [
-                      _vm._v("Solicitante:")
-                    ]),
-                    _vm._v(" "),
-                    _c("dd", { staticClass: "col-md-8" }, [
-                      _vm._v(
-                        _vm._s(
-                          _vm.findSolicitante(_vm.data_form.solicitante_id)
-                            .funcionario.nombre +
-                            " " +
-                            _vm.findSolicitante(_vm.data_form.solicitante_id)
-                              .funcionario.apellido
-                        )
-                      )
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-5 invoice-col" }, [
-                  _c("dl", { staticClass: "row" }, [
-                    _c("dt", { staticClass: "col-md-3" }, [
-                      _vm._v("Finalidad:")
-                    ]),
-                    _vm._v(" "),
-                    _c("dd", { staticClass: "col-md-9" }, [
-                      _vm._v(_vm._s(_vm.data_form.finalidad))
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-3" }, [
-                  _c("dl", { staticClass: "row" }, [
-                    _c("dt", { staticClass: "col-md-5" }, [
-                      _vm._v("N° pedido:")
-                    ]),
-                    _vm._v(" "),
-                    _c("dd", { staticClass: "col-md-7" }, [
-                      _vm._v(_vm._s(_vm.data_form.nro_pedido))
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "el-table",
-                {
-                  staticStyle: { width: "100%" },
-                  attrs: { data: _vm.GET_ITEMS_DETALLE_SALIDA }
-                },
-                [
-                  _c("el-table-column", {
-                    attrs: { type: "index", label: "N°", width: "60" }
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: {
-                      label: "Código",
-                      width: "130",
-                      prop: "codigo",
-                      sortable: ""
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(scope) {
-                          return [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(
-                                  _vm.findItem(scope.row.articulo).codigo
-                                ) +
-                                "\n                            "
-                            )
-                          ]
-                        }
-                      }
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: {
-                      label: "Articulo",
-                      width: "600",
-                      prop: "articulo",
-                      sortable: ""
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(scope) {
-                          return [
-                            _vm._v(
-                              "\n                                " +
-                                _vm._s(scope.row.articulo_nombre) +
-                                "\n                            "
-                            )
-                          ]
-                        }
-                      }
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: {
-                      label: "Cantidad",
-                      width: "200",
-                      prop: "cantidad",
-                      sortable: ""
-                    },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(scope) {
-                          return [
-                            _c("el-input-number", {
-                              attrs: {
-                                size: "mini",
-                                precision: 2,
-                                step: 1,
-                                min: 1,
-                                max: scope.row.stock
-                              },
-                              model: {
-                                value: scope.row.cantidad,
-                                callback: function($$v) {
-                                  _vm.$set(scope.row, "cantidad", $$v)
-                                },
-                                expression: "scope.row.cantidad"
-                              }
-                            })
-                          ]
-                        }
-                      }
-                    ])
-                  }),
-                  _vm._v(" "),
-                  _c("el-table-column", {
-                    attrs: { label: "" },
-                    scopedSlots: _vm._u([
-                      {
-                        key: "default",
-                        fn: function(scope) {
-                          return [
-                            _c("el-button", {
-                              attrs: {
-                                size: "mini",
-                                type: "danger",
-                                icon: "el-icon-close",
-                                circle: ""
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.DELETE_DETALLE_SALIDA(
-                                    scope.row.articulo
-                                  )
-                                }
-                              }
-                            })
-                          ]
-                        }
-                      }
-                    ])
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "row justify-content-end mb-4  mr-1 ml-1  mt-4"
-                },
-                [
-                  _c(
-                    "el-button",
-                    {
-                      attrs: {
-                        disabled: _vm.data_form.detalle_salida.length == 0,
-                        type: "primary",
-                        size: "",
-                        icon: "el-icon-plus"
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.onRegister()
-                        }
-                      }
-                    },
-                    [_vm._v("Registar")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        ])
-      ],
-      1
-    )
-  ])
+          ],
+          1
+        )
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header border-0" }, [
-      _c("h3", { staticClass: "card-title" }, [
-        _vm._v("Registro de salida | detalles")
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-tools" })
+    return _c("p", { staticClass: "text-success text-xl" }, [
+      _c("i", { staticClass: "ion ion-ios-refresh-empty" })
     ])
   }
 ]
@@ -741,17 +688,17 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./resources/js/views/salida/AddDetailsView.vue":
-/*!******************************************************!*\
-  !*** ./resources/js/views/salida/AddDetailsView.vue ***!
-  \******************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue":
+/*!**************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue ***!
+  \**************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddDetailsView.vue?vue&type=template&id=0019cdbe& */ "./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe&");
-/* harmony import */ var _AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AddDetailsView.vue?vue&type=script&lang=js& */ "./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js&");
+/* harmony import */ var _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InventarioInicialView.vue?vue&type=template&id=24a4080e& */ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&");
+/* harmony import */ var _InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InventarioInicialView.vue?vue&type=script&lang=js& */ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -761,9 +708,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -773,38 +720,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/views/salida/AddDetailsView.vue"
+component.options.__file = "resources/js/views/periodo/InventarioInicialView.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddDetailsView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/salida/AddDetailsView.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventarioInicialView.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe&":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe& ***!
-  \*************************************************************************************/
+/***/ "./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e& ***!
+  \*********************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AddDetailsView.vue?vue&type=template&id=0019cdbe& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/salida/AddDetailsView.vue?vue&type=template&id=0019cdbe&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InventarioInicialView.vue?vue&type=template&id=24a4080e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/periodo/InventarioInicialView.vue?vue&type=template&id=24a4080e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AddDetailsView_vue_vue_type_template_id_0019cdbe___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InventarioInicialView_vue_vue_type_template_id_24a4080e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

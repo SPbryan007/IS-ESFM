@@ -39,9 +39,9 @@
                <h3>Backups <i class="fas fa-history" style="font-size: 20px"></i></h3>
                <p>Crea una copia de seguridad para respaldar los datos del sistema</p>
                <el-button type="danger" @click="backup" :loading="loading_backup">Crear nueva copia <i class="el-icon-download el-icon-right"></i></el-button>
-               <p class="pt-3">Restablece datos respaldados</p>
-               <input class="btn btn-default" type="file" id="file" ref="file" v-on:change="onChangeFileUpload()" />
-               <el-button type="info" :disabled="!file" :loading="restoring" @click="restoreBackup" >Restablecer <i class="el-icon-upload el-icon-right"></i></el-button>
+               <p class="pt-3" v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'" >Restablece datos respaldados</p>
+               <input v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"  class="btn btn-default" type="file" id="file" ref="file" v-on:change="onChangeFileUpload()" />
+               <el-button v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"  type="info" :disabled="!file" :loading="restoring" @click="restoreBackup" >Restablecer <i class="el-icon-upload el-icon-right"></i></el-button>
            </div>
             <div class="container mt-5">
                 <h3>Credenciales <i class="fas fa-file-invoice" style="font-size: 20px"></i></h3>

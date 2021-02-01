@@ -29,9 +29,8 @@ export const addItem = ({ commit, state, dispatch }, params) => {
     commit(types.SET_LOADING_FORM, true);
     commonProviders
         .register(URL_USUARIO, state.data_form)
-        .then(item => {
-            console.log('item'.item);
-            dispatch('getItems')
+        .then(async item => {
+            await dispatch('getItems')
             commit(types.SET_LOADING_FORM, false);
             commit(types.CLEAR_FORM);
             params.progress.finish();

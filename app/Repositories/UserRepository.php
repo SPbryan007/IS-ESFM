@@ -29,7 +29,9 @@ class UserRepository
      */
     public function getAllUsers($withTrashed)
     {
-        return User::with('funcionario')->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
+        return User::with(['funcionario' => function($query){
+            $query->withTrashed();
+        }])->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
             ->orderBy('id_usuario','DESC')
             ->get();
     }
@@ -67,7 +69,7 @@ class UserRepository
         $user->id_usuario = $fun->id;
         $user->username   = $fun->documento;
         $user->password   = bcrypt($fun->documento);
-        $user->rol        = filter_var($rol,FILTER_VALIDATE_BOOLEAN) ? Role::ADMIN : Role::DEFAULT;
+        $user->rol        = filter_var($rol,FILTER_VALIDATE_BOOLEAN) ? Role::ADMIN : Role::INVITADO;
         $user->save();
     }
 
@@ -78,7 +80,7 @@ class UserRepository
     {
         $user = $this->getAllById($id);
         $rol = $user->rol;
-        $user->rol = $rol === Role::ADMIN ? Role::DEFAULT : Role::ADMIN;
+        $user->rol = $rol === Role::ADMIN ? Role::INVITADO : Role::ADMIN;
         $user->save();
     }
 

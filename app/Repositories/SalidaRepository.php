@@ -69,6 +69,31 @@ class SalidaRepository
             ->get();
     }
 
+    public function queryAll($del,$al,$periodo)
+    {
+        return Salida::select(DB::raw('ROUND(SUM((ds.cantidad*lote.precio_u)), 2) as total'),
+            'salida.*'
+        )->join('detalle_salida as ds','ds.salida_id','=','salida.id')
+            ->leftjoin('lote','lote.id','=','ds.lote_id')
+            ->with(['solicitante'=> function($query){
+                $query->with(['funcionario' => function($query2){
+                    $query2->withTrashed();
+                }, 'unidad' => function($query3){
+                    $query3->withTrashed();
+                }]);
+                $query->withTrashed();
+            },'autorizador','verificador','usuario' => function($query){
+                $query->with(['funcionario' => function($query){
+                    $query->withTrashed();
+                }]);
+                $query->withTrashed();
+            }])
+            ->where('salida.periodo_id',$periodo)
+            ->whereBetween('salida.created_at', [date('Y-m-d H:i:s', strtotime($del)), date('Y-m-d 23:59:59', strtotime($al))])
+            ->orderBy('salida.id','DESC')
+            ->groupBy('salida.id')
+            ->get();
+    }
 
     /**
      * @param $id

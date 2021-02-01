@@ -17,8 +17,8 @@
                 <h3>Periodo contable  <i v-if="loading_table" class="el-icon-loading" style="font-size: 1.3rem;"></i></h3>
             </div>
             <div class="pull-right">
-                <router-link v-on:click.native="CLEAR_FORM" :to="{ name: 'addperiodo' }">
-                    <el-button type="primary" size="small">
+                <router-link v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"  v-on:click.native="CLEAR_FORM" :to="{ name: 'addperiodo' }">
+                    <el-button type="primary">
                         Nuevo
                         <i class="fas fa-plus"></i>
                     </el-button>
@@ -124,6 +124,7 @@
                     <el-table-column label="Operacion"  >
                         <template slot-scope="scope">
                             <router-link
+                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'editperiodo',params:{id:scope.row.id } }"
@@ -132,6 +133,7 @@
                             </router-link>
                             <el-button
                                 v-if="!scope.row.deleted_at"
+                                :disabled="$store.getters['login/getUserLogged'].rol != 'ADMINISTRADOR'"
                                 :loading="loading_form && scope.$index == self"
                                 type="danger"
                                 size="mini"

@@ -46,7 +46,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('id_usuario')->primary();
             $table->string('username',30)->unique();
             $table->string('password',100);
-            $table->enum('rol',[\App\Role::ADMIN,\App\Role::DEFAULT])->nullable(false);
+            $table->enum('rol',[\App\Role::ADMIN,\App\Role::INVITADO])->nullable(false);
             $table->rememberToken();
             $table->foreign('id_usuario')->references('id')
                 ->on('funcionario')

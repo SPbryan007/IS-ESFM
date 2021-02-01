@@ -157,58 +157,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -378,30 +326,28 @@ var render = function() {
             "div",
             { staticClass: "pull-right" },
             [
-              _c(
-                "router-link",
-                {
-                  attrs: { to: { name: "addpartida" } },
-                  nativeOn: {
-                    click: function($event) {
-                      return _vm.CLEAR_FORM($event)
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "el-button",
-                    { attrs: { type: "primary", size: "small" } },
+              _vm.$store.getters["login/getUserLogged"].rol == "ADMINISTRADOR"
+                ? _c(
+                    "router-link",
+                    {
+                      attrs: { to: { name: "addpartida" } },
+                      nativeOn: {
+                        click: function($event) {
+                          return _vm.CLEAR_FORM($event)
+                        }
+                      }
+                    },
                     [
-                      _vm._v(
-                        "\n                        Nuevo\n                        "
-                      ),
-                      _c("i", { staticClass: "fas fa-plus" })
-                    ]
+                      _c("el-button", { attrs: { type: "primary" } }, [
+                        _vm._v(
+                          "\n                    Nuevo\n                    "
+                        ),
+                        _c("i", { staticClass: "fas fa-plus" })
+                      ])
+                    ],
+                    1
                   )
-                ],
-                1
-              )
+                : _vm._e()
             ],
             1
           )
@@ -622,11 +568,11 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                            " +
+                                "\n                        " +
                                   _vm._s(
                                     scope.row.deleted_at ? "INACTIVO" : "ACTIVO"
                                   ) +
-                                  "\n                            "
+                                  "\n                        "
                               )
                             ]
                           )
@@ -643,44 +589,52 @@ var render = function() {
                       key: "default",
                       fn: function(scope) {
                         return [
-                          _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                disabled: !scope.row.deleted_at ? false : true,
-                                to: {
-                                  name: "editpartida",
-                                  params: { id: scope.row.id }
-                                }
-                              },
-                              nativeOn: {
-                                click: function($event) {
-                                  return _vm.SET_EDIT_FORM(scope.row)
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "el-button",
+                          _vm.$store.getters["login/getUserLogged"].rol ==
+                          "ADMINISTRADOR"
+                            ? _c(
+                                "router-link",
                                 {
                                   attrs: {
                                     disabled: !scope.row.deleted_at
                                       ? false
                                       : true,
-                                    size: "mini"
+                                    to: {
+                                      name: "editpartida",
+                                      params: { id: scope.row.id }
+                                    }
+                                  },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.SET_EDIT_FORM(scope.row)
+                                    }
                                   }
                                 },
-                                [_vm._v("Editar")]
+                                [
+                                  _c(
+                                    "el-button",
+                                    {
+                                      attrs: {
+                                        disabled: !scope.row.deleted_at
+                                          ? false
+                                          : true,
+                                        size: "mini"
+                                      }
+                                    },
+                                    [_vm._v("Editar")]
+                                  )
+                                ],
+                                1
                               )
-                            ],
-                            1
-                          ),
+                            : _vm._e(),
                           _vm._v(" "),
                           !scope.row.deleted_at
                             ? _c(
                                 "el-button",
                                 {
                                   attrs: {
+                                    disabled:
+                                      _vm.$store.getters["login/getUserLogged"]
+                                        .rol != "ADMINISTRADOR",
                                     loading:
                                       _vm.loading_form &&
                                       scope.$index == _vm.self,

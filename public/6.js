@@ -370,7 +370,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "pull-lef" }, [
                   _c("h3", [
-                    _vm._v("Ingresos   "),
+                    _vm._v("Ingresos "),
                     _vm.loading_table
                       ? _c("i", {
                           staticClass: "el-icon-loading",
@@ -384,30 +384,29 @@ var render = function() {
                   "div",
                   { staticClass: "pull-right" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        attrs: { to: { name: "addingreso" } },
-                        nativeOn: {
-                          click: function($event) {
-                            return _vm.CLEAR_FORM($event)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "el-button",
-                          { attrs: { type: "primary", size: "small" } },
+                    _vm.$store.getters["login/getUserLogged"].rol ==
+                    "ADMINISTRADOR"
+                      ? _c(
+                          "router-link",
+                          {
+                            attrs: { to: { name: "addingreso" } },
+                            nativeOn: {
+                              click: function($event) {
+                                return _vm.CLEAR_FORM($event)
+                              }
+                            }
+                          },
                           [
-                            _vm._v(
-                              "\n                            Nuevo\n                            "
-                            ),
-                            _c("i", { staticClass: "fas fa-plus" })
-                          ]
+                            _c("el-button", { attrs: { type: "primary" } }, [
+                              _vm._v(
+                                "\n                            Nuevo\n                            "
+                              ),
+                              _c("i", { staticClass: "fas fa-plus" })
+                            ])
+                          ],
+                          1
                         )
-                      ],
-                      1
-                    )
+                      : _vm._e()
                   ],
                   1
                 )
@@ -616,7 +615,7 @@ var render = function() {
                         attrs: {
                           prop: "proveedor.nombre",
                           label: "Proveedor",
-                          width: "400",
+                          width: "380",
                           sortable: ""
                         },
                         scopedSlots: _vm._u(
@@ -746,7 +745,7 @@ var render = function() {
                         attrs: {
                           prop: "total",
                           label: "Total",
-                          width: "120",
+                          width: "140",
                           sortable: ""
                         },
                         scopedSlots: _vm._u(
@@ -830,7 +829,10 @@ var render = function() {
                                             disabled:
                                               scope.row.deleted_at ||
                                               scope.row.tipo_ingreso ==
-                                                "INV_INICIAL",
+                                                "INV_INICIAL" ||
+                                              _vm.$store.getters[
+                                                "login/getUserLogged"
+                                              ].rol != "ADMINISTRADOR",
                                             loading:
                                               _vm.loading_form &&
                                               scope.$index == _vm.self,
@@ -855,7 +857,7 @@ var render = function() {
                           ],
                           null,
                           false,
-                          1718926518
+                          2907459778
                         )
                       })
                     ],

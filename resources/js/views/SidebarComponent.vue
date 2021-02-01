@@ -147,58 +147,70 @@
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <router-link :to="{ name: 'movimiento' }" class="nav-link">
-                  <i class="fas fa-file nav-icon"></i>
+                  <i class="fas fa-recycle nav-icon"></i>
                   <p>Movimientos de almacen</p>
                 </router-link>
               </li>
                 <li class="nav-item">
                     <router-link :to="{ name: 'saldos' }" class="nav-link">
-                        <i class="fas fa-file nav-icon"></i>
+                        <i class="fas fa-money-bill-wave nav-icon"></i>
                         <p>Saldos de almacen</p>
                     </router-link>
                 </li>
               <li class="nav-item">
                 <router-link :to="{ name: 'general' }" class="nav-link">
-                  <i class="fas fa-file nav-icon"></i>
+                  <i class="fas fa-list-ul nav-icon"></i>
                   <p>Reporte general</p>
                 </router-link>
               </li>
+                <li class="nav-item">
+                    <router-link :to="{ name: 'reporte_ingresos' }" class="nav-link">
+                        <i class="fas fa-sign-in-alt nav-icon"></i>
+                        <p>Ingresos</p>
+                    </router-link>
+                </li>
+                <li class="nav-item">
+                    <router-link :to="{ name: 'reporte_salidas' }" class="nav-link">
+                        <i class="fas fa-sign-out-alt nav-icon"></i>
+                        <p>Salidas</p>
+                    </router-link>
+                </li>
             </ul>
           </li>
-            <li class="nav-item has-treeview">
-                <a href="#" class="nav-link">
-                    <i class="nav-icon fas fa-file-alt"></i>
-                    <p>Consultas</p>
-                </a>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'ingreso_proveedor' }" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>Ingresos por proveedor</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'ingreso_usuario' }" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>Ingresos por usuario</p>
-                        </router-link>
-                    </li>
-                </ul>
-                <ul class="nav nav-treeview">
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'salida_solicitante' }" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>Salidas por solicitante</p>
-                        </router-link>
-                    </li>
-                    <li class="nav-item">
-                        <router-link :to="{ name: 'salida_usuario' }" class="nav-link">
-                            <i class="fas fa-truck"></i>
-                            <p>Salidas por usuario</p>
-                        </router-link>
-                    </li>
-                </ul>
-            </li>
+<!--            <li class="nav-item has-treeview">-->
+<!--                <a href="#" class="nav-link">-->
+<!--                    <i class="nav-icon fas fa-file-alt"></i>-->
+<!--                    <p>Consultas</p>-->
+<!--                </a>-->
+<!--                <ul class="nav nav-treeview">-->
+<!--                    <li class="nav-item">-->
+<!--                        <router-link :to="{ name: 'ingreso_proveedor' }" class="nav-link">-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                            <p>Ingresos por proveedor</p>-->
+<!--                        </router-link>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <router-link :to="{ name: 'ingreso_usuario' }" class="nav-link">-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                            <p>Ingresos por usuario</p>-->
+<!--                        </router-link>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <ul class="nav nav-treeview">-->
+<!--                    <li class="nav-item">-->
+<!--                        <router-link :to="{ name: 'salida_solicitante' }" class="nav-link">-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                            <p>Salidas por solicitante</p>-->
+<!--                        </router-link>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <router-link :to="{ name: 'salida_usuario' }" class="nav-link">-->
+<!--                            <i class="fas fa-truck"></i>-->
+<!--                            <p>Salidas por usuario</p>-->
+<!--                        </router-link>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </li>-->
           <li class="nav-item" v-if=" this.$store.state.login.user ? this.$store.state.login.user.rol == 'ADMINISTRADOR' : false">
             <router-link :to="{ name: 'usuario' }" class="nav-link nav-button">
               <i class="nav-icon fas fa-users"></i>
@@ -277,12 +289,12 @@ export default {
 .sidebar-dark-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
 .sidebar-light-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
   background-color: #283136;
-  border-color: #ec4747;
+    border-color: #6576ff;
 }
 .sidebar-dark-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,
 .sidebar-light-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {
   background-color: #283136;
-  border-color: #dc3545;
+    border-color: #6576ff;
 }
 /* [class*="sidebar-light-"] .nav-sidebar > .nav-item.menu-open > .nav-link,
 [class*="sidebar-light-"] .nav-sidebar > .nav-item:hover > .nav-link {
@@ -294,7 +306,8 @@ export default {
 [class*="sidebar-dark-"] .nav-sidebar > .nav-item > .nav-link:focus {
   background-color: rgba(255, 255, 255, 0.1);
   color: #ffffff;
-  border-color: #bd2525;
+  border-color: #6576ff;
+  /*border-color: #bd2525;*/
 }
 [class*="sidebar-dark-"]
   .nav-flat
@@ -308,11 +321,11 @@ export default {
   .nav-treeview
   > .nav-item
   > .nav-link.active {
-  border-color: #ec4747;
+    border-color: #6576ff;
 }
 .nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,
 .nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {
   border-left: 0.2rem solid;
-  border-color: #ec4747;
+    border-color: #6576ff;
 }
 </style>

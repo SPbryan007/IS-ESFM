@@ -117,6 +117,7 @@ Route::prefix('controller/ingreso')->group(function (){
     Route::delete('/{id}','IngresoController@destroy')->middleware('auth');
     Route::get('/imprimir/{id}','IngresoController@print')->middleware('auth');
     Route::get('/export_pdf/{id}','IngresoController@exportPDF')->middleware('auth');
+    Route::post('/query', 'IngresoController@Query')->middleware('auth');
 });
 
 Route::prefix('controller/reportes')->group(function (){
@@ -139,6 +140,7 @@ Route::prefix('controller/salida')->group(function (){
     Route::delete('/{id}','SalidaController@destroy');
     Route::get('/imprimir/{id}','SalidaController@print');
     Route::get('/export_pdf/{id}','SalidaController@exportPDF');
+    Route::post('/query', 'SalidaController@Query')->middleware('auth');
 });
 
 Route::prefix('controller/backup')->group(function (){

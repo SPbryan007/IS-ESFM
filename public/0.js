@@ -258,6 +258,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -285,7 +297,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.nav-button {\n  /* padding: 0.625rem 40px 0.625rem 24px; */\n  /* color: #fff !important; */\n  padding: 0.7rem 0.8rem !important;\n  font-family: Nunito;\n  font-weight: 300; /**700 */\n  font-size: 15px;\n  letter-spacing: 0.01em;\n  text-transform: none;\n  line-height: 1.25rem;\n}\n.sidebar-dark-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,\n.sidebar-light-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {\n  background-color: #283136;\n  border-color: #ec4747;\n}\n.sidebar-dark-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,\n.sidebar-light-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {\n  background-color: #283136;\n  border-color: #dc3545;\n}\n/* [class*=\"sidebar-light-\"] .nav-sidebar > .nav-item.menu-open > .nav-link,\n[class*=\"sidebar-light-\"] .nav-sidebar > .nav-item:hover > .nav-link {\n  background-color: rgba(255, 193, 7, 0.35);\n  color: #212529;\n} */\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item.menu-open > .nav-link,\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item:hover > .nav-link,\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item > .nav-link:focus {\n  background-color: rgba(255, 255, 255, 0.1);\n  color: #ffffff;\n  border-color: #bd2525;\n}\n[class*=\"sidebar-dark-\"]\n  .nav-flat\n  .nav-item\n  .nav-treeview\n  > .nav-item\n  > .nav-link,\n[class*=\"sidebar-dark-\"]\n  .nav-flat\n  .nav-item\n  .nav-treeview\n  > .nav-item\n  > .nav-link.active {\n  border-color: #ec4747;\n}\n.nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,\n.nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {\n  border-left: 0.2rem solid;\n  border-color: #ec4747;\n}\n", ""]);
+exports.push([module.i, "\n.nav-button {\n  /* padding: 0.625rem 40px 0.625rem 24px; */\n  /* color: #fff !important; */\n  padding: 0.7rem 0.8rem !important;\n  font-family: Nunito;\n  font-weight: 300; /**700 */\n  font-size: 15px;\n  letter-spacing: 0.01em;\n  text-transform: none;\n  line-height: 1.25rem;\n}\n.sidebar-dark-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,\n.sidebar-light-warning .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {\n  background-color: #283136;\n    border-color: #6576ff;\n}\n.sidebar-dark-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active,\n.sidebar-light-danger .nav-sidebar.nav-legacy > .nav-item > .nav-link.active {\n  background-color: #283136;\n    border-color: #6576ff;\n}\n/* [class*=\"sidebar-light-\"] .nav-sidebar > .nav-item.menu-open > .nav-link,\n[class*=\"sidebar-light-\"] .nav-sidebar > .nav-item:hover > .nav-link {\n  background-color: rgba(255, 193, 7, 0.35);\n  color: #212529;\n} */\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item.menu-open > .nav-link,\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item:hover > .nav-link,\n[class*=\"sidebar-dark-\"] .nav-sidebar > .nav-item > .nav-link:focus {\n  background-color: rgba(255, 255, 255, 0.1);\n  color: #ffffff;\n  border-color: #6576ff;\n  /*border-color: #bd2525;*/\n}\n[class*=\"sidebar-dark-\"]\n  .nav-flat\n  .nav-item\n  .nav-treeview\n  > .nav-item\n  > .nav-link,\n[class*=\"sidebar-dark-\"]\n  .nav-flat\n  .nav-item\n  .nav-treeview\n  > .nav-item\n  > .nav-link.active {\n    border-color: #6576ff;\n}\n.nav-flat.nav-sidebar > .nav-item .nav-treeview .nav-item > .nav-link,\n.nav-flat.nav-sidebar > .nav-item > .nav-treeview .nav-item > .nav-link {\n  border-left: 0.2rem solid;\n    border-color: #6576ff;\n}\n", ""]);
 
 // exports
 
@@ -622,7 +634,7 @@ var render = function() {
                           attrs: { to: { name: "movimiento" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-file nav-icon" }),
+                          _c("i", { staticClass: "fas fa-recycle nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Movimientos de almacen")])
                         ]
@@ -642,7 +654,9 @@ var render = function() {
                           attrs: { to: { name: "saldos" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-file nav-icon" }),
+                          _c("i", {
+                            staticClass: "fas fa-money-bill-wave nav-icon"
+                          }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Saldos de almacen")])
                         ]
@@ -662,21 +676,15 @@ var render = function() {
                           attrs: { to: { name: "general" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-file nav-icon" }),
+                          _c("i", { staticClass: "fas fa-list-ul nav-icon" }),
                           _vm._v(" "),
                           _c("p", [_vm._v("Reporte general")])
                         ]
                       )
                     ],
                     1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "nav-item has-treeview" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("ul", { staticClass: "nav nav-treeview" }, [
+                  ),
+                  _vm._v(" "),
                   _c(
                     "li",
                     { staticClass: "nav-item" },
@@ -685,12 +693,14 @@ var render = function() {
                         "router-link",
                         {
                           staticClass: "nav-link",
-                          attrs: { to: { name: "ingreso_proveedor" } }
+                          attrs: { to: { name: "reporte_ingresos" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-truck" }),
+                          _c("i", {
+                            staticClass: "fas fa-sign-in-alt nav-icon"
+                          }),
                           _vm._v(" "),
-                          _c("p", [_vm._v("Ingresos por proveedor")])
+                          _c("p", [_vm._v("Ingresos")])
                         ]
                       )
                     ],
@@ -705,54 +715,14 @@ var render = function() {
                         "router-link",
                         {
                           staticClass: "nav-link",
-                          attrs: { to: { name: "ingreso_usuario" } }
+                          attrs: { to: { name: "reporte_salidas" } }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-truck" }),
+                          _c("i", {
+                            staticClass: "fas fa-sign-out-alt nav-icon"
+                          }),
                           _vm._v(" "),
-                          _c("p", [_vm._v("Ingresos por usuario")])
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _c("ul", { staticClass: "nav nav-treeview" }, [
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "salida_solicitante" } }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-truck" }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Salidas por solicitante")])
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "li",
-                    { staticClass: "nav-item" },
-                    [
-                      _c(
-                        "router-link",
-                        {
-                          staticClass: "nav-link",
-                          attrs: { to: { name: "salida_usuario" } }
-                        },
-                        [
-                          _c("i", { staticClass: "fas fa-truck" }),
-                          _vm._v(" "),
-                          _c("p", [_vm._v("Salidas por usuario")])
+                          _c("p", [_vm._v("Salidas")])
                         ]
                       )
                     ],
@@ -904,16 +874,6 @@ var staticRenderFns = [
       _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
       _vm._v(" "),
       _c("p", [_vm._v("Reportes")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "nav-link", attrs: { href: "#" } }, [
-      _c("i", { staticClass: "nav-icon fas fa-file-alt" }),
-      _vm._v(" "),
-      _c("p", [_vm._v("Consultas")])
     ])
   }
 ]

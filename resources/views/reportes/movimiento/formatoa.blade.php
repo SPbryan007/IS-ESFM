@@ -19,7 +19,7 @@
             font-size: 16px;
             line-height: 16px;
             font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-            color: #555;
+            color:#0a0a0a;/*color: #555;*/
         }
 
         .invoice-box table {
@@ -51,7 +51,7 @@
         .invoice-box table tr.top table td.title {
             font-size: 45px;
             line-height: 45px;
-            color: #333;
+            color:#0a0a0a;/*color: #333;*/
         }
 
         .invoice-box table tr.information table td {
@@ -129,7 +129,7 @@
             left: 0cm;
             right:0cm;
             height: 3cm;
-            color: #555;
+            color:#0a0a0a;/*color: #555;*/
             font-size: 16px;
             line-height: 16px;
             text-align: center;

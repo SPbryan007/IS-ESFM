@@ -272,6 +272,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -660,31 +662,28 @@ var render = function() {
             "div",
             { staticClass: "pull-right" },
             [
-              _c(
-                "router-link",
-                {
-                  attrs: { to: { name: "additem" } },
-                  nativeOn: {
-                    click: function($event) {
-                      return _vm.CLEAR_FORM($event)
-                    }
-                  }
-                },
-                [
-                  _c("el-button", { attrs: { type: "primary" } }, [
-                    _vm._v(
-                      "\n                        Nuevo\n                        "
-                    ),
-                    _c("i", { staticClass: "fas fa-plus" })
-                  ])
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("el-button", { attrs: { type: "success" } }, [
-                _vm._v("\n                    Exportar\n                    "),
-                _c("i", { staticClass: "fas fa-download" })
-              ])
+              _vm.$store.getters["login/getUserLogged"].rol == "ADMINISTRADOR"
+                ? _c(
+                    "router-link",
+                    {
+                      attrs: { to: { name: "additem" } },
+                      nativeOn: {
+                        click: function($event) {
+                          return _vm.CLEAR_FORM($event)
+                        }
+                      }
+                    },
+                    [
+                      _c("el-button", { attrs: { type: "primary" } }, [
+                        _vm._v(
+                          "\n                        Nuevo\n                        "
+                        ),
+                        _c("i", { staticClass: "fas fa-plus" })
+                      ])
+                    ],
+                    1
+                  )
+                : _vm._e()
             ],
             1
           )
@@ -1071,35 +1070,38 @@ var render = function() {
                               })
                             : _vm._e(),
                           _vm._v(" "),
-                          _c(
-                            "router-link",
-                            {
-                              attrs: {
-                                disabled: scope.row.deleted_at,
-                                to: {
-                                  name: "edititem",
-                                  params: { id: scope.row.id }
-                                }
-                              },
-                              nativeOn: {
-                                click: function($event) {
-                                  return _vm.SET_EDIT_FORM(scope.row)
-                                }
-                              }
-                            },
-                            [
-                              _c("el-button", {
-                                attrs: {
-                                  type: "primary",
-                                  icon: "el-icon-edit",
-                                  disabled: scope.row.deleted_at,
-                                  size: "mini",
-                                  circle: ""
-                                }
-                              })
-                            ],
-                            1
-                          ),
+                          _vm.$store.getters["login/getUserLogged"].rol ==
+                          "ADMINISTRADOR"
+                            ? _c(
+                                "router-link",
+                                {
+                                  attrs: {
+                                    disabled: scope.row.deleted_at,
+                                    to: {
+                                      name: "edititem",
+                                      params: { id: scope.row.id }
+                                    }
+                                  },
+                                  nativeOn: {
+                                    click: function($event) {
+                                      return _vm.SET_EDIT_FORM(scope.row)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("el-button", {
+                                    attrs: {
+                                      type: "primary",
+                                      icon: "el-icon-edit",
+                                      disabled: scope.row.deleted_at,
+                                      size: "mini",
+                                      circle: ""
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
                           !scope.row.deleted_at
                             ? _c("el-button", {
@@ -1108,6 +1110,9 @@ var render = function() {
                                   loading:
                                     _vm.loading_form &&
                                     scope.$index == _vm.self,
+                                  disabled:
+                                    _vm.$store.getters["login/getUserLogged"]
+                                      .rol != "ADMINISTRADOR",
                                   type: "danger",
                                   size: "mini",
                                   circle: ""

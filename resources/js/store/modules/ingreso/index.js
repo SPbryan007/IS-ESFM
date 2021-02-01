@@ -20,6 +20,7 @@ const state = {
         proveedor: null,
         fecha_acta:null,
         fecha_comprobante:null,
+        observacion:null,
         detalle_ingreso: []
     },
     detalle_ingreso: null,
@@ -59,7 +60,7 @@ const mutations = {
             case 404 :
                 state.alert.show       = true;
                 state.alert.color      = 'warning';
-                state.alert.message    = data;
+                state.alert.message    = data.message;
                 state.alert.title      = 'Vuelve a intentarlo'
                 break;
             case 500 :

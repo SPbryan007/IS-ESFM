@@ -15,6 +15,7 @@ export const getItems = ({ state, commit }) => {
             commit(types.SET_LOADING_TABLE, false);
         })
         .catch(error => {
+            console.log('holahola',error.response.status)
             commit(types.SET_DISPLAY_MESSAGE, error.response);
             commit(types.SET_LOADING_TABLE, false);
         });

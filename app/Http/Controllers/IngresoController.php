@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Ingreso;
+use App\Models\Periodo;
 use App\Repositories\IngresoRepository;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Database\QueryException;
@@ -37,7 +38,7 @@ class IngresoController extends Controller
             $ingresos = $this->ingresoRepository->getAll($request->query('withTrashed'));
             return response()->json($ingresos,200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'],500);
+            return response()->json(['message' => 'Error al cargar datos. '.$e->getMessage()],500);
         }
     }
 
@@ -61,16 +62,16 @@ class IngresoController extends Controller
             'fecha_comprobante' => 'nullable|date',
             'detalle_ingreso' => 'required|array'
         ]);*/
-            switch ($request->tipo_ingreso)
-            {
-                case Ingreso::COMPRA:
-                    $ingreso = $this->ingresoRepository->compra($request);
-                    break;
-                case Ingreso::DONACION:
-                    $ingreso = $this->ingresoRepository->donacion($request);
-                    break;
-            }
-            return response()->json($ingreso,$ingreso['status']);
+              switch ($request->tipo_ingreso)
+              {
+                  case Ingreso::COMPRA:
+                      $ingreso = $this->ingresoRepository->compra($request);
+                      break;
+                  case Ingreso::DONACION:
+                      $ingreso = $this->ingresoRepository->donacion($request);
+                      break;
+              }
+              return response()->json($ingreso,$ingreso['status']);
        // return response()->json($request,404);
     }
 
@@ -83,12 +84,6 @@ class IngresoController extends Controller
     public function show($id)
     {
         try {
-            /*$tipo = $this->ingresoRepository->getById($id);
-            switch ($tipo->tipo_ingreso){
-                case Ingreso::COMPRA:
-                    $ingresos = $this->ingresoRepository->getShowCompraById($id);
-                    break;
-            }*/
             $ingresos = $this->ingresoRepository->getShowById($id);
             return response()->json($ingresos,201);
         } catch (\Exception $e) {
@@ -96,38 +91,6 @@ class IngresoController extends Controller
         }
     }
 
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $validator = Validator::make($request->all(), [
-            'nombre' => 'required|string|max:100',
-            'linea' => 'required|string|max:2',
-            'partida_id' => 'required|integer',
-            'unidad_medida_id' => 'required|integer',
-        ]);
-        if($validator->fails()){
-            return response()->json(['message' => 'Bad request'],400);
-        }
-        try{
-            $this->articuloRepository->update($id,$request);
-            return response()->json(['message' => 'Datos actualizados exitosamente.'],201);
-        }catch (NotFoundHttpException $e){
-            return response()->json(['message' => $e->getMessage()],404);
-        }catch (QueryException $e){
-            $errorCode = $e->errorInfo[1];
-            if($errorCode == 1062){
-                return response()->json(['message' => 'el articulo ya se encuentro registrado.'],500);
-            }
-        }catch (\Exception $e) {
-            return response()->json(['message'=>'Ha ocurrido un error inesperado, verifique la conexion con la base de datos.'.$e->getMessage()],500);
-        }
-
-    }
 
     /**
      * @param $id
@@ -196,6 +159,20 @@ class IngresoController extends Controller
             }
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e],500);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function Query(Request $request)
+    {
+        try {
+            $ingresos = $this->ingresoRepository->queryAll($request->del,$request->al,$request->periodo);
+            return response()->json($ingresos,200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'],500);
         }
     }
 }

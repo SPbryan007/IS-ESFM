@@ -11,6 +11,10 @@
                                 <el-breadcrumb-item v-if="this.$route.name == 'movimiento'">Movimientos de almacen</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'saldos'">Saldos de almacen</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'general'">Reporte General</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'reporte_ingresos'">Ingresos</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'reporteviewdetailingreso'">Detalle ingreso</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'reporte_salidas'">Salidas</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'reporteviewdetailsalida'">Detalle salida</el-breadcrumb-item>
                                 <!--<el-breadcrumb-item v-if="this.$route.name == 'ingreso'">Listar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'editingreso'">Editar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'addingresodetails'">Detalle </el-breadcrumb-item>
