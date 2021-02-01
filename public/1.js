@@ -222,8 +222,8 @@ var render = function() {
               _vm._v(
                 " " +
                   _vm._s(
-                    this.$store.state.periodo
-                      ? this.$store.state.periodo.current.nombre
+                    _vm.$store.state.periodo.current
+                      ? _vm.$store.state.periodo.current.nombre
                       : "Sin definir"
                   ) +
                   "\n            "

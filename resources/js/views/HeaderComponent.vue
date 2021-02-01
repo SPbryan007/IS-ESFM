@@ -78,7 +78,7 @@
 
         <li class="nav-item">
             <span class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
-                <i class="fas fa-clock"></i> {{ this.$store.state.periodo? this.$store.state.periodo.current.nombre : 'Sin definir'}}
+                <i class="fas fa-clock"></i> {{ $store.state.periodo.current? $store.state.periodo.current.nombre : 'Sin definir' }}
             </span>
         </li>
         <li class="nav-item">

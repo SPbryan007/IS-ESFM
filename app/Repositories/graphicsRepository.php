@@ -20,21 +20,20 @@ class GraphicsRepository
             ->where('estado','=',Periodo::FINALIZADO)
             ->orWhere('estado','=',Periodo::EN_CURSO)
             ->first();
-        $periodo = $periodo ? $periodo : NULL;
         $ingreso = Lote::select(DB::raw("IFNULL(di.cantidad,0) as ingreso,0 as salida,a.linea as linea"))
             ->leftjoin('articulo as a','a.id','=','lote.articulo_id')
             ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
             ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
-            ->where('i.periodo_id', $periodo->id)
-            ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))])
+            ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+            ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d 23:59:59', strtotime($periodo? $periodo->fecha_fin : date("Y/m/d")))])
             ->whereNull('i.deleted_at');
 
         $salida = Lote::select(DB::raw("0 as ingreso,IFNULL(ds.cantidad,0) as salida,a.linea as linea"))
             ->leftjoin('articulo as a','a.id','=','lote.articulo_id')
             ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
             ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
-            ->where('s.periodo_id', $periodo->id)
-            ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))])
+            ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+            ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d 23:59:59', strtotime($periodo? $periodo->fecha_fin: date("Y/m/d")))])
             ->whereNull('s.deleted_at')
             ->unionAll($ingreso);
         return DB::query()->fromSub($salida, 'q')
@@ -56,7 +55,6 @@ class GraphicsRepository
                     ->where('estado','=',Periodo::FINALIZADO)
                     ->orWhere('estado','=',Periodo::EN_CURSO)
                     ->first();
-                $periodo = $periodo ? $periodo : NULL;
                 $Moths  = ['01','02','03','04','05','06','07','08','09','10','11','12'];
                 $data = [];
 
@@ -66,7 +64,7 @@ class GraphicsRepository
                     )
                         ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
                         ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
-                        ->where('i.periodo_id', $periodo->id)
+                        ->where('i.periodo_id', $periodo? $periodo->id : NULL)
                         ->whereMonth('i.created_at', '=', $moth)
                         //->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                         ->whereNull('i.deleted_at');
@@ -76,7 +74,7 @@ class GraphicsRepository
                     )
                         ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
                         ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
-                        ->where('s.periodo_id', $periodo->id)
+                        ->where('s.periodo_id', $periodo? $periodo->id : NULL)
                         ->whereMonth('s.created_at', '=', $moth)
                         //->whereBetween('S.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                         ->whereNull('s.deleted_at')
@@ -100,9 +98,9 @@ class GraphicsRepository
             ->orWhere('estado','=',Periodo::EN_CURSO)
             ->first();
         $periodo = $periodo ? $periodo : NULL;
-        $ingreso = Ingreso::select('created_at')->where('periodo_id',$periodo->id);
+        $ingreso = Ingreso::select('created_at')->where('periodo_id',$periodo? $periodo->id : NULL);
         $salidas  = Salida::select('created_at')
-            ->where('periodo_id',$periodo->id)
+            ->where('periodo_id',$periodo? $periodo->id : NULL)
             ->unionAll($ingreso)
             ->oldest()
             ->get();
@@ -114,8 +112,8 @@ class GraphicsRepository
             )
                 ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
                 ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
-                ->where('i.periodo_id', $periodo->id)
-                ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                 ->whereNull('i.deleted_at');
 
             $salida = Lote::select(
@@ -123,8 +121,8 @@ class GraphicsRepository
             )
                 ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
                 ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
-                ->where('s.periodo_id', $periodo->id)
-                ->whereBetween('S.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo ? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                 ->whereNull('s.deleted_at')
                 ->unionAll($ingreso);
             $value = DB::query()->fromSub($salida, 'q')

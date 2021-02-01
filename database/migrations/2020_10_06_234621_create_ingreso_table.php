@@ -35,13 +35,12 @@ class CreateIngresoTable extends Migration
             $table->enum('tipo_ingreso',
                 [
                     App\Models\Ingreso::COMPRA,
-                    App\Models\Ingreso::DEVOLUCION,
                     App\Models\Ingreso::DONACION,
                     App\Models\Ingreso::INV_INICIAL
                 ]
             )->nullable(false);
 //            $table->bigInteger('nro_ingreso')->nullable(false);
-            $table->string('nro_ingreso',5)->nullable(false);
+            $table->string('nro_ingreso',7)->nullable(false);
             $table->unsignedBigInteger('usuario_id')->nullable(false);
             $table->foreign('usuario_id')->references('id_usuario')
                 ->on('usuario')

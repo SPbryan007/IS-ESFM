@@ -156,7 +156,11 @@ class CreateTrigger extends Migration
                 END IF;
             END
         ");
-
+//        $pass = bcrypt('admin');
+//        $rol  = \App\Role::ADMIN;
+//            DB::unprepared("
+//                INSERT INTO `usuario`(`id_usuario`, `username`, `password`, `rol`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8])
+//            ");
     }
 
     /**

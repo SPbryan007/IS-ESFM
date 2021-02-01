@@ -235,9 +235,9 @@ class PeriodoRepository
 
     public function Current()
     {
-        $periodo = Periodo::latest()->first();
+        $periodo = Periodo::where('estado','=',Periodo::EN_CURSO)->latest()->first();
         if(!$periodo)
-            return false;
+            return null;
         return $periodo;
     }
 

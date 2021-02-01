@@ -15,8 +15,8 @@ class CreateSalidaTable extends Migration
     {
         Schema::create('salida', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nro_salida',5)->nullable(false);
-            $table->string('nro_pedido',5)->nullable(false);
+            $table->string('nro_salida',7)->nullable(false);
+            $table->string('nro_pedido',10)->nullable(false);
             $table->text('finalidad')->nullable(true);
             $table->text('observacion')->nullable(true);
             $table->date('fecha_pedido')->nullable(true);
