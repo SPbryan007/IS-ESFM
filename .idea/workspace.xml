@@ -20,54 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89b8e662-54ca-402b-b699-c4f30e69ba6f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/PeriodoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/PeriodoRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/UnidadRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/UnidadRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/invoice.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/11.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/15.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/16.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/17.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/19.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/19.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/2.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/20.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/20.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/25.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/25.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/28.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/28.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/32.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/32.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/41.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/41.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/48.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/48.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/51.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/51.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/52.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/52.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/53.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/53.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/55.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/55.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/SettingsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/SettingsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_07_043905_create_salida_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_07_043905_create_salida_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/1.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/backups/backup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/public/backups/backup.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/js/app.js.LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js.LICENSE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/ingreso/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/ingreso/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/ingreso/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/ingreso/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/mutation-types.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/mutation-types.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/unidad/getters.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/unidad/getters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/usuario/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/usuario/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/usuario/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/usuario/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/ingreso/ViewDetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/ingreso/ViewDetails.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/periodo/AperturaInventarioInicialView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/periodo/AperturaInventarioInicialView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/periodo/InventarioInicialView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/periodo/InventarioInicialView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/periodo/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/periodo/ListView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/GeneralView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/GeneralView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/IngresoDetailsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/IngresoDetailsView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/IngresosView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/IngresosView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/MovimientoView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/MovimientoView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/SaldosView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/SaldosView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/SalidaDetailsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/SalidaDetailsView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/SalidasView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/SalidasView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/salida/AddDetailsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/salida/AddDetailsView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/salida/ViewDetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/salida/ViewDetails.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/solicitante/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/solicitante/ListView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/unidad/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/unidad/ListView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/usuario/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/usuario/ListView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/HeaderComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/HeaderComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -594,7 +552,7 @@
       <workItem from="1612383167285" duration="1165000" />
       <workItem from="1612450618924" duration="9584000" />
       <workItem from="1612493128813" duration="7015000" />
-      <workItem from="1612739391807" duration="8742000" />
+      <workItem from="1612739391807" duration="11144000" />
     </task>
     <servers />
   </component>

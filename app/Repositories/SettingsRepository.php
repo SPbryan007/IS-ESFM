@@ -46,7 +46,7 @@ class SettingsRepository
             $username      = env('DB_USERNAME');
             $password      = env('DB_PASSWORD');
             $database_name = env('DB_DATABASE');
-            $cmd = "mysql -h {$server_name} -u {$username} -p{$password} {$database_name} < $restore_file";
+            $cmd = "C:\AppServ\MySQL\bin\mysql.exe -h {$server_name} -u {$username} -p{$password} {$database_name} < $restore_file";
             $output =  array();
             exec($cmd, $output,$worked);
             switch($worked){
@@ -66,10 +66,10 @@ class SettingsRepository
     {
         $server_name   = env('DB_HOST','127.0.0.1');
         $username      = env('DB_USERNAME','root');
-        $password      = env('DB_PASSWORD','12345678');
-        $database_name = env('DB_DATABASE','inventario_db2');
+        $password      = env('DB_PASSWORD','');
+        $database_name = env('DB_DATABASE','inventario_db');
         $path_file     = public_path()."/backups/backup.sql";
-        $cmd="mysqldump --no-defaults --opt -h {$server_name} -u {$username} -p{$password}  {$database_name} > {$path_file}";
+        $cmd="C:\AppServ\MySQL\bin\mysqldump.exe --no-defaults --opt -h {$server_name} -u {$username} -p{$password}  {$database_name} > {$path_file}";
         $output =  array();
         exec($cmd, $output,$worked);
         switch($worked){

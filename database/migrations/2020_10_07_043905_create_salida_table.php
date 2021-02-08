@@ -67,25 +67,25 @@ class CreateSalidaTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::create('devolucion', function (Blueprint $table){
-            $table->unsignedBigInteger('id_devolucion')->primary();
-            $table->string('motivo',255)->nullable(true);
-            $table->text('observacion')->nullable(true);
-            $table->foreign('id_devolucion')->references('id')
-                ->on('ingreso')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->unsignedBigInteger('id_salida')->nullable(false);
-            $table->foreign('id_salida')->references('id')
-                ->on('salida')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-            $table->unsignedBigInteger('usuario_id')->nullable(false);
-            $table->foreign('usuario_id')->references('id_usuario')
-                ->on('usuario')
-                ->onUpdate('cascade')
-                ->onDelete('restrict');
-        });
+//        Schema::create('devolucion', function (Blueprint $table){
+//            $table->unsignedBigInteger('id_devolucion')->primary();
+//            $table->string('motivo',255)->nullable(true);
+//            $table->text('observacion')->nullable(true);
+//            $table->foreign('id_devolucion')->references('id')
+//                ->on('ingreso')
+//                ->onUpdate('cascade')
+//                ->onDelete('restrict');
+//            $table->unsignedBigInteger('id_salida')->nullable(false);
+//            $table->foreign('id_salida')->references('id')
+//                ->on('salida')
+//                ->onUpdate('cascade')
+//                ->onDelete('restrict');
+//            $table->unsignedBigInteger('usuario_id')->nullable(false);
+//            $table->foreign('usuario_id')->references('id_usuario')
+//                ->on('usuario')
+//                ->onUpdate('cascade')
+//                ->onDelete('restrict');
+//        });
     }
 
     /**

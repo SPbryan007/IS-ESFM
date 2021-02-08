@@ -120,10 +120,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {};
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["authenticated"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("login", ["logout"])),
-  mounted: function mounted() {
-    console.log("Component mounted.");
-  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["authenticated"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("login", ["logout"]), {
+    AbrirManual: function AbrirManual() {
+      window.open('http://almacen.esfm/Manual.pdf', '_blank');
+    }
+  }),
+  mounted: function mounted() {},
   created: function created() {
     _store_index__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('periodo/verify');
   }
@@ -232,7 +234,24 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(1),
+        _c("li", { staticClass: "nav-item" }, [
+          _c(
+            "a",
+            {
+              staticClass: "nav-link",
+              attrs: {
+                "data-widget": "control-sidebar",
+                "data-slide": "true",
+                href: "#"
+              },
+              on: { click: _vm.AbrirManual }
+            },
+            [
+              _c("i", { staticClass: "fas fa-question" }),
+              _vm._v(" Manual.\n            ")
+            ]
+          )
+        ]),
         _vm._v(" "),
         _c("li", { staticClass: "nav-item" }, [
           _c(
@@ -272,28 +291,6 @@ var staticRenderFns = [
           [_c("i", { staticClass: "fas fa-bars" })]
         )
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "nav-item" }, [
-      _c(
-        "a",
-        {
-          staticClass: "nav-link",
-          attrs: {
-            "data-widget": "control-sidebar",
-            "data-slide": "true",
-            href: "#"
-          }
-        },
-        [
-          _c("i", { staticClass: "fas fa-question" }),
-          _vm._v(" Manual.\n            ")
-        ]
-      )
     ])
   }
 ]

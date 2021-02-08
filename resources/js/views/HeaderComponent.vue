@@ -82,7 +82,7 @@
             </span>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
+            <a @click="AbrirManual" class="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
                 <i class="fas fa-question"></i> Manual.
             </a>
         </li>
@@ -106,10 +106,13 @@ export default {
   },
   methods: {
     ...mapState(["authenticated"]),
-    ...mapActions("login", ["logout"])
+    ...mapActions("login", ["logout"]),
+      AbrirManual(){
+          window.open('http://almacen.esfm/Manual.pdf', '_blank')
+      }
   },
   mounted() {
-    console.log("Component mounted.");
+
   },
   created() {
       store.dispatch('periodo/verify');
