@@ -108,7 +108,7 @@ export default {
     ...mapState(["authenticated"]),
     ...mapActions("login", ["logout"]),
       AbrirManual(){
-          window.open('http://almacen.esfm/Manualusuario.pdf', '_blank')
+          window.open('http://almacen.esfm/Manual.pdf', '_blank')
       }
   },
   mounted() {

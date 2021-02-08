@@ -122,7 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(["authenticated"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("login", ["logout"]), {
     AbrirManual: function AbrirManual() {
-      window.open('http://almacen.esfm/Manualusuario.pdf', '_blank');
+      window.open('http://almacen.esfm/Manual.pdf', '_blank');
     }
   }),
   mounted: function mounted() {},
