@@ -74,11 +74,11 @@ export const deleteItem = ({ commit, dispatch }, params) => {
  */
 export const changeRole = ({ commit, state,dispatch }, params) => {
     params.progress.start();
-    commit(types.SET_LOADING_FORM, true);
+    commit(types.SET_LOADING_FORM_ROL, true);
     commonProviders
         .update(URL_USUARIO_ + params.id)
         .then(item => {
-            commit(types.SET_LOADING_FORM, false);
+            commit(types.SET_LOADING_FORM_ROL, false);
             dispatch('getItems');
             params.progress.finish();
             params.message({
@@ -87,7 +87,7 @@ export const changeRole = ({ commit, state,dispatch }, params) => {
             });
         })
         .catch(error => {
-            commit(types.SET_LOADING_FORM, false);
+            commit(types.SET_LOADING_FORM_ROL, false);
             commit(types.SET_DISPLAY_MESSAGE, error.response);
             params.progress.fail();
         });
@@ -95,13 +95,13 @@ export const changeRole = ({ commit, state,dispatch }, params) => {
 
 export const resetPassword = ({ commit, state,dispatch }, params) => {
     params.progress.start();
-    commit(types.SET_LOADING_FORM, true);
+    commit(types.SET_LOADING_FORM_RESET, true);
     commonProviders
         .update(URL_AUTH+'resetDefaultPassword/' + params.id,{})
         .then(item => {
             dispatch('getItems');
             /*            commit(types.UPDATE_ITEM, item.data);*/
-            commit(types.SET_LOADING_FORM, false);
+            commit(types.SET_LOADING_FORM_RESET, false);
             commit(types.CLEAR_FORM);
             params.progress.finish();
             params.message({
@@ -111,7 +111,7 @@ export const resetPassword = ({ commit, state,dispatch }, params) => {
         })
         .catch(error => {
             commit(types.SET_DISPLAY_MESSAGE, error.response);
-            commit(types.SET_LOADING_FORM, false);
+            commit(types.SET_LOADING_FORM_RESET, false);
             params.progress.fail();
         });
 };

@@ -210,18 +210,17 @@ class ReporteController extends Controller
                 'l3s_salidas'   => $l3s_salidas,
                 'formato' => $request->formato,
             ];
+
             switch ($request->formato){
                 case 'A':
-                    return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatoa'))
-
-                        ->download('lote.xlsx');
+                    return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatoa'))->download('lote.xlsx');
                     break;
                 case 'B':
                     return (new MovimientoAlmacenView($data,'reportes.movimiento.excel_formatob'))->download('lote.xlsx');
                     break;
             }
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Ha ocurrido un error inesperado en la descarga'.$e],500);
+            return response()->json(['message' => 'Ha ocurrido un error inesperado en la descarga'.$e->getMessage()],500);
         }
     }
 

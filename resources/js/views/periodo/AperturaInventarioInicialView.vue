@@ -77,7 +77,7 @@
                                 <el-input-number v-model="detalles_form.cantidad"  :precision="2" :step="1"  :min="0.1" ></el-input-number>
                             </el-form-item>
                             <el-form-item label="Sub Total:" >
-                                <el-input-number  v-model="detalles_form.total"  :precision="2" :step="1"  :min="1" ></el-input-number>
+                                <el-input-number  v-model="detalles_form.total"  :precision="2" :step="1"  :min="0.1" ></el-input-number>
                             </el-form-item>
                             <el-form-item label="Precio U:" >
                                 {{ isNaN(detalles_form.total/detalles_form.cantidad) ? 0 : (detalles_form.total/detalles_form.cantidad).toFixed(2) }} Bs.
@@ -85,7 +85,7 @@
 
                         </el-form>
                         <span slot="footer" class="dialog-footer">
-                            <el-button @click="OnClickCancelForm('AddDetailsForm')">Cancel</el-button>
+                            <el-button @click="OnClickCancelForm('AddDetailsForm')">Cancelar</el-button>
                             <el-button type="primary" @click="OnClickAddForm('AddDetailsForm')">Agregar</el-button>
                           </span>
                     </el-dialog>

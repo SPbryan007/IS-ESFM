@@ -93,9 +93,6 @@
                     <el-table-column
                         prop="unidad.nombre"
                         label="Unidad"
-                        :filters="GET_FILTER_TAG_UNIDAD"
-                        :filter-method="FilterUnidad"
-                        filter-placement="bottom-end"
                         width="210"
                     >
                         <template slot-scope="scope">
@@ -198,7 +195,6 @@ export default {
             return this.perpage ? parseInt(this.perpage) : 25;
         },
         ...mapGetters("solicitante", ["GET_ITEMS_SOLICITANTE","GET_FILTER_ITEMS"]),
-        ...mapGetters("unidad",["GET_FILTER_TAG_UNIDAD"])
     },
     methods: {
         ...mapMutations("solicitante", ["SET_EDIT_FORM", "CLEAR_FORM"]),
@@ -207,9 +203,6 @@ export default {
             setTimeout(() => {
                 self.jw.setPage(1);
             }, 0);
-        },
-        FilterUnidad(value, row) {
-            return row.unidad_id === value;
         },
         OnClickAD(index, row) {
             this.$confirm(
@@ -233,13 +226,7 @@ export default {
                     return null;
                 });
         },
-        OnChangeStatus(index, row){
-            alert(index);
-           /* store.dispatch("solicitante/deleteItem", {
-                id: row.id_solicitante,
-                progress: this.$Progress
-            });*/
-        },
+
         onChangePage(pageOfItems) {
             this.pageOfItems = pageOfItems;
         },

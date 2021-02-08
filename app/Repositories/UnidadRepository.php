@@ -26,7 +26,9 @@ class UnidadRepository
 
     public function getAllUnidad($withTrashed)
     {
-        return Unidad::with('funcionario')
+        return Unidad::with(['funcionario' => function($query){
+            $query->withTrashed();
+        }])
             ->withTrashed(filter_var($withTrashed,FILTER_VALIDATE_BOOLEAN))
             ->orderBy('id','DESC')
             ->get();

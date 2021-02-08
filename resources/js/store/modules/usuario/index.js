@@ -17,6 +17,8 @@ const state = {
     },
     loading_table: false,
     loading_form: false,
+    loading_form_rol: false,
+    loading_form_reset: false,
     searchQuery: ""
 };
 const mutations = {
@@ -50,6 +52,12 @@ const mutations = {
     },
     [types.SET_LOADING_FORM]: (state, status) => {
         state.loading_form = status;
+    },
+    [types.SET_LOADING_FORM_ROL]: (state, status) => {
+        state.loading_form_rol = status;
+    },
+    [types.SET_LOADING_FORM_RESET]: (state, status) => {
+        state.loading_form_reset = status;
     },
     /**
      * SET_ITEMS Establece los articulos recibidos

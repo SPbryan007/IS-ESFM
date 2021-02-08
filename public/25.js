@@ -181,9 +181,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -207,16 +204,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     PerPage: function PerPage() {
       return this.perpage ? parseInt(this.perpage) : 25;
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("solicitante", ["GET_ITEMS_SOLICITANTE", "GET_FILTER_ITEMS"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("unidad", ["GET_FILTER_TAG_UNIDAD"])),
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("solicitante", ["GET_ITEMS_SOLICITANTE", "GET_FILTER_ITEMS"])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("solicitante", ["SET_EDIT_FORM", "CLEAR_FORM"]), {
     refresh: function refresh() {
       var self = this.$refs;
       setTimeout(function () {
         self.jw.setPage(1);
       }, 0);
-    },
-    FilterUnidad: function FilterUnidad(value, row) {
-      return row.unidad_id === value;
     },
     OnClickAD: function OnClickAD(index, row) {
       var _this = this;
@@ -235,13 +229,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       })["catch"](function () {
         return null;
       });
-    },
-    OnChangeStatus: function OnChangeStatus(index, row) {
-      alert(index);
-      /* store.dispatch("solicitante/deleteItem", {
-           id: row.id_solicitante,
-           progress: this.$Progress
-       });*/
     },
     onChangePage: function onChangePage(pageOfItems) {
       this.pageOfItems = pageOfItems;
@@ -597,9 +584,6 @@ var render = function() {
                   attrs: {
                     prop: "unidad.nombre",
                     label: "Unidad",
-                    filters: _vm.GET_FILTER_TAG_UNIDAD,
-                    "filter-method": _vm.FilterUnidad,
-                    "filter-placement": "bottom-end",
                     width: "210"
                   },
                   scopedSlots: _vm._u([

@@ -131,7 +131,8 @@ class PeriodoRepository
                 Ingreso::INV_INICIAL,
                 NULL,
                 $periodo->id,
-                $periodo->fecha_inicio
+                $periodo->fecha_inicio,
+                'NUEVA APERTURA'
             );
             switch ($request->tipo_inventario){
                 case 'APERTURA_INVENTARIO':

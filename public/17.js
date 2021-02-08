@@ -416,7 +416,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (valid) {
           _this.$Progress.start();
 
-          axios.post('/controller/reportes/movimiento_almacen/', _this.consulta).then(function (response) {
+          axios.post('/controller/reportes/movimiento_almacen', _this.consulta).then(function (response) {
             _this.items = response.data.data;
             _this.totales.ts_inicial = response.data.ts_inicial;
             _this.totales.ts_entrada = response.data.ts_entrada;
@@ -461,13 +461,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
+      window.open('http://almacen.esfm/controller/reportes/movimiento_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
     },
     toExcel: function toExcel() {
       var _this2 = this;
 
       this.$Progress.start();
-      this.loading_excel = true;
+      this.loading_excel = true; // axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta)
+      //     .then(response => {
+      //         alert('todo ok');
+      //         this.$Progress.finish();
+      //         this.loading_excel = false;
+      //     }).catch((err)=>{
+      //     this.alert.message =  err.response.data.message;
+      //     this.alert.show = true;
+      //     this.$Progress.fail();
+      //     this.loading_excel = false;
+      //     console.log('error excel',err.response.data.message);
+      // });
+
       axios.post('/controller/reportes/movimiento_almacen_excel', this.consulta, {
         responseType: 'blob'
       }).then(function (response) {
@@ -486,10 +498,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this2.loading_excel = false;
       })["catch"](function (err) {
+        _this2.alert.message = err.response.data.message;
+        _this2.alert.show = true;
+
         _this2.$Progress.fail();
 
         _this2.loading_excel = false;
-        console.log('error excel', err);
+        console.log('error excel', err.response.data);
       });
     }
   },
@@ -514,7 +529,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth {\r\n    padding: 7px !important;\n}\r\n", ""]);
+exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n", ""]);
 
 // exports
 
@@ -574,7 +589,7 @@ var render = function() {
         ? _c("el-alert", {
             attrs: {
               title: "Ooops",
-              type: "danger",
+              type: "error",
               description: _vm.alert.message,
               closable: "",
               "show-icon": ""

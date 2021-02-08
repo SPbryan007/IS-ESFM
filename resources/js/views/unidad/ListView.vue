@@ -1,5 +1,6 @@
 <template>
   <div class="col-md-12">
+
       <el-alert
           v-if="alert.show"
           :title="alert.title"
@@ -85,9 +86,6 @@
                         sortable
                         prop="nombre"
                         label="Nombre"
-                        :filters="GET_FILTER_TAG_UNIDAD"
-                        :filter-method="FilterCargo"
-                        filter-placement="bottom-end"
                         width="300"
                     >
                         <template slot-scope="scope">
@@ -190,9 +188,6 @@ export default {
             setTimeout(() => {
                 self.jw.setPage(1);
             }, 0);
-        },
-        FilterCargo(value, row) {
-            return row.unidad_id === value;
         },
         OnClickAD(index, row) {
             this.$confirm(

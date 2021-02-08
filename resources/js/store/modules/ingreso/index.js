@@ -23,7 +23,7 @@ const state = {
         observacion:null,
         detalle_ingreso: []
     },
-    detalle_ingreso: null,
+    detalle_ingreso: [],
     alert:{
         color:'',
         message:null,

@@ -750,7 +750,7 @@ var render = function() {
                           { attrs: { label: "Sub Total:" } },
                           [
                             _c("el-input-number", {
-                              attrs: { precision: 2, step: 1, min: 1 },
+                              attrs: { precision: 2, step: 1, min: 0.1 },
                               model: {
                                 value: _vm.detalles_form.total,
                                 callback: function($$v) {
@@ -801,7 +801,7 @@ var render = function() {
                               }
                             }
                           },
-                          [_vm._v("Cancel")]
+                          [_vm._v("Cancelar")]
                         ),
                         _vm._v(" "),
                         _c(

@@ -409,7 +409,7 @@ var render = function() {
         ? _c("el-alert", {
             attrs: {
               title: "Ooops",
-              type: "danger",
+              type: "error",
               description: _vm.alert.message,
               closable: "",
               "show-icon": ""

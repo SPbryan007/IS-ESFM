@@ -166,6 +166,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -344,7 +352,7 @@ var render = function() {
                 [
                   _c(
                     "div",
-                    { staticClass: "row justify-content-center mt-4" },
+                    { staticClass: "row justify-content-center" },
                     [
                       _c(
                         "el-input",
@@ -415,7 +423,21 @@ var render = function() {
                           property: "stock",
                           label: "Stock",
                           width: "120"
-                        }
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(scope.row.stock.toFixed(2)) +
+                                    "\n                                "
+                                )
+                              ]
+                            }
+                          }
+                        ])
                       }),
                       _vm._v(" "),
                       _c("el-table-column", {
@@ -423,7 +445,21 @@ var render = function() {
                           property: "saldo",
                           label: "Saldo",
                           width: "120"
-                        }
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(scope.row.saldo.toFixed(2)) +
+                                    "\n                                "
+                                )
+                              ]
+                            }
+                          }
+                        ])
                       }),
                       _vm._v(" "),
                       _c("el-table-column", {
@@ -493,12 +529,8 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "span",
-                    {
-                      staticClass: "dialog-footer",
-                      attrs: { slot: "footer" },
-                      slot: "footer"
-                    },
+                    "div",
+                    { staticClass: "row justify-content-center mt-4" },
                     [
                       _c("jw-pagination", {
                         ref: "jw",

@@ -292,6 +292,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -372,7 +375,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
+      window.open('http://almacen.esfm/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
     },
     exportPDF: function exportPDF(nro, date) {
       axios.get('/controller/ingreso/export_pdf/' + this.$route.params.id, {
@@ -804,10 +807,18 @@ var render = function() {
                           "  " +
                             _vm._s(
                               _vm._f("timeformat")(
-                                _vm.detalle_salida.created_at
+                                _vm.detalle_ingreso.created_at
                               )
                             )
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-5" }, [
+                        _vm._v("Observaciones:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-7" }, [
+                        _vm._v(_vm._s(_vm.detalle_ingreso.observacion))
                       ])
                     ])
                   ]),
@@ -829,6 +840,20 @@ var render = function() {
                       _c("dd", { staticClass: "col-md-8" }, [
                         _vm._v(
                           " " + _vm._s(_vm.getFormulario(_vm.detalle_ingreso))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-6" }, [
+                        _vm._v("Fecha acta:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-6" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("dateformat")(
+                              _vm.detalle_ingreso.donacion.fecha_acta
+                            )
+                          )
                         )
                       ])
                     ])
@@ -1122,7 +1147,10 @@ var render = function() {
           })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _c("br")
     ],
     1
   )

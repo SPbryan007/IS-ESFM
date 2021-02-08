@@ -371,7 +371,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
+      window.open('http://almacen.esfm/controller/reportes/movimiento_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
     },
     toExcel: function toExcel() {
       var _this2 = this;
@@ -484,7 +484,7 @@ var render = function() {
         ? _c("el-alert", {
             attrs: {
               title: "Ooops",
-              type: "danger",
+              type: "error",
               description: _vm.alert.message,
               closable: "",
               "show-icon": ""

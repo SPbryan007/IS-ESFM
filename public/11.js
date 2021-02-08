@@ -230,6 +230,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('login/getUser');
     _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("periodo/getItems");
+    _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch('periodo/verify');
   }
 });
 
@@ -665,7 +666,7 @@ var render = function() {
                       fn: function(scope) {
                         return [
                           _vm.$store.getters["login/getUserLogged"].rol ==
-                          "ADMINISTRADOR"
+                            "ADMINISTRADOR" && !scope.row.deleted_at
                             ? _c(
                                 "router-link",
                                 {

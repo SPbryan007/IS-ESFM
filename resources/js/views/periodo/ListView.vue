@@ -124,7 +124,7 @@
                     <el-table-column label="Operacion"  >
                         <template slot-scope="scope">
                             <router-link
-                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR'"
+                                v-if="$store.getters['login/getUserLogged'].rol == 'ADMINISTRADOR' && !scope.row.deleted_at"
                                 :disabled="!scope.row.deleted_at ? false : true"
                                 v-on:click.native="SET_EDIT_FORM(scope.row)"
                                 :to="{ name: 'editperiodo',params:{id:scope.row.id } }"
@@ -227,6 +227,7 @@ export default {
     created() {
         store.dispatch('login/getUser');
         store.dispatch("periodo/getItems");
+        store.dispatch('periodo/verify');
     }
 };
 </script>

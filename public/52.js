@@ -170,7 +170,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("salida", ["detalle_salida", "data_form", "loading_form", "alert"])),
   methods: {
     Print: function Print() {
-      window.open('http://localhost:8000/controller/salida/imprimir/' + this.$route.params.id, '_blank');
+      window.open('http://almacen.esfm/controller/salida/imprimir/' + this.$route.params.id, '_blank');
     },
     exportPDF: function exportPDF(nro, date) {
       axios.get('/controller/salida/export_pdf/' + this.$route.params.id, {

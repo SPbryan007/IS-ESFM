@@ -26,7 +26,7 @@
                 </div>
                 <div class="card-body">
                     <el-dialog title="Agregar articulos" :visible.sync="dialogAddDetails" width="60%">
-                        <div class="row justify-content-center mt-4">
+                        <div class="row justify-content-center">
                             <el-input
                                 style="width:660px"
                                 placeholder="Filtrar por codigo, articulo"
@@ -43,8 +43,16 @@
                         <el-table :data="pageOfItems">
                             <el-table-column property="codigo" label="Codigo" width="90"></el-table-column>
                             <el-table-column property="nombre" label="Articulo" width="370"></el-table-column>
-                            <el-table-column property="stock" label="Stock" width="120"></el-table-column>
-                            <el-table-column property="saldo" label="Saldo" width="120"></el-table-column>
+                            <el-table-column property="stock" label="Stock" width="120">
+                                <template slot-scope="scope">
+                                    {{ (scope.row.stock).toFixed(2) }}
+                                </template>
+                            </el-table-column>
+                            <el-table-column property="saldo" label="Saldo" width="120">
+                                <template slot-scope="scope">
+                                    {{ (scope.row.saldo).toFixed(2) }}
+                                </template>
+                            </el-table-column>
                             <el-table-column>
                                 <template slot-scope="scope">
                                     <el-button
@@ -71,16 +79,16 @@
                                 </template>
                             </el-table-column>
                         </el-table>
+                        <div class="row justify-content-center mt-4">
+                            <jw-pagination
+                                ref="jw"
+                                :pageSize="perpage"
+                                :items="GET_FILTER_ITEMS_DETAILS"
+                                :labels="labels"
+                                @changePage="onChangePage"
+                            ></jw-pagination>
+                        </div>
 
-                        <span slot="footer" class="dialog-footer">
-                           <jw-pagination
-                               ref="jw"
-                               :pageSize="perpage"
-                               :items="GET_FILTER_ITEMS_DETAILS"
-                               :labels="labels"
-                               @changePage="onChangePage"
-                           ></jw-pagination>
-                        </span>
                     </el-dialog>
                     <div class="row invoice-info">
                         <div class="col-md-4 invoice-col">

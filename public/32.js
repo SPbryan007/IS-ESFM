@@ -174,7 +174,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -193,7 +192,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("usuario", ["items", "loading_form", "loading_table", "alert", "data_form"]), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("usuario", ["items", "loading_form", "loading_form_rol", "loading_form_reset", "loading_form_delete", "loading_table", "alert", "data_form"]), {
     PerPage: function PerPage() {
       return this.perpage ? parseInt(this.perpage) : 25;
     }
@@ -224,6 +223,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     ChangeRol: function ChangeRol(index, row) {
+      this.self = index;
       _store__WEBPACK_IMPORTED_MODULE_1__["default"].dispatch("usuario/changeRole", {
         id: row.id_usuario,
         message: this.$message,
@@ -611,32 +611,36 @@ var render = function() {
                       key: "default",
                       fn: function(scope) {
                         return [
-                          _c("toggle-button", {
-                            attrs: {
-                              disabled:
-                                scope.row.id_usuario ==
-                                  _vm.$store.state.login.user.id_usuario ||
-                                scope.row.funcionario.deleted_at,
-                              value:
-                                scope.row.rol == "ADMINISTRADOR" ? true : false,
-                              color: {
-                                checked: "#13ce66",
-                                unchecked: "#6576ff",
-                                disabled: "#CCCCCC"
+                          _c(
+                            "el-button",
+                            {
+                              attrs: {
+                                disabled: scope.row.funcionario.deleted_at,
+                                loading:
+                                  _vm.loading_form_rol &&
+                                  scope.$index == _vm.self,
+                                type:
+                                  scope.row.rol == "ADMINISTRADOR"
+                                    ? "info"
+                                    : "warning",
+                                size: "mini"
                               },
-                              sync: false,
-                              width: 70,
-                              labels: {
-                                checked: "Admin",
-                                unchecked: "Invitado"
+                              on: {
+                                click: function($event) {
+                                  return _vm.ChangeRol(scope.$index, scope.row)
+                                }
                               }
                             },
-                            on: {
-                              change: function($event) {
-                                return _vm.ChangeRol(scope.$index, scope.row)
-                              }
-                            }
-                          })
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  scope.row.rol == "ADMINISTRADOR"
+                                    ? "Admin"
+                                    : "Invitado"
+                                )
+                              )
+                            ]
+                          )
                         ]
                       }
                     }
@@ -694,7 +698,7 @@ var render = function() {
                                 {
                                   attrs: {
                                     loading:
-                                      _vm.loading_form &&
+                                      _vm.loading_form_reset &&
                                       scope.$index == _vm.self,
                                     type: "default",
                                     size: "mini"

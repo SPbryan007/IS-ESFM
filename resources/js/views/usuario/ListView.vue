@@ -95,14 +95,13 @@
                     </el-table-column>
                     <el-table-column prop="rol" label="Rol" width="150" sortable>
                         <template slot-scope="scope">
-                                 <toggle-button
-                                     :disabled="scope.row.id_usuario == $store.state.login.user.id_usuario || scope.row.funcionario.deleted_at"
-                                     @change="ChangeRol(scope.$index,scope.row)"
-                                     :value="scope.row.rol == 'ADMINISTRADOR'? true : false"
-                                     :color="{checked: '#13ce66', unchecked: '#6576ff', disabled: '#CCCCCC'}"
-                                     :sync="false"
-                                     :width="70"
-                                     :labels="{checked: 'Admin', unchecked: 'Invitado'}"/>
+                            <el-button
+                                :disabled="scope.row.funcionario.deleted_at"
+                                :loading="loading_form_rol && scope.$index == self"
+                                :type="scope.row.rol == 'ADMINISTRADOR' ? 'info' : 'warning'"
+                                size="mini"
+                                @click="ChangeRol(scope.$index,scope.row)"
+                            >{{ scope.row.rol == 'ADMINISTRADOR' ? 'Admin' : 'Invitado' }}</el-button>
                         </template>
                     </el-table-column>
 
@@ -119,7 +118,7 @@
                         <template slot-scope="scope">
                             <el-button
                                 v-if="!scope.row.deleted_at"
-                                :loading="loading_form && scope.$index == self"
+                                :loading="loading_form_reset && scope.$index == self"
                                 type="default"
                                 size="mini"
                                 @click="ResetPassword(scope.$index, scope.row)"
@@ -180,6 +179,9 @@ export default {
         ...mapState("usuario", [
             "items",
             "loading_form",
+            "loading_form_rol",
+            "loading_form_reset",
+            "loading_form_delete",
             "loading_table",
             "alert",
             "data_form"
@@ -220,6 +222,7 @@ export default {
                   });
         },
         ChangeRol(index, row){
+            this.self = index;
             store.dispatch("usuario/changeRole", {
                 id: row.id_usuario,
                 message: this.$message,

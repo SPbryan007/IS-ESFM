@@ -3,7 +3,7 @@
         <el-alert
             v-if="alert.show"
             :title="'Ooops'"
-            :type="'danger'"
+            :type="'error'"
             :description="alert.message"
             @close="alert.show = false"
             closable
@@ -403,7 +403,7 @@ export default {
                 this.loading = true;
                 if (valid) {
                     this.$Progress.start();
-                    axios.post('/controller/reportes/movimiento_almacen/',this.consulta)
+                    axios.post('/controller/reportes/movimiento_almacen',this.consulta)
                         .then((response) =>{
                             this.items = response.data.data;
                             this.totales.ts_inicial = response.data.ts_inicial;
@@ -446,7 +446,7 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
+            window.open('http://almacen.esfm/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
                 '&formato=' + this.consulta.formato+'&conSaldo='+this.consulta.conSaldo,'_blank');
@@ -454,8 +454,21 @@ export default {
         toExcel(){
             this.$Progress.start();
             this.loading_excel = true;
+            // axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta)
+            //     .then(response => {
+            //         alert('todo ok');
+            //         this.$Progress.finish();
+            //         this.loading_excel = false;
+            //     }).catch((err)=>{
+            //     this.alert.message =  err.response.data.message;
+            //     this.alert.show = true;
+            //     this.$Progress.fail();
+            //     this.loading_excel = false;
+            //     console.log('error excel',err.response.data.message);
+            // });
             axios.post('/controller/reportes/movimiento_almacen_excel',this.consulta, { responseType: 'blob' })
                 .then(response => {
+
                     const blob = new Blob([response.data], { type: 'application/vnd.ms-excel' })
                     const link = document.createElement('a')
                     link.href = URL.createObjectURL(blob)
@@ -467,9 +480,11 @@ export default {
                     this.$Progress.finish();
                     this.loading_excel = false;
                 }).catch((err)=>{
+                this.alert.message =  err.response.data.message;
+                this.alert.show = true;
                 this.$Progress.fail();
                 this.loading_excel = false;
-                console.log('error excel',err);
+                console.log('error excel',err.response.data);
             });
         }
 

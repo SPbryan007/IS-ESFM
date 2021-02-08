@@ -156,7 +156,7 @@ export default {
     },
     methods: {
         Print(){
-            window.open('http://localhost:8000/controller/salida/imprimir/'+this.$route.params.id, '_blank');
+            window.open('http://almacen.esfm/controller/salida/imprimir/'+this.$route.params.id, '_blank');
         },
         exportPDF(nro,date){
             axios.get('/controller/salida/export_pdf/'+this.$route.params.id, { responseType: 'blob' })

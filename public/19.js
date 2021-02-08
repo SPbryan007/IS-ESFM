@@ -368,7 +368,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (valid) {
           _this.$Progress.start();
 
-          axios.post('/controller/reportes/saldos_almacen/', _this.consulta).then(function (response) {
+          axios.post('/controller/reportes/saldos_almacen', _this.consulta).then(function (response) {
             _this.items = response.data.data;
             _this.totales.ts_inicial = response.data.ts_inicial;
             _this.totales.ts_entrada = response.data.ts_entrada;
@@ -413,7 +413,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/reportes/saldos_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
+      window.open('http://almacen.esfm/controller/reportes/saldos_almacen_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&formato=' + this.consulta.formato + '&conSaldo=' + this.consulta.conSaldo, '_blank');
     },
     toExcel: function toExcel() {
       var _this2 = this;
@@ -466,7 +466,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth {\r\n    padding: 7px !important;\n}\r\n", ""]);
+exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n", ""]);
 
 // exports
 

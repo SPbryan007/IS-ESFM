@@ -3,7 +3,7 @@
         <el-alert
             v-if="alert.show"
             :title="'Ooops'"
-            :type="'danger'"
+            :type="'error'"
             :description="alert.message"
             @close="alert.show = false"
             closable

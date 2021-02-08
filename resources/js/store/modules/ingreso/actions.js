@@ -53,6 +53,7 @@ export const getDetalleById = ({ state, commit }, id) => {
     commonProviders
         .getById(URL_INGRESO_, id)
         .then(item => {
+            console.log('ESTE DETALLE',item.data);
             commit(types.SET_DETALLE_INGRESO, item.data);
             commit(types.SET_LOADING_TABLE, false);
         })

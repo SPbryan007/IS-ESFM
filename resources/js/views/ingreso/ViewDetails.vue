@@ -2,7 +2,6 @@
 
 
     <div class="col-md-12">
-
         <el-alert
             v-if="alert.show"
             :title="alert.title"
@@ -139,7 +138,9 @@
                                 <dt class="col-md-5">NIT:</dt>
                                 <dd class="col-md-7">{{ detalle_ingreso.proveedor.nit }}</dd>
                                 <dt class="col-md-5">Fecha de ingreso:</dt>
-                                <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}  <b>Hrs:</b>  {{ detalle_salida.created_at | timeformat }}</dd>
+                                <dd class="col-md-7">{{ detalle_ingreso.created_at | dateformat }}  <b>Hrs:</b>  {{ detalle_ingreso.created_at | timeformat }}</dd>
+                                <dt class="col-md-5">Observaciones:</dt>
+                                <dd class="col-md-7">{{ detalle_ingreso.observacion }}</dd>
                             </dl>
                         </div>
                         <div class="col-md-4 invoice-col">
@@ -150,6 +151,8 @@
                                 <dd class="col-md-6">&nbsp</dd>
                                 <dt class="col-md-4">Formulario:</dt>
                                 <dd class="col-md-8"> {{ getFormulario(detalle_ingreso) }}</dd>
+                                <dt class="col-md-6">Fecha acta:</dt>
+                                <dd class="col-md-6">{{ detalle_ingreso.donacion.fecha_acta | dateformat }}</dd>
                             </dl>
                         </div>
                         <div class="col-md-3">
@@ -158,8 +161,7 @@
                                 <dd class="col-md-6"><h4><strong>NIA: {{ detalle_ingreso.nro_ingreso }}</strong></h4><small>{{ detalle_ingreso.created_at | dateformat }}</small></dd>
                                 <dt class="col-md-4">N° Acta:</dt>
                                 <dd class="col-md-8">{{ detalle_ingreso.donacion.nro_acta }}</dd>
-                                <!--<dt class="col-md-6">Fecha solicitud:</dt>
-                                <dd class="col-md-6">{{ detalle_ingreso.compra.fecha_solicitud }}</dd>-->
+
                             </dl>
                         </div>
                         <!-- /.col -->
@@ -262,6 +264,7 @@
                 @changePage="onChangePage"
             ></jw-pagination>
         </div>
+        <br><br>
 <!--        <br>-->
 <!--        <div class="row justify-content-start">-->
 <!--           -->
@@ -355,7 +358,7 @@ export default {
             }
         },
         Print(){
-            window.open('http://localhost:8000/controller/ingreso/imprimir/'+this.$route.params.id, '_blank');
+            window.open('http://almacen.esfm/controller/ingreso/imprimir/'+this.$route.params.id, '_blank');
         },
         exportPDF(nro,date){
             axios.get('/controller/ingreso/export_pdf/'+this.$route.params.id, { responseType: 'blob' })
@@ -386,7 +389,7 @@ export default {
     },
    mounted() {
        store.dispatch('login/getUser');
-        store.dispatch("proveedor/getItems");
+       store.dispatch("proveedor/getItems");
     },
 };
 </script>

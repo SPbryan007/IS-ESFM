@@ -358,7 +358,7 @@ export default {
                 this.loading = true;
                 if (valid) {
                     this.$Progress.start();
-                    axios.post('/controller/reportes/saldos_almacen/',this.consulta)
+                    axios.post('/controller/reportes/saldos_almacen',this.consulta)
                         .then((response) =>{
                             this.items = response.data.data;
                             this.totales.ts_inicial = response.data.ts_inicial;
@@ -401,7 +401,7 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            window.open('http://localhost:8000/controller/reportes/saldos_almacen_print?periodo='+this.consulta.periodo+
+            window.open('http://almacen.esfm/controller/reportes/saldos_almacen_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
                 '&formato=' + this.consulta.formato+'&conSaldo='+this.consulta.conSaldo,'_blank');

@@ -275,6 +275,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -299,8 +319,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("ingreso", ["detalle_ingreso", "data_form", "loading_form", "alert"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("proveedor", ["GET_ITEMS_PROVEEDOR"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])("ingreso", ["GET_FILTER_VIEW_DETALLE_INGRESOS"])),
   methods: {
+    getFormulario: function getFormulario(item) {
+      if (item.tipo_ingreso == 'INV_INICIAL') {
+        return 'Inv. Inicial';
+      }
+
+      if (item.compra) {
+        switch (item.compra.tipo_compra) {
+          case 'SER':
+            return 'ORDEN DE SERVICIO';
+
+          case 'COM':
+            return 'ORDEN DE COMPRA';
+
+          case 'CON':
+            return 'CONTRATO';
+
+          case 'CCH':
+            return 'CAJA CHICA';
+        }
+      }
+
+      if (item.donacion) {
+        if (item.donacion.tipo_donacion == 'ADO') {
+          return 'ACTA DE DONACIÓN';
+        } else {
+          return 'DONACIÓN POR CONVENIO';
+        }
+      }
+    },
+    anulated: function anulated(item) {
+      if (item) {
+        if (item.deleted_at) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      return false;
+    },
+    ValidarCompra: function ValidarCompra(item) {
+      if (item) {
+        return item.tipo_ingreso == 'Compra';
+      }
+    },
+    ValidarInicial: function ValidarInicial(item) {
+      if (item) {
+        return item.tipo_ingreso == 'INV_INICIAL';
+      }
+    },
+    ValidarDonacion: function ValidarDonacion(item) {
+      if (item) {
+        return item.tipo_ingreso == 'Donacion';
+      }
+    },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
+      window.open('http://almacen.esfm/controller/ingreso/imprimir/' + this.$route.params.id, '_blank');
     },
     exportPDF: function exportPDF(nro, date) {
       axios.get('/controller/ingreso/export_pdf/' + this.$route.params.id, {
@@ -387,7 +462,7 @@ var render = function() {
             [
               _c("el-page-header", {
                 staticClass: "mt-2",
-                attrs: { content: "Reporte salidas" },
+                attrs: { content: "Reporte Ingresos" },
                 on: { back: _vm.goBack }
               })
             ],
@@ -402,7 +477,7 @@ var render = function() {
                 "el-button",
                 {
                   attrs: {
-                    disabled: _vm.detalle_ingreso.deleted_at,
+                    disabled: _vm.anulated(_vm.detalle_ingreso),
                     type: "primary",
                     icon: "el-icon-printer"
                   },
@@ -419,7 +494,7 @@ var render = function() {
                 "el-button",
                 {
                   attrs: {
-                    disabled: _vm.detalle_ingreso.deleted_at,
+                    disabled: _vm.anulated(_vm.detalle_ingreso),
                     type: "danger"
                   },
                   on: {
@@ -444,7 +519,7 @@ var render = function() {
           "div",
           { ref: "table", staticClass: "card-body", attrs: { id: "printMe" } },
           [
-            _vm.detalle_ingreso.tipo_ingreso == "Compra"
+            _vm.ValidarCompra(_vm.detalle_ingreso)
               ? _c("div", { staticClass: "row invoice-info" }, [
                   _c("div", { staticClass: "col-md-5 invoice-col" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -470,7 +545,17 @@ var render = function() {
                         _vm._v(
                           _vm._s(
                             _vm._f("dateformat")(_vm.detalle_ingreso.created_at)
-                          )
+                          ) + " "
+                        ),
+                        _c("b", [_vm._v("Hrs:")]),
+                        _vm._v(
+                          " " +
+                            _vm._s(
+                              _vm._f("timeformat")(
+                                _vm.detalle_ingreso.created_at
+                              )
+                            ) +
+                            "   "
                         )
                       ]),
                       _vm._v(" "),
@@ -500,6 +585,14 @@ var render = function() {
                             )
                           )
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-5" }, [
+                        _vm._v("Observaciones:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-7" }, [
+                        _vm._v(_vm._s(_vm.detalle_ingreso.observacion))
                       ])
                     ])
                   ]),
@@ -511,7 +604,17 @@ var render = function() {
                       _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
                       _vm._v(" "),
                       _c("dt", { staticClass: "col-md-6" }, [
-                        _vm._v("N° Factura")
+                        _vm._v("Tipo comprobante:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-6" }, [
+                        _vm._v(
+                          _vm._s(_vm.detalle_ingreso.compra.tipo_comprobante)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-6" }, [
+                        _vm._v("N° Factura/Recibo:")
                       ]),
                       _vm._v(" "),
                       _c("dd", { staticClass: "col-md-6" }, [
@@ -530,16 +633,12 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
-                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-                      _vm._v(" "),
                       _c("dt", { staticClass: "col-md-6" }, [
                         _vm._v("Formulario:")
                       ]),
                       _vm._v(" "),
                       _c("dd", { staticClass: "col-md-6" }, [
-                        _vm._v(_vm._s(_vm.detalle_ingreso.compra.tipo_compra))
+                        _vm._v(_vm._s(_vm.getFormulario(_vm.detalle_ingreso)))
                       ])
                     ])
                   ]),
@@ -578,7 +677,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.detalle_ingreso.tipo_ingreso == "INV_INICIAL"
+            _vm.ValidarInicial(_vm.detalle_ingreso)
               ? _c("div", { staticClass: "row invoice-info" }, [
                   _c("div", { staticClass: "col-md-5 invoice-col" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -610,7 +709,25 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _vm._m(0),
+                  _c("div", { staticClass: "col-md-4 invoice-col" }, [
+                    _c("dl", { staticClass: "row" }, [
+                      _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-6" }, [
+                        _vm._v("Formulario:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-6" }, [
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.getFormulario(_vm.detalle_ingreso)) +
+                            " "
+                        )
+                      ])
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-3" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -643,7 +760,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.detalle_ingreso.tipo_ingreso == "Donacion"
+            _vm.ValidarDonacion(_vm.detalle_ingreso)
               ? _c("div", { staticClass: "row invoice-info" }, [
                   _c("div", { staticClass: "col-md-5 invoice-col" }, [
                     _c("dl", { staticClass: "row" }, [
@@ -690,10 +807,18 @@ var render = function() {
                           "  " +
                             _vm._s(
                               _vm._f("timeformat")(
-                                _vm.detalle_salida.created_at
+                                _vm.detalle_ingreso.created_at
                               )
                             )
                         )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-5" }, [
+                        _vm._v("Observaciones:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-7" }, [
+                        _vm._v(_vm._s(_vm.detalle_ingreso.observacion))
                       ])
                     ])
                   ]),
@@ -714,13 +839,21 @@ var render = function() {
                       _vm._v(" "),
                       _c("dd", { staticClass: "col-md-8" }, [
                         _vm._v(
-                          " " +
-                            _vm._s(
-                              _vm.detalle_ingreso.donacion.tipo_donacion ==
-                                "ADO"
-                                ? "ACTA DE DONACION"
-                                : "DONACION POR CONVENIO"
+                          " " + _vm._s(_vm.getFormulario(_vm.detalle_ingreso))
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("dt", { staticClass: "col-md-6" }, [
+                        _vm._v("Fecha acta:")
+                      ]),
+                      _vm._v(" "),
+                      _c("dd", { staticClass: "col-md-6" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("dateformat")(
+                              _vm.detalle_ingreso.donacion.fecha_acta
                             )
+                          )
                         )
                       ])
                     ])
@@ -892,7 +1025,7 @@ var render = function() {
             _c("h4", { staticClass: "text-center" }, [
               _c("strong", [
                 _vm._v("Detalle Ingreso  "),
-                _vm.detalle_ingreso.deleted_at
+                _vm.anulated(_vm.detalle_ingreso)
                   ? _c("span", { staticClass: "badge badge-danger" }, [
                       _vm._v("ANULADO")
                     ])
@@ -901,7 +1034,7 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("table", { staticClass: "table table-sm table-striped" }, [
-              _vm._m(1),
+              _vm._m(0),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -958,12 +1091,22 @@ var render = function() {
                   [
                     _vm._v(
                       _vm._s(
-                        _vm._f("toWords")(Math.trunc(_vm.detalle_ingreso.total))
+                        _vm._f("toWords")(
+                          Math.trunc(
+                            _vm.detalle_ingreso ? _vm.detalle_ingreso.total : 0
+                          )
+                        )
                       ) +
                         " con " +
                         _vm._s(
-                          _vm.detalle_ingreso.total -
-                            Math.floor(_vm.detalle_ingreso.total)
+                          _vm.detalle_ingreso
+                            ? _vm.detalle_ingreso.total
+                            : 0 -
+                                Math.floor(
+                                  _vm.detalle_ingreso
+                                    ? _vm.detalle_ingreso.total
+                                    : 0
+                                )
                         ) +
                         "/100 "
                     ),
@@ -973,7 +1116,16 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-md-2 text-center" }, [
-                _c("u", [_vm._v(_vm._s(_vm.detalle_ingreso.total.toFixed(2)))])
+                _c("u", [
+                  _vm._v(
+                    _vm._s(
+                      (_vm.detalle_ingreso
+                        ? _vm.detalle_ingreso.total
+                        : 0
+                      ).toFixed(2)
+                    )
+                  )
+                ])
               ])
             ])
           ]
@@ -995,28 +1147,15 @@ var render = function() {
           })
         ],
         1
-      )
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _c("br")
     ],
     1
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-4 invoice-col" }, [
-      _c("dl", { staticClass: "row" }, [
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" ")]),
-        _vm._v(" "),
-        _c("dt", { staticClass: "col-md-6" }, [_vm._v("Formulario:")]),
-        _vm._v(" "),
-        _c("dd", { staticClass: "col-md-6" }, [_vm._v(" INGRESO INICIAL ")])
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

@@ -3,7 +3,7 @@
         <el-alert
             v-if="alert.show"
             :title="'Ooops'"
-            :type="'danger'"
+            :type="'error'"
             :description="alert.message"
             @close="alert.show = false"
             closable
@@ -349,7 +349,7 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            window.open('http://localhost:8000/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
+            window.open('http://almacen.esfm/controller/reportes/movimiento_almacen_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+
                 '&formato=' + this.consulta.formato+'&conSaldo='+this.consulta.conSaldo,'_blank');

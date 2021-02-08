@@ -3,7 +3,7 @@
         <el-alert
             v-if="alert.show"
             :title="'Ooops'"
-            :type="'danger'"
+            :type="'error'"
             :description="alert.message"
             @close="alert.show = false"
             closable
@@ -403,7 +403,7 @@ export default {
                 this.loading = true;
                 if (valid) {
                     this.$Progress.start();
-                    axios.post('/controller/reportes/kardex/',this.consulta)
+                    axios.post('/controller/reportes/kardex',this.consulta)
                         .then((response) =>{
                             this.items = response.data.data;
                             this.totales.ts_inicial = response.data.ts_inicial;
@@ -444,7 +444,7 @@ export default {
             return items.find((item) => item.id === id);
         },
         Print(){
-            window.open('http://localhost:8000/controller/reportes/kardex_print?periodo='+this.consulta.periodo+
+            window.open('http://almacen.esfm/controller/reportes/kardex_print?periodo='+this.consulta.periodo+
                 '&del='+ this.consulta.del+
                 '&al=' + this.consulta.al+'&conSaldo='+this.consulta.conSaldo,
                 '_blank');

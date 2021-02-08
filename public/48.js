@@ -521,7 +521,7 @@ var render = function() {
                             return [
                               _vm._v(
                                 "\n                                " +
-                                  _vm._s(scope.row.stock.toFixed()) +
+                                  _vm._s(scope.row.stock.toFixed(2)) +
                                   "\n                            "
                               )
                             ]
@@ -575,11 +575,11 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("el-table-column", {
-                  attrs: { prop: "nombre", label: "Articulo", width: "600" }
+                  attrs: { prop: "nombre", label: "Articulo", width: "550" }
                 }),
                 _vm._v(" "),
                 _c("el-table-column", {
-                  attrs: { prop: "stock", label: "Stock", width: "100" },
+                  attrs: { prop: "stock", label: "Stock", width: "130" },
                   scopedSlots: _vm._u([
                     {
                       key: "default",
@@ -587,7 +587,7 @@ var render = function() {
                         return [
                           _vm._v(
                             "\n                            " +
-                              _vm._s(scope.row.stock) +
+                              _vm._s(scope.row.stock.toFixed(2)) +
                               "\n                        "
                           )
                         ]
@@ -597,7 +597,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("el-table-column", {
-                  attrs: { prop: "saldo", label: "Saldo", width: "100" },
+                  attrs: { prop: "saldo", label: "Saldo", width: "120" },
                   scopedSlots: _vm._u([
                     {
                       key: "default",
@@ -605,7 +605,7 @@ var render = function() {
                         return [
                           _c("b", [_vm._v("Bs: ")]),
                           _vm._v(
-                            _vm._s(scope.row.saldo) +
+                            _vm._s(scope.row.saldo.toFixed(2)) +
                               "\n                        "
                           )
                         ]
@@ -654,7 +654,9 @@ var render = function() {
                   _c("i", { staticClass: "font-weight-light" }, [
                     _c("b", [_vm._v("Bs : ")]),
                     _vm._v(
-                      "  " + _vm._s(_vm.Total()) + "\n                        "
+                      "  " +
+                        _vm._s(_vm.Total().toFixed(2)) +
+                        "\n                        "
                     )
                   ]),
                   _vm._v(" "),

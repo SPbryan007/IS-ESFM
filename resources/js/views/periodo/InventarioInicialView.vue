@@ -84,7 +84,7 @@
                         </el-table-column>
                         <el-table-column property="stock" label="Stock" width="120">
                             <template slot-scope="scope">
-                                {{ (scope.row.stock).toFixed() }}
+                                {{ (scope.row.stock).toFixed(2) }}
                             </template>
                         </el-table-column>
                         <el-table-column property="saldo" label="Saldo" width="120">
@@ -105,14 +105,14 @@
                     <el-table-column
                         prop="nombre"
                         label="Articulo"
-                        width="600">
+                        width="550">
                     </el-table-column>
                     <el-table-column
                         prop="stock"
                         label="Stock"
-                        width="100">
+                        width="130">
                         <template slot-scope="scope">
-                            {{ scope.row.stock }}
+                            {{ (scope.row.stock).toFixed(2) }}
                         </template>
                     </el-table-column>
 <!--                    <el-table-column-->
@@ -126,10 +126,10 @@
                     <el-table-column
                         prop="saldo"
                         label="Saldo"
-                        width="100"
+                        width="120"
                     >
                         <template slot-scope="scope">
-                            <b>Bs: </b>{{ scope.row.saldo }}
+                            <b>Bs: </b>{{ (scope.row.saldo).toFixed(2) }}
                         </template>
                     </el-table-column>
                     <el-table-column >
@@ -142,7 +142,7 @@
                     <p class="d-flex flex-column text-left">
                         <i class="ion ion-android-arrow-up text-primary">Saldo total:  </i>
                         <i class="font-weight-light">
-                            <b>Bs : </b>  {{ Total() }}
+                            <b>Bs : </b>  {{ Total().toFixed(2) }}
                         </i>
                         <br>
                     </p> <br>

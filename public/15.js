@@ -411,7 +411,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (valid) {
           _this.$Progress.start();
 
-          axios.post('/controller/reportes/kardex/', _this.consulta).then(function (response) {
+          axios.post('/controller/reportes/kardex', _this.consulta).then(function (response) {
             _this.items = response.data.data;
             _this.totales.ts_inicial = response.data.ts_inicial;
             _this.totales.ts_entrada = response.data.ts_ingreso;
@@ -454,7 +454,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     Print: function Print() {
-      window.open('http://localhost:8000/controller/reportes/kardex_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&conSaldo=' + this.consulta.conSaldo, '_blank');
+      window.open('http://almacen.esfm/controller/reportes/kardex_print?periodo=' + this.consulta.periodo + '&del=' + this.consulta.del + '&al=' + this.consulta.al + '&conSaldo=' + this.consulta.conSaldo, '_blank');
     },
     toExcel: function toExcel() {
       var _this2 = this;
@@ -509,7 +509,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nth {\r\n    padding: 7px !important;\n}\n.scrolling::-webkit-scrollbar-track\r\n{  height: 2px;\r\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\r\n    background-color: #F5F5F5;\n}\n.scrolling::-webkit-scrollbar\r\n{\r\n    height: 7px;\r\n    width: 2px;\r\n    background-color: #2d373c21;\n}\n.scrolling::-webkit-scrollbar-thumb\r\n{\r\n    height: 10px;\r\n    background-color: #0000001c;\r\n    border: 2px solid #2d373c21;\n}\r\n", ""]);
+exports.push([module.i, "\nth {\n    padding: 7px !important;\n}\n.scrolling::-webkit-scrollbar-track\n{  height: 2px;\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);\n    background-color: #F5F5F5;\n}\n.scrolling::-webkit-scrollbar\n{\n    height: 7px;\n    width: 2px;\n    background-color: #2d373c21;\n}\n.scrolling::-webkit-scrollbar-thumb\n{\n    height: 10px;\n    background-color: #0000001c;\n    border: 2px solid #2d373c21;\n}\n", ""]);
 
 // exports
 
@@ -569,7 +569,7 @@ var render = function() {
         ? _c("el-alert", {
             attrs: {
               title: "Ooops",
-              type: "danger",
+              type: "error",
               description: _vm.alert.message,
               closable: "",
               "show-icon": ""
