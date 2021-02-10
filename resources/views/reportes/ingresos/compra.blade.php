@@ -308,7 +308,19 @@
             <td style="text-align: left;width: 140px"><b>Fecha Solicitud:</b></td>
             <td style="text-align: left;width: 140px"> {{ date('d/m/Y',strtotime($data->compra->fecha_solicitud)) }}</td>
             <td style="text-align: left;width: 80px"><b>Formulario:</b></td>
-            <td style="text-align: left;width: 160px;font-weight: bold"> {{ $data->compra->tipo_compra == 'COM' ? 'ORDEN DE COMPRA' :  $data->compra->tipo_compra == 'CON' ? 'CONTRATO' : 'ORDEN DE SERVICIO'}} </td>
+            @switch($data->compra->tipo_compra)
+                @case('COM')
+                    <td style="text-align: left;width: 160px;"> ORDEN DE COMPRA</td>
+                    @break
+                @case('CON')
+                    <td style="text-align: left;width: 160px;"> CONTRATO </td>
+                    @break
+                @case('SER')
+                    <td style="text-align: left;width: 160px;"> ORDEN DE SERVICIO</td>
+                    @break
+                @default
+                    <td style="text-align: left;width: 160px;"> CAJA CHICA</td>
+            @endswitch
             <td style="text-align: left;width: 20px"><b>N°:</b></td>
             <td style="text-align: left"> {{ $data->compra->nro_solicitud }}</td>
         </tr>

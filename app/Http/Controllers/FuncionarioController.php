@@ -67,8 +67,8 @@ class FuncionarioController extends Controller
             'nombre' => 'required|string|max:70',
             'apellido' => 'required|string|max:100',
             'documento' => 'required|string|max:15',
-            'telefono' => 'string|max:20',
-            'direccion' => 'string|max:255'
+            'telefono' => 'nullable|string|max:20',
+            'direccion' => 'nullable|string|max:255'
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);

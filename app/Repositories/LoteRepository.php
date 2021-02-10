@@ -55,13 +55,16 @@ class LoteRepository
             ->groupBy('articulo.id')
             ->union($query)
             ->with(['lotes' => function($query) use($periodo){
-                $query->with(['detalleingreso','unidad_medida']);
+                $query->with(['detalleingreso','unidad_medida' => function($query){
+                        $query->withTrashed();
+                }]);
                 $query->where('stock','<>',0);
                 $query->whereHas('detalleingreso',function ($query2) use($periodo){
                     return $query2->whereHas('ingreso',function ($query3) use($periodo){
                         return  $query3->where('periodo_id',$periodo);
                     });
                 });
+                $query->orderBy('id','ASC');
             }])
             ->get();
     }

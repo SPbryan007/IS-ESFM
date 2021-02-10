@@ -25,7 +25,7 @@
                     <div class="card-tools"></div>
                 </div>
                 <div class="card-body">
-                    <el-dialog title="Agregar articulos" :visible.sync="dialogAddDetails" width="60%">
+                    <el-dialog title="Agregar articulos" :visible.sync="dialogAddDetails" width="67%">
                         <div class="row justify-content-center">
                             <el-input
                                 style="width:660px"
@@ -43,6 +43,11 @@
                         <el-table :data="pageOfItems">
                             <el-table-column property="codigo" label="Codigo" width="90"></el-table-column>
                             <el-table-column property="nombre" label="Articulo" width="370"></el-table-column>
+                            <el-table-column property="medida" label="Medida" width="120">
+                                <template slot-scope="scope">
+                                    {{ scope.row.lotes.length > 0 ? scope.row.lotes[0].unidad_medida.nombre : ' - ' }}
+                                </template>
+                            </el-table-column>
                             <el-table-column property="stock" label="Stock" width="120">
                                 <template slot-scope="scope">
                                     {{ (scope.row.stock).toFixed(2) }}

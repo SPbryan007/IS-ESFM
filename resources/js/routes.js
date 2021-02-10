@@ -670,17 +670,17 @@ export const router = new VueRouter({
     ]
 });
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some((record) => record.meta.requireAuth)) {
-        if (!store.getters["login/getUserLogged"]) {
-            next({ path: "/login" });
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
-});
+// router.beforeEach((to, from, next) => {
+//     if (to.matched.some((record) => record.meta.requireAuth)) {
+//         if (!store.getters["login/getUserLogged"]) {
+//             next({ path: "/login" });
+//         } else {
+//             next();
+//         }
+//     } else {
+//         next();
+//     }
+// });
 
 // children: [
 //     {

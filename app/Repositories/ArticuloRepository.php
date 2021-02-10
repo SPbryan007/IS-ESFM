@@ -86,7 +86,7 @@ class ArticuloRepository
                 });
                 $query->where('stock','<>',0);
                 $query->where('precio_u','<>',0);
-                $query->orderBy('stock','DESC');
+                $query->orderBy('id','ASC');
 
             }])
 //            ->whereHas('lotes',function ($query){

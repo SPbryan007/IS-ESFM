@@ -174,6 +174,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -341,7 +346,7 @@ var render = function() {
                   attrs: {
                     title: "Agregar articulos",
                     visible: _vm.dialogAddDetails,
-                    width: "60%"
+                    width: "67%"
                   },
                   on: {
                     "update:visible": function($event) {
@@ -416,6 +421,33 @@ var render = function() {
                           label: "Articulo",
                           width: "370"
                         }
+                      }),
+                      _vm._v(" "),
+                      _c("el-table-column", {
+                        attrs: {
+                          property: "medida",
+                          label: "Medida",
+                          width: "120"
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function(scope) {
+                              return [
+                                _vm._v(
+                                  "\n                                    " +
+                                    _vm._s(
+                                      scope.row.lotes.length > 0
+                                        ? scope.row.lotes[0].unidad_medida
+                                            .nombre
+                                        : " - "
+                                    ) +
+                                    "\n                                "
+                                )
+                              ]
+                            }
+                          }
+                        ])
                       }),
                       _vm._v(" "),
                       _c("el-table-column", {

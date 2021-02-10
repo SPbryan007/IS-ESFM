@@ -310,6 +310,37 @@ INSERT INTO `detalle_salida` VALUES (1,20,NULL,1,1,'2021-01-29 02:30:53','2021-0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `devolucion`
+--
+
+DROP TABLE IF EXISTS `devolucion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `devolucion` (
+  `id_devolucion` bigint(20) unsigned NOT NULL,
+  `motivo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observacion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id_salida` bigint(20) unsigned NOT NULL,
+  `usuario_id` bigint(20) unsigned NOT NULL,
+  PRIMARY KEY (`id_devolucion`),
+  KEY `devolucion_id_salida_foreign` (`id_salida`),
+  KEY `devolucion_usuario_id_foreign` (`usuario_id`),
+  CONSTRAINT `devolucion_id_devolucion_foreign` FOREIGN KEY (`id_devolucion`) REFERENCES `ingreso` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `devolucion_id_salida_foreign` FOREIGN KEY (`id_salida`) REFERENCES `salida` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `devolucion_usuario_id_foreign` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id_usuario`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `devolucion`
+--
+
+LOCK TABLES `devolucion` WRITE;
+/*!40000 ALTER TABLE `devolucion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `devolucion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `donacion`
 --
 
@@ -885,4 +916,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-08  0:14:07
+-- Dump completed on 2021-02-10 18:17:54

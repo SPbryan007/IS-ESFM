@@ -48,7 +48,7 @@ class UnidadMedidaController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:50',
             'sigla' => 'required|string|max:6',
-            'descripcion' => 'string|max:255',
+            'descripcion' => 'nullable|string|max:255',
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);
