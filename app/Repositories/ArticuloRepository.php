@@ -140,7 +140,7 @@ class ArticuloRepository
             ->first();
         $periodo = $periodo ? $periodo->id : NULL;
 
-        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.saldo),0) as saldo'),
+        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.stock*lote.precio_u),0) as saldo'),
             'articulo.nombre as nombre','articulo.id as id')
             ->leftjoin('lote','lote.articulo_id','=','articulo.id')
             ->leftjoin('detalle_ingreso as di','di.lote_id','=','lote.id')

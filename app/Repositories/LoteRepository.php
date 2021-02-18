@@ -34,7 +34,6 @@ class LoteRepository
      */
     public function getAll()
     {
-
         $periodo = Periodo::latest()->withTrashed()
                         ->where('estado','=',Periodo::FINALIZADO)
                         ->orWhere('estado','=',Periodo::EN_CURSO)
@@ -45,7 +44,7 @@ class LoteRepository
                             ->doesntHave('lotes.detalleingreso.ingreso')
                             ->groupBy('articulo.id');
 
-        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.saldo),0) as saldo'),
+        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.stock*lote.precio_u),0) as saldo'),
             'articulo.nombre as nombre','articulo.id as id','articulo.codigo as codigo')
             ->leftjoin('lote','lote.articulo_id','=','articulo.id')
             ->leftjoin('detalle_ingreso as di','di.lote_id','=','lote.id')

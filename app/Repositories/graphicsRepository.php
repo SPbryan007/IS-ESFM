@@ -145,7 +145,7 @@ class GraphicsRepository
             ->orWhere('estado','=',Periodo::EN_CURSO)
             ->first();
         $periodo = $periodo ? $periodo->id : NULL;
-        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.saldo),0) as saldo'),
+        return Articulo::select(DB::raw('IFNULL(SUM(lote.stock),0) as stock,IFNULL(SUM(lote.stock*lote.precio_u),0) as saldo'),
             'articulo.nombre as nombre','articulo.id as id','articulo.codigo as codigo','um.nombre as unidad_nombre','um.id as unidad_id')
             ->leftjoin('lote','lote.articulo_id','=','articulo.id')
             ->leftjoin('unidad_medida as um','um.id','=','lote.unidad_medida_id')

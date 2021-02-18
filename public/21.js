@@ -335,7 +335,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    this.$store.state.periodo.current
+    Object.entries(this.$store.state.periodo.current).length != 0
       ? _c(
           "div",
           { staticClass: "col-md-12" },
@@ -856,7 +856,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    !this.$store.state.periodo.current
+    Object.entries(this.$store.state.periodo.current).length === 0
       ? _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-3" }),
           _vm._v(" "),

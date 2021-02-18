@@ -100,7 +100,7 @@ class IngresoRepository
 
             if($last_date){
                 if(!$now->greaterThan($last_date->created_at) ){
-                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
+                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date->created_at)),'status' => 409];
                 }
             }
             if(!Carbon::now()->between($periodo->fecha_inicio, $periodo->fecha_fin)){
@@ -151,7 +151,7 @@ class IngresoRepository
             $last_date= Ingreso::latest()->first();
             if($last_date){
                 if(!$now->greaterThan($last_date->created_at) ){
-                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date)),'status' => 409];
+                    return ['message' => 'No se puede realizar el ingreso en fecha '.$now->format('d-m-Y').' debido a que ya exiten ingresos efectuados hasta la fecha '.date('d/m/Y',strtotime($last_date->created_at)),'status' => 409];
                 }
             }
             if(!Carbon::now()->between($periodo->fecha_inicio, $periodo->fecha_fin)){

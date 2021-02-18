@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="this.$store.state.periodo.current"  class="col-md-12">
+        <div v-if="Object.entries(this.$store.state.periodo.current).length != 0"  class="col-md-12">
             <el-alert
                 v-if="alert.show"
                 :title="alert.title"
@@ -171,7 +171,7 @@
                 ></jw-pagination>
             </div>
         </div>
-        <div v-if="!this.$store.state.periodo.current" class="row">
+        <div v-if="Object.entries(this.$store.state.periodo.current).length === 0" class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 col-md-offset-4">
                 <el-alert
