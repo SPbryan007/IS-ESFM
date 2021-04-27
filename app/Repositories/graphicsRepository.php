@@ -91,12 +91,52 @@ class GraphicsRepository
     /**
      * @return array
      */
-    public function getCashFlow()
+    public function getCashFlow($periodo)
     {
-        $periodo = Periodo::latest()->withTrashed()
-            ->where('estado','=',Periodo::FINALIZADO)
-            ->orWhere('estado','=',Periodo::EN_CURSO)
-            ->first();
+        $periodo = Periodo::where('id',$periodo)->withTrashed()->first();
+        $periodo = $periodo ? $periodo : NULL;
+
+        $ingreso = Ingreso::select('created_at')->where('periodo_id',$periodo? $periodo->id : NULL);
+        $salidas  = Salida::select('created_at')
+            ->where('periodo_id',$periodo? $periodo->id : NULL)
+            ->unionAll($ingreso)
+            ->oldest()
+            ->get();
+        $saldo = [];
+        $fechas = [];
+        foreach ($salidas as $fecha){
+            $ingreso = Lote::select(
+                DB::raw("di.cantidad*lote.precio_u as s_ingreso, di.cantidad as c_ingreso ,0 as s_salida,0 as c_salida,'".$fecha->created_at."' as fecha")
+            )
+                ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+                ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+                ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('i.deleted_at');
+
+            $salida = Lote::select(
+                DB::raw("0 as s_ingreso,0 as c_ingreso,IFNULL(ds.cantidad*lote.precio_u,0) as s_salida,IFNULL(ds.cantidad,0) as c_salida,'".$fecha->created_at."' as fecha")
+            )
+                ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+                ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+                ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo ? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('s.deleted_at')
+                ->unionAll($ingreso);
+            $value = DB::query()->fromSub($salida, 'q')
+                ->select(
+                    DB::raw('SUM(q.s_ingreso-q.s_salida) as saldo,SUM(q.c_ingreso-q.c_salida) as stock,q.fecha')
+                )->groupBy('q.fecha')->first();
+            array_push($saldo,$value);
+        }
+        return $saldo;
+    }
+
+
+
+    public function getFlowArticulo($articulo,$periodo)
+    {
+        $periodo = Periodo::where('id',$periodo)->withTrashed()->first();
         $periodo = $periodo ? $periodo : NULL;
         $ingreso = Ingreso::select('created_at')->where('periodo_id',$periodo? $periodo->id : NULL);
         $salidas  = Salida::select('created_at')
@@ -108,30 +148,151 @@ class GraphicsRepository
         $fechas = [];
         foreach ($salidas as $fecha){
             $ingreso = Lote::select(
-                DB::raw("di.cantidad*lote.precio_u as ingreso,0 as salida,'".$fecha->created_at."' as fecha")
+                DB::raw("IFNULL(di.cantidad*lote.precio_u,0) as s_ingreso,IFNULL(di.cantidad,0) as c_ingreso,0 as s_salida,0 as c_salida,'".$fecha->created_at."' as fecha")
             )
                 ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
                 ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+                ->where('lote.articulo_id',$articulo)
                 ->where('i.periodo_id', $periodo? $periodo->id : NULL)
                 ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                 ->whereNull('i.deleted_at');
 
             $salida = Lote::select(
-                DB::raw("0 as ingreso,IFNULL(ds.cantidad*lote.precio_u,0) as salida,'".$fecha->created_at."' as fecha")
+                DB::raw("0 as s_ingreso,0 as c_ingreso,IFNULL(ds.cantidad*lote.precio_u,0) as s_salida,IFNULL(ds.cantidad,0) as c_salida,'".$fecha->created_at."' as fecha")
             )
                 ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
                 ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+                ->where('lote.articulo_id',$articulo)
                 ->where('s.periodo_id', $periodo? $periodo->id : NULL)
                 ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo ? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
                 ->whereNull('s.deleted_at')
                 ->unionAll($ingreso);
             $value = DB::query()->fromSub($salida, 'q')
                 ->select(
-                    DB::raw('SUM(q.ingreso-q.salida) as saldo,q.fecha')
+                    DB::raw('SUM(q.s_ingreso-q.s_salida) as saldo,SUM(q.c_ingreso-q.c_salida) as stock,q.fecha')
                 )->groupBy('q.fecha')->first();
             array_push($saldo,$value);
         }
         return $saldo;
+    }
+
+    public function getStockFlowArticulo($articulo,$periodo)
+    {
+        $periodo = Periodo::where('id',$periodo)->withTrashed()->first();
+        $ingreso = Ingreso::select('created_at')->where('periodo_id',$periodo? $periodo->id : NULL);
+        $salidas  = Salida::select('created_at')
+            ->where('periodo_id',$periodo? $periodo->id : NULL)
+            ->unionAll($ingreso)
+            ->oldest()
+            ->get();
+        $stock = [];
+        $fechas = [];
+        foreach ($salidas as $fecha){
+            $ingreso = Lote::select(
+                DB::raw("IFNULL(di.cantidad,0) as _ingreso,0 as salida,'".$fecha->created_at."' as fecha")
+            )
+                ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+                ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+                ->where('lote.articulo_id',$articulo)
+                ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('i.deleted_at');
+
+            $salida = Lote::select(
+                DB::raw("0 as ingreso,IFNULL(ds.cantidad,0) as salida,'".$fecha->created_at."' as fecha")
+            )
+                ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+                ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+                ->where('lote.articulo_id',$articulo)
+                ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereBetween('s.created_at', [date('Y-m-d H:i:s', strtotime($periodo ? $periodo->fecha_inicio : date("Y/m/d"))), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('s.deleted_at')
+                ->unionAll($ingreso);
+            $value = DB::query()->fromSub($salida, 'q')
+                ->select(
+                    DB::raw('SUM(q.ingreso-q.salida) as stock,q.fecha')
+                )->groupBy('q.fecha')->first();
+            array_push($stock,$value);
+        }
+        return $stock;
+    }
+
+    public function getHistogramaArticulo($articulo,$periodo)
+    {
+        $periodo = Periodo::where('id',$periodo)->withTrashed()->first();
+        $Moths  = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        $data = [];
+
+        foreach ($Moths as $moth){
+            $ingreso = Lote::select(
+                DB::raw("SUM(di.cantidad*lote.precio_u) as s_ingreso,SUM(di.cantidad) as c_ingreso ,0 as s_salida,0 as c_salida")
+            )
+                ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+                ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+                ->where('lote.articulo_id',$articulo)
+                ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereMonth('i.created_at', '=', $moth)
+                //->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('i.deleted_at');
+
+            $salida = Lote::select(
+                DB::raw("0 as s_ingreso,0 as c_ingreso,IFNULL(SUM(ds.cantidad*lote.precio_u),0) as s_salida,IFNULL(SUM(ds.cantidad),0) as c_salida")
+            )
+                ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+                ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+                ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+                ->where('lote.articulo_id',$articulo)
+                ->whereMonth('s.created_at', '=', $moth)
+                //->whereBetween('S.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('s.deleted_at')
+                ->unionAll($ingreso);
+            $result = DB::query()->fromSub($salida, 'q')
+                ->select(
+                    DB::raw("SUM(q.s_ingreso) - SUM(q.s_salida) as saldo,SUM(q.c_ingreso) - SUM(q.c_salida) as stock")
+                )->first();
+
+            array_push($data,$result);
+        }
+        return $data;
+    }
+
+    public function getStockHistogramaArticulo($articulo,$periodo)
+    {
+        $periodo = Periodo::where('id',$periodo)->withTrashed()->first();
+        $Moths  = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+        $data = [];
+
+        foreach ($Moths as $moth){
+            $ingreso = Lote::select(
+                DB::raw("SUM(di.cantidad) as ingreso,0 as salida")
+            )
+                ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+                ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+                ->where('lote.articulo_id',$articulo)
+                ->where('i.periodo_id', $periodo? $periodo->id : NULL)
+                ->whereMonth('i.created_at', '=', $moth)
+                //->whereBetween('i.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('i.deleted_at');
+
+            $salida = Lote::select(
+                DB::raw("0 as ingreso,IFNULL(SUM(ds.cantidad),0) as salida")
+            )
+                ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+                ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+                ->where('s.periodo_id', $periodo? $periodo->id : NULL)
+                ->where('lote.articulo_id',$articulo)
+                ->whereMonth('s.created_at', '=', $moth)
+                //->whereBetween('S.created_at', [date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)), date('Y-m-d H:i:s', strtotime($fecha->created_at))])
+                ->whereNull('s.deleted_at')
+                ->unionAll($ingreso);
+            $result = DB::query()->fromSub($salida, 'q')
+                ->select(
+                    DB::raw("SUM(q.ingreso) - SUM(q.salida) as stock")
+                )->first();
+
+            array_push($data,$result);
+        }
+        return $data;
     }
 
     /**

@@ -1,3 +1,4 @@
+
 <template>
   <aside
     class="main-sidebar sidebar-dark-danger elevation-1"
@@ -161,6 +162,12 @@
                 <router-link :to="{ name: 'general' }" class="nav-link">
                   <i class="fas fa-list-ul nav-icon"></i>
                   <p>Reporte general</p>
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link :to="{ name: 'kardex_individual' }" class="nav-link">
+                  <i class="fas fa-list-ul nav-icon"></i>
+                  <p>Kardex individual</p>
                 </router-link>
               </li>
                 <li class="nav-item">

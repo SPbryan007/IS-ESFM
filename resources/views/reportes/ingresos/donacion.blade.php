@@ -228,8 +228,18 @@
             <td style="text-align: left;width: 140px"><b>Fecha acta:</b></td>
             <td style="text-align: left;width: 140px"> {{ date('d/m/Y',strtotime($data->donacion->fecha_acta)) }}</td>
             <td style="text-align: left;width: 80px"><b>Formulario:</b></td>
-            <td style="text-align: left;width: 200px;font-weight: bold"> {{ $data->donacion->tipo_donacion == 'ADO' ? 'ACTA DE DONACIÓN' : 'DONACIÓN POR CONVENIO'   }}</td>
-            <td style="text-align: left;width: 20px"><b>N°:</b></td>
+            @switch($data->donacion->tipo_donacion)
+                @case('ADO')
+                    <td style="text-align: left;width: 200px;"> ACTA DE DONACIÓN</td>
+                @break
+                @case('DCO')
+                    <td style="text-align: left;width: 200px;"> DONACIÓN POR CONVENIO</td>
+                @break
+                @case('AEN')
+                    <td style="text-align: left;width: 200px;"> ACTA DE ENTREGA</td>
+                @break
+            @endswitch
+           <td style="text-align: left;width: 20px"><b>N°:</b></td>
             <td style="text-align: left"> {{ $data->donacion->nro_acta }}</td>
         </tr>
     </table>

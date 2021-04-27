@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Exports\MovimientoAlmacenView;
+use App\Repositories\GraphicsRepository;
 use App\Repositories\IngresoRepository;
 use App\Repositories\PeriodoRepository;
 use App\Repositories\ReporteRepository;
@@ -27,16 +28,23 @@ class ReporteController extends Controller
      * @var PeriodoRepository
      */
     private $periodoRepository;
+    /**
+     * @var GraphicsRepository
+     */
+    private $graphicsRepository;
+
 
     /**
      * ReporteController constructor.
      * @param ReporteRepository $reporteRepository
      * @param PeriodoRepository $periodoRepository
+     * @param GraphicsRepository $graphicsRepository
      */
-    public function __construct(ReporteRepository $reporteRepository, PeriodoRepository $periodoRepository)
+    public function __construct(ReporteRepository $reporteRepository, PeriodoRepository $periodoRepository, GraphicsRepository  $graphicsRepository)
     {
         $this->reporteRepository = $reporteRepository;
         $this->periodoRepository = $periodoRepository;
+        $this->graphicsRepository = $graphicsRepository;
     }
 
     /**
@@ -598,14 +606,67 @@ class ReporteController extends Controller
         }
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
+    public function KardexIndividual(Request $request){
+        try {
+            $query = $this->reporteRepository->KardexIndividual($request->periodo,$request->conSaldo,$request->articulo);
+//            $stock_hist  = $this->graphicsRepository->getStockHistogramaArticulo($request->articulo,$request->periodo);
+//            $stock_flow  = $this->graphicsRepository->getStockFlowArticulo($request->articulo,$request->periodo);
+//            $saldo_hist  = $this->graphicsRepository->getSaldoHistogramaArticulo($request->articulo,$request->periodo);
+//            $saldo_flow  = $this->graphicsRepository->getSaldoFlowArticulo($request->articulo,$request->periodo);
+            $flow  = $this->graphicsRepository->getFlowArticulo($request->articulo,$request->periodo);
+            $hist  = $this->graphicsRepository->getHistogramaArticulo($request->articulo,$request->periodo);
 
+            $data = [
+                'data'          => $query,
+                'ts_entrada' => $query->sum->s_ingreso,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => ($query->sum->s_ingreso)-$query->sum->s_salida,
+                'flow' => $flow,
+                'hist' => $hist,
+            ];
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e->getMessage()],500);
+        }
+
+    }
+
+    public function KardexIndividualToPdf(Request $request){
+        try {
+            $periodo = $this->periodoRepository->getById($request->periodo);
+            $query = $this->reporteRepository->KardexIndividual($request->periodo,$request->conSaldo,$request->articulo);
+            $data = [
+                'data'          => $query,
+                'ts_entrada' => $query->sum->s_ingreso,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => ($query->sum->s_ingreso)-$query->sum->s_salida,
+                'periodo'    => $periodo,
+            ];
+
+            $pdf = PDF::loadView('reportes.individual.kardex_individual',$data);
+            return $pdf->setPaper('letter')->stream('kardex_individual.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e->getMessage()],500);
+        }
+
+    }
+
+    public function KardexIndividualToExcel(Request $request){
+        try {
+            $periodo = $this->periodoRepository->getById($request->periodo);
+            $query = $this->reporteRepository->KardexIndividual($request->periodo,$request->conSaldo,$request->articulo);
+            $data = [
+                'data'          => $query,
+                'ts_entrada' => $query->sum->s_ingreso,
+                'ts_salida'  => $query->sum->s_salida,
+                'ts_final'   => ($query->sum->s_ingreso)-$query->sum->s_salida,
+                'periodo'    => $periodo,
+                'formato' => 'B'
+            ];
+            return (new MovimientoAlmacenView($data,'reportes.individual.kardex_individual_excel'))->download('kardex_individual.xlsx');
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Error al cargar datos, verifique la conexión con la base de datos.'.$e->getMessage()],500);
+        }
     }
 
 

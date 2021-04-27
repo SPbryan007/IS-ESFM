@@ -555,6 +555,14 @@ export const router = new VueRouter({
                     }
                 },
                 {
+                    path: "/reporte/kardex_individual",
+                    name: "kardex_individual",
+                    components: {
+                        ViewRouterReporte: () =>
+                            import("./views/reporte/KardexIndividualView.vue")
+                    }
+                },
+                {
                     path: "/reporte/saldos",
                     name: "saldos",
                     components: {

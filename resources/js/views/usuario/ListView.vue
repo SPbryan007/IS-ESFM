@@ -96,7 +96,7 @@
                     <el-table-column prop="rol" label="Rol" width="150" sortable>
                         <template slot-scope="scope">
                             <el-button
-                                :disabled="scope.row.funcionario.deleted_at"
+                                :disabled="scope.row.funcionario.deleted_at || scope.row.id_usuario == $store.state.login.user.id_usuario"
                                 :loading="loading_form_rol && scope.$index == self"
                                 :type="scope.row.rol == 'ADMINISTRADOR' ? 'info' : 'warning'"
                                 size="mini"

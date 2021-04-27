@@ -29,7 +29,7 @@
     <thead>
     <tr style="">
         <th rowspan="3" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 5px;font-weight: bold;text-align: center;vertical-align: center">N°</th>
-        <th rowspan="3" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 5px;font-weight: bold;text-align: center;vertical-align: center">Linea</th>
+        <th rowspan="3" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 5px;font-weight: bold;text-align: center;vertical-align: center">LINEA</th>
         <th rowspan="3" scope="col"  style="border: 15px solid #000000;font-size: 9px; width: 16px;font-weight: bold;text-align: center;vertical-align: center">PARTIDA <br> PRESUP.</th>
         <th rowspan="3" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 20px;font-weight: bold;text-align: center;vertical-align: center">DESCRIPCIÓN</th>
         <th rowspan="2" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 15px;font-weight: bold;text-align: center;vertical-align: center"><span>SALDO INICIAL <br>Al  {{ date('d/m/Y',strtotime($data['del']))  }}</span></th>

@@ -49,10 +49,10 @@ class ProveedorController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:100',
             'nit' => 'required|string|max:20',
-            'rubro' => 'required|string|max:100',
-            'telefono' => 'string|max:50',
-            'direccion' => 'string|max:255',
-            'responsable' => 'string|max:255'
+            'rubro' => 'nullable|string|max:100',
+            'telefono' => 'nullable|string|max:50',
+            'direccion' => 'nullable|string|max:255',
+            'responsable' => 'nullable|string|max:255'
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);
@@ -93,10 +93,10 @@ class ProveedorController extends Controller
         $validator = Validator::make($request->all(), [
             'nombre' => 'required|string|max:100',
             'nit' => 'required|string|max:20',
-            'rubro' => 'string|max:100',
-            'telefono' => 'string|max:50',
-            'direccion' => 'string|max:255',
-            'responsable' => 'string|max:255'
+            'rubro' => 'nullable|string|max:100',
+            'telefono' => 'nullable|string|max:50',
+            'direccion' => 'nullable|string|max:255',
+            'responsable' => 'nullable|string|max:255'
         ]);
         if($validator->fails()){
             return response()->json(['message' => 'Bad request'],400);

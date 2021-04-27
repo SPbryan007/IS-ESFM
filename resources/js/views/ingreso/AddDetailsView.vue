@@ -83,9 +83,15 @@
                             <el-button type="primary" @click="OnClickAddForm('AddDetailsForm')">Agregar</el-button>
                           </span>
                           </el-dialog>
+
                           <el-table-column type="index" width="40" label="N°"></el-table-column>
-                          <el-table-column property="codigo" label="Codigo" width="120"></el-table-column>
-                          <el-table-column property="nombre" label="Articulo" width="500"></el-table-column>
+                          <el-table-column property="codigo" label="Codigo" width="100"></el-table-column>
+                          <el-table-column property="nombre" label="Articulo" width="440"></el-table-column>
+                          <el-table-column property="medida" label="medida" width="90">
+                              <template slot-scope="scope">
+                                  {{ scope.row.lotes.length > 0 ? scope.row.lotes[0].unidad_medida.nombre : ' - ' }}
+                              </template>
+                          </el-table-column>
                           <el-table-column property="stock" label="Disponibles" width="100"></el-table-column>
 
                           <el-table-column>

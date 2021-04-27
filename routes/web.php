@@ -130,7 +130,12 @@ Route::prefix('controller/reportes')->group(function (){
     Route::post('/saldos_almacen', 'ReporteController@SaldosAlmacen')->middleware('auth');
     Route::get('/saldos_almacen_print', 'ReporteController@SaldosAlmacenToPdf')->middleware('auth');
     Route::post('/saldos_almacen_excel', 'ReporteController@SaldosAlmacenToExcel')->middleware('auth');
+    Route::post('/kardex_individual', 'ReporteController@KardexIndividual')->middleware('auth');
+    Route::get('/kardex_individual_print', 'ReporteController@KardexIndividualToPdf')->middleware('auth');
+    Route::post('/kardex_individual_excel', 'ReporteController@KardexIndividualToExcel')->middleware('auth');
 });
+
+
 
 Route::prefix('controller/salida')->group(function (){
     Route::get('/', 'SalidaController@getAll');

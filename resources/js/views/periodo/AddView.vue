@@ -112,7 +112,7 @@ export default {
                         trigger: "blur"
                     },
                     { min: 3, message: "Debe tener mas de 3 carácteres", trigger: "blur" },
-                    { min: 3, message: "Debe tener menos  30 carácteres", trigger: "blur" }
+                    { max: 100, message: "Debe tener menos 100 carácteres", trigger: "blur" }
                 ],
                 fecha_inicio: [
                     {

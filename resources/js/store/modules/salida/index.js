@@ -102,7 +102,7 @@ const mutations = {
         state.data_form.detalle_salida.push({
             articulo:data.id,
             articulo_nombre:data.nombre,
-            //Medidas
+            medida:data.lotes.length > 0 ? data.lotes[0].unidad_medida.nombre : ' - ',
             cantidad:1,
             stock:data.stock
         });

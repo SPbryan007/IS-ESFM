@@ -80,7 +80,8 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
-          { min: 3, message: "Debe tener mas de 3 letras", trigger: "blur" },
+          { min: 3, message: "Debe tener mas de 3 carácteres", trigger: "blur" },
+            { max: 100, message: "Debe tener menos de 10 caràcteres", trigger: "blur" },
         ],
           funcionario_id: [
               {

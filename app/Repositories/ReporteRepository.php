@@ -412,6 +412,87 @@ class ReporteRepository
 //            ->orderBy('fecha', 'asc')
 //            ->get();
     }
+
+    public function KardexIndividual($periodo,$conSaldo,$articulo)
+    {
+        $periodo = Periodo::where('id', $periodo)->withTrashed()
+            ->where('estado', '=', Periodo::FINALIZADO)
+            ->orWhere('estado', '=', Periodo::EN_CURSO)
+            ->first();
+        $saldo = filter_var($conSaldo, FILTER_VALIDATE_BOOLEAN) ? '>=' : '<>';
+        $ingresos = Lote::select(
+            DB::raw('p.nombre as partida,p.codigo as partida_codigo,a.linea as linea,a.codigo as codigo,a.nombre as articulo,i.nro_ingreso as ni,null as ns,um.nombre as medida,i.created_at as fecha,lote.precio_u as precio_u,lote.id as lote'),
+            DB::raw("CONCAT('linea',a.linea) as num_linea"),
+            DB::raw("null as unidad,pro.nombre as proveedor,IFNULL(di.cantidad,0) as c_ingreso"),
+            DB::raw("IFNULL(di.cantidad,0)*IFNULL(lote.precio_u,0) as s_ingreso"),
+            DB::raw('0 as c_salida,0 as s_salida, di.cantidad as c_final,(di.cantidad*lote.precio_u) as s_final')
+        )
+            ->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+            ->leftjoin('unidad_medida as um', 'um.id', '=', 'lote.unidad_medida_id')
+            ->leftjoin('partida as p','p.id','=','a.partida_id')
+            ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+            ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+            ->leftjoin('proveedor as pro','pro.id','=','i.proveedor_id')
+            ->where('i.periodo_id', $periodo->id)
+            ->where('a.id','=',$articulo)
+            ->whereNull('i.deleted_at')
+            ->whereBetween('i.created_at', [
+                date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
+                date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
+            ])
+            ->where('lote.precio_u', '<>', 0);
+
+
+        $salidas = Lote::select(
+            DB::raw('p.nombre as partida,p.codigo as partida_codigo,a.linea as linea,a.codigo as codigo,a.nombre as articulo,null as ni,s.nro_salida as ns,um.nombre as medida,s.created_at as fecha,lote.precio_u as precio_u,lote.id as lote'),
+            DB::raw("CONCAT('linea',a.linea) as num_linea"),
+            DB::raw('unidad.nombre as unidad,null as proveedor,0 as c_ingreso,0 as s_ingreso'),
+            DB::raw('ds.cantidad as c_salida,ds.cantidad*lote.precio_u as s_salida,
+                (di.cantidad) - (SUM(ds.cantidad) OVER (PARTITION BY lote.id  ORDER BY s.created_at)) as c_final,
+                (di.cantidad*lote.precio_u) - (SUM(ds.cantidad*lote.precio_u) OVER (PARTITION BY lote.id  ORDER BY s.created_at)) as s_final'
+            )
+        )
+            ->leftjoin('articulo as a', 'lote.articulo_id', '=', 'a.id')
+            ->leftjoin('partida as p','p.id','=','a.partida_id')
+            ->leftjoin('unidad_medida as um', 'um.id', '=', 'lote.unidad_medida_id')
+            ->leftjoin('detalle_salida as ds', 'ds.lote_id', '=', 'lote.id')
+            ->leftjoin('salida as s', 's.id', '=', 'ds.salida_id')
+            ->leftjoin('solicitante as so', 'so.id', '=', 's.solicitante_id')
+            ->leftjoin('unidad as unidad', 'unidad.id', '=', 'so.unidad_id')
+            ->leftjoin('detalle_ingreso as di', 'di.lote_id', '=', 'lote.id')
+            ->leftjoin('ingreso as i', 'i.id', '=', 'di.ingreso_id')
+            ->where('s.periodo_id', $periodo->id)
+            ->where('a.id','=',$articulo)
+            ->whereNull('i.deleted_at')
+            ->whereNull('s.deleted_at')
+            ->whereBetween('i.created_at', [
+                date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
+                date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
+            ])
+            ->whereBetween('s.created_at', [
+                date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
+                date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
+            ])
+            //   ->whereBetween('s.created_at',[date('Y-m-d H:i:s', strtotime($del)),date('Y-m-d 23:59:59', strtotime($al))])
+            ->where('lote.precio_u', '<>', 0)
+            ->unionAll($ingresos)
+            ->orderBy('codigo', 'asc')
+            ->orderBy('fecha', 'asc')
+            ->orderBy('lote', 'asc');
+        //->orderBy('ni', 'asc')
+
+
+//        return $salidas;
+
+        return DB::query()->fromSub($salidas, 'q')
+            ->select('q.*')
+            ->where('q.s_final', $saldo, 0)
+            ->whereBetween('q.fecha', [
+                date('Y-m-d H:i:s', strtotime($periodo->fecha_inicio)),
+                date('Y-m-d 23:59:59', strtotime($periodo->fecha_fin))
+            ])
+            ->get();
+    }
 }
 
 

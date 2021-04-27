@@ -14,7 +14,8 @@
                                 <el-breadcrumb-item v-if="this.$route.name == 'reporte_ingresos'">Ingresos</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'reporteviewdetailingreso'">Detalle ingreso</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'reporte_salidas'">Salidas</el-breadcrumb-item>
-                                <el-breadcrumb-item v-if="this.$route.name == 'reporteviewdetailsalida'">Detalle salida</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'reporte_salidas'">Salidas</el-breadcrumb-item>
+                                <el-breadcrumb-item v-if="this.$route.name == 'kardex_individual'">Kardex individual</el-breadcrumb-item>
                                 <!--<el-breadcrumb-item v-if="this.$route.name == 'ingreso'">Listar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'editingreso'">Editar</el-breadcrumb-item>
                                 <el-breadcrumb-item v-if="this.$route.name == 'addingresodetails'">Detalle </el-breadcrumb-item>

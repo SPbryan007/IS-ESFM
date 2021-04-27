@@ -36,11 +36,17 @@ class GraphicController extends Controller
         try {
             $stockLinea = $this->graphicsRepository->getStockLinea();
             $iss = $this->graphicsRepository->getCashFlowMothly();
-            $flow = $this->graphicsRepository->getCashFlow();
             $periodo = Periodo::latest()->withTrashed()
                 ->where('estado','=',Periodo::FINALIZADO)
                 ->orWhere('estado','=',Periodo::EN_CURSO)
                 ->first();
+            if($periodo){
+                $flow = $this->graphicsRepository->getCashFlow($periodo->id);
+            }else{
+                $flow = [];
+            }
+
+
             $periodo_id = $periodo ? $periodo->id : NULL;
             $cant_prov      = Proveedor::withoutTrashed()->count();
             $cant_sol       = Solicitante::withoutTrashed()->count();

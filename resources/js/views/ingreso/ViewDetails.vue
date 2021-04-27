@@ -325,11 +325,15 @@ export default {
                 }
             }
             if(item.donacion){
-                if(item.donacion.tipo_donacion == 'ADO'){
-                    return 'ACTA DE DONACIÓN';
-                }else{
-                    return 'DONACIÓN POR CONVENIO';
+                switch (item.donacion.tipo_donacion) {
+                    case 'ADO':
+                        return 'ACTA DE DONACIÓN';
+                    case 'DCO':
+                        return 'DONACIÓN POR CONVENIO';
+                    case 'AEN':
+                        return 'ACTA DE ENTREGA';
                 }
+
             }
         },
         anulated(item){

@@ -111,7 +111,7 @@
                                     v-if="scope.row.tipo_ingreso != 'INV_INICIAL'"
                                     :type="scope.row.tipo_ingreso == 'Compra' ?  'info' : 'warning'"
                                     effect="dark">
-                                    {{ scope.row.tipo_ingreso == 'Compra' ?  'COMPRA' : 'DONACIÓN' }}
+                                    {{ scope.row.tipo_ingreso == 'Compra' ?  'COMPRA' : 'TRANSF.' }}
                                 </el-tag>
                                 <el-tag
                                     v-if="scope.row.tipo_ingreso == 'INV_INICIAL'"

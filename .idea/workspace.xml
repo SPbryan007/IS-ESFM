@@ -1,52 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BranchesTreeState">
-    <expand>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-      <path>
-        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
-      </path>
-    </expand>
-    <select />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="89b8e662-54ca-402b-b699-c4f30e69ba6f" name="Default Changelist" comment="">
+    <list default="true" id="eca750c7-5092-417c-bc9b-12f4e11fa251" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/reportes/individual/kardex_individual.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/reportes/individual/kardex_individual_excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/almacen.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-10-04T081645.302.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-10-04T081658.302.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-10-04T081828.302.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/2020-10-04T081849.302.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/httpRequests/http-requests-log.http" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/ArticuloRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ArticuloRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/IngresoRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/IngresoRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Repositories/LoteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/LoteRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/GraphicController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/GraphicController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PartidaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PartidaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProveedorController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProveedorController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReporteController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Repositories/ReporteRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/ReporteRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/SalidaRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/SalidaRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Repositories/graphicsRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Repositories/graphicsRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/0.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/0.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/10.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/10.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/11.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/12.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/12.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/13.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/13.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/14.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/14.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/15.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/15.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/16.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/16.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/17.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/17.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/18.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/18.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/19.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/19.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/20.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/20.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/21.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/21.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/22.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/22.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/23.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/23.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/24.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/24.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/25.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/25.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/26.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/26.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/27.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/27.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/28.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/28.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/29.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/29.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/3.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/30.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/30.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/31.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/31.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/32.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/32.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/33.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/33.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/34.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/34.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/35.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/35.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/36.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/36.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/37.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/37.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/38.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/38.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/39.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/39.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/4.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/4.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/40.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/40.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/41.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/41.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/42.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/42.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/43.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/43.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/44.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/44.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/45.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/45.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/46.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/46.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/47.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/47.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/48.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/48.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/49.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/49.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/5.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/5.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/50.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/50.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/51.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/51.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/52.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/52.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/53.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/53.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/54.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/54.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/55.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/55.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/56.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/56.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/57.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/57.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/58.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/58.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/59.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/59.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/6.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/60.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/60.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/61.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/61.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/62.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/62.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/63.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/63.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/64.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/64.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/7.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/8.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/8.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/9.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/9.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/backups/backup.sql" beforeDir="false" afterPath="$PROJECT_DIR$/public/backups/backup.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/store/modules/salida/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/store/modules/salida/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/SidebarComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/SidebarComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/ingreso/AddDetailsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/ingreso/AddDetailsView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/ingreso/AddView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/ingreso/AddView.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/views/ingreso/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/ingreso/ListView.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/js/views/salida/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/salida/ListView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/ingreso/ViewDetails.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/ingreso/ViewDetails.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/periodo/AddView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/periodo/AddView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/proveedor/AddView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/proveedor/AddView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/proveedor/EditView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/proveedor/EditView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/reporte/ReporteView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/reporte/ReporteView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/salida/AddDetailsView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/salida/AddDetailsView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/unidad/AddView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/unidad/AddView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/js/views/usuario/ListView.vue" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/views/usuario/ListView.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/reportes/general/kardex.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/general/kardex.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/reportes/general/kardex_excel.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/general/kardex_excel.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/reportes/ingresos/donacion.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/ingresos/donacion.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/reportes/movimiento/excel_formatob.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/reportes/movimiento/excel_formatob.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="composer.json" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,311 +129,137 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
-      <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
-      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
-      <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
-      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
-      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
-      <path value="$PROJECT_DIR$/vendor/psr/container" />
-      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
-      <path value="$PROJECT_DIR$/vendor/psr/log" />
-      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
-      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
-      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
-      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
-      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
-      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
-      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
-      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
-      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
-      <path value="$PROJECT_DIR$/vendor/symfony/console" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
-      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
-      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
-      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
-      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
-      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
-      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
-      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
-      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
-      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
-      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
-      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
-      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
-      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
-      <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/luecano/numero-a-letras" />
+      <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
       <path value="$PROJECT_DIR$/vendor/filp/whoops" />
-      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
+      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
       <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
-      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/vendor/fzaninotto/faker" />
       <path value="$PROJECT_DIR$/vendor/asm89/stack-cors" />
-      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
-      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
-      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
       <path value="$PROJECT_DIR$/vendor/brick/math" />
-      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
       <path value="$PROJECT_DIR$/vendor/opis/closure" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
-      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
-      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
-      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
-      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
-      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
-      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
-      <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
-      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
-      <path value="$PROJECT_DIR$/vendor/composer" />
-      <path value="$PROJECT_DIR$/vendor/scrivo/highlight.php" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
-      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
-      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
-      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
-      <path value="$PROJECT_DIR$/vendor/league/commonmark" />
-      <path value="$PROJECT_DIR$/vendor/facade/ignition" />
-      <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/facade/ignition-contracts" />
+      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
       <path value="$PROJECT_DIR$/vendor/facade/flare-client-php" />
-      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
-      <path value="$PROJECT_DIR$/vendor/luecano/numero-a-letras" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/vendor/facade/ignition" />
       <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
-      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/promises" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/guzzle" />
+      <path value="$PROJECT_DIR$/vendor/ramsey/uuid" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/version" />
+      <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
+      <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
       <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/phpoption/phpoption" />
+      <path value="$PROJECT_DIR$/vendor/fideloper/proxy" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/type" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-cors" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/resource-operations" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-enumerator" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/collision" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/laravel/tinker" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/object-reflector" />
+      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
-      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
-      <path value="$PROJECT_DIR$/vendor/myclabs/php-enum" />
-      <path value="$PROJECT_DIR$/vendor/phpoffice/phpspreadsheet" />
-      <path value="$PROJECT_DIR$/vendor/maennchen/zipstream-php" />
-      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
-      <path value="$PROJECT_DIR$/vendor/league/mime-type-detection" />
-      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
       <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
+      <path value="$PROJECT_DIR$/vendor/symfony/mime" />
+      <path value="$PROJECT_DIR$/vendor/dragonmantank/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php72" />
+      <path value="$PROJECT_DIR$/vendor/symfony/error-handler" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php73" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-idn" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-iconv" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/service-contracts" />
+      <path value="$PROJECT_DIR$/vendor/psr/simple-cache" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-factory" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/psr/container" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/lexer" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/psr/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
     </include_path>
   </component>
-  <component name="ProjectId" id="1iR0KhdPZUgjYLAvIBGdQkgVwty" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="1ox2lb65DzkG5PzPnHQsUJKKm2x" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="mariadb" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="terminal" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.2.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\AppServ\www\Laravel\store\almacen\storage\app" />
-      <recent name="C:\AppServ\www\Laravel\store\almacen\resources\views\reportes\ingresos" />
-      <recent name="C:\AppServ\www\Laravel\store\almacen\storage\app\public" />
-      <recent name="C:\AppServ\www\Laravel\store\almacen\database" />
-      <recent name="C:\AppServ\www\Laravel\store\almacen\public" />
-    </key>
-  </component>
-  <component name="RestClientSettings">
-    <option name="REQUEST_HISTORY">
-      <list>
-        <RestClientRequest>
-          <option name="biscuits">
-            <list>
-              <Biscuit>
-                <option name="date" value="1601864308000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="XSRF-TOKEN" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6IjJWeSthSXBXUUdSYWJWeXNWK01kT2c9PSIsInZhbHVlIjoiZGtKeGpOcXZ6WXU4cXFRYWJwQ05nbC9qU214OXpMNm9obGUvcVBRYVJndU5oWkhWQ3lXZzlsdXN4Q2RnaytubSIsIm1hYyI6ImE0MTA0M2UyM2Q4ZTVhOWQ4MWQ4Y2U3Y2RmNDBkOTgxZWRlNTYzNjFkNDVlMjIzMDkyMjhmNWNmMTRlMzdhODAifQ%3D%3D" />
-              </Biscuit>
-              <Biscuit>
-                <option name="date" value="1601864308000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="laravel_session" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6InZ0WDV0OFdJMWhVTkVlVU5wT2xzVEE9PSIsInZhbHVlIjoiWm1MUURXTWZDT1JNU3B6ejFPZHEvRjUxZlBEUDF1ckN2cFkxR3VLaEZRZDFZUmVjY2tad2tseXVqWU81OXI4TyIsIm1hYyI6ImY1ZWVlZGQzYzUyMWFmZDk1OTBkMTc5ZDZiYzIyZGU3MmJiYTQxYjQyYmU3NTE0YzE1ZmZlYjE0M2M2OTYyMmEifQ%3D%3D" />
-              </Biscuit>
-            </list>
-          </option>
-          <option name="httpMethod" value="POST" />
-          <option name="urlBase" value="http://localhost:8000" />
-          <option name="urlPath" value="/api/login/login" />
-          <option name="headers">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="Accept" />
-                <option name="value" value="*/*" />
-              </KeyValuePair>
-              <KeyValuePair>
-                <option name="key" value="Cache-Control" />
-                <option name="value" value="no-cache" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="parameters">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="username" />
-                <option name="value" value="bryan.guns" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="haveTextToSend" value="true" />
-          <option name="haveFileToSend" value="true" />
-          <option name="isFileUpload" value="true" />
-          <option name="textToSend" value="" />
-          <option name="filesToSend" value="" />
-        </RestClientRequest>
-        <RestClientRequest>
-          <option name="biscuits">
-            <list>
-              <Biscuit>
-                <option name="date" value="1601864218000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="XSRF-TOKEN" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6ImhqVFYrV2ZPbVFZekpkSjZjVm9EUkE9PSIsInZhbHVlIjoidUF0SU9sRXNKbVg5Z3VPNFJ5RVFSaUp3dmpwQmU0ajNvMVdYUU0renUzMHVERTMwSHZSR01uV2luZ0hpSm1iaCIsIm1hYyI6IjNmNTk1MjU1MGM0MTNkMGFiZWNmMGQwM2VhOTM5MjlhNmExZTllNTliNDlhOGIxMGE3OTM3ZGExODlhMzkzYjAifQ%3D%3D" />
-              </Biscuit>
-              <Biscuit>
-                <option name="date" value="1601864218000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="laravel_session" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6Ilc0dC8vMnY0ZzdXYThrSS9QbVFCY2c9PSIsInZhbHVlIjoiSlJtT2hpZXF0S09IYTNtZXdEcCtnQTNRajFsL3c5NllaNXNYdk13VU5OaDFhVS9HNmtVb09ZOEtqaFJtUWRlVyIsIm1hYyI6IjM5ZmUwNmJmZjQ4YjI0YjNjODY4YzI3ZDA1ODdmYjRmYjNlNWFiOTRhZjIyMzYzZGY5YjE1ZDM5ZWZlODQ1NzAifQ%3D%3D" />
-              </Biscuit>
-            </list>
-          </option>
-          <option name="httpMethod" value="POST" />
-          <option name="urlBase" value="http://localhost:8000" />
-          <option name="urlPath" value="/api/login/login" />
-          <option name="headers">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="Accept" />
-                <option name="value" value="*/*" />
-              </KeyValuePair>
-              <KeyValuePair>
-                <option name="key" value="Cache-Control" />
-                <option name="value" value="no-cache" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="parameters">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="username" />
-                <option name="value" value="bryan.guns" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="haveTextToSend" value="true" />
-          <option name="haveFileToSend" value="true" />
-          <option name="isFileUpload" value="true" />
-          <option name="textToSend" value="" />
-          <option name="filesToSend" value="" />
-        </RestClientRequest>
-        <RestClientRequest>
-          <option name="biscuits">
-            <list>
-              <Biscuit>
-                <option name="date" value="1601864205000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="XSRF-TOKEN" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6ImJZUEh0dXV1NjlGNjl2eEhvSENmQ2c9PSIsInZhbHVlIjoiclpVS1dKL3RJM0I2S1BGVVRzUHZZSkVUMVM1K1IrTnZSd0JDK3JDYkh2K0VwdnY1RVJZSnJBK2pvRk9aTWxSQSIsIm1hYyI6IjFiOGQ0NmRhOWQ5YTllYzQ4OTA0NTBlYmJmYzE5MGIwMGY5Y2ViOTY4YzM4OGZmOGE3ZDkwNGE4ZTk1YmIyYjkifQ%3D%3D" />
-              </Biscuit>
-              <Biscuit>
-                <option name="date" value="1601864205000" />
-                <option name="domain" value="localhost" />
-                <option name="name" value="laravel_session" />
-                <option name="path" value="/" />
-                <option name="value" value="eyJpdiI6IktXV05lYWcvZk5QblFGb0ZaVTlhdmc9PSIsInZhbHVlIjoiTmpCOEpaeFlGYnhXTnNpVWNvOElSRWVWaFA2MS9Bc0J3YVZJUG9CcDJyOFRYUnlPckxvRkdPTUNqY2V2cXVVRiIsIm1hYyI6IjRmMGQyOGUzZTQ5NjBlOTc5MDJmMWJmN2Y3MjM2MGI4NDI3OTg5MmU1ZWUzZmNkNzgyNzNjNDVjNGFjNjlkMjIifQ%3D%3D" />
-              </Biscuit>
-            </list>
-          </option>
-          <option name="httpMethod" value="POST" />
-          <option name="urlBase" value="http://localhost:8000" />
-          <option name="urlPath" value="/api/login/login" />
-          <option name="headers">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="Accept" />
-                <option name="value" value="*/*" />
-              </KeyValuePair>
-              <KeyValuePair>
-                <option name="key" value="Cache-Control" />
-                <option name="value" value="no-cache" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="parametersEnabled" value="true" />
-          <option name="textToSend" value="" />
-          <option name="filesToSend" value="" />
-        </RestClientRequest>
-        <RestClientRequest>
-          <option name="httpMethod" value="POST" />
-          <option name="urlBase" value="http://localhost:8000" />
-          <option name="urlPath" value="api/login/login" />
-          <option name="headers">
-            <list>
-              <KeyValuePair>
-                <option name="key" value="Accept" />
-                <option name="value" value="*/*" />
-              </KeyValuePair>
-              <KeyValuePair>
-                <option name="key" value="Cache-Control" />
-                <option name="value" value="no-cache" />
-              </KeyValuePair>
-            </list>
-          </option>
-          <option name="parametersEnabled" value="true" />
-          <option name="textToSend" value="" />
-          <option name="filesToSend" value="" />
-        </RestClientRequest>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -376,192 +270,25 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="89b8e662-54ca-402b-b699-c4f30e69ba6f" name="Default Changelist" comment="" />
-      <created>1601855047237</created>
+      <changelist id="eca750c7-5092-417c-bc9b-12f4e11fa251" name="Default Changelist" comment="" />
+      <created>1614214078912</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1601855047237</updated>
-      <workItem from="1601855050277" duration="13040000" />
-      <workItem from="1601903326109" duration="2886000" />
-      <workItem from="1601908124812" duration="1237000" />
-      <workItem from="1601929205419" duration="1097000" />
-      <workItem from="1601931130814" duration="481000" />
-      <workItem from="1601931660545" duration="154000" />
-      <workItem from="1601931846275" duration="636000" />
-      <workItem from="1601932510181" duration="20387000" />
-      <workItem from="1602010962176" duration="20646000" />
-      <workItem from="1602098897051" duration="1140000" />
-      <workItem from="1602102269298" duration="6506000" />
-      <workItem from="1602117684869" duration="1512000" />
-      <workItem from="1602121251600" duration="5047000" />
-      <workItem from="1602128116923" duration="4207000" />
-      <workItem from="1602184293093" duration="16256000" />
-      <workItem from="1602278313400" duration="9309000" />
-      <workItem from="1602356809226" duration="12137000" />
-      <workItem from="1602454193770" duration="16740000" />
-      <workItem from="1602538280083" duration="18546000" />
-      <workItem from="1602610899275" duration="26063000" />
-      <workItem from="1602705691104" duration="12652000" />
-      <workItem from="1602727101785" duration="8340000" />
-      <workItem from="1602784803805" duration="23229000" />
-      <workItem from="1602858898408" duration="10258000" />
-      <workItem from="1602876493735" duration="377000" />
-      <workItem from="1602877075625" duration="9337000" />
-      <workItem from="1602957137393" duration="11977000" />
-      <workItem from="1602984906115" duration="11932000" />
-      <workItem from="1603039798817" duration="22490000" />
-      <workItem from="1603115312875" duration="39600000" />
-      <workItem from="1603203828425" duration="6867000" />
-      <workItem from="1603227058978" duration="22575000" />
-      <workItem from="1603335772659" duration="1353000" />
-      <workItem from="1603379367562" duration="24652000" />
-      <workItem from="1603413073744" duration="6607000" />
-      <workItem from="1603473523107" duration="27375000" />
-      <workItem from="1603561094344" duration="18200000" />
-      <workItem from="1603595409206" duration="4269000" />
-      <workItem from="1603640040769" duration="32565000" />
-      <workItem from="1603722529877" duration="32983000" />
-      <workItem from="1603812760242" duration="3214000" />
-      <workItem from="1603831381771" duration="11986000" />
-      <workItem from="1603888578942" duration="29659000" />
-      <workItem from="1603937731961" duration="7557000" />
-      <workItem from="1603994682339" duration="8648000" />
-      <workItem from="1604072603014" duration="738000" />
-      <workItem from="1604206632856" duration="1194000" />
-      <workItem from="1604373983271" duration="3426000" />
-      <workItem from="1604523914339" duration="345000" />
-      <workItem from="1604847518509" duration="300000" />
-      <workItem from="1604848000442" duration="432000" />
-      <workItem from="1604848482989" duration="7367000" />
-      <workItem from="1604866112934" duration="1125000" />
-      <workItem from="1604868047989" duration="1527000" />
-      <workItem from="1604869943730" duration="1782000" />
-      <workItem from="1604871996893" duration="1745000" />
-      <workItem from="1604874847752" duration="961000" />
-      <workItem from="1604880422578" duration="583000" />
-      <workItem from="1604979076263" duration="2513000" />
-      <workItem from="1605138260849" duration="740000" />
-      <workItem from="1605213024483" duration="7039000" />
-      <workItem from="1605388539190" duration="3346000" />
-      <workItem from="1605643211773" duration="10772000" />
-      <workItem from="1605737183544" duration="15028000" />
-      <workItem from="1605801083577" duration="17245000" />
-      <workItem from="1605908472916" duration="12939000" />
-      <workItem from="1606001130874" duration="4991000" />
-      <workItem from="1606080369862" duration="4516000" />
-      <workItem from="1606166342750" duration="22757000" />
-      <workItem from="1606253017060" duration="18999000" />
-      <workItem from="1606315916290" duration="19314000" />
-      <workItem from="1606403052489" duration="1288000" />
-      <workItem from="1606438711371" duration="2821000" />
-      <workItem from="1606491354578" duration="16293000" />
-      <workItem from="1606593228661" duration="27527000" />
-      <workItem from="1606666599089" duration="20550000" />
-      <workItem from="1606763332136" duration="27599000" />
-      <workItem from="1606864324871" duration="11818000" />
-      <workItem from="1606913860513" duration="3910000" />
-      <workItem from="1606940139439" duration="22758000" />
-      <workItem from="1607015764940" duration="7877000" />
-      <workItem from="1607044434972" duration="4619000" />
-      <workItem from="1607113986122" duration="10361000" />
-      <workItem from="1607176835650" duration="27327000" />
-      <workItem from="1607225458471" duration="2567000" />
-      <workItem from="1607276809787" duration="19221000" />
-      <workItem from="1607366849930" duration="22434000" />
-      <workItem from="1607439686531" duration="786000" />
-      <workItem from="1607442846049" duration="4422000" />
-      <workItem from="1607453721332" duration="2656000" />
-      <workItem from="1602198905499" duration="162000" />
-      <workItem from="1607470200361" duration="141000" />
-      <workItem from="1607470373045" duration="2585000" />
-      <workItem from="1602202807796" duration="22368000" />
-      <workItem from="1607528523058" duration="1390000" />
-      <workItem from="1607531688035" duration="3166000" />
-      <workItem from="1607609545222" duration="1369000" />
-      <workItem from="1607614319825" duration="3027000" />
-      <workItem from="1607634698747" duration="238000" />
-      <workItem from="1607658591555" duration="995000" />
-      <workItem from="1607702581733" duration="4558000" />
-      <workItem from="1607817431150" duration="568000" />
-      <workItem from="1607880571327" duration="24995000" />
-      <workItem from="1607948745688" duration="17825000" />
-      <workItem from="1607990724596" duration="13239000" />
-      <workItem from="1608037098612" duration="15200000" />
-      <workItem from="1608166309612" duration="1017000" />
-      <workItem from="1608208181941" duration="7818000" />
-      <workItem from="1608252209879" duration="3431000" />
-      <workItem from="1608294604337" duration="1289000" />
-      <workItem from="1608306249316" duration="1380000" />
-      <workItem from="1608349204808" duration="132000" />
-      <workItem from="1608406262971" duration="2081000" />
-      <workItem from="1608560027602" duration="8686000" />
-      <workItem from="1608577949623" duration="4805000" />
-      <workItem from="1608599582884" duration="10313000" />
-      <workItem from="1608639771721" duration="19842000" />
-      <workItem from="1608671700846" duration="13786000" />
-      <workItem from="1608729501391" duration="15444000" />
-      <workItem from="1608813050993" duration="17102000" />
-      <workItem from="1609022055296" duration="3435000" />
-      <workItem from="1609101228207" duration="14237000" />
-      <workItem from="1609158864697" duration="13961000" />
-      <workItem from="1609244476335" duration="25001000" />
-      <workItem from="1609290093366" duration="7409000" />
-      <workItem from="1609331577538" duration="13623000" />
-      <workItem from="1609378595493" duration="767000" />
-      <workItem from="1609419844811" duration="14190000" />
-      <workItem from="1609712918307" duration="12452000" />
-      <workItem from="1609763094230" duration="19442000" />
-      <workItem from="1609811048313" duration="4633000" />
-      <workItem from="1609849351495" duration="16178000" />
-      <workItem from="1609903441867" duration="463000" />
-      <workItem from="1609935964868" duration="15137000" />
-      <workItem from="1609956955665" duration="6245000" />
-      <workItem from="1609974730424" duration="12680000" />
-      <workItem from="1610022458365" duration="15346000" />
-      <workItem from="1610043152213" duration="4865000" />
-      <workItem from="1610063922096" duration="1630000" />
-      <workItem from="1610066542064" duration="9492000" />
-      <workItem from="1610282595165" duration="12134000" />
-      <workItem from="1610396027845" duration="570000" />
-      <workItem from="1610507106510" duration="1111000" />
-      <workItem from="1610547440426" duration="1247000" />
-      <workItem from="1610585305130" duration="7663000" />
-      <workItem from="1610639161209" duration="580000" />
-      <workItem from="1610671808208" duration="7906000" />
-      <workItem from="1610680405111" duration="3526000" />
-      <workItem from="1610769338953" duration="2071000" />
-      <workItem from="1610802272117" duration="9171000" />
-      <workItem from="1610845381955" duration="3381000" />
-      <workItem from="1610887072047" duration="7170000" />
-      <workItem from="1610908968938" duration="2377000" />
-      <workItem from="1611002734614" duration="13229000" />
-      <workItem from="1611114896671" duration="4911000" />
-      <workItem from="1611145109676" duration="17611000" />
-      <workItem from="1611170508833" duration="1543000" />
-      <workItem from="1611191330585" duration="3327000" />
-      <workItem from="1611233265463" duration="11536000" />
-      <workItem from="1611786074404" duration="366000" />
-      <workItem from="1611787976669" duration="545000" />
-      <workItem from="1611790463067" duration="1271000" />
-      <workItem from="1611876155881" duration="587000" />
-      <workItem from="1611878765835" duration="3370000" />
-      <workItem from="1611923944841" duration="1451000" />
-      <workItem from="1611964192899" duration="7503000" />
-      <workItem from="1612027104019" duration="2161000" />
-      <workItem from="1612058286609" duration="10477000" />
-      <workItem from="1612114840538" duration="782000" />
-      <workItem from="1612123061342" duration="2207000" />
-      <workItem from="1612128658178" duration="20019000" />
-      <workItem from="1612168255593" duration="4198000" />
-      <workItem from="1612285995424" duration="1610000" />
-      <workItem from="1612383167285" duration="1165000" />
-      <workItem from="1612450618924" duration="9584000" />
-      <workItem from="1612493128813" duration="7015000" />
-      <workItem from="1612739391807" duration="12499000" />
-      <workItem from="1612912315329" duration="578000" />
-      <workItem from="1612992680931" duration="8076000" />
-      <workItem from="1613014323336" duration="2621000" />
-      <workItem from="1613608818778" duration="8494000" />
+      <updated>1614214078912</updated>
+      <workItem from="1614214099201" duration="815000" />
+      <workItem from="1614303662394" duration="1988000" />
+      <workItem from="1614390559146" duration="4159000" />
+      <workItem from="1614448324925" duration="5782000" />
+      <workItem from="1614526716187" duration="10624000" />
+      <workItem from="1614564062796" duration="6459000" />
+      <workItem from="1614640890237" duration="14072000" />
+      <workItem from="1614708659871" duration="4045000" />
+      <workItem from="1615218131963" duration="10438000" />
+      <workItem from="1615268003265" duration="3552000" />
+      <workItem from="1615402799335" duration="1102000" />
+      <workItem from="1615491674755" duration="1195000" />
+      <workItem from="1616359052423" duration="11483000" />
+      <workItem from="1616524812260" duration="1072000" />
     </task>
     <servers />
   </component>
@@ -579,17 +306,6 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/resources/js/views/stock/StockList.vue</url>
-          <line>254</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

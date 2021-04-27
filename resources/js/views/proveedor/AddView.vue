@@ -81,7 +81,8 @@ export default {
                         message: "Este campo es obligatorio.",
                         trigger: "blur"
                     },
-                    { min: 3, message: "Debe tener mas de 3 numeros", trigger: "blur" }
+                    { min: 3, message: "Debe tener mas de 3 carácteres", trigger: "blur" },
+                    { max: 150, message: "Debe tener menos de 150 carácteres", trigger: "blur" }
                 ],
                 nit: [
                     {
@@ -89,7 +90,40 @@ export default {
                         message: "Este campo es obligatorio.",
                         trigger: "blur"
                     },
-                    { min: 6, message: "Debe tener mas de 8 numeros", trigger: "blur" }
+                    { min: 6, message: "Debe tener mas de 8 numeros", trigger: "blur" },
+                    { max: 20, message: "Debe tener menos de 20 numeros", trigger: "blur" }
+                ],
+                rubro: [
+                    {
+                        required: false,
+                        message: "Este campo es obligatorio.",
+                        trigger: "blur"
+                    },
+                    { max: 150, message: "Debe tener menos de 150 carácteres", trigger: "blur" }
+                ],
+                direccion: [
+                    {
+                        required: false,
+                        message: "Este campo es obligatorio.",
+                        trigger: "blur"
+                    },
+                    { max: 250, message: "Debe tener menos de 250 carácteres", trigger: "blur" }
+                ],
+                telefono: [
+                    {
+                        required: false,
+                        message: "Este campo es obligatorio.",
+                        trigger: "blur"
+                    },
+                    { max: 15, message: "Debe tener menos de 15 carácteres", trigger: "blur" }
+                ],
+                responsable: [
+                    {
+                        required: false,
+                        message: "Este campo es obligatorio.",
+                        trigger: "blur"
+                    },
+                    { max: 250, message: "Debe tener menos de 250 carácteres", trigger: "blur" }
                 ]
             }
         };

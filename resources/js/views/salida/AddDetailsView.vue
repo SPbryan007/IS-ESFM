@@ -10,6 +10,7 @@
                 show-icon
                 closable
             >
+                {{ pageOfItems }}
             </el-alert>
             <div class="row justify-content-between mb-4  mr-1 ml-1  mt-4">
                 <div class="pull-lef">
@@ -124,16 +125,17 @@
                                 {{ findItem(scope.row.articulo).codigo }}
                             </template>
                         </el-table-column>
-                        <el-table-column label="Articulo" width="600" prop="articulo" sortable>
+                        <el-table-column label="Articulo" width="450" prop="articulo" sortable>
                             <template slot-scope="scope">
                                 {{ scope.row.articulo_nombre }}
                             </template>
                         </el-table-column>
-<!--                        <el-table-column label="Medida" width="200" prop="medida" sortable>-->
-<!--                            <template slot-scope="scope">-->
-<!--                                {{ scope.row.unidad_medida }}-->
-<!--                            </template>-->
-<!--                        </el-table-column>-->
+
+                        <el-table-column label="Medida" width="150" prop="medida" sortable>
+                            <template slot-scope="scope">
+                                {{ scope.row.medida }}
+                            </template>
+                        </el-table-column>
                         <el-table-column label="Cantidad" width="200" prop="cantidad" sortable>
                             <template slot-scope="scope">
                                 <el-input-number size="mini" v-model="scope.row.cantidad"  :precision="2" :step="1"  :min="1" :max="scope.row.stock"></el-input-number>

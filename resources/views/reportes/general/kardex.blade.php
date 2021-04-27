@@ -252,15 +252,28 @@
                 <td style="text-align: left;font-size: 7px" class="pa">{{ $item->medida  }}</td>
 
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->c_inicial,2),2)  }}</td>
-                <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                @if($item->ni)
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round(0,2),2)  }}</td>
+                @else
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                @endif
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->s_inicial,2) ,2) }}</td>
 
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->c_ingreso,2),2)  }}</td>
-                <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                @if($item->ni)
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                @else
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round(0,2),2)  }}</td>
+                @endif
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->s_ingreso,2),2)  }}</td>
-
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->c_salida,2),2) }}</td>
-                <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+
+                @if($item->ns)
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->precio_u,2),2)  }}</td>
+                @else
+                    <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round(0,2),2)  }}</td>
+                @endif
+
                 <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round($item->s_salida,2),2)  }}</td>
 
 {{--                <td style="text-align: right;font-size: 8px" class="pa">{{ number_format(round(10000,2),2)  }}</td>--}}

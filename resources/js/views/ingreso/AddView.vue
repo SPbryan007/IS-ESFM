@@ -28,7 +28,7 @@
             <div class="row justify-content-center">
                 <el-radio-group v-model="data_form.tipo_ingreso" style="margin-bottom: 30px;" class="ml-5">
                     <el-radio-button label="Compra">Compra</el-radio-button>
-                    <el-radio-button label="Donacion">Donación</el-radio-button>
+                    <el-radio-button label="Donacion">Transferencia</el-radio-button>
                 </el-radio-group>
             </div>
 
@@ -170,8 +170,9 @@
                                 >
                                     <el-option
                                         v-for="(item, index) in [
-                                {key:'ADO',value:'ACTA DE DONACION'},
-                                {key:'DCO',value:'DONACION POR CONVENIO'},
+                                {key:'ADO',value:'ACTA DE DONACIÓN'},
+                                {key:'DCO',value:'DONACIÓN POR CONVENIO'},
+                                 {key:'AEN',value:'ACTA DE ENTREGA'}
                             ]"
                                         :key="index"
                                         :label="item.value"
@@ -261,8 +262,8 @@ export default {
                     message: "Este campo es obligatorio",
                     trigger: "blur",
                 },
-                { max: 15, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
-                { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
+                { max: 15, message: "Debe tener menos de 15 carácteres", trigger: "blur" },
+                { min: 3, message: "Debe tener mas de 3 carácteres", trigger: "blur" }
             ],
             proveedor: [
                 {
@@ -270,6 +271,9 @@ export default {
                     message: "Debe seleccionar un proveedor",
                     trigger: "change",
                 },
+            ],
+            fecha_acta:[
+                { type: 'date', required: true, message: 'Este campo es obligatorio.', trigger: 'change' }
             ],
 
         },
@@ -305,7 +309,7 @@ export default {
             message: "Este campo es obligatorio",
             trigger: "blur",
           },
-            { max: 10, message: "Debe tener menos de 190 caracteres", trigger: "blur" },
+            { max: 10, message: "Debe tener menos de 10 caracteres", trigger: "blur" },
             { min: 3, message: "Debe tener mas de 3 caracteres", trigger: "blur" }
         ],
         nro_autorizacion: [

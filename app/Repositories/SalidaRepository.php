@@ -164,7 +164,7 @@ class SalidaRepository
                 }
             }
             DB::commit();
-            return ['message' => 'El ingreso se ha registrado con éxito','id' => $salida->id,'status' => 201];
+            return ['message' => 'La salida se ha registrado con éxito','id' => $salida->id,'status' => 201];
         }catch (NotFoundHttpException $e){
             DB::rollBack();
             return ['message' => $e->getMessage(),'status' => 404];

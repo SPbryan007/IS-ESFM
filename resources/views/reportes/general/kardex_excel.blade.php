@@ -29,7 +29,7 @@
         <th rowspan="1" scope="col" colspan="3" style="border: 15px solid #000000;font-size: 9px;width: 15px;font-weight: bold;text-align: center;vertical-align: center">SALIDAS</th>
         <th rowspan="2" scope="col"  style="border: 15px solid #000000;font-size: 9px;width: 20px;font-weight: bold;text-align: center;vertical-align: center">UNIDAD
             <br>SOLICITANTE </th>
-        <th rowspan="1" scope="col" colspan="3" style="border: 15px solid #000000;font-size: 9px;width: 15px;font-weight: bold;text-align: center;vertical-align: center">SALIDAS</th>
+        <th rowspan="1" scope="col" colspan="3" style="border: 15px solid #000000;font-size: 9px;width: 15px;font-weight: bold;text-align: center;vertical-align: center">SALDO</th>
     </tr>
     <tr>
         <th scope="col" style="border: 15px solid #000000;font-size: 9px;width: 10px;font-weight: bold;text-align: center;vertical-align: center">CANTIDAD</th>
